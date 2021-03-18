@@ -1,0 +1,4 @@
+within ProsNet.Prosumers;
+package PrimarySide "Primary side of prosumer"
+
+end PrimarySide;
