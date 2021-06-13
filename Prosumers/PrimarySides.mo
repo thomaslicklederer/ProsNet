@@ -39,7 +39,7 @@ package PrimarySides "Primary side of prosumer"
 
 
 
-    BaseClasses.PrimaryFlowControl primaryFlowControl
+    Controls.PrimaryFlowControl primaryFlowControl
       annotation (Placement(transformation(extent={{12,58},{-8,78}})));
     Modelica.Blocks.Interfaces.RealInput mainPump_y_set annotation (Placement(
           transformation(
@@ -314,57 +314,6 @@ package PrimarySides "Primary side of prosumer"
                                                                      Diagram(
             coordinateSystem(preserveAspectRatio=false)));
     end PartialCore;
-
-    model PrimaryFlowControl
-
-      extends ProsNet.Controls.BaseClasses.PartialModeDefiner;
-
-      Modelica.Blocks.Logical.Switch switch1
-        annotation (Placement(transformation(extent={{38,40},{58,60}})));
-      Modelica.Blocks.Logical.Switch switch2
-        annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-      Modelica.Blocks.Sources.Constant zero(k=0)
-        annotation (Placement(transformation(extent={{-32,-80},{-12,-60}})));
-      Modelica.Blocks.Interfaces.RealOutput valve_op
-        annotation (Placement(transformation(extent={{100,40},{120,62}})));
-      Modelica.Blocks.Interfaces.RealOutput pump_y
-        annotation (Placement(transformation(extent={{100,-62},{120,-40}})));
-      Modelica.Blocks.Interfaces.RealInput pump_y_set annotation (Placement(
-            transformation(
-            extent={{-20,-20},{20,20}},
-            rotation=-90,
-            origin={40,120})));
-      Modelica.Blocks.Interfaces.RealInput valve_op_set annotation (Placement(
-            transformation(
-            extent={{-20,-20},{20,20}},
-            rotation=-90,
-            origin={-40,120})));
-    equation
-      connect(zero.y, switch2.u3) annotation (Line(points={{-11,-70},{18,-70},{18,-38},
-              {38,-38}}, color={0,0,127}));
-      connect(switch1.u3, switch2.u3) annotation (Line(points={{36,42},{18,42},{18,-38},
-              {38,-38}}, color={0,0,127}));
-      connect(switch1.y, valve_op) annotation (Line(points={{59,50},{76,50},{76,51},
-              {110,51}}, color={0,0,127}));
-      connect(switch2.y, pump_y) annotation (Line(points={{61,-30},{72,-30},{72,-51},
-              {110,-51}}, color={0,0,127}));
-      connect(valve_op_set, switch1.u1)
-        annotation (Line(points={{-40,120},{-40,58},{36,58}}, color={0,0,127}));
-      connect(pump_y_set, switch2.u1) annotation (Line(points={{40,120},{40,78},{6,78},
-              {6,-22},{38,-22}}, color={0,0,127}));
-      connect(modeDefiner.consumption_mode, switch1.u2) annotation (Line(points={{
-              -37,-23},{-14,-23},{-14,50},{36,50}}, color={255,0,255}));
-      connect(modeDefiner.production_mode, switch2.u2) annotation (Line(points={{-37,
-              -37.2},{4,-37.2},{4,-30},{38,-30}}, color={255,0,255}));
-      annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-              Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200},
-              fillColor={255,255,85},
-              fillPattern=FillPattern.Solid),
-              Text(
-              extent={{-98,26},{98,-16}},
-              lineColor={28,108,200},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
-    end PrimaryFlowControl;
 
     partial model PrimarySideParameters
 

@@ -56,7 +56,7 @@ annotation(Dialog(group="Secondary side heater/cooler nominal condition"));
           extent={{-20,-20},{20,20}},
           rotation=-90,
           origin={60,120})));
-    BaseClasses.SecondaryFlowControl secondaryFlowControl
+    Controls.SecondaryFlowControl secondaryFlowControl
       annotation (Placement(transformation(extent={{-64,-62},{-44,-42}})));
     Fluid.HeatExchangers.Heater_Cooler_T hea_coo(
       m_flow_nominal=m_flow_nominal_hea_coo,
@@ -79,11 +79,11 @@ annotation(Dialog(group="Secondary side heater/cooler nominal condition"));
     connect(secondaryFlowControl.m_flow_production, pump_prod.m_flow_in)
       annotation (Line(points={{-43,-46.9},{-32,-46.9},{-32,-10},{76,-10},{76,-42},
             {64,-42}}, color={0,0,127}));
-    connect(mu, secondaryFlowControl.mu) annotation (Line(points={{-120,78},{-82,78},
-            {-82,-46},{-65.8,-46}},
+    connect(mu, secondaryFlowControl.mu) annotation (Line(points={{-120,78},{
+            -82,78},{-82,-46},{-66,-46}},
                                   color={255,127,0}));
-    connect(pi, secondaryFlowControl.pi) annotation (Line(points={{-120,40},{-92,40},
-            {-92,-58},{-65.8,-58}},
+    connect(pi, secondaryFlowControl.pi) annotation (Line(points={{-120,40},{
+            -92,40},{-92,-58},{-66,-58}},
                                   color={255,127,0}));
     connect(temSecHot.port_b, hea_coo.port_a) annotation (Line(points={{-66,0},{-58,
             0},{-58,38},{-40,38},{-40,58},{-8,58}}, color={0,127,255}));
@@ -258,52 +258,6 @@ annotation(Dialog(group="Secondary side heater/cooler nominal condition"));
             Line(points={{-38,-20},{-38,-32}}, color={28,108,200})}),Diagram(
             coordinateSystem(preserveAspectRatio=false)));
     end PartialSecondarySide;
-
-    model SecondaryFlowControl
-
-      extends ProsNet.Controls.BaseClasses.PartialModeDefiner;
-
-      Modelica.Blocks.Logical.Switch switch1
-        annotation (Placement(transformation(extent={{38,40},{58,60}})));
-      Modelica.Blocks.Logical.Switch switch2
-        annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-      Modelica.Blocks.Sources.Constant zero(k=0)
-        annotation (Placement(transformation(extent={{-32,-80},{-12,-60}})));
-      Modelica.Blocks.Interfaces.RealOutput m_flow_production
-        annotation (Placement(transformation(extent={{100,40},{120,62}})));
-      Modelica.Blocks.Interfaces.RealOutput m_flow_consumption
-        annotation (Placement(transformation(extent={{100,-62},{120,-40}})));
-      Modelica.Blocks.Interfaces.RealInput m_flow_set annotation (Placement(
-            transformation(
-            extent={{-20,-20},{20,20}},
-            rotation=-90,
-            origin={0,120})));
-    equation
-      connect(zero.y, switch2.u3) annotation (Line(points={{-11,-70},{18,-70},{18,-38},
-              {38,-38}}, color={0,0,127}));
-      connect(switch1.u3, switch2.u3) annotation (Line(points={{36,42},{18,42},{18,-38},
-              {38,-38}}, color={0,0,127}));
-      connect(switch1.y, m_flow_production) annotation (Line(points={{59,50},{76,50},
-              {76,51},{110,51}}, color={0,0,127}));
-      connect(switch2.y, m_flow_consumption) annotation (Line(points={{61,-30},{72,-30},
-              {72,-51},{110,-51}}, color={0,0,127}));
-      connect(m_flow_set, switch1.u1)
-        annotation (Line(points={{0,120},{0,58},{36,58}}, color={0,0,127}));
-      connect(switch2.u1, switch1.u1) annotation (Line(points={{38,-22},{0,-22},{0,58},
-              {36,58}}, color={0,0,127}));
-      connect(modeDefiner.consumption_mode, switch2.u2) annotation (Line(points={{-37,
-              -23},{-10,-23},{-10,-30},{38,-30}}, color={255,0,255}));
-      connect(modeDefiner.production_mode, switch1.u2) annotation (Line(points={{-37,
-              -37.2},{-20,-37.2},{-20,50},{36,50}}, color={255,0,255}));
-      annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-              Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200},
-              fillColor={255,255,85},
-              fillPattern=FillPattern.Solid),
-              Text(
-              extent={{-98,26},{98,-16}},
-              lineColor={28,108,200},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
-    end SecondaryFlowControl;
 
     partial model SecondarySideParameters
 

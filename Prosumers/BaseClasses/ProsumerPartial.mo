@@ -35,9 +35,10 @@ partial model ProsumerPartial
     y_start_mainVal = y_start_mainVal)
     annotation (Placement(transformation(extent={{40,-44},{60,-24}})));
 
-  Controls.Linearizator linearizator(redeclare
-      Controls.BaseClasses.Data.EqualPercentage lin)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  Controls.Linearizer linearizator(redeclare
+      Controls.Data.Linearizer.EqualPercentage lin) annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={84,40})));
 
@@ -93,8 +94,8 @@ protected
         rotation=-90)));
 
 equation
-  connect(primarySide.mainVal_op_set, linearizator.y[1]) annotation (Line(
-        points={{56,-22},{56,-10},{84,-10},{84,29}},         color={0,0,127}));
+  connect(primarySide.mainVal_op_set, linearizator.op[1]) annotation (Line(
+        points={{56,-22},{56,-10},{84,-10},{84,29}}, color={0,0,127}));
   connect(bou.ports[1], primarySide.port_a2) annotation (Line(points={{70,-51},
           {66,-51},{66,-40},{60,-40}},color={0,127,255}));
   connect(port_a, temPriCold.port_a)
@@ -110,9 +111,8 @@ equation
           0},{-64,-28},{-26,-28}}, color={0,127,255}));
   connect(preDro.port_b, primarySide.port_a1)
     annotation (Line(points={{-6,-28},{40,-28}}, color={0,127,255}));
-  connect(op_set_internal, linearizator.u[1])
-    annotation (Line(points={{122,120},{122,74},{84,74},{84,52}},
-                                                color={0,0,127}));
+  connect(op_set_internal, linearizator.kappa[1]) annotation (Line(points={{122,
+          120},{122,74},{84,74},{84,52}}, color={0,0,127}));
   connect(u_set_internal, primarySide.mainPump_y_set) annotation (Line(points={{
           84,120},{84,86},{64,86},{64,6},{44,6},{44,-22}}, color={0,0,127}));
   connect(mu_set_internal, primarySide.mu) annotation (Line(points={{-84,120},{-84,

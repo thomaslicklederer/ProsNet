@@ -33,17 +33,17 @@ extends Modelica.Icons.ExamplesPackage;
           extent={{10,-10},{-10,10}},
           rotation=90,
           origin={20,0})));
-    Linearizator linearizator(redeclare BaseClasses.Data.EqualPercentage lin)
-      annotation (Placement(transformation(extent={{-38,-10},{-18,10}})));
+    Linearizer linearizer(redeclare Data.Linearizer.EqualPercentage cha)
+      annotation (Placement(transformation(extent={{-38,-8},{-18,12}})));
   equation
     connect(bou1.ports[1], val.port_a)
       annotation (Line(points={{20,34},{20,10}}, color={0,127,255}));
     connect(val.port_b, bou2.ports[1])
       annotation (Line(points={{20,-10},{20,-36}}, color={0,127,255}));
-    connect(ramp.y, linearizator.u[1])
-      annotation (Line(points={{-65,0},{-40,0}}, color={0,0,127}));
-    connect(linearizator.y[1], val.y)
-      annotation (Line(points={{-17,0},{8,0}}, color={0,0,127}));
+    connect(ramp.y, linearizer.kappa) annotation (Line(points={{-65,0},{-52,0},
+            {-52,2},{-40,2}}, color={0,0,127}));
+    connect(linearizer.op, val.y)
+      annotation (Line(points={{-17,2},{-4,2},{-4,0},{8,0}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end ValveLinearization;
