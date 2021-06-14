@@ -50,7 +50,7 @@ equation
   connect(modeDefiner.consumption_mode, switch2.u2) annotation (Line(points={{
           -39,-23},{-24,-23},{-24,-48},{8,-48},{8,-30},{38,-30}}, color={255,0,
           255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName="secFlowC", Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Text(
           extent={{-98,-100},{98,-142}},
           lineColor={28,108,200},
@@ -64,7 +64,6 @@ equation
             color={192,192,192}),
       Line(points={{-88,-80},{84,-80}},
           color={192,192,192}),
-      Line(points={{-78,-80},{-78,50},{66,50}},    color = {0,0,127}),
       Polygon(lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid,
@@ -96,6 +95,9 @@ equation
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
         Line(points={{22,18},{22,6}},    color={28,108,200}),
-        Line(points={{22,-46},{22,-34}},   color={28,108,200})}),
-                                 Diagram(coordinateSystem(preserveAspectRatio=false)));
+        Line(points={{22,-46},{22,-34}},   color={28,108,200}),
+        Line(
+          points={{-78,-80},{-78,52},{-8,52},{-8,36},{66,36}},
+          color={0,0,0},
+          thickness=0.5)}),      Diagram(coordinateSystem(preserveAspectRatio=false)));
 end SecondaryFlowControl;

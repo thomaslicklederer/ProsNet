@@ -2,7 +2,7 @@ within ProsNet.Fluid.Pipes;
 model InsulatedPipe
 
   extends ProsNet.Fluid.Interfaces.PartialTwoPort(
-    redeclare replaceable package Medium = ProsNet.Media.Water);
+    redeclare package Medium = ProsNet.Media.Water);
 
   parameter Modelica.SIunits.Temperature T_amb(displayUnit="degC")=285.15 "Ambient temperature";
 
@@ -54,7 +54,7 @@ model InsulatedPipe
         length) annotation (Placement(transformation(
         extent={{-7,-7},{7,7}},
         rotation=90,
-        origin={-1,41})));
+        origin={-1,39})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bou(T=T_amb)
     "Boundary temperature"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -68,10 +68,10 @@ equation
   connect(orifice2.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(bou.port, thCond.port_b)
-    annotation (Line(points={{-60,70},{-1,70},{-1,48}}, color={191,0,0}));
+    annotation (Line(points={{-60,70},{-1,70},{-1,46}}, color={191,0,0}));
   connect(thCond.port_a, pipe.heatPorts[1])
-    annotation (Line(points={{-1,34},{0.1,34},{0.1,4.4}}, color={191,0,0}));
-  annotation (defaultComponentName="pipe", Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+    annotation (Line(points={{-1,32},{0.1,32},{0.1,4.4}}, color={191,0,0}));
+  annotation (defaultComponentName="pipe", Icon(coordinateSystem(preserveAspectRatio=true), graphics={
                                      Rectangle(
           extent={{-100,44},{100,-44}},
           fillPattern=FillPattern.HorizontalCylinder,
@@ -90,33 +90,27 @@ equation
           points={{22,-68},{62,-83},{22,-98},{22,-68}},
           lineColor={0,128,255},
           fillColor={0,128,255},
-          fillPattern=FillPattern.Solid,
-          visible=showDesignFlowDirection),
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{22,-73},{52,-83},{22,-93},{22,-73}},
           lineColor={255,255,255},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=allowFlowReversal),
+          fillPattern=FillPattern.Solid),
         Line(
           points={{57,-83},{-58,-83}},
-          color={0,128,255},
-          visible=showDesignFlowDirection),
+          color={0,128,255}),
         Polygon(
           points={{22,-68},{62,-83},{22,-98},{22,-68}},
           lineColor={0,128,255},
           fillColor={0,128,255},
-          fillPattern=FillPattern.Solid,
-          visible=showDesignFlowDirection),
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{22,-73},{52,-83},{22,-93},{22,-73}},
           lineColor={255,255,255},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=allowFlowReversal),
+          fillPattern=FillPattern.Solid),
         Line(
           points={{57,-83},{-58,-83}},
-          color={0,128,255},
-          visible=showDesignFlowDirection)}),                    Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+          color={0,128,255})}),                    Diagram(
+        coordinateSystem(preserveAspectRatio=true)));
 end InsulatedPipe;

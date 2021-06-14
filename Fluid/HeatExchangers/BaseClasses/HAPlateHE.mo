@@ -75,6 +75,6 @@ equation
 
   annotation (
     Dialog(tab = "Advanced", group = "Parameters"),
-    Icon(graphics={  Rectangle(origin = {-1, -49}, rotation = -90,
+    Icon(graphics={  Rectangle(origin={-1,-47},    rotation = -90,
             lineThickness =                                                        1.5, extent = {{-37, 63}, {37, -63}}), Line(origin = {-0.829457, -49.7907}, rotation = -90, points = {{-37, 63}, {37, -63}}, thickness = 0.75), Text(extent = {{-72, 98}, {60, -16}}, lineColor = {0, 0, 0}, textString = "hA")}, coordinateSystem(initialScale = 0.1)));
 end HAPlateHE;

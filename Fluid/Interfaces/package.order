@@ -13,4 +13,4 @@ FourPortFlowResistanceParameters
 LumpedVolumeDeclarations
 TwoPortFlowResistanceParameters
 PrescribedOutlet
-PrescribedOutletReversing
+TwoPortHeatMassExchanger

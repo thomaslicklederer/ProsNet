@@ -6,10 +6,11 @@ model HeatTransferCoefficient
     m_flow_nominal_primary=0.3,
     m_flow_nominal_secondary=0.2,
     UA_nominal=9776*0.19,
-    r_nominal=1.3)
+    r_nominal=1.3,
+    n=0.6)
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
-  Modelica.Blocks.Sources.TimeTable massFlowPri(table=[0, 0; 1, 0; 1,0.1; 2,
-        0.1; 2,0.05; 3,0.05; 3,0.2; 5,0.2; 5,0.6; 6,0.6])
+  Modelica.Blocks.Sources.TimeTable massFlowPri(table=[0,0; 1,0; 1,0.1; 2,0.1;
+        2,0.05; 3,0.05; 3,0.2; 5,0.2; 5,0.6; 6,0.6; 7,-5])
     annotation (Placement(transformation(extent={{-98,30},{-78,50}})));
   Modelica.Blocks.Sources.TimeTable massFlowSec(table=[0,0.2; 3,0.2; 3,0.1; 4,
         0.1; 4,0.05; 5,0.05; 5,0.1; 6,0.1])

@@ -2,7 +2,7 @@ within ProsNet.Controls;
 package Validation
 extends Modelica.Icons.ExamplesPackage;
 
-  model ValveLinearization
+  model LinearizerValidation
     extends Modelica.Icons.Example;
 
       package Medium = ProsNet.Media.Water;
@@ -46,5 +46,5 @@ extends Modelica.Icons.ExamplesPackage;
       annotation (Line(points={{-17,2},{-4,2},{-4,0},{8,0}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
-  end ValveLinearization;
+  end LinearizerValidation;
 end Validation;

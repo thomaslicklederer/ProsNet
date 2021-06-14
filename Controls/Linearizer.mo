@@ -21,7 +21,7 @@ equation
     annotation (Line(points={{-120,0},{-12,0}}, color={0,0,127}));
   connect(chaInvValve.y[1], op)
     annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
-  annotation (Icon(graphics={
+  annotation (defaultComponentName="lin", Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
@@ -39,7 +39,8 @@ equation
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid,
           points={{92,-80},{70,-72},{70,-88},{92,-80}}),
-        Line(points={{-78,-80},{66,72}}, color={28,108,200}),
+        Line(points={{-78,-80},{66,72}}, color={0,0,0},
+          thickness=0.5),
           Text(
           extent={{-98,-98},{98,-140}},
           lineColor={28,108,200},

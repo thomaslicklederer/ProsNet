@@ -10,9 +10,9 @@ model LiquidToLiquid
     Dialog(tab = "Advanced", group = "Heat transfer in heat exchanger"));
 
   extends ProsNet.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU(
-    redeclare replaceable package Medium1 = ProsNet.Media.Water,
-    redeclare replaceable package Medium2 = ProsNet.Media.Water,
-    configuration=ProsNet.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
+    redeclare replaceable package  Medium1 = ProsNet.Media.Water,
+    redeclare replaceable package  Medium2 = ProsNet.Media.Water,
+    final configuration=ProsNet.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     UA = 1/(1/PlateHEXUA.alphaA_1 + 1/PlateHEXUA.alphaA_2));
 
 /*    parameter Real r_nominal(

@@ -8,10 +8,12 @@ model ModeDefiner "Defines operating and participating mode of a prosumer"
   Modelica.Blocks.Interfaces.IntegerInput pi
     "Participation: 0 is non-participation, 1 is partipation"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
-  Modelica.Blocks.Interfaces.BooleanOutput consumption_mode annotation (
+  Modelica.Blocks.Interfaces.BooleanOutput consumption_mode
+    "True if consumption mode is activated"                 annotation (
       Placement(transformation(extent={{100,60},{120,80}}), iconTransformation(
           extent={{100,60},{120,80}})));
-  Modelica.Blocks.Interfaces.BooleanOutput production_mode annotation (
+  Modelica.Blocks.Interfaces.BooleanOutput production_mode
+    "True if production mode is activated"                 annotation (
       Placement(transformation(extent={{100,-82},{120,-62}}),
         iconTransformation(extent={{100,-82},{120,-62}})));
 equation

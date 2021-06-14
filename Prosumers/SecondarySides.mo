@@ -58,12 +58,6 @@ annotation(Dialog(group="Secondary side heater/cooler nominal condition"));
           origin={60,120})));
     Controls.SecondaryFlowControl secondaryFlowControl
       annotation (Placement(transformation(extent={{-64,-62},{-44,-42}})));
-    Fluid.HeatExchangers.Heater_Cooler_T hea_coo(
-      m_flow_nominal=m_flow_nominal_hea_coo,
-      dp_nominal=dp_nominal_hea_coo,
-      energyDynamics=energyDynamics_hea_coo,
-      tau=tau)
-      annotation (Placement(transformation(extent={{-8,48},{12,68}})));
 
   equation
     connect(secondaryFlowControl.m_flow_consumption, pump_cons.m_flow_in)

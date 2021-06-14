@@ -19,13 +19,19 @@ model PrimaryFlowControl
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={-38,118})));
+        origin={-38,118}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-40,120})));
   Modelica.Blocks.Interfaces.RealInput valve_op_set
     "Normalized control valve opening"              annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={40,118})));
+        origin={40,118}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={40,120})));
 
   BaseClasses.ModeDefiner modeDefiner
     annotation (Placement(transformation(extent={{-60,-42},{-40,-22}})));
@@ -60,7 +66,7 @@ equation
           -74,-39},{-62,-39}},
                            color={255,127,0}));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName="priFlowC", Icon(coordinateSystem(preserveAspectRatio=true), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
@@ -74,7 +80,6 @@ equation
             color={192,192,192}),
       Line(points={{-88,-80},{84,-80}},
           color={192,192,192}),
-      Line(points={{-78,-80},{-78,50},{66,50}},    color = {0,0,127}),
       Polygon(lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid,
@@ -108,6 +113,9 @@ equation
         Line(points={{34,10},{34,22}},color={28,108,200}),
         Line(points={{34,-42},{34,-56}}, color={28,108,200}),
         Line(points={{14,-16},{34,-16},{28,-12}}, color={28,108,200}),
-        Line(points={{14,-16},{34,-16},{28,-20}}, color={28,108,200})}),
-                                 Diagram(coordinateSystem(preserveAspectRatio=false)));
+        Line(points={{14,-16},{34,-16},{28,-20}}, color={28,108,200}),
+        Line(
+          points={{-78,-80},{-78,52},{-8,52},{-8,36},{66,36}},
+          color={0,0,0},
+          thickness=0.5)}),      Diagram(coordinateSystem(preserveAspectRatio=true)));
 end PrimaryFlowControl;
