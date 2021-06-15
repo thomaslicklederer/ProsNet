@@ -2,7 +2,6 @@ within ProsNet.Fluid.Valves;
 model TwoWayEqualPercentage
   "Two way valve with equal percentage flow characteristics"
   extends ProsNet.Fluid.Valves.BaseClasses.PartialTwoWayValveKv(
-        redeclare replaceable package Medium = ProsNet.Media.Water,
         phi=max(0, if
         homotopyInitialization then homotopy(actual=
         ProsNet.Fluid.Valves.BaseClasses.equalPercentage(

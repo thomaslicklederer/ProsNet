@@ -66,7 +66,7 @@ equation
           -74,-39},{-62,-39}},
                            color={255,127,0}));
 
-  annotation (defaultComponentName="priFlowC", Icon(coordinateSystem(preserveAspectRatio=true), graphics={
+  annotation (defaultComponentName="priFlowCon", Icon(coordinateSystem(preserveAspectRatio=true), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
@@ -116,6 +116,5 @@ equation
         Line(points={{14,-16},{34,-16},{28,-20}}, color={28,108,200}),
         Line(
           points={{-78,-80},{-78,52},{-8,52},{-8,36},{66,36}},
-          color={0,0,0},
-          thickness=0.5)}),      Diagram(coordinateSystem(preserveAspectRatio=true)));
+          color={0,0,0})}),      Diagram(coordinateSystem(preserveAspectRatio=true)));
 end PrimaryFlowControl;

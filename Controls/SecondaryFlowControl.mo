@@ -7,13 +7,13 @@ model SecondaryFlowControl
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Modelica.Blocks.Sources.Constant zero(k=0)
     annotation (Placement(transformation(extent={{-32,-86},{-12,-66}})));
-  Modelica.Blocks.Interfaces.RealOutput m_flow_production
+  Modelica.Blocks.Interfaces.RealOutput m_flow_production(unit="kg/s", displayUnit="kg/s")
     "Mass flow rate for a production pump"
     annotation (Placement(transformation(extent={{100,40},{120,62}})));
-  Modelica.Blocks.Interfaces.RealOutput m_flow_consumption
+  Modelica.Blocks.Interfaces.RealOutput m_flow_consumption(unit="kg/s", displayUnit="kg/s")
     "Mass flow rate for a consumption pump"
     annotation (Placement(transformation(extent={{100,-62},{120,-40}})));
-  Modelica.Blocks.Interfaces.RealInput m_flow_set
+  Modelica.Blocks.Interfaces.RealInput m_flow_set(unit="kg/s", displayUnit="kg/s")
     "Mass flow rate on the secondary side"        annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
@@ -50,7 +50,7 @@ equation
   connect(modeDefiner.consumption_mode, switch2.u2) annotation (Line(points={{
           -39,-23},{-24,-23},{-24,-48},{8,-48},{8,-30},{38,-30}}, color={255,0,
           255}));
-  annotation (defaultComponentName="secFlowC", Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName="secFlowCon", Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Text(
           extent={{-98,-100},{98,-142}},
           lineColor={28,108,200},
@@ -98,6 +98,5 @@ equation
         Line(points={{22,-46},{22,-34}},   color={28,108,200}),
         Line(
           points={{-78,-80},{-78,52},{-8,52},{-8,36},{66,36}},
-          color={0,0,0},
-          thickness=0.5)}),      Diagram(coordinateSystem(preserveAspectRatio=false)));
+          color={0,0,0})}),      Diagram(coordinateSystem(preserveAspectRatio=false)));
 end SecondaryFlowControl;

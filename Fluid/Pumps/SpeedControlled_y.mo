@@ -2,7 +2,6 @@ within ProsNet.Fluid.Pumps;
 model SpeedControlled_y
   "Fan or pump with ideally controlled normalized speed y as input signal"
   extends ProsNet.Fluid.Pumps.BaseClasses.PartialFlowMachine(
-    redeclare replaceable package Medium = ProsNet.Media.Water,
     final preVar=ProsNet.Fluid.Pumps.BaseClasses.Types.PrescribedVariable.Speed,
     final nominalValuesDefineDefaultPressureCurve=false,
     final computePowerUsingSimilarityLaws=true,

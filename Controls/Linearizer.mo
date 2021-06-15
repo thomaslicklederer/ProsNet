@@ -39,8 +39,7 @@ equation
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid,
           points={{92,-80},{70,-72},{70,-88},{92,-80}}),
-        Line(points={{-78,-80},{66,72}}, color={0,0,0},
-          thickness=0.5),
+        Line(points={{-78,-80},{66,72}}, color={0,0,0}),
           Text(
           extent={{-98,-98},{98,-140}},
           lineColor={28,108,200},

@@ -1,8 +1,7 @@
 within ProsNet.Fluid.Sensors;
 model TemperatureTwoPort "Ideal two port temperature sensor"
   extends ProsNet.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(redeclare
-      replaceable package                                                                          Medium =
-        ProsNet.Media.Water);
+      replaceable package Medium = ProsNet.Media.Water);
   Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
                                           final unit="K",
                                           displayUnit = "degC",

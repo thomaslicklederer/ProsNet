@@ -1,7 +1,6 @@
 within ProsNet.Fluid.FixedResistances;
 model CheckValve "Check valve that avoids flow reversal"
   extends ProsNet.Fluid.BaseClasses.PartialResistance(
-    redeclare replaceable package Medium = ProsNet.Media.Water,
     dp(nominal=2000),
     final dp_nominal=dpValve_nominal + dpFixed_nominal,
     final m_flow_turbulent=deltaM*abs(m_flow_nominal),

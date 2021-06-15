@@ -45,8 +45,6 @@ partial model ProsumerParameters "Model with parameters for prosumers"
 
 
 
-  extends ProsNet.Prosumers.PrimarySides.BaseClasses.PrimarySideParameters;
-
   parameter Modelica.SIunits.Time tau_temSen=1 "Time constant for the temperature sensors"
   annotation(Dialog(tab="Dynamics", group="Temperature sensors"));
 
