@@ -4,13 +4,14 @@ model PrescribedSecondarySide
   extends ProsNet.Prosumers.SecondarySides.BaseClasses.PumpsPairPartial(
     final m_flow_nominal = m_flow_nominal_cv);
 
-  // Parameters
+  // Nominal conditions
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal_cv  "Nominal flow rate"
    annotation(Dialog(group="Secondary side control volume nominal conditions"));
   parameter Modelica.SIunits.PressureDifference dp_nominal_cv=0 "Nominal pressure difference"
    annotation(Dialog(group="Secondary side control volume nominal conditions"));
-  parameter Modelica.SIunits.Time tau_cv(min=0) = 10 "Time constant for control volume"
-   annotation(Dialog(tab="Dynamics", group="Secondary side control volume dynamics"));
+
+  // Dynamic parameters for CV in PrescribedSecondarySide
+  extends ProsNet.Prosumers.SecondarySides.BaseClasses.PrescribedSecSideDynParam;
 
   Modelica.Blocks.Interfaces.RealInput T_set(unit="K", displayUnit="degC")
     "Temperature set point"   annotation (Placement(
@@ -27,9 +28,11 @@ model PrescribedSecondarySide
   ProsNet.Controls.SecondaryFlowControl secFlCon
     annotation (Placement(transformation(extent={{-60,-42},{-40,-22}})));
   ProsNet.Fluid.HeatExchangers.ControlVolume_T CV_T(redeclare final package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
+    m_flow_nominal=m_flow_nominal_cv,
     dp_nominal=dp_nominal_cv,
-    tau=tau_cv)
+    tau=tau_cv,
+    T_start=T_start_cv,
+    energyDynamics=energyDynamics_cv)
     annotation (Placement(transformation(extent={{-10,42},{10,62}})));
 
 equation

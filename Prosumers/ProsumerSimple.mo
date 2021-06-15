@@ -27,7 +27,7 @@ model ProsumerSimple
      Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={122,120}), iconTransformation(
+        origin={134,180}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={132,120})));
@@ -35,7 +35,7 @@ model ProsumerSimple
     "Normalized velocity of the main pump" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={84,120})));
+        origin={70,174})));
   Modelica.Blocks.Interfaces.RealInput m_flow_set if use_m_flow_set_in
     "Mass flow rate on the secondary side" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -52,19 +52,19 @@ model ProsumerSimple
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={-84,120})));
+        origin={-48,182})));
   Modelica.Blocks.Interfaces.IntegerInput pi_set if use_pi_set_in
     "Participation: 1 - on, 0 - off" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={-120,120})));
+        origin={-172,120})));
 
 protected
     Modelica.Blocks.Interfaces.RealInput T_set_internal annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={-6,120}), iconTransformation(
+        origin={-42,120}),iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={-16,120})));
@@ -72,7 +72,7 @@ protected
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={26,120}), iconTransformation(
+        origin={50,142}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={32,120})));
@@ -120,9 +120,9 @@ equation
           -69.8},{-60,-69.8},{-60,24},{-46,24},{-46,-20.4},{38,-20.4}}, color={255,
           127,0}));
   connect(m_flow_set_internal, simpleSecondarySide.m_flow_set) annotation (Line(
-        points={{26,120},{26,-86},{-8,-86},{-8,-74}}, color={0,0,127}));
-  connect(T_set_internal, simpleSecondarySide.T_set) annotation (Line(points={{-6,
-          120},{-6,-8},{-50,-8},{-50,-86},{-20,-86},{-20,-74}}, color={0,0,127}));
+        points={{50,142},{50,-86},{-8,-86},{-8,-74}}, color={0,0,127}));
+  connect(T_set_internal, simpleSecondarySide.T_set) annotation (Line(points={{-42,120},
+          {-42,-8},{-50,-8},{-50,-86},{-20,-86},{-20,-74}},     color={0,0,127}));
   annotation (defaultComponentName="pros", Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                      Rectangle(extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

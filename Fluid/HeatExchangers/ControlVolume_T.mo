@@ -2,30 +2,50 @@ within ProsNet.Fluid.HeatExchangers;
 model ControlVolume_T "Heater or cooler with prescribed outlet temperature"
   extends ProsNet.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare final ProsNet.Fluid.MixingVolumes.MixingVolume vol(
-    final prescribedHeatFlowRate=true),
+    final prescribedHeatFlowRate=false),
     dp_nominal = 0);
 
-
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
     "Set point temperature of the fluid that leaves port_b"
     annotation (Placement(transformation(origin={-120,80},
               extent={{20,-20},{-20,20}},rotation=180)));
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
+  Modelica.Blocks.Interfaces.RealOutput Q_flow_trnsf(unit="W")
     "Heat flow rate added to the fluid (if flow is from port_a to port_b)"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Sources.RealExpression exprQ_flow(y=port_a.m_flow*(port_b.h_outflow
+  Modelica.Blocks.Sources.RealExpression exprQ_flow_(y=port_a.m_flow*(port_b.h_outflow
          - inStream(port_a.h_outflow)))
-    annotation (Placement(transformation(extent={{28,30},{50,50}})));
+    annotation (Placement(transformation(extent={{30,38},{52,58}})));
+  Modelica.Blocks.Sources.RealExpression HeatFlowRate(y=Q_flow)
+    annotation (Placement(transformation(extent={{-86,38},{-64,58}})));
+protected
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea(final alpha=0)
+    "Prescribed heat flow"
+    annotation (Placement(transformation(extent={{-50,38},{-30,58}})));
+
+  Modelica.SIunits.SpecificEnthalpy hSet
+    "Set point for enthalpy";
+
+  Modelica.SIunits.HeatFlowRate Q_flow;
+
 equation
-  connect(TSet, preTem.T) annotation (Line(points={{-120,80},{-80,80},{-80,50},{
-          -62,50}}, color={0,0,127}));
-  connect(preTem.port, vol.heatPort) annotation (Line(points={{-40,50},{-24,50},
-          {-24,-10},{-9.4,-10}}, color={191,0,0}));
-  connect(exprQ_flow.y, Q_flow) annotation (Line(points={{51.1,40},{76,40},{76,80},
-          {110,80}}, color={0,0,127}));
+
+  // Specific heat flow rate that corresponds to the input temperature
+  hSet = Medium.specificEnthalpy(Medium.setState_pTX(p = port_a.p,
+      T = TSet));
+
+  // Heat flow rate to get to the input temperature
+  Q_flow = Modelica.Fluid.Utilities.regStep(port_a.m_flow,
+   port_a.m_flow*(hSet - inStream(port_a.h_outflow)),
+    port_b.m_flow*(hSet - inStream(port_b.h_outflow)), m_flow_small);
+
+
+  connect(preHea.port, vol.heatPort) annotation (Line(points={{-30,48},{-20,48},
+          {-20,-10},{-9.4,-10}}, color={191,0,0}));
+  connect(HeatFlowRate.y, preHea.Q_flow)
+    annotation (Line(points={{-62.9,48},{-50,48}}, color={0,0,127}));
+  connect(exprQ_flow_.y, Q_flow_trnsf) annotation (Line(points={{53.1,48},{86,
+          48},{86,80},{110,80}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,82},{-70,78}},

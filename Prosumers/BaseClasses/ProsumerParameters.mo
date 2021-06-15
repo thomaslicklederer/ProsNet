@@ -7,13 +7,11 @@ partial model ProsumerParameters "Model with parameters for prosumers"
 
   parameter Boolean use_op_set_in = false "Get the main valve's opening from the input connector"
     annotation(Dialog(group="Conditional control inputs"));
-
   parameter Boolean use_u_set_in = false "Get the main pump's velocity from the input connector"
     annotation(Dialog(group="Conditional control inputs"));
 
   parameter Boolean use_mu_set_in = false "Get operating mode from the input connector"
     annotation(Dialog(group="Conditional control inputs"));
-
   parameter Boolean use_pi_set_in = false "Get participation mode from the input connector"
     annotation(Dialog(group="Conditional control inputs"));
 
@@ -46,13 +44,12 @@ partial model ProsumerParameters "Model with parameters for prosumers"
 
 
   parameter Modelica.SIunits.Time tau_temSen=1 "Time constant for the temperature sensors"
-  annotation(Dialog(tab="Dynamics", group="Temperature sensors"));
-
+  annotation(Dialog(tab="Sensors", group="Temperature sensors dynamics"));
   parameter Modelica.Blocks.Types.Init init_temSen=Modelica.Blocks.Types.Init.SteadyState "Type of initialization"
-  annotation(Dialog(tab="Dynamics", group="Temperature sensors"));
+  annotation(Dialog(tab="Sensors", group="Temperature sensors dynamics"));
 
-  parameter Modelica.SIunits.PressureDifference preDro_pros = 4.27e3 "Pressure drop in the prosumer's pipe system on the primary side for nonimal condition"
-  annotation(Dialog(group="Prosumer's pipelines hydraulic resistance"));
+  parameter Modelica.SIunits.PressureDifference preDro_pros = 4.27e3 "Additional hydraulic losses on the primary side"
+  annotation(Dialog(group="Local hydraulic losses"));
 
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal_hea_coo = m2_flow_nominal

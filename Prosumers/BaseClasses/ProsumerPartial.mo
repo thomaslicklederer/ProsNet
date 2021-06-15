@@ -70,7 +70,7 @@ protected
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={78,120})));
+        origin={68,120})));
   Modelica.Blocks.Interfaces.IntegerInput mu_set_internal annotation (Placement(
       visible=true,
       transformation(
@@ -112,12 +112,12 @@ equation
     annotation (Line(points={{-6,-28},{40,-28}}, color={0,127,255}));
   connect(op_set_internal, lin.kappa[1]) annotation (Line(points={{122,120},{
           122,74},{84,74},{84,52}}, color={0,0,127}));
-  connect(u_set_internal, primarySide.mainPump_y_set) annotation (Line(points={{78,120},
-          {78,6},{54,6},{54,-22}},                         color={0,0,127}));
+  connect(u_set_internal, primarySide.mainPump_y_set) annotation (Line(points={{68,120},
+          {68,6},{54,6},{54,-22}},                         color={0,0,127}));
   connect(mu_set_internal, primarySide.mu) annotation (Line(points={{-84,120},{-84,
           24},{-46,24},{-46,-20.4},{38,-20.4}}, color={255,127,0}));
-  connect(pi_set_internal, primarySide.pi) annotation (Line(points={{-120,120},{
-          -120,16},{-54,16},{-54,-24.6},{38,-24.6}}, color={255,127,0}));
+  connect(pi_set_internal, primarySide.pi) annotation (Line(points={{-120,120},
+          {-120,16},{-54,16},{-54,-24.6},{38,-24.6}},color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={Text(
           textString=DynamicSelect("", String(temPriCold.T-273.15, format=".1f")),
           extent={{-100,56},{-220,6}},

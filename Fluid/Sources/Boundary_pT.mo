@@ -2,12 +2,7 @@ within ProsNet.Fluid.Sources;
 model Boundary_pT
   "Boundary with prescribed pressure, temperature, composition and trace substances"
 
-/*  replaceable package Medium =
-ProsNet.Media.Water;
-*/
-
-  extends ProsNet.Fluid.Sources.BaseClasses.PartialSource_Xi_C(
-    redeclare replaceable package Medium=ProsNet.Media.Water);
+  extends ProsNet.Fluid.Sources.BaseClasses.PartialSource_Xi_C;
 
   parameter Boolean use_p_in = false
     "Get the pressure from the input connector"
