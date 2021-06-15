@@ -3,7 +3,6 @@ model ControlVolume_T "Heater or cooler with prescribed outlet temperature"
   extends ProsNet.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare final ProsNet.Fluid.MixingVolumes.MixingVolume vol(
     final prescribedHeatFlowRate=true),
-    redeclare replaceable package Medium = ProsNet.Media.Water,
     dp_nominal = 0);
 
 
