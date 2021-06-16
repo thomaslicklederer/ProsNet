@@ -56,5 +56,33 @@ algorithm
           extent={{-98,26},{98,-16}},
           lineColor={28,108,200},
           textString="%name")}),
-           Diagram(coordinateSystem(preserveAspectRatio=false)));
+           Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>The ModeDefiner model converts integer input signals for operating mode and participation to boolean output according to the following table.</p>
+<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\" width=\"100%\"><tr>
+<td><p align=\"center\">mu (operating mode)</p></td>
+<td><p align=\"center\">pi (participation)</p></td>
+<td><p align=\"center\">consumption_mode</p></td>
+<td><p align=\"center\">production_mode</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">1</p></td>
+<td><p align=\"right\">1</p></td>
+<td><p align=\"right\">True</p></td>
+<td><p align=\"right\">False</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">-1</p></td>
+<td><p align=\"right\">1</p></td>
+<td><p align=\"right\">False</p></td>
+<td><p align=\"right\">True</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">Ignored</p></td>
+<td><p align=\"right\">0</p></td>
+<td><p align=\"right\">False</p></td>
+<td><p align=\"right\">False</p></td>
+</tr>
+</table>
+</html>"));
 end ModeDefiner;

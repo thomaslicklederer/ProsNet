@@ -29,15 +29,8 @@ initial equation
   annotation (
     defaultComponentName="val",
     Documentation(info="<html>
-<p>
-Two way valve with an equal percentage valve opening characteristic.
-</p><p>
-This model is based on the partial valve model
-<a href=\"modelica://IBPSA.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
-IBPSA.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>.
-Check this model for more information, such
-as the regularization near the origin.
-</p>
+<p><b>Two way valve with an equal percentage valve opening characteristic. </b></p>
+<p>This model is based on the partial valve model <a href=\"modelica://ProsNet.Fluid.Valves.BaseClasses.PartialTwoWayValve\">ProsNet.Fluid.Valves.BaseClasses.PartialTwoWayValve</a>. Check this model for more information, such as the regularization near the origin. </p>
 </html>", revisions="<html>
 <ul>
 <li>

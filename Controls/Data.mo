@@ -1,15 +1,18 @@
 within ProsNet.Controls;
-package Data
+package Data "Collection of data records for the Controls package"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
   package Linearizer
 
     record Generic "Generic data record for linearizer"
 
-      parameter Real[:,:] inv;
+      parameter Real[:,:] inv "Flow coeffient vs. opening (both normalized)";
 
       annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-            coordinateSystem(preserveAspectRatio=false)));
+            coordinateSystem(preserveAspectRatio=false)),
+        Documentation(info="<html>
+<p>Generic data record of inherent valve characteristic inverse.</p>
+</html>"));
     end Generic;
 
     record EqualPercentage "Inverse of the equal percentage characteristic"
@@ -21,6 +24,15 @@ package Data
       annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
             coordinateSystem(preserveAspectRatio=false)));
 
+      annotation (Documentation(info="<html>
+<p>This is the inverse of the inherent valve characteristic <a href=\"modelica://ProsNet.Fluid.Valves.BaseClasses.equalPercentage\">ProsNet.Fluid.Valves.BaseClasses.equalPercentage</a> for the <a href=\"modelica://ProsNet.Fluid.Valves.TwoWayEqualPercentage\">TwoWayEqualPercentage</a> valve.</p>
+</html>"));
     end EqualPercentage;
+    annotation (Documentation(info="<html>
+<p>Package contains data for linearizer model.</p>
+</html>"));
   end Linearizer;
+  annotation (Documentation(info="<html>
+<p>Package contains data for Controls.</p>
+</html>"));
 end Data;

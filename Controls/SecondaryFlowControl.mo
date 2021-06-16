@@ -1,5 +1,5 @@
 within ProsNet.Controls;
-model SecondaryFlowControl
+model SecondaryFlowControl "Redirects and overrides input signals for the secondary side depending on the operating mode and participation"
 
   Modelica.Blocks.Logical.Switch switch1
     annotation (Placement(transformation(extent={{38,40},{58,60}})));
@@ -19,11 +19,9 @@ model SecondaryFlowControl
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={0,120})));
-  Modelica.Blocks.Interfaces.IntegerInput mu
-    "Operation mode: -1 is consumption, 1 is production"
+  Modelica.Blocks.Interfaces.IntegerInput mu "Operation mode"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.IntegerInput pi
-    "Participation: 0 is non-participation, 1 is partipation"
+  Modelica.Blocks.Interfaces.IntegerInput pi "Participation"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   BaseClasses.ModeDefiner modeDefiner
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
@@ -98,5 +96,9 @@ equation
         Line(points={{22,-46},{22,-34}},   color={28,108,200}),
         Line(
           points={{-78,-80},{-78,52},{-8,52},{-8,36},{66,36}},
-          color={0,0,0})}),      Diagram(coordinateSystem(preserveAspectRatio=false)));
+          color={0,0,0})}),      Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>The model defines the mass flow rate control signal for the secondary side pumps depending on operating mode and participation.</p>
+<p><br>This model substitutes mass flow rate in the input with zero signal at the output for inactive operating modes and when a prosumer is not participating in heat transfer. For production mode, <i>m_flow_consumption</i> is zero, while for consumption mode, <i>m_flow_production</i> is zero independent of the flow input. Non-participation brings both outputs to zero. </p>
+</html>"));
 end SecondaryFlowControl;

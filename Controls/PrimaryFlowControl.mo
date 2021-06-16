@@ -1,5 +1,5 @@
 within ProsNet.Controls;
-model PrimaryFlowControl
+model PrimaryFlowControl "Redirects and overrides input signals for the primary side depending on the operating mode and participation"
 
   Modelica.Blocks.Logical.Switch switch1
     annotation (Placement(transformation(extent={{58,42},{78,62}})));
@@ -35,11 +35,9 @@ model PrimaryFlowControl
 
   BaseClasses.ModeDefiner modeDefiner
     annotation (Placement(transformation(extent={{-60,-42},{-40,-22}})));
-  Modelica.Blocks.Interfaces.IntegerInput mu
-    "Operation mode: -1 is consumption, 1 is production"
+  Modelica.Blocks.Interfaces.IntegerInput mu "Operation mode"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.IntegerInput pi
-    "Participation: 0 is non-participation, 1 is partipation"
+  Modelica.Blocks.Interfaces.IntegerInput pi "Participation"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 equation
   connect(zero.y, switch2.u3) annotation (Line(points={{-11,-70},{18,-70},{18,-38},
@@ -116,5 +114,9 @@ equation
         Line(points={{14,-16},{34,-16},{28,-20}}, color={28,108,200}),
         Line(
           points={{-78,-80},{-78,52},{-8,52},{-8,36},{66,36}},
-          color={0,0,0})}),      Diagram(coordinateSystem(preserveAspectRatio=true)));
+          color={0,0,0})}),      Diagram(coordinateSystem(preserveAspectRatio=true)),
+    Documentation(info="<html>
+<p>This model sets appropriate control signals for the control valve and feed-in pump depending on operating mode and participation.</p>
+<p><br>This model substitutes valve opening and pump speed signals in the input with zero signal at the output depending on the operating mode and participation. For production mode, <i>valve_op_set</i> is substituted with zero in the <i>valve_op</i>. For consumption mode, <i>pump_y</i> is zero, and the input <i>pump_y_set</i> is ignored. Non-participation brings both outputs to zero independent of the valve and pump input signals.</p>
+</html>"));
 end PrimaryFlowControl;

@@ -1,5 +1,5 @@
 within ProsNet;
-package Fluid
+package Fluid "Package with models for fluid flow systems"
     extends Modelica.Icons.Package;
 
   annotation (Icon(graphics={
@@ -11,5 +11,8 @@ package Fluid
         Line(points={{2,42},{2,-10}}),
         Rectangle(
           extent={{-18,50},{22,42}},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}), Documentation(info="<html>
+<p><b>This package contains components for fluid flow systems such as pumps, heat exchangers, valves and sensors. For other fluid flow models, see <a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a>. </b></p>
+<p><br>Most of the models are copies from the package with the same name from the <a href=\"https://github.com/ibpsa/modelica-ibpsa\">IBPSA library</a>.</p>
+</html>"));
 end Fluid;

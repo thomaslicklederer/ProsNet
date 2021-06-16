@@ -111,5 +111,9 @@ equation
         Line(
           points={{57,-83},{-58,-83}},
           color={0,128,255})}),                    Diagram(
-        coordinateSystem(preserveAspectRatio=true)));
+        coordinateSystem(preserveAspectRatio=true)),
+    Documentation(info="<html>
+<p><b>Model of insulated pipe.</b></p>
+<p><br>The pipe model is based on <a href=\"modelica://Modelica.Fluid.Pipes.DynamicPipe\">DynamicPipe</a> from the Modelica Standard Library. Two features have been added to the base model. First, thermal losses are modeled. Second, the influence of minor hydraulic losses can be taken into account.</p>
+</html>"));
 end InsulatedPipe;

@@ -1,6 +1,6 @@
 within ProsNet.Controls;
 block Linearizer
-  "Linearizes mass flow rate with respect to opening of the equal-percentage valve"
+  "Linearizes flow rate with respect to normalized flow coefficient of a valve"
 
   replaceable parameter ProsNet.Controls.Data.Linearizer.Generic cha
     constrainedby ProsNet.Controls.Data.Linearizer.Generic
@@ -43,5 +43,14 @@ equation
           Text(
           extent={{-98,-98},{98,-140}},
           lineColor={28,108,200},
-          textString="%name")}));
+          textString="%name")}),
+    Documentation(info="<html>
+<p>The linearizer block allows linearizing of the flow rate for the equal-percentage inherent valve characteristic. The normalized flow coefficient serves as an input for the linearizer.</p>
+<p>When only a small pressure drop is allowed by a control valve, the most used valve type has an equal percentage inherent characteristic. The volumetric flow rate through such a valve can be expressed as:</p>
+<p align=\"center\"><img src=\"modelica://ProsNet/doc/pic/ValveFlowFormula.gif\"/></p>
+<p>where <i>K<sub>v</i></sub> is the flow factor [m<sup>3</sup>/(h bar<sup>1/2</sup>)]; <i>f(op)</i> is the inherent valve characteristic, which is a function of the opening [-]; <i>op</i> is the opening of the valve [-]; <i><span style=\"font-family: Symbol;\">D</span>p</i> is a pressure drop at the valve [bar], and SG is the specific gravity of the fluid [-].</p>
+<p><br>To linearize the flow rate with respect to the valve characteristic, the opening is substituted with its inverse in this model:</p>
+<p align=\"center\"><img src=\"modelica://ProsNet/doc/pic/ValveCha.gif\"/></p>
+<p>where <span style=\"font-family: Symbol;\">k</span> is the actual flow coefficient, which varies between zero and one [-].</p>
+</html>"));
 end Linearizer;

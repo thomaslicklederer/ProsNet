@@ -1,5 +1,5 @@
 within ProsNet.Controls;
-package Validation
+package Validation "Collection of validation models for the control package"
 extends Modelica.Icons.ExamplesPackage;
 
   model LinearizerValidation
@@ -45,7 +45,11 @@ extends Modelica.Icons.ExamplesPackage;
     connect(lin.op, val.y)
       annotation (Line(points={{-17,2},{-4,2},{-4,0},{8,0}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-          coordinateSystem(preserveAspectRatio=false)));
+          coordinateSystem(preserveAspectRatio=false)),
+      Documentation(info="<html>
+<p>Test model for linearizer acting on a valve with equal-percentage inherent characteristic.</p>
+<p><br>The mass flow through the valve must change linearly with the ramp despite non-linear inherent characteristic of the valve. The ramp signal represents a changing non-dimensional flow coefficient: zero input corresponds to a fully closed valve, one to a fully opened valve.</p>
+</html>"));
   end LinearizerValidation;
 
   model FlowControl
@@ -79,6 +83,12 @@ extends Modelica.Icons.ExamplesPackage;
     connect(m_flow.y, secFlCon.m_flow_set)
       annotation (Line(points={{21,-30},{52,-30},{52,-58}}, color={0,0,127}));
 
-    annotation (experiment(StopTime=4,Tolerance=1e-006));
+    annotation (experiment(StopTime=4,Tolerance=1e-006), Documentation(info="<html>
+<p>Tests the <a href=\"modelica://ProsNet.Controls.PrimaryFlowControl\">PrimaryFlowControl</a> and <a href=\"modelica://ProsNet.Controls.SecondaryFlowControl\">SecondarySideControl</a> models.</p>
+<p>The output of the models must change according to the operating mode and participation.</p>
+</html>"));
   end FlowControl;
+  annotation (Documentation(info="<html>
+<p>Validation models for control package.</p>
+</html>"));
 end Validation;
