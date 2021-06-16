@@ -1,8 +1,6 @@
 ﻿within ProsNet.Prosumers.BaseClasses;
 partial class PrimarySideParameters
 
-  extends Modelica.Icons.MaterialProperty;
-
   // Heat exchanger - thermal parameters
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal=30000 "Heat flow rate"
    annotation(Dialog(group="Nominal conditions for heat exchanger"));
@@ -39,7 +37,7 @@ partial class PrimarySideParameters
    annotation(Dialog(tab="Dynamics", group="Feed-in pump"));
   parameter Modelica.Blocks.Types.Init init_feedPump=Modelica.Blocks.Types.Init.InitialOutput "Type of initialization"
    annotation(Dialog(tab="Dynamics", group="Feed-in pump"));
-  parameter Modelica.SIunits.MassFlowRate y_start_feedPump=0 "Initial value of mass flow rate"
+  parameter Real y_start_feedPump=0 "Initial value of speed"
    annotation(Dialog(tab="Dynamics", group="Feed-in pump"));
 
   // Control valve parameters
@@ -53,8 +51,6 @@ partial class PrimarySideParameters
   parameter Modelica.SIunits.Time riseTime_conVal(min=0) = 5 "Rise time"
    annotation(Dialog(tab="Dynamics", group="Control valve"));
   parameter Modelica.Blocks.Types.Init init_conVal=Modelica.Blocks.Types.Init.InitialOutput "Type of initialization"
-   annotation(Dialog(tab="Dynamics", group="Control valve"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_start_conVal=0 "Initial value of mass flow rate"
    annotation(Dialog(tab="Dynamics", group="Control valve"));
   parameter Real y_start_conVal=1 "Initial value of output"
     annotation(Dialog(tab="Dynamics", group="Control valve"));

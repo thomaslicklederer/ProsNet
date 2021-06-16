@@ -11,7 +11,7 @@ model PrescribedSecondarySide
    annotation(Dialog(group="Secondary side control volume nominal conditions"));
 
   // Dynamic parameters for CV in PrescribedSecondarySide
-  extends ProsNet.Prosumers.SecondarySides.BaseClasses.PrescribedSecSideDynParam;
+  extends ProsNet.Prosumers.SecondarySides.BaseClasses.ControlVolumeDynParam;
 
   Modelica.Blocks.Interfaces.RealInput T_set(unit="K", displayUnit="degC")
     "Temperature set point"   annotation (Placement(

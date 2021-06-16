@@ -62,6 +62,7 @@ equation
           {6,-12}}, color={0,0,127}));
   connect(mu.y, preSec.mu) annotation (Line(points={{-59,68},{-16,68},{-16,-9},
           {-10,-9}}, color={255,127,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (experiment(StopTime=100,Tolerance=1e-006),
+    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end SecondarySide;

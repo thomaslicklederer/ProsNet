@@ -33,7 +33,7 @@ model PrimarySide
         rotation=90,
         origin={-28,-52})));
 
-  BaseClasses.PrimarySide_new priSide(
+  BaseClasses.PrimarySide priSide(
     redeclare package Medium1 = ProsNet.Media.Water,
     redeclare package Medium2 = ProsNet.Media.Water,
     redeclare Fluid.Pumps.Data.Pumps.QuadraticCharacteristic feedinPer)

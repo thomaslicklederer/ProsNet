@@ -26,9 +26,8 @@ model InsulatedPipe
   parameter Modelica.SIunits.Temperature T_start=293.15 "Start value for temperature"
     annotation(Dialog(tab="Dynamics"));
 
-
-
-  Modelica.Fluid.Pipes.DynamicPipe pipe(redeclare replaceable package Medium =
+  Modelica.Fluid.Pipes.DynamicPipe pipe(mediums(each preferredMediumStates = false),
+   redeclare replaceable package Medium =
         ProsNet.Media.Water,
     length=length,
     diameter=diameter,

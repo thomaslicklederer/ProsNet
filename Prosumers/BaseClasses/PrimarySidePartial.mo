@@ -35,7 +35,8 @@ partial model PrimarySidePartial
   parameter Modelica.Blocks.Types.Init init_temSen=Modelica.Blocks.Types.Init.SteadyState "Type of initialization"
   annotation(Dialog(tab="Advanced", group="Temperature sensors dynamics"));
 
-  PrimarySide_new priSide(redeclare final package Medium1 = Medium1,
+  PrimarySide priSide(
+    redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
     Q_flow_nominal=Q_flow_nominal,
     T_a1_nominal=T_a1_nominal,
@@ -46,9 +47,9 @@ partial model PrimarySidePartial
     dp2_nominal=dp2_nominal,
     energyDynamics_feedPump=energyDynamics_feedPump,
     tau_feedPump=tau_feedPump,
-    r_nominal = r_nominal,
+    r_nominal=r_nominal,
     n=n,
-    feedinPer = feedinPer,
+    feedinPer=feedinPer,
     use_inputFilter_feedPump=use_inputFilter_feedPump,
     riseTime_feedPump=riseTime_feedPump,
     init_feedPump=init_feedPump,
@@ -58,7 +59,6 @@ partial model PrimarySidePartial
     use_inputFilter_conVal=use_inputFilter_conVal,
     riseTime_conVal=riseTime_conVal,
     init_conVal=init_conVal,
-    m_flow_start_conVal=m_flow_start_conVal,
     y_start_conVal=y_start_conVal,
     Kv_cheVal=Kv_cheVal,
     l_cheVal=l_cheVal)
@@ -67,16 +67,11 @@ partial model PrimarySidePartial
   Fluid.Sources.Boundary_pT bou(redeclare final package Medium = Medium2, nPorts=1)
     annotation (Placement(transformation(extent={{74,-68},{62,-56}})));
 
-  Fluid.FixedResistances.PressureDrop preDro(redeclare final package Medium = Medium1,
-    m_flow_nominal=m_flow_nominal_1,
-    dp_nominal=preDro_pros)
-    annotation (Placement(transformation(extent={{-36,-42},{-16,-22}})));
-
   Fluid.Sensors.TemperatureTwoPort temPriHot(redeclare final package Medium = Medium1,
     m_flow_nominal=m_flow_nominal_1,
     tau=tau_temSen,
     initType=init_temSen) "Hot port temperature sensor"
-    annotation (Placement(transformation(extent={{72,-10},{88,10}})));
+    annotation (Placement(transformation(extent={{74,-10},{90,10}})));
   Fluid.Sensors.TemperatureTwoPort temPriCold(redeclare final package Medium = Medium1,
     m_flow_nominal=m_flow_nominal_1,
     tau=tau_temSen,
@@ -96,7 +91,10 @@ partial model PrimarySidePartial
     "Participation" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={-116,120})));
+        origin={-116,118}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-126,120})));
   Modelica.Blocks.Interfaces.RealInput kappa_set if use_kappa_set_in
     "Normalized flow coefficient for control valve"
      annotation (Placement(transformation(
@@ -187,16 +185,10 @@ equation
   connect(kappa_set, kappa_set_internal);
   connect(u_set, u_set_internal);
 
-  connect(priSide.port_a1, preDro.port_b)
-    annotation (Line(points={{28,-32},{-16,-32}}, color={0,127,255}));
-  connect(preDro.port_a, temPriCold.port_b) annotation (Line(points={{-36,-32},{-64,-32},
-          {-64,0},{-70,0}},          color={0,127,255}));
   connect(temPriCold.port_a, port_a)
     annotation (Line(points={{-90,0},{-100,0}}, color={0,127,255}));
   connect(temPriHot.port_b, port_b)
-    annotation (Line(points={{88,0},{100,0}}, color={0,127,255}));
-  connect(temPriHot.port_a, priSide.port_b1) annotation (Line(points={{72,0},{66,0},{66,
-          -32},{48,-32}},        color={0,127,255}));
+    annotation (Line(points={{90,0},{100,0}}, color={0,127,255}));
   connect(priSide.port_a2, bou.ports[1]) annotation (Line(points={{48,-44},{56,-44},{56,
           -62},{62,-62}}, color={0,127,255}));
   connect(priSide.pi, pi_set_internal) annotation (Line(points={{26,-26},{-60,-26},{-60,
@@ -210,6 +202,10 @@ equation
   connect(priSide.feedPump_y_set, u_set_internal) annotation (Line(points={{42,-26},{42,
           -14},{58,-14},{58,20},{118,20},{118,120}}, color={0,0,127}));
 
+  connect(priSide.port_b1, temPriHot.port_a) annotation (Line(points={{48,-32},{
+          64,-32},{64,0},{74,0}}, color={0,127,255}));
+  connect(temPriCold.port_b, priSide.port_a1) annotation (Line(points={{-70,0},{
+          -64,0},{-64,-32},{28,-32}}, color={0,127,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
