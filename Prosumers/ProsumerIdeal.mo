@@ -3,6 +3,8 @@ model ProsumerIdeal
 
   extends ProsNet.Prosumers.BaseClasses.PrimarySidePartial;
 
+  Modelica.SIunits.MassFlowRate m1_flow_small;
+
   /* Parameters */
   // Activates conditional inputs
   parameter Boolean use_T_set_in = false "Get temperature set point for the secondary side from a connector"
@@ -42,18 +44,9 @@ model ProsumerIdeal
     final y_start_pumpsSec = y_start_pumpsSec) annotation (Placement(transformation(extent={{-6,-86},{14,-66}})));
 
   // Temperature sensors
-  Fluid.Sensors.TemperatureTwoPort temSecHot(
-    redeclare final package Medium = Medium2,
-    m_flow_nominal=m_flow_nominal_2,
-    tau=tau_temSen,
-    initType=init_temSen) "Hot port temperature sensor on the secondary side"
-    annotation (Placement(transformation(extent={{30,-86},{46,-66}})));
-  Fluid.Sensors.TemperatureTwoPort temSecCold(
-    redeclare final package Medium = Medium2,
-    m_flow_nominal=m_flow_nominal_2,
-    tau=tau_temSen,
-    initType=init_temSen) "Cold port temperature sensor on the secondary side"
-    annotation (Placement(transformation(extent={{-62,-86},{-82,-66}})));
+
+
+
 
   // Conditional input connectors
   Modelica.Blocks.Interfaces.RealInput m_flow_sec_set(unit="kg/s", displayUnit="kg/s") if
@@ -66,6 +59,24 @@ model ProsumerIdeal
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={-20,120})));
+
+  // Simulation results as internal variables
+public
+    Modelica.SIunits.Temperature T_prim_hot(displayUnit="degC") "Temperature in the hot port on the primary side";
+
+    Modelica.SIunits.Temperature T_prim_cold(displayUnit="degC") "Temperature in the cold port on the primary side";
+
+    Modelica.SIunits.Temperature T_sec_hot(displayUnit="degC") "Temperature in the hot port on the secondary side";
+
+    Modelica.SIunits.Temperature T_sec_cold(displayUnit="degC") "Temperature in the cold port on the secondary side";
+
+    Modelica.SIunits.HeatFlowRate Q_transf "Heat flow rate in the nextwork direction";
+
+    Real dotV_prim(final unit = "l/min") "Volume flow rate on the primary side";
+
+    Real dotV_sec(final unit = "l/min") "Volume flow rate on the secondary side";
+
+  Modelica.SIunits.Pressure Delta_p_prim(displayUnit="Pa") "Pressure drop between cold and hot ports";
 
   // Internal input connectors
 protected
@@ -86,8 +97,68 @@ protected
         rotation=-90,
         origin={-16,120})));
 
+  Medium1.Density rho_a_inflow "Density of inflowing fluid at port_a";
+  Medium1.Density rho_b_outflow "Density of outflowing fluid at port_b";
+  Medium1.Density average_rho_a_b "Average density of the flow from port_a to port_b";
+
+  Medium1.Density rho_b_inflow "Density of inflowing fluid at port_b";
+  Medium1.Density rho_a_outflow "Density of outflowing fluid at port_a";
+  Medium1.Density average_rho_b_a "Average density of the flow from port_b to port_a";
+
+  Medium1.Density density_average "Average density inside the control volume";
+
+  Fluid.Sensors.TemperatureTwoPort temSecHot(
+    redeclare final package Medium = Medium2,
+    m_flow_nominal=m_flow_nominal_2,
+    tau=tau_temSen,
+    initType=init_temSen) "Hot port temperature sensor on the secondary side"
+    annotation (Placement(transformation(extent={{30,-86},{46,-66}})));
+
+
+   Fluid.Sensors.TemperatureTwoPort temSecCold(
+    redeclare final package Medium = Medium2,
+    m_flow_nominal=m_flow_nominal_2,
+    tau=tau_temSen,
+    initType=init_temSen) "Cold port temperature sensor on the secondary side"
+    annotation (Placement(transformation(extent={{-62,-86},{-82,-66}})));
+
 equation
 
+  T_prim_hot = temPriHot.T;
+  T_prim_cold = temPriCold.T;
+  T_sec_hot = temSecHot.T;
+  T_sec_cold = temSecCold.T;
+
+  Q_transf = priSide.HEX.Q1_flow;
+
+  Delta_p_prim = port_a.p - port_b.p;
+
+  // Average density in between hot and cold ports on the primary side
+  rho_a_inflow = Medium1.density(Medium.setState_phX(port_a.p,
+ inStream(port_a.h_outflow),
+ inStream(port_a.Xi_outflow)));
+  rho_b_outflow = Medium1.density(Medium.setState_phX(port_b.p,
+ port_b.h_outflow,
+ port_b.Xi_outflow));
+  average_rho_a_b = (rho_a_inflow + rho_b_outflow)/2;
+
+  rho_b_inflow = Medium1.density(Medium.setState_phX(port_b.p,
+ inStream(port_b.h_outflow),
+ inStream(port_b.Xi_outflow)));
+  rho_a_outflow = Medium1.density(Medium.setState_phX(port_a.p,
+ port_a.h_outflow,
+ port_a.Xi_outflow));
+  average_rho_b_a = (rho_b_inflow + rho_a_outflow)/2;
+
+  m1_flow_small = priSide.m1_flow_small;
+
+  density_average = Modelica.Fluid.Utilities.regStep(port_a.m_flow, average_rho_a_b, average_rho_b_a, m1_flow_small);
+
+  dotV_prim = (1000*port_a.m_flow/density_average)*60;
+
+  // ADD average density in between hot and cold ports on the secondary side
+
+  dotV_sec = (1000*priSide.port_b2.m_flow/density_average)*60;
 
   // Substitution for internal inputs
   if not use_T_set_in then
@@ -134,5 +205,12 @@ equation
               -36,2},                                                                                                                                                                                                        fillColor = {85, 0, 255},
             fillPattern =                                                                                                                                                                                                        FillPattern.Solid, extent={{
               -36,32},{36,-32}})}),                              Diagram(
-        coordinateSystem(preserveAspectRatio=true)));
+        coordinateSystem(preserveAspectRatio=true)),
+    Documentation(info="<html>
+<p>This is a prosumer model with the <a href=\"modelica://ProsNet.Prosumers.SecondarySides.PrescribedSecondarySide\">PrescribedSecondarySide</a> model that defines inlet temperature and mass flow rate on the secondary side according to prescribed inputs.</p>
+<p>The prosumer model essentially consists of two parts: primary and secondary side. The <a href=\"modelica://ProsNet.Prosuers.BaseClasses.PrimarySide\">PrimarySide</a> model represents elements for bidirectional heat flow between the prosumer and the network and the unidirectional mass flow rate that is associated with this heat transfer. Port_a and port_b are called hot and cold ports respectively, they are next to the red and blue squares. It is not allowed to connect a hot port with a cold one directly.</p>
+<p>Individual parameters for the primary and secondary are collected in the General and Dynamics tabs. To avoid repetition, the details on the parametrization of the respective sides can be found directly in the <a href=\"modelica://ProsNet.Prosumers.BaseClasses.PrimarySide\">PrimarySide</a>, <a href=\"modelica://ProsNet.Prosumers.BaseClasses.PrimarySidePartial\">PrimarySidePartial</a>, and <a href=\"modelica://ProsNet.Prosumers.SecondarySides.PrescribedSecondarySide\">PrescribedSecondarySide</a> models. Local hydraulic losses must be defined for the nominal mass flow rate of the heat exchanger on the primary side. Note that, these losses are intended to represent pressure drop due to pipes, bends, junctions, etc. within the prosumer, and has no connection to the pressure losses due to the heat exchanger, control, or check valve.</p>
+<p>An important feature of the model is that the user can choose whether he or she wants to read input values from the input connectors or provide them as parameters. This can be done by toggling a respective input in the Switching input section in the General tab.</p>
+<p>The mass flow rate and the temperatures at hot and cold ports will be shown at the prosumer&rsquo;s icon interactively (only valid for Dymola). Positive mass flow rate corresponds to consumption mode, negative for production. Note that, the indicators show valid results only for steady-state simulations, for dynamic simulations these values display initial values.</p>
+</html>"));
 end ProsumerIdeal;

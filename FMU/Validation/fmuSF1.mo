@@ -31,8 +31,8 @@ model fmuSF1 "Validation of the fmuSF1 FMU model"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-42})));
-  Fluid.Sources.Boundary_pT bou3(redeclare package Medium = Media.Water, nPorts
-      =1)                                  annotation (Placement(transformation(
+  Fluid.Sources.Boundary_pT bou3(redeclare package Medium = Media.Water, nPorts=
+       1)                                  annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,-70})));
