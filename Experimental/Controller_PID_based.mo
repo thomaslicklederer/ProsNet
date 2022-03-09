@@ -295,16 +295,6 @@ package Controller_PID_based
   end PID_dP_dDeltaT;
 
   model Test_controller_v1
-    Prosumers.ProsumerIdeal pros(
-      use_mu_set_in=true,
-      use_pi_set_in=true,
-      use_kappa_set_in=true,
-      use_u_set_in=true,
-      use_T_set_in=true,
-      use_m_flow_set_in=true)
-      annotation (Placement(transformation(extent={{-14,-6},{24,32}})));
-    PID_dP_dDeltaT pID_dP_dDeltaT
-      annotation (Placement(transformation(extent={{-78,58},{-58,78}})));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end Test_controller_v1;
