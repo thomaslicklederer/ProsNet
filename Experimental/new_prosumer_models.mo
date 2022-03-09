@@ -362,8 +362,8 @@ secondary side
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={60,-50})));
-    Modelica.Fluid.Sensors.MassFlowRate massFlowRate(redeclare package Medium
-        =        Media.Water) annotation (Placement(
+    Modelica.Fluid.Sensors.MassFlowRate massFlowRate(redeclare package Medium =
+                 Media.Water) annotation (Placement(
           transformation(
           extent={{-10,10},{10,-10}},
           rotation=90,
