@@ -212,10 +212,10 @@ package Controller_PID_based
       prosumer_mode = +1;
       pi_set = 1;
       mu_set = 1;
-      T_prim_relev_des = DeltaT_sec_des;
-      T_prim_relev_is = T_sec_hot-T_sec_cold;
-      T_sec_relev_des = T_prim_hot_des;
-      T_sec_relev_is = T_prim_hot;
+      T_prim_relev_des = T_prim_hot_des;
+      T_prim_relev_is = T_prim_hot;
+      T_sec_relev_des = DeltaT_sec_des;
+      T_sec_relev_is = T_sec_hot-T_sec_cold;
       Qdot_relev_des = Qdot_set;
       Qdot_relev_is = Qdot_is;
     else // idle mode
