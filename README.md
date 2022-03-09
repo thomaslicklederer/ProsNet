@@ -1,10 +1,8 @@
 # ProsNet
-ProsNet is a modelica library for modeling prosumer-based heat networks.
+ProsNet is a modelica library for modeling prosumer-based heat networks. The library is free and open-source.
 A detailed description on the motivation, design and validation of this library can be found in the paper [ProsNet – a Modelica library for prosumer-based heat networks: description and validation](https://www.doi.org/10.1088/1742-6596/2042/1/012031).
 
 This library was available before under the repository adress https://github.com/ilyaelizarov/ProsNet and was moved to this repository where it will me maintained and devoloped further.
-
-The library is free and open-source. Its models inherit from the Modelica Standard Library and the IBPSA library. Necessary components of the IBPSA library were copied to ProsNet so the library can be used with the default workspace available for every simulation environment. Compatibility with the Modelica Standard Library and the IBPSA library is assured. The library was developed and tested within the Dymola Simulation Environment.
 
 ***Important:*** The name of the top folder must be "ProsNet" in oder to be able to import the library to Dymola. You may need to change the folder name after downloading.
 
@@ -40,4 +38,8 @@ For the **ProsNET** library a liquid-to-liquid heat exchanger model (LiquidToLiq
  
 
 # Requirements
-The library is developed and tested with the modeling and simulation environment "Dymola – Dynamic Modeling Laboratory" by Dessault Systèmes. The used version of Dymola is "Version 2021x (64-bit), 2020-11-26". The used version of [Modelica](https://github.com/modelica/ModelicaStandardLibrary) is 4.0.0. The library is using parts of the [IBPSA library](https://github.com/ibpsa/modelica-ibpsa) in version 3.0.0.
+The library is developed and tested with the modeling and simulation environment "Dymola – Dynamic Modeling Laboratory" by Dessault Systèmes. The used version of Dymola is "Version 2021x (64-bit), 2020-11-26".
+
+The library inherits from the [Modelica Standard Library](https://github.com/modelica/ModelicaStandardLibrary) (version 4.0.0) and the [IBPSA library](https://github.com/ibpsa/modelica-ibpsa) (version 3.0.0). Necessary components of the IBPSA library were copied to ProsNet so the library can be used with the default workspace available for every simulation environment. Compatibility with the Modelica Standard Library and the IBPSA library is assured.
+
+The name of the top folder must be "ProsNet" in oder to be able to import the library to Dymola. You may need to change the folder name after downloading.
