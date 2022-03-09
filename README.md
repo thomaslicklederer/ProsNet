@@ -4,6 +4,8 @@ A detailed description on the motivation, design and validation of this library 
 
 The library is free and open-source. Its models inherit from the Modelica Standard Library and the IBPSA library. Necessary components of the IBPSA library were copied to ProsNet so the library can be used with the default workspace available for every simulation environment. Compatibility with the Modelica Standard Library and the IBPSA library is assured. The library was developed and tested within the Dymola Simulation Environment.
 
+***Important:*** The name of the top folder must be "ProsNet" in oder to be able to import the library to Dymola. You may need to change the folder name after downloading.
+
 # Overview - prosumer concept and model
 A prosumer can operate either in production or consumption mode with respect to a heat network. It can also be detached or attached to the network by setting appropriate participation: participation or non-participation. Control elements on the primary side (network) are a control valve and a feed-in pump. Together with a heat exchanger, the control elements allow bidirectional heat transfer between the network and technology-dependent heat supply/demand on the secondary side depending on the temperature gradient between the sides. The prosumer model and other components like pipes and sensors can be simulated for steady-state (statically) or transient-state (dynamically).
 
