@@ -2,6 +2,8 @@
 ProsNet is a modelica library for modeling prosumer-based heat networks.
 A detailed description on the motivation, design and validation of this library can be found in the paper [ProsNet – a Modelica library for prosumer-based heat networks: description and validation](https://www.doi.org/10.1088/1742-6596/2042/1/012031).
 
+This library was available before under the repository adress https://github.com/ilyaelizarov/ProsNet and was moved to this repository where it will me maintained and devoloped further.
+
 The library is free and open-source. Its models inherit from the Modelica Standard Library and the IBPSA library. Necessary components of the IBPSA library were copied to ProsNet so the library can be used with the default workspace available for every simulation environment. Compatibility with the Modelica Standard Library and the IBPSA library is assured. The library was developed and tested within the Dymola Simulation Environment.
 
 ***Important:*** The name of the top folder must be "ProsNet" in oder to be able to import the library to Dymola. You may need to change the folder name after downloading.
