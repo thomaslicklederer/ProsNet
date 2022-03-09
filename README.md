@@ -2,8 +2,7 @@
 ProsNet is a modelica library for modeling prosumer-based heat networks.
 A detailed description on the motivation, design and validation of this library can be found in the paper [ProsNet – a Modelica library for prosumer-based heat networks: description and validation](https://www.doi.org/10.1088/1742-6596/2042/1/012031).
 
-The library is free and open-source, and its models inherit from the Modelica Standard Library and the IBPSA library. Necessary components of the IBPSA library were copied to ProsNet so the library can be used with the default workspace available for every simulation environment. All fluid components are initialized with the incompressible water media model. Compatibility with the Modelica Standard Library and the IBPSA library is assured.
-The library was developed and tested within the Dymola Simulation Environment.
+The library is free and open-source. Its models inherit from the Modelica Standard Library and the IBPSA library. Necessary components of the IBPSA library were copied to ProsNet so the library can be used with the default workspace available for every simulation environment. Compatibility with the Modelica Standard Library and the IBPSA library is assured. The library was developed and tested within the Dymola Simulation Environment.
 
 # Overview - prosumer concept and model
 A prosumer can operate either in production or consumption mode with respect to a heat network. It can also be detached or attached to the network by setting appropriate participation: participation or non-participation. Control elements on the primary side (network) are a control valve and a feed-in pump. Together with a heat exchanger, the control elements allow bidirectional heat transfer between the network and technology-dependent heat supply/demand on the secondary side depending on the temperature gradient between the sides. The prosumer model and other components like pipes and sensors can be simulated for steady-state (statically) or transient-state (dynamically).
@@ -25,7 +24,7 @@ Mode details can be found in the ProsumerIdeal model.
 # Library structure
 * *Controls* package: contains elements that are control related and transform the incoming external control signal into inputs for the component models.
 * *Fluid* package: contains models for the relevant components (pipes, valves, heat exchanger, pumps) and the the thermo-fluid flow.
-* *Media* package: contains media models for water (liquid water with constant density) and moist air.
+* *Media* package: contains media models for water (liquid water with constant density) and moist air. All fluid components are initialized with the incompressible water media model.
 * *Prosumer* package: contains the prosumer model of an idealized prosumer, as well as its base classes
 * *Utilities* package: contains auxiliary utility models, such as math functions for smoothing etc.
 * *Examples* package: contains example models of prosumer-based heat networks, e.g. with two prosumers and a radial grid or three prosumers and a meshed grid. The examples should be executable without modifications needed.
