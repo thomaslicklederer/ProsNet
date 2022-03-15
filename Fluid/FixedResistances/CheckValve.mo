@@ -2,7 +2,7 @@ within ProsNet.Fluid.FixedResistances;
 model CheckValve "Check valve that avoids flow reversal"
   extends ProsNet.Fluid.BaseClasses.PartialResistance(
     dp(nominal=2000),
-    final dp_nominal=dpValve_nominal + dpFixed_nominal,
+    final dp_nominal=dpValve_nominal,
     final m_flow_turbulent=deltaM*abs(m_flow_nominal),
     final from_dp=true,
     final linearized=false,
@@ -10,10 +10,7 @@ model CheckValve "Check valve that avoids flow reversal"
   extends ProsNet.Fluid.Valves.BaseClasses.ValveParameters(
     rhoStd=Medium.density_pTX(101325, 273.15 + 4, Medium.X_default));
 
-  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal(
-    displayUnit="Pa",
-    min=0) = 0 "Pressure drop of pipe and other resistances that are in series"
-    annotation (Dialog(group="Nominal condition"));
+
 
   parameter Modelica.Units.SI.PressureDifference dpValve_closing=
       dpValve_nominal/2 "Pressure drop when the check valve starts to close"
@@ -21,12 +18,6 @@ model CheckValve "Check valve that avoids flow reversal"
 
   parameter Real l(min=1e-10, max=1)=0.001 "Valve leakage, l=Kv(y=0)/Kv(y=1)";
 
-  parameter Real kFixed(unit="", min=0)=
-    if dpFixed_nominal > Modelica.Constants.eps then
-      m_flow_nominal/sqrt(dpFixed_nominal)
-    else 0
-    "Flow coefficient of fixed resistance that may be in series with valve, 
-    k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
 
   Real k(min=Modelica.Constants.small)
     "Flow coefficient of valve and pipe in series in allowed/forward direction, 
@@ -41,21 +32,13 @@ protected
     "Smoothed restriction characteristic";
 
 initial equation
-  assert(dpFixed_nominal > -Modelica.Constants.eps,
-    "In " + getInstanceName() + ": We require dpFixed_nominal >= 0. 
-    Received dpFixed_nominal = " + String(dpFixed_nominal) + " Pa.");
-  assert(l > -Modelica.Constants.eps,
+   assert(l > -Modelica.Constants.eps,
     "In " + getInstanceName() + ": We require l >= 0. Received l = " + String(l));
 equation
   a = dp/dpValve_closing;
   cv = smooth(2, max(0, min(1, a^3*(10+a*(-15+6*a)))));
   kCv = Kv_SI*(cv*(1-l) + l);
-
-  if (dpFixed_nominal > Modelica.Constants.eps) then
-    k = sqrt(1/(1/kFixed^2 + 1/kCv^2));
-  else
-    k = kCv;
-  end if;
+  k = kCv;
 
   if homotopyInitialization then
     m_flow = homotopy(
@@ -135,8 +118,6 @@ A typical value for a nominal flow rate of <i>1</i> m/s is
 <code>dpValve_nominal = 3400 Pa</code>.
 The leakage ratio <code>l</code> determines the minimum flow coefficient, 
 for negative pressure differences.
-The parameter <code>dpFixed_nominal</code> allows to include a series
-pressure drop with a fixed flow coefficient into the model.
 The parameter <code>dpValve_closing</code> determines when the
 flow coefficient starts to increase,
 which is typically in the order of <code>dpValve_nominal</code>.

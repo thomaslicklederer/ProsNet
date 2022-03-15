@@ -1,5 +1,5 @@
 within ProsNet.Fluid.Sensors;
-model RelativePressure "Ideal relative pressure sensor"
+model RelativePressure "Ideal relative pressure sensor with output in hPa"
   extends Modelica.Icons.RectangularSensor;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the sensor"
@@ -44,7 +44,7 @@ equation
   port_b.C_outflow  = zeros(Medium.nC);
 
   // Relative pressure
-  p_rel = port_a.p - port_b.p;
+  p_rel = (port_a.p - port_b.p) /100;
   annotation (defaultComponentName="senRelPre",
     Icon(graphics={
         Line(points={{-100,0},{-70,0}}, color={0,127,255}),
@@ -73,7 +73,7 @@ equation
     Documentation(info="<html>
 <p>
 The relative pressure <code>port_a.p - port_b.p</code> is determined between
-the two ports of this component and is provided as output signal. The
+the two ports of this component and is provided as output signal in hPa. The
 sensor should be connected in parallel with other equipment, no flow
 through the sensor is allowed.
 </p>

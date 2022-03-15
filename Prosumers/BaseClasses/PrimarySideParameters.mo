@@ -70,11 +70,21 @@ partial class PrimarySideParameters
   parameter Real l_cheVal=0.001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
    annotation(Dialog(group="Check valve"));
 
-  // Additional hydraulic losses
-  parameter Modelica.Units.SI.PressureDifference preDro_pros=4.27e3
-    "Additional hydraulic losses on the primary side"
-    annotation (Dialog(group="Local hydraulic losses"));
+  // parameters of pipe in transfer station
+  parameter Real length_transfer_pipe_tot = 10
+    "total length of the pipe in the transfer station [m]"
+    annotation(Dialog(group="Transfer station pipes"));
+  parameter Real zeta_transferstation = 3.5
+    "flow coefficient for bends and other orifices in substation [-]"
+    annotation(Dialog(group="Transfer station pipes"));
+  parameter Real d_transferpipe = 0.022
+    "diamter of pipes in heat transfer station [m]"
+    annotation(Dialog(group="Transfer station pipes"));
+  parameter Real R_ins_transferpipe = 3.78
+    "insulation resistance for pipes in heat transfer station [(K m)/W]"
+   annotation(Dialog(group="Transfer station pipes"));
+   parameter Real ambient_temperature = 12
+    "Ambient temperature, relevant for heat losses [K]"
+   annotation(Dialog(group="Transfer station pipes"));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
 end PrimarySideParameters;

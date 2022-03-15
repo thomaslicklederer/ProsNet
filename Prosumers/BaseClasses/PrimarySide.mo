@@ -11,7 +11,7 @@ model PrimarySide
    final m2_flow_nominal=m_flow_nominal_2,
    redeclare final package Medium1=Medium1,
    redeclare final package Medium2=Medium2,
-   final dp1_nominal=dp1_nominal + preDro_pros,
+   final dp1_nominal=dp1_nominal,
    final dp2_nominal=dp2_nominal,
    final Q_flow_nominal=Q_flow_nominal,
    final T_a1_nominal=T_a1_nominal,
@@ -35,12 +35,12 @@ model PrimarySide
         rotation=-90,
         origin={-40,8})));
 
-  ProsNet.Fluid.FixedResistances.CheckValve cheVal(m_flow_nominal=m_flow_nominal_1,
-   redeclare final package Medium=Medium1,
-   final CvData=ProsNet.Fluid.Types.CvTypes.Kv,
-   final Kv=Kv_cheVal,
-    final l=l_cheVal)
-                     annotation (Placement(transformation(
+  ProsNet.Fluid.FixedResistances.CheckValve cheVal(
+    m_flow_nominal=m_flow_nominal_1,
+    redeclare final package Medium = Medium1,
+    final CvData=ProsNet.Fluid.Types.CvTypes.Kv,
+    final Kv=Kv_cheVal,
+    final l=l_cheVal) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-68,-12})));
