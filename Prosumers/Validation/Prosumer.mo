@@ -77,8 +77,8 @@ equation
   connect(consValveFilter.port_b, bou4.ports[2]) annotation (Line(points={{8,-76},
           {52,-76},{52,-44},{66,-44}},
                                    color={0,127,255}));
-  connect(prodSecPumpDyn.port_b, bou2.ports[3]) annotation (Line(points={{8,78},
-          {50,78},{50,20},{66,20},{66,11.3333}}, color={0,127,255}));
+  connect(prodSecPumpDyn.port_b, bou2.ports[3]) annotation (Line(points={{8,78},{
+          50,78},{50,20},{66,20},{66,11.3333}},  color={0,127,255}));
   connect(prodSecPumpDyn.port_a, bou1.ports[5]) annotation (Line(points={{-12,
           78},{-46,78},{-46,34},{-68,34},{-68,12.8}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
