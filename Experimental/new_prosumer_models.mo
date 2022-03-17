@@ -703,7 +703,16 @@ secondary side
       annotation (Placement(transformation(extent={{-92,-32},{-72,-12}})));
     heat_transfer_station heat_transfer_station1(redeclare
         Fluid.Pumps.Data.Pumps.QuadraticCharacteristic feedinPer,
-        ambient_temperature=system.T_ambient)
+      energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+
+      use_inputFilter_feedPump=true,
+      init_feedPump=Modelica.Blocks.Types.Init.InitialOutput,
+      use_inputFilter_conVal=true,
+      init_conVal=Modelica.Blocks.Types.Init.InitialOutput,
+        ambient_temperature=system.T_ambient,
+      energyDynamics_pumpsSec=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+
+      use_inputFilter_pumpsSec=true)
       annotation (Placement(transformation(extent={{-8,40},{22,76}})));
     Modelica.Fluid.Vessels.ClosedVolume volume(
       T_start=318.15,
@@ -719,7 +728,7 @@ secondary side
       final Kv=2.5,
       final use_inputFilter=true,
       final riseTime=5,
-      final init=Modelica.Blocks.Types.Init.SteadyState,
+      final init=Modelica.Blocks.Types.Init.InitialOutput,
       final y_start=0,
       final l=2e-3) annotation (Placement(transformation(
           extent={{10,10},{-10,-10}},
@@ -789,7 +798,17 @@ secondary side
       annotation (Placement(transformation(extent={{-92,-32},{-72,-12}})));
     heat_transfer_station heat_transfer_station1(redeclare
         Fluid.Pumps.Data.Pumps.QuadraticCharacteristic feedinPer,
-        ambient_temperature=system.T_ambient)
+      energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+
+      use_inputFilter_feedPump=true,
+      init_feedPump=Modelica.Blocks.Types.Init.InitialOutput,
+      use_inputFilter_conVal=true,
+      init_conVal=Modelica.Blocks.Types.Init.InitialOutput,
+        ambient_temperature=system.T_ambient,
+      energyDynamics_pumpsSec=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+
+      use_inputFilter_pumpsSec=true,
+      energyDynamics_cv=Modelica.Fluid.Types.Dynamics.SteadyState)
       annotation (Placement(transformation(extent={{-8,40},{22,76}})));
     Modelica.Fluid.Vessels.ClosedVolume volume(
       T_start=338.15,
@@ -803,12 +822,12 @@ secondary side
       annotation (Placement(transformation(extent={{90,12},{70,32}})));
     Fluid.Pumps.SpeedControlled_y pump_prim_prod(
       redeclare final package Medium = Media.Water,
-      final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      final energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
       final tau=1,
       redeclare final Fluid.Pumps.Data.Pumps.IMP.NMTPlus152025to40 per,
-      final use_inputFilter=false,
+      final use_inputFilter=true,
       final riseTime=5,
-      final init=Modelica.Blocks.Types.Init.SteadyState,
+      final init=Modelica.Blocks.Types.Init.InitialOutput,
       final y_start=0)                annotation (Placement(transformation(
           extent={{10,10},{-10,-10}},
           rotation=-90,
