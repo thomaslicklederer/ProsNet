@@ -118,7 +118,7 @@ package new_prosumer_models
           transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
-          origin={0,-182})));
+          origin={0,-180})));
     Modelica.Blocks.Interfaces.RealOutput V_dot_sec "m³/s"
                                                     annotation (Placement(
           transformation(
@@ -130,7 +130,7 @@ package new_prosumer_models
           transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
-          origin={80,-182})));
+          origin={80,-180})));
     Modelica.Blocks.Interfaces.RealOutput T_prim_hot "K"
                                                      annotation (Placement(
           transformation(
@@ -564,7 +564,18 @@ secondary side
     connect(mass2volume_flow1.y, V_dot_prim_is)
       annotation (Line(points={{27,-120},{0,-120},{0,-160}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},
-              {100,180}})), Diagram(coordinateSystem(preserveAspectRatio=false,
+              {100,180}}), graphics={Rectangle(
+            extent={{-100,180},{100,-160}},
+            lineColor={28,108,200},
+            fillColor={171,171,171},
+            fillPattern=FillPattern.Solid), Text(
+            extent={{-137,35},{137,-35}},
+            textColor={0,0,0},
+            origin={-1,1},
+            rotation=90,
+            textString="Conversion",
+            textStyle={TextStyle.Bold})}),
+                            Diagram(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-160},{100,180}})));
   end Conversion;
 
@@ -604,7 +615,16 @@ secondary side
       annotation (Line(points={{14,26},{55,26}}, color={0,0,127}));
     connect(conversion.m_dot_prim_is, m_dot_prim_is.y)
       annotation (Line(points={{14,2},{50,2},{50,0},{55,0}}, color={0,0,127}));
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Ellipse(lineColor = {75,138,73},
+                  fillColor={255,255,255},
+                  fillPattern = FillPattern.Solid,
+                  extent={{-100,-100},{100,100}}),
+          Polygon(lineColor = {0,0,255},
+                  fillColor = {75,138,73},
+                  pattern = LinePattern.None,
+                  fillPattern = FillPattern.Solid,
+                  points={{-36,60},{64,0},{-36,-60},{-36,60}})}),  Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end Test_Conversion;
 
@@ -649,66 +669,188 @@ secondary side
     connect(heat_source_sink_ideal1.port_hot, tank.ports[1]) annotation (Line(
           points={{-12.8,2},{-12.8,-56},{24,-56},{24,-84},{50,-84},{50,-76}},
           color={0,127,255}));
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Ellipse(lineColor = {75,138,73},
+                  fillColor={255,255,255},
+                  fillPattern = FillPattern.Solid,
+                  extent={{-100,-100},{100,100}}),
+          Polygon(lineColor = {0,0,255},
+                  fillColor = {75,138,73},
+                  pattern = LinePattern.None,
+                  fillPattern = FillPattern.Solid,
+                  points={{-36,60},{64,0},{-36,-60},{-36,60}})}),  Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end Test_heat_source_sink_ideal;
 
-  model Test_heat_transfer_station
-    Modelica.Fluid.Vessels.OpenTank hot_tank(
-      height=5,
-      crossArea=10,
-      redeclare package Medium = Media.Water,
-      use_portsData=false,
-      nPorts=1)
-      annotation (Placement(transformation(extent={{-56,-78},{-16,-38}})));
-    Modelica.Fluid.Vessels.OpenTank cold_tank(
-      height=5,
-      crossArea=10,
-      redeclare package Medium = Media.Water,
-      use_portsData=false,
-      nPorts=1)
-      annotation (Placement(transformation(extent={{34,-76},{74,-36}})));
-    Modelica.Blocks.Sources.RealExpression T_house(y=273.15 + 45)
-      annotation (Placement(transformation(extent={{-96,66},{-76,86}})));
+  model Test_heat_transfer_station_production
+    Modelica.Blocks.Sources.RealExpression T_house(y=273.15 + 70)
+      annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
     Modelica.Blocks.Sources.IntegerExpression pi(y=1)
-      annotation (Placement(transformation(extent={{-96,36},{-76,56}})));
+      annotation (Placement(transformation(extent={{-92,44},{-72,64}})));
     Modelica.Blocks.Sources.IntegerExpression mu(y=1)
-      annotation (Placement(transformation(extent={{-96,22},{-76,42}})));
+      annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
     Modelica.Blocks.Sources.RealExpression u_pump(y=0.5)
-      annotation (Placement(transformation(extent={{-96,4},{-76,24}})));
+      annotation (Placement(transformation(extent={{-92,12},{-72,32}})));
     Modelica.Blocks.Sources.RealExpression kappa(y=0.8)
-      annotation (Placement(transformation(extent={{-96,-10},{-76,10}})));
-    Modelica.Blocks.Sources.RealExpression flow_house(y=5/60000)
-      annotation (Placement(transformation(extent={{-96,54},{-76,74}})));
+      annotation (Placement(transformation(extent={{-92,-2},{-72,18}})));
+    Modelica.Blocks.Sources.RealExpression flow_house(y=5)
+      annotation (Placement(transformation(extent={{-92,62},{-72,82}})));
+    Modelica.Blocks.Sources.Ramp ramp(
+      height=1,
+      duration=600,
+      offset=0,
+      startTime=200)
+      annotation (Placement(transformation(extent={{-92,-32},{-72,-12}})));
+    heat_transfer_station heat_transfer_station1(redeclare
+        Fluid.Pumps.Data.Pumps.QuadraticCharacteristic feedinPer,
+        ambient_temperature=system.T_ambient)
+      annotation (Placement(transformation(extent={{-8,40},{22,76}})));
+    Modelica.Fluid.Vessels.ClosedVolume volume(
+      T_start=318.15,
+      use_portsData=false,                     V=1, nPorts=2,
+    redeclare final package Medium = Media.Water)
+      annotation (Placement(transformation(extent={{2,-24},{22,-44}})));
     inner Modelica.Fluid.System system(T_ambient=285.15)
-      annotation (Placement(transformation(extent={{64,62},{84,82}})));
-    heat_transfer_station heat_transfer_station1(
-    ambient_temperature = system.T_ambient)
-      annotation (Placement(transformation(extent={{-20,12},{42,76}})));
+      annotation (Placement(transformation(extent={{60,62},{80,82}})));
+    Fluid.Valves.TwoWayEqualPercentage valve_for_test(
+      m_flow_nominal=30.074213*0.001/60,
+      redeclare final package Medium = Media.Water,
+      final CvData=ProsNet.Fluid.Types.CvTypes.Kv,
+      final Kv=2.5,
+      final use_inputFilter=true,
+      final riseTime=5,
+      final init=Modelica.Blocks.Types.Init.SteadyState,
+      final y_start=0,
+      final l=2e-3) annotation (Placement(transformation(
+          extent={{10,10},{-10,-10}},
+          rotation=-90,
+          origin={36,-4})));
+    Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare final package Medium =
+          Media.Water)
+      annotation (Placement(transformation(extent={{90,12},{70,32}})));
   equation
     connect(T_house.y, heat_transfer_station1.T_sec_in_set) annotation (Line(
-          points={{-75,76},{-30,76},{-30,68.8889},{-20,68.8889}}, color={0,0,
-            127}));
-    connect(flow_house.y, heat_transfer_station1.V_dot_sec_set) annotation (
-        Line(points={{-75,64},{-30,64},{-30,61.7778},{-20,61.7778}}, color={0,0,
-            127}));
-    connect(pi.y, heat_transfer_station1.pi) annotation (Line(points={{-75,46},
-            {-30,46},{-30,51.1111},{-20,51.1111}}, color={255,127,0}));
-    connect(mu.y, heat_transfer_station1.mu) annotation (Line(points={{-75,32},
-            {-30,32},{-30,44},{-20,44}}, color={255,127,0}));
-    connect(u_pump.y, heat_transfer_station1.u_set) annotation (Line(points={{-75,14},
-            {-30,14},{-30,30},{-28,30},{-28,36.8889},{-20,36.8889}},
-          color={0,0,127}));
-    connect(kappa.y, heat_transfer_station1.kappa_set) annotation (Line(points={{-75,0},
-            {-28,0},{-28,29.7778},{-20,29.7778}},          color={0,0,127}));
-    connect(hot_tank.ports[1], heat_transfer_station1.hot_prim) annotation (
-        Line(points={{-36,-78},{-36,-84},{8.93333,-84},{8.93333,11.6444}},
-          color={0,127,255}));
-    connect(cold_tank.ports[1], heat_transfer_station1.cold_prim) annotation (
-        Line(points={{54,-76},{54,-84},{30,-84},{30,11.6444},{29.6,11.6444}},
-          color={0,127,255}));
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-          coordinateSystem(preserveAspectRatio=false)));
-  end Test_heat_transfer_station;
+          points={{-71,84},{-14,84},{-14,72},{-8,72}}, color={0,0,127}));
+    connect(flow_house.y, heat_transfer_station1.V_dot_sec_set) annotation (Line(
+          points={{-71,72},{-16,72},{-16,68},{-8,68}}, color={0,0,127}));
+    connect(pi.y, heat_transfer_station1.pi) annotation (Line(points={{-71,54},{-16,
+            54},{-16,62},{-8,62}}, color={255,127,0}));
+    connect(mu.y, heat_transfer_station1.mu) annotation (Line(points={{-71,40},{-14,
+            40},{-14,58},{-8,58}}, color={255,127,0}));
+    connect(u_pump.y, heat_transfer_station1.u_set) annotation (Line(points={{-71,
+            22},{-66,22},{-66,52},{-60,52},{-60,54},{-8,54}}, color={0,0,127}));
+    connect(kappa.y, heat_transfer_station1.kappa_set) annotation (Line(points={{-71,
+            8},{-58,8},{-58,50},{-8,50}}, color={0,0,127}));
+    connect(heat_transfer_station1.hot_prim, volume.ports[1])
+      annotation (Line(points={{6,39.8},{6,-24},{10,-24}}, color={0,127,255}));
+    connect(valve_for_test.port_b, heat_transfer_station1.cold_prim) annotation (
+        Line(points={{36,6},{36,34},{16,34},{16,39.8}}, color={0,127,255}));
+    connect(valve_for_test.port_a, volume.ports[2])
+      annotation (Line(points={{36,-14},{36,-24},{14,-24}}, color={0,127,255}));
+    connect(ramp.y, valve_for_test.y) annotation (Line(points={{-71,-22},{0,-22},{
+            0,-4},{24,-4}}, color={0,0,127}));
+    connect(bou.ports[1], valve_for_test.port_b)
+      annotation (Line(points={{70,22},{36,22},{36,6}}, color={0,127,255}));
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Ellipse(lineColor = {75,138,73},
+                  fillColor={255,255,255},
+                  fillPattern = FillPattern.Solid,
+                  extent={{-100,-100},{100,100}}),
+          Polygon(lineColor = {0,0,255},
+                  fillColor = {75,138,73},
+                  pattern = LinePattern.None,
+                  fillPattern = FillPattern.Solid,
+                  points={{-36,60},{64,0},{-36,-60},{-36,60}})}),  Diagram(
+          coordinateSystem(preserveAspectRatio=false)),
+      experiment(
+        StopTime=1000,
+        Interval=1,
+        __Dymola_Algorithm="Dassl"));
+  end Test_heat_transfer_station_production;
+
+  model Test_heat_transfer_station_consumption
+    Modelica.Blocks.Sources.RealExpression T_house(y=273.15 + 45)
+      annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
+    Modelica.Blocks.Sources.IntegerExpression pi(y=1)
+      annotation (Placement(transformation(extent={{-92,44},{-72,64}})));
+    Modelica.Blocks.Sources.IntegerExpression mu(y=-1)
+      annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
+    Modelica.Blocks.Sources.RealExpression u_pump(y=0.5)
+      annotation (Placement(transformation(extent={{-92,12},{-72,32}})));
+    Modelica.Blocks.Sources.RealExpression kappa(y=0.8)
+      annotation (Placement(transformation(extent={{-92,-2},{-72,18}})));
+    Modelica.Blocks.Sources.RealExpression flow_house(y=5)
+      annotation (Placement(transformation(extent={{-92,62},{-72,82}})));
+    Modelica.Blocks.Sources.Ramp ramp(
+      height=1,
+      duration=600,
+      offset=0,
+      startTime=200)
+      annotation (Placement(transformation(extent={{-92,-32},{-72,-12}})));
+    heat_transfer_station heat_transfer_station1(redeclare
+        Fluid.Pumps.Data.Pumps.QuadraticCharacteristic feedinPer,
+        ambient_temperature=system.T_ambient)
+      annotation (Placement(transformation(extent={{-8,40},{22,76}})));
+    Modelica.Fluid.Vessels.ClosedVolume volume(
+      T_start=338.15,
+      use_portsData=false,                     V=1, nPorts=2,
+    redeclare final package Medium = Media.Water)
+      annotation (Placement(transformation(extent={{2,-30},{22,-50}})));
+    inner Modelica.Fluid.System system(T_ambient=285.15)
+      annotation (Placement(transformation(extent={{62,62},{82,82}})));
+    Fluid.Sources.Boundary_pT bou(          redeclare final package Medium =
+          Media.Water, nPorts=1)
+      annotation (Placement(transformation(extent={{90,12},{70,32}})));
+    Fluid.Pumps.SpeedControlled_y pump_prim_prod(
+      redeclare final package Medium = Media.Water,
+      final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      final tau=1,
+      redeclare final Fluid.Pumps.Data.Pumps.IMP.NMTPlus152025to40 per,
+      final use_inputFilter=false,
+      final riseTime=5,
+      final init=Modelica.Blocks.Types.Init.SteadyState,
+      final y_start=0)                annotation (Placement(transformation(
+          extent={{10,10},{-10,-10}},
+          rotation=-90,
+          origin={40,2})));
+  equation
+    connect(T_house.y, heat_transfer_station1.T_sec_in_set) annotation (Line(
+          points={{-71,84},{-14,84},{-14,72},{-8,72}}, color={0,0,127}));
+    connect(flow_house.y, heat_transfer_station1.V_dot_sec_set) annotation (Line(
+          points={{-71,72},{-16,72},{-16,68},{-8,68}}, color={0,0,127}));
+    connect(pi.y, heat_transfer_station1.pi) annotation (Line(points={{-71,54},{-16,
+            54},{-16,62},{-8,62}}, color={255,127,0}));
+    connect(mu.y, heat_transfer_station1.mu) annotation (Line(points={{-71,40},{-14,
+            40},{-14,58},{-8,58}}, color={255,127,0}));
+    connect(u_pump.y, heat_transfer_station1.u_set) annotation (Line(points={{-71,
+            22},{-66,22},{-66,52},{-60,52},{-60,54},{-8,54}}, color={0,0,127}));
+    connect(kappa.y, heat_transfer_station1.kappa_set) annotation (Line(points={{-71,
+            8},{-58,8},{-58,50},{-8,50}}, color={0,0,127}));
+    connect(heat_transfer_station1.hot_prim, volume.ports[1])
+      annotation (Line(points={{6,39.8},{6,-30},{10,-30}}, color={0,127,255}));
+    connect(volume.ports[2], pump_prim_prod.port_a) annotation (Line(points={{14,-30},
+            {22,-30},{22,-16},{40,-16},{40,-8}}, color={0,127,255}));
+    connect(heat_transfer_station1.cold_prim, pump_prim_prod.port_b) annotation (
+        Line(points={{16,39.8},{16,18},{40,18},{40,12}}, color={0,127,255}));
+    connect(ramp.y, pump_prim_prod.y) annotation (Line(points={{-71,-22},{10,-22},
+            {10,2},{28,2}}, color={0,0,127}));
+    connect(bou.ports[1], pump_prim_prod.port_b)
+      annotation (Line(points={{70,22},{40,22},{40,12}}, color={0,127,255}));
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Ellipse(lineColor = {75,138,73},
+                  fillColor={255,255,255},
+                  fillPattern = FillPattern.Solid,
+                  extent={{-100,-100},{100,100}}),
+          Polygon(lineColor = {0,0,255},
+                  fillColor = {75,138,73},
+                  pattern = LinePattern.None,
+                  fillPattern = FillPattern.Solid,
+                  points={{-36,60},{64,0},{-36,-60},{-36,60}})}),  Diagram(
+          coordinateSystem(preserveAspectRatio=false)),
+      experiment(
+        StopTime=1000,
+        Interval=1,
+        __Dymola_Algorithm="Dassl"));
+  end Test_heat_transfer_station_consumption;
   annotation (conversion(noneFromVersion=""));
 end new_prosumer_models;

@@ -30,7 +30,7 @@ partial class PrimarySideParameters
     Dialog(tab = "Advanced", group = "Heat transfer in heat exchanger"));
 
   // Feed-in pump parameters
-  replaceable parameter ProsNet.Fluid.Pumps.Data.Pumps.IMP.NMTPlus152025to40 feedinPer
+  replaceable parameter ProsNet.Fluid.Pumps.Data.Generic feedinPer
    constrainedby ProsNet.Fluid.Pumps.Data.Generic "Record with performance data"
     annotation (Dialog(group="Feed-in pump"),choicesAllMatching=true);
   // Feed-in pump dynamic options
