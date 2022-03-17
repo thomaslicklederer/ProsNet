@@ -44,7 +44,7 @@ equation
   port_b.C_outflow  = zeros(Medium.nC);
 
   // Relative pressure
-  p_rel = (port_a.p - port_b.p) /100;
+  p_rel = (port_a.p - port_b.p);
   annotation (defaultComponentName="senRelPre",
     Icon(graphics={
         Line(points={{-100,0},{-70,0}}, color={0,127,255}),

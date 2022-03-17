@@ -1,4 +1,4 @@
-﻿within ProsNet.Experimental;
+within ProsNet.Experimental;
 package new_prosumer_models
   model heat_transfer_station
 
@@ -113,37 +113,41 @@ package new_prosumer_models
     Modelica.Fluid.Interfaces.FluidPort_a hot_prim(
     redeclare final package Medium = Medium_prim)
       annotation (Placement(transformation(extent={{-70,-192},{-50,-172}})));
-    Modelica.Blocks.Interfaces.RealOutput V_dot_prim "m³/s"
+    Modelica.Blocks.Interfaces.RealOutput V_dot_prim(unit="l/min", displayUnit="l/min")
                                                      annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={0,-180})));
-    Modelica.Blocks.Interfaces.RealOutput V_dot_sec "m³/s"
+    Modelica.Blocks.Interfaces.RealOutput V_dot_sec(unit="l/min", displayUnit="l/min") "l/min"
                                                     annotation (Placement(
           transformation(
           extent={{10,-10},{-10,10}},
           rotation=-90,
           origin={0,180})));
-    Modelica.Blocks.Interfaces.RealOutput T_prim_cold "K"
+    Modelica.Blocks.Interfaces.RealOutput T_prim_cold(unit="K", displayUnit="degC")
+                                                                                   "K"
                                                       annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={80,-180})));
-    Modelica.Blocks.Interfaces.RealOutput T_prim_hot "K"
+    Modelica.Blocks.Interfaces.RealOutput T_prim_hot(unit="K", displayUnit="degC")
+                                                                                  "K"
                                                      annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={-80,-180})));
-    Modelica.Blocks.Interfaces.RealOutput T_sec_hot "K"
+    Modelica.Blocks.Interfaces.RealOutput T_sec_hot(unit="K", displayUnit="degC")
+                                                                                 "K"
                                                     annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
           rotation=90,
           origin={-80,180})));
-    Modelica.Blocks.Interfaces.RealOutput T_sec_cold "k"
+    Modelica.Blocks.Interfaces.RealOutput T_sec_cold(unit="K", displayUnit="degC")
+                                                                                  "K"
                                                      annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
@@ -157,11 +161,11 @@ package new_prosumer_models
       annotation (Placement(transformation(extent={{-220,20},{-180,60}})));
     Modelica.Blocks.Interfaces.IntegerInput mu
       annotation (Placement(transformation(extent={{-220,-20},{-180,20}})));
-    Modelica.Blocks.Interfaces.RealInput V_dot_sec_set "m³/h"
+    Modelica.Blocks.Interfaces.RealInput V_dot_sec_set(unit="l/min", displayUnit="l/min") "l/min"
       annotation (Placement(transformation(extent={{-220,80},{-180,120}})));
     heat_source_sink_ideal ideal_house
       annotation (Placement(transformation(extent={{-22,120},{22,152}})));
-    Modelica.Blocks.Interfaces.RealInput T_sec_in_set
+    Modelica.Blocks.Interfaces.RealInput T_sec_in_set(unit="K", displayUnit="degC") "K"
       annotation (Placement(transformation(extent={{-220,120},{-180,160}})));
     Conversion conversion
       annotation (Placement(transformation(extent={{-140,-4},{-92,66}})));
@@ -207,7 +211,7 @@ package new_prosumer_models
     Fluid.Sensors.RelativePressure          pressureDifference(
     redeclare package Medium = Medium_prim)
       annotation (Placement(transformation(extent={{-36,-164},{-16,-144}})));
-    Modelica.Blocks.Interfaces.RealOutput Delta_p_prim "hPa" annotation (
+    Modelica.Blocks.Interfaces.RealOutput Delta_p_prim(unit="Pa", displayUnit="bar") "bar" annotation (
         Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
