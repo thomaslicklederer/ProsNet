@@ -67,35 +67,36 @@ package Controller_PID_based
         annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=0,
-          origin={100,-100}),iconTransformation(
+          origin={100,-60}), iconTransformation(
           extent={{-20,-20},{20,20}},
-          rotation=-90,
-          origin={90,120})));
+          rotation=0,
+          origin={100,-60})));
     Modelica.Blocks.Interfaces.RealOutput kappa_set
       "Normalized flow coefficient for control valve"
        annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=0,
-          origin={100,-60}),iconTransformation(
+          origin={100,-100}),
+                            iconTransformation(
           extent={{-20,-20},{20,20}},
-          rotation=-90,
-          origin={136,120})));
+          rotation=0,
+          origin={100,-100})));
     Modelica.Blocks.Interfaces.IntegerOutput pi_set
       "Participation" annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=0,
           origin={100,20}),   iconTransformation(
           extent={{-20,-20},{20,20}},
-          rotation=-90,
-          origin={-126,120})));
+          rotation=0,
+          origin={100,20})));
     Modelica.Blocks.Interfaces.IntegerOutput mu_set
       "Operating mode" annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=0,
           origin={100,-20}), iconTransformation(
           extent={{-20,-20},{20,20}},
-          rotation=-90,
-          origin={-80,120})));
+          rotation=0,
+          origin={100,-20})));
     Modelica.Blocks.Interfaces.RealInput T_sec_hot(
       unit="K",
       displayUnit="degC",
@@ -134,9 +135,9 @@ package Controller_PID_based
     Modelica.Blocks.Interfaces.RealInput Qdot_set(unit="kW", displayUnit="kW")
       "setpoint heat transfer (positive production, negative consumption)"
       annotation (Placement(transformation(extent={{-120,0},{-80,40}})));
-    Modelica.Blocks.Interfaces.RealInput V_dot_prim
+    Modelica.Blocks.Interfaces.RealInput V_dot_prim(unit="l/min", displayUnit="l/min")
       annotation (Placement(transformation(extent={{-120,-80},{-80,-40}})));
-    Modelica.Blocks.Interfaces.RealInput V_dot_sec
+    Modelica.Blocks.Interfaces.RealInput V_dot_sec(unit="l/min", displayUnit="l/min")
       annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
 
     Modelica.Blocks.Interfaces.RealInput Qdot_is(unit="kW", displayUnit="kW")
@@ -185,8 +186,8 @@ package Controller_PID_based
           extent={{-20,-20},{20,20}},
           rotation=0,
           origin={100,100})));
-    Modelica.Blocks.Interfaces.RealOutput m_flow_sec_set(unit="kg/s", displayUnit=
-         "kg/s") "Mass flow rate on the secondary side" annotation (Placement(transformation(
+    Modelica.Blocks.Interfaces.RealOutput V_dot_sec_set(unit="l/min", displayUnit=
+         "l/min") "volume flow rate setpoint on the secondary side" annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=0,
           origin={100,60})));
@@ -280,13 +281,13 @@ package Controller_PID_based
     if prosumer_mode == -1 then // consumption mode
       u_set = 0;
       kappa_set =PID_prim_cons.y;
-      m_flow_sec_set = PID_sec_cons.y;
+      V_dot_sec_set = PID_sec_cons.y;
     elseif prosumer_mode == 1 then // production mode
       u_set =PID_prim_prod.y;
       kappa_set = 0;
-      m_flow_sec_set = PID_sec_prod.y;
+      V_dot_sec_set = PID_sec_prod.y;
     else // idle mode
-      m_flow_sec_set = 0;
+      V_dot_sec_set = 0;
       u_set = 0;
       kappa_set = 0;
     end if;
@@ -294,8 +295,4 @@ package Controller_PID_based
           coordinateSystem(preserveAspectRatio=false)));
   end PID_dP_dDeltaT;
 
-  model Test_controller_v1
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-          coordinateSystem(preserveAspectRatio=false)));
-  end Test_controller_v1;
 end Controller_PID_based;

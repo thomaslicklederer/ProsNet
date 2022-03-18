@@ -9,6 +9,8 @@ package new_prosumer_models
     extends ProsNet.Prosumers.SecondarySides.BaseClasses.PumpsPairDynParam;
     extends ProsNet.Prosumers.SecondarySides.BaseClasses.ControlVolumeDynParam;
 
+    Real cp_prim;
+
     Fluid.HeatExchangers.LiquidToLiquid heat_exchanger(
       redeclare package Medium2 = Medium_sec,
       redeclare package Medium1 = Medium_prim,
@@ -113,46 +115,7 @@ package new_prosumer_models
     Modelica.Fluid.Interfaces.FluidPort_a hot_prim(
     redeclare final package Medium = Medium_prim)
       annotation (Placement(transformation(extent={{-70,-192},{-50,-172}})));
-    Modelica.Blocks.Interfaces.RealOutput V_dot_prim(unit="l/min", displayUnit="l/min")
-                                                     annotation (Placement(
-          transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={0,-180})));
-    Modelica.Blocks.Interfaces.RealOutput V_dot_sec(unit="l/min", displayUnit="l/min") "l/min"
-                                                    annotation (Placement(
-          transformation(
-          extent={{10,-10},{-10,10}},
-          rotation=-90,
-          origin={0,180})));
-    Modelica.Blocks.Interfaces.RealOutput T_prim_cold(unit="K", displayUnit="degC")
-                                                                                   "K"
-                                                      annotation (Placement(
-          transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={80,-180})));
-    Modelica.Blocks.Interfaces.RealOutput T_prim_hot(unit="K", displayUnit="degC")
-                                                                                  "K"
-                                                     annotation (Placement(
-          transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={-80,-180})));
-    Modelica.Blocks.Interfaces.RealOutput T_sec_hot(unit="K", displayUnit="degC")
-                                                                                 "K"
-                                                    annotation (Placement(
-          transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=90,
-          origin={-80,180})));
-    Modelica.Blocks.Interfaces.RealOutput T_sec_cold(unit="K", displayUnit="degC")
-                                                                                  "K"
-                                                     annotation (Placement(
-          transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=90,
-          origin={80,180})));
+
     Modelica.Blocks.Interfaces.RealInput u_set
       annotation (Placement(transformation(extent={{-220,-60},{-180,-20}})));
     Modelica.Blocks.Interfaces.RealInput kappa_set
@@ -211,13 +174,62 @@ package new_prosumer_models
     Fluid.Sensors.RelativePressure          pressureDifference(
     redeclare package Medium = Medium_prim)
       annotation (Placement(transformation(extent={{-36,-164},{-16,-144}})));
-    Modelica.Blocks.Interfaces.RealOutput Delta_p_prim(unit="Pa", displayUnit="bar") "bar" annotation (
+
+      Modelica.Blocks.Interfaces.RealOutput V_dot_prim(unit="l/min", displayUnit="l/min") "l/min"
+                                                     annotation (Placement(
+          transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=-90,
+          origin={0,-180})));
+    Modelica.Blocks.Interfaces.RealOutput V_dot_sec(unit="l/min", displayUnit="l/min") "l/min"
+                                                    annotation (Placement(
+          transformation(
+          extent={{10,-10},{-10,10}},
+          rotation=-90,
+          origin={0,180})));
+    Modelica.Blocks.Interfaces.RealOutput T_prim_cold(unit="K", displayUnit="degC")
+                                                                                   "K"
+                                                      annotation (Placement(
+          transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=-90,
+          origin={80,-180})));
+    Modelica.Blocks.Interfaces.RealOutput T_prim_hot(unit="K", displayUnit="degC")
+                                                                                  "K"
+                                                     annotation (Placement(
+          transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=-90,
+          origin={-80,-180})));
+    Modelica.Blocks.Interfaces.RealOutput T_sec_hot(unit="K", displayUnit="degC")
+                                                                                 "K"
+                                                    annotation (Placement(
+          transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=90,
+          origin={-80,180})));
+    Modelica.Blocks.Interfaces.RealOutput T_sec_cold(unit="K", displayUnit="degC") "K"
+                                                     annotation (Placement(
+          transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=90,
+          origin={80,180})));
+
+    Modelica.Blocks.Interfaces.RealOutput Delta_p_prim(unit="Pa", displayUnit="bar") annotation (
         Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={-26,-180})));
+    Modelica.Blocks.Interfaces.RealOutput Q_dot_trnsf_is(unit="kW", displayUnit="kW")
+      "kW" annotation (Placement(transformation(
+          extent={{10,-10},{-10,10}},
+          rotation=0,
+          origin={-200,-140})));
   equation
 
+
+    cp_prim = 4200;
+    Q_dot_trnsf_is = cold_prim.m_flow * cp_prim *(T_sens_prim_hot.T - T_sens_prim_cold.T)/1000;
     connect(heat_exchanger.port_b1, valve_prim_cons.port_b)
       annotation (Line(points={{10,-4},{20,-4},{20,-30}}, color={0,127,255}));
     connect(cheVal_prim_prod.port_b,heat_exchanger. port_b1)
@@ -521,7 +533,7 @@ secondary side
           rotation=-90,
           origin={0,-160})));
     Modelica.Blocks.Math.Product mass2volume_flow1
-      annotation (Placement(transformation(extent={{48,-130},{28,-110}})));
+      annotation (Placement(transformation(extent={{48,-132},{28,-112}})));
     Modelica.Blocks.Sources.Constant factor3(k=(60000)*(1/Medium.d_const))
       annotation (Placement(transformation(extent={{82,-108},{62,-88}})));
   equation
@@ -561,12 +573,14 @@ secondary side
             {-52,-70},{-42,-70}}, color={0,0,127}));
     connect(u_set, priFlowCon.pump_y_set) annotation (Line(points={{-100,-80},{-54,
             -80},{-54,-54},{-10,-54},{-10,-56},{-2,-56},{-2,-48}}, color={0,0,127}));
-    connect(factor3.y, mass2volume_flow1.u1) annotation (Line(points={{61,-98},{60,
-            -98},{60,-114},{50,-114}}, color={0,0,127}));
-    connect(m_dot_prim_is, mass2volume_flow1.u2) annotation (Line(points={{100,-120},
-            {58,-120},{58,-126},{50,-126}}, color={0,0,127}));
+    connect(factor3.y, mass2volume_flow1.u1) annotation (Line(points={{61,-98},
+            {60,-98},{60,-116},{50,-116}},
+                                       color={0,0,127}));
+    connect(m_dot_prim_is, mass2volume_flow1.u2) annotation (Line(points={{100,
+            -120},{58,-120},{58,-128},{50,-128}},
+                                            color={0,0,127}));
     connect(mass2volume_flow1.y, V_dot_prim_is)
-      annotation (Line(points={{27,-120},{0,-120},{0,-160}}, color={0,0,127}));
+      annotation (Line(points={{27,-122},{0,-122},{0,-160}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},
               {100,180}}), graphics={Rectangle(
             extent={{-100,180},{100,-160}},
@@ -708,16 +722,15 @@ secondary side
     heat_transfer_station heat_transfer_station1(redeclare
         Fluid.Pumps.Data.Pumps.QuadraticCharacteristic feedinPer,
       energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
       use_inputFilter_feedPump=true,
       init_feedPump=Modelica.Blocks.Types.Init.InitialOutput,
       use_inputFilter_conVal=true,
       init_conVal=Modelica.Blocks.Types.Init.InitialOutput,
         ambient_temperature=system.T_ambient,
       energyDynamics_pumpsSec=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
       use_inputFilter_pumpsSec=true)
       annotation (Placement(transformation(extent={{-8,40},{22,76}})));
+
     Modelica.Fluid.Vessels.ClosedVolume volume(
       T_start=318.15,
       use_portsData=false,                     V=1, nPorts=2,
@@ -803,17 +816,16 @@ secondary side
     heat_transfer_station heat_transfer_station1(redeclare
         Fluid.Pumps.Data.Pumps.QuadraticCharacteristic feedinPer,
       energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
       use_inputFilter_feedPump=true,
       init_feedPump=Modelica.Blocks.Types.Init.InitialOutput,
       use_inputFilter_conVal=true,
       init_conVal=Modelica.Blocks.Types.Init.InitialOutput,
         ambient_temperature=system.T_ambient,
       energyDynamics_pumpsSec=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
       use_inputFilter_pumpsSec=true,
       energyDynamics_cv=Modelica.Fluid.Types.Dynamics.SteadyState)
       annotation (Placement(transformation(extent={{-8,40},{22,76}})));
+
     Modelica.Fluid.Vessels.ClosedVolume volume(
       T_start=338.15,
       use_portsData=false,                     V=1, nPorts=2,
