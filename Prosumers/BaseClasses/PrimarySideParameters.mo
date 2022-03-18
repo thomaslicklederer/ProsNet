@@ -57,7 +57,7 @@ partial class PrimarySideParameters
   // Dynamics of the valve
   parameter Boolean use_inputFilter_conVal = false "Transient behavior for moving the valve’s stem"
    annotation(Dialog(tab="Dynamics", group="Control valve"));
-  parameter Modelica.Units.SI.Time riseTime_conVal(min=0) = 5 "Rise time"
+  parameter Modelica.Units.SI.Time riseTime_conVal(min=0) = 35 "Rise time"
     annotation (Dialog(tab="Dynamics", group="Control valve"));
   parameter Modelica.Blocks.Types.Init init_conVal=Modelica.Blocks.Types.Init.InitialOutput "Type of initialization"
    annotation(Dialog(tab="Dynamics", group="Control valve"));
