@@ -22,6 +22,7 @@ package new_prosumer_models
       T_a1_nominal=338.15,
       T_a2_nominal=313.15)
       annotation (Placement(transformation(extent={{-10,12},{10,-8}})));
+
     Fluid.Pumps.FlowControlled_m_flow pump_sec_cons(
       redeclare package Medium = Medium_sec,
       final energyDynamics=energyDynamics_pumpsSec,
@@ -115,21 +116,8 @@ package new_prosumer_models
     Modelica.Fluid.Interfaces.FluidPort_a hot_prim(
     redeclare final package Medium = Medium_prim)
       annotation (Placement(transformation(extent={{-70,-192},{-50,-172}})));
-
-    Modelica.Blocks.Interfaces.RealInput u_set
-      annotation (Placement(transformation(extent={{-220,-60},{-180,-20}})));
-    Modelica.Blocks.Interfaces.RealInput kappa_set
-      annotation (Placement(transformation(extent={{-220,-100},{-180,-60}})));
-    Modelica.Blocks.Interfaces.IntegerInput pi
-      annotation (Placement(transformation(extent={{-220,20},{-180,60}})));
-    Modelica.Blocks.Interfaces.IntegerInput mu
-      annotation (Placement(transformation(extent={{-220,-20},{-180,20}})));
-    Modelica.Blocks.Interfaces.RealInput V_dot_sec_set(unit="l/min", displayUnit="l/min") "l/min"
-      annotation (Placement(transformation(extent={{-220,80},{-180,120}})));
     heat_source_sink_ideal ideal_house
       annotation (Placement(transformation(extent={{-22,120},{22,152}})));
-    Modelica.Blocks.Interfaces.RealInput T_sec_in_set(unit="K", displayUnit="degC") "K"
-      annotation (Placement(transformation(extent={{-220,120},{-180,160}})));
     Conversion conversion
       annotation (Placement(transformation(extent={{-140,-4},{-92,66}})));
     Modelica.Fluid.Sensors.MassFlowRate m_dot_sens_prim(
@@ -175,7 +163,20 @@ package new_prosumer_models
     redeclare package Medium = Medium_prim)
       annotation (Placement(transformation(extent={{-36,-164},{-16,-144}})));
 
-      Modelica.Blocks.Interfaces.RealOutput V_dot_prim(unit="l/min", displayUnit="l/min") "l/min"
+    Modelica.Blocks.Interfaces.RealInput T_sec_in_set(unit="K", displayUnit="degC") "K"
+      annotation (Placement(transformation(extent={{-220,120},{-180,160}})));
+    Modelica.Blocks.Interfaces.RealInput V_dot_sec_set(unit="l/min", displayUnit="l/min") "l/min"
+      annotation (Placement(transformation(extent={{-220,80},{-180,120}})));
+    Modelica.Blocks.Interfaces.IntegerInput pi
+      annotation (Placement(transformation(extent={{-220,20},{-180,60}})));
+    Modelica.Blocks.Interfaces.IntegerInput mu
+      annotation (Placement(transformation(extent={{-220,-20},{-180,20}})));
+    Modelica.Blocks.Interfaces.RealInput u_set
+      annotation (Placement(transformation(extent={{-220,-60},{-180,-20}})));
+    Modelica.Blocks.Interfaces.RealInput kappa_set
+      annotation (Placement(transformation(extent={{-220,-100},{-180,-60}})));
+
+    Modelica.Blocks.Interfaces.RealOutput V_dot_prim(unit="l/min", displayUnit="l/min") "l/min"
                                                      annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},

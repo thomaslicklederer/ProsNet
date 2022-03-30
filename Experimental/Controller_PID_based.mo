@@ -4,6 +4,8 @@ package Controller_PID_based
 
     import Modelica.Units.SI;
     import T_AbsZeroDegC = Modelica.Constants.T_zero;
+    import Modelica.Blocks.Types.Init;
+    import Modelica.Blocks.Types.SimpleController;
 
     // !!!!! variables !!!!!
     Integer  prosumer_mode
@@ -40,26 +42,94 @@ package Controller_PID_based
         "weighted input of is-values for PID_sec_prod";
     Real PIDin_sec_prod_des_weighted
         "weighted input of desired values for PID_sec_prod";
-    Real X_prim_is;
-    Real X_prim_des;
-    Real X_sec_is;
-    Real X_sec_des;
+
 
     // !!!!! parameters !!!!!
     parameter SI.Temperature T_prim_hot_des(min=277) = -T_AbsZeroDegC + 65
-        "desired temperature supply primary side";
+        "desired temperature supply primary side"
+        annotation(Dialog(group="Temperature objectives"));
     parameter SI.Temperature T_sec_hot_des(min=277) = -T_AbsZeroDegC + 60
-        "desired temperature supply secondary side";
+        "desired temperature supply secondary side"
+        annotation(Dialog(group="Temperature objectives"));
     parameter SI.TemperatureDifference DeltaT_prim_des = 15
-        "desired temperature difference primary side";
+        "desired temperature difference primary side"
+        annotation(Dialog(group="Temperature objectives"));
     parameter SI.TemperatureDifference DeltaT_sec_des = 15
-        "desired temperature difference secondary side";
-    parameter Real alpha = 1
-      "weight for the relevance of the error of the transferred heat";
-    parameter Real beta = 1
-      "weight for the relevance of the error of the temperature(difference)";
+        "desired temperature difference secondary side"
+        annotation(Dialog(group="Temperature objectives"));
+    parameter Real V_dot_sec_max = 10
+      "maximum secondary side volume flow in [l/min]"
+      annotation(Dialog(group="General PID settings"));
+
+    parameter Real k_prim_prod = 1
+      "Proportional gain for controller in [-]"
+      annotation(Dialog(group="PID primary side - producer mode - tuning"));
+    parameter Real Ti_prim_prod = 0.5
+      "Integral time constant for controller in [s]"
+      annotation(Dialog(group="PID primary side - producer mode - tuning"));
+    parameter Real Td_prim_prod = 0.1
+      "Derivative time constant for controller in [s]"
+      annotation(Dialog(group="PID primary side - producer mode - tuning"));
+    parameter Real alpha_prim_prod = 1
+      "weight for the relevance of the error of the transferred heat"
+      annotation(Dialog(group="PID primary side - producer mode - tuning"));
+    parameter Real beta_prim_prod = 1
+      "weight for the relevance of the error of the temperature(difference)"
+      annotation(Dialog(group="PID primary side - producer mode - tuning"));
+    parameter Real k_sec_prod = 1
+      "Proportional gain for controller in [-]"
+      annotation(Dialog(group="PID secondary side - producer mode - tuning"));
+    parameter Real Ti_sec_prod = 0.5
+      "Integral time constant for controller in [s]"
+      annotation(Dialog(group="PID secondary side - producer mode - tuning"));
+    parameter Real Td_sec_prod = 0.1
+      "Derivative time constant for controller in [s]"
+      annotation(Dialog(group="PID secondary side - producer mode - tuning"));
+    parameter Real alpha_sec_prod = 1
+      "weight for the relevance of the error of the transferred heat"
+      annotation(Dialog(group="PID secondary side - producer mode - tuning"));
+    parameter Real beta_sec_prod = 1
+      "weight for the relevance of the error of the temperature(difference)"
+      annotation(Dialog(group="PID secondary side - producer mode - tuning"));
+    parameter Real k_prim_cons = 1
+      "Proportional gain for controller in [-]"
+      annotation(Dialog(group="PID primary side - consumer mode - tuning"));
+    parameter Real Ti_prim_cons = 0.5
+      "Integral time constant for controller in [s]"
+      annotation(Dialog(group="PID primary side - consumer mode - tuning"));
+    parameter Real Td_prim_cons = 0.1
+      "Derivative time constant for controller in [s]"
+      annotation(Dialog(group="PID primary side - consumer mode - tuning"));
+    parameter Real alpha_prim_cons = 1
+      "weight for the relevance of the error of the transferred heat"
+      annotation(Dialog(group="PID primary side - consumer mode - tuning"));
+    parameter Real beta_prim_cons = 1
+      "weight for the relevance of the error of the temperature(difference)"
+      annotation(Dialog(group="PID primary side - consumer mode - tuning"));
+    parameter Real k_sec_cons = 1
+      "Proportional gain for controller in [-]"
+      annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
+    parameter Real Ti_sec_cons = 0.5
+      "Integral time constant for controller in [s]"
+      annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
+    parameter Real Td_sec_cons = 0.1
+      "Derivative time constant for controller in [s]"
+      annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
+    parameter Real alpha_sec_cons = 1
+      "weight for the relevance of the error of the transferred heat"
+      annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
+    parameter Real beta_sec_cons = 1
+      "weight for the relevance of the error of the temperature(difference)"
+      annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
+    parameter .Modelica.Blocks.Types.SimpleController controllerType=
+           Modelica.Blocks.Types.SimpleController.P "Type of controller"
+           annotation(Dialog(tab="Advanced", group="PIDs general"));
+    parameter Init initType = Modelica.Blocks.Types.Init.SteadyState
+      "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
+      annotation(Dialog(tab="Advanced", group="PIDs general"));
     parameter Real tol = 0.1
-      "tolerance [kW] for idle mode concerning heat transfer setpoint dotQ";
+      "tolerance [kW] for idle mode concerning heat transfer setpoint dotQ"
+      annotation(Dialog(tab="Advanced", group="Miscellaneous"));
 
     // !!!!! ports !!!!!
     Modelica.Blocks.Interfaces.RealOutput u_set
@@ -144,43 +214,43 @@ package Controller_PID_based
       "currently transferred heat (positive production, negative consumption)"
       annotation (Placement(transformation(extent={{-120,-40},{-80,0}})));
     Modelica.Blocks.Continuous.LimPID PID_prim_cons(
-      controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      k=0.1,
-      Ti=1,
-      Td=0.1,
+      controllerType=controllerType,
+      k=k_prim_cons,
+      Ti=Ti_prim_cons,
+      Td=Td_prim_cons,
       yMax=1,
       yMin=0,
-      initType=Modelica.Blocks.Types.Init.InitialOutput,
-      y_start=1)
+      initType=initType,
+      y_start=PID_prim_cons.yMax)
       annotation (Placement(transformation(extent={{-42,-38},{-22,-18}})));
     Modelica.Blocks.Continuous.LimPID PID_sec_cons(
-      controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      k=0.1,
-      Ti=5,
-      Td=0.1,
-      yMax=10,
+      controllerType=controllerType,
+      k=k_sec_cons,
+      Ti=Ti_sec_cons,
+      Td=Td_sec_cons,
+      yMax=V_dot_sec_max,
       yMin=0,
-      initType=Modelica.Blocks.Types.Init.InitialOutput,
-      y_start=1)
+      initType=initType,
+      y_start=PID_sec_cons.yMax)
       annotation (Placement(transformation(extent={{-42,28},{-22,48}})));
     Modelica.Blocks.Continuous.LimPID PID_prim_prod(
-      controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      k=0.1,
-      Ti=1,
-      Td=0.1,
+      controllerType=controllerType,
+      k=k_prim_prod,
+      Ti=Ti_prim_prod,
+      Td=Td_prim_prod,
       yMax=1,
       yMin=0,
-      initType=Modelica.Blocks.Types.Init.InitialOutput,
-      y_start=1) annotation (Placement(transformation(extent={{6,-38},{26,-18}})));
+      initType=initType,
+      y_start=PID_prim_prod.yMax) annotation (Placement(transformation(extent={{6,-38},{26,-18}})));
     Modelica.Blocks.Continuous.LimPID PID_sec_prod(
-      controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      k=0.1,
-      Ti=5,
-      Td=0.1,
-      yMax=10,
+      controllerType=controllerType,
+      k=k_sec_prod,
+      Ti=Ti_sec_prod,
+      Td=Td_sec_prod,
+      yMax=V_dot_sec_max,
       yMin=0,
-      initType=Modelica.Blocks.Types.Init.InitialOutput,
-      y_start=1) annotation (Placement(transformation(extent={{6,28},{26,48}})));
+      initType=initType,
+      y_start=PID_sec_prod.yMax) annotation (Placement(transformation(extent={{6,28},{26,48}})));
     Modelica.Blocks.Interfaces.RealOutput T_sec_set(unit="K", displayUnit="degC")
        "Temperature on the secondary side" annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
@@ -238,41 +308,38 @@ package Controller_PID_based
      //   e_Q   = Q_is - Q_set;  e_T = e_is - e_set
      //   e_tot = [ alpha*Q_is + beta*T_is ] - [ alpha*Q_set + beta * T_set ]
      //   e_tot = PIDin_is_weighted - PIDin_des_weighted
-    X_prim_is    = alpha*Qdot_relev_is + beta*T_prim_relev_is;
-    X_prim_des   = alpha*Qdot_relev_des + beta*T_prim_relev_des;
-    X_sec_is     = alpha*Qdot_relev_is + beta*T_sec_relev_is;
-    X_sec_des    = alpha*Qdot_relev_des + beta*T_sec_relev_des;
+
     if prosumer_mode == 1 then // production mode
       PIDin_prim_cons_is_weighted    = 0;
       PIDin_prim_cons_des_weighted   = 0;
-      PIDin_prim_prod_is_weighted    = X_prim_is;
-      PIDin_prim_prod_des_weighted   = X_prim_des;
+      PIDin_prim_prod_is_weighted    = alpha_prim_prod*Qdot_relev_is + beta_prim_prod*T_prim_relev_is;
+      PIDin_prim_prod_des_weighted   = alpha_prim_prod*Qdot_relev_des + beta_prim_prod*T_prim_relev_des;
       PIDin_sec_cons_is_weighted     = 0;
       PIDin_sec_cons_des_weighted    = 0;
-      PIDin_sec_prod_is_weighted     = X_sec_is;
-      PIDin_sec_prod_des_weighted    = X_sec_des;
+      PIDin_sec_prod_is_weighted     = alpha_sec_prod*Qdot_relev_is + beta_sec_prod*T_sec_relev_is;
+      PIDin_sec_prod_des_weighted    = alpha_sec_prod*Qdot_relev_des + beta_sec_prod*T_sec_relev_des;
     else// consumption mode and idle mode - PID of consumption mode is active
         // for idle mode the values of T_des, T_is, Qdot_des and Qdot_is
         // are already adjusted in the if-clause above
-      PIDin_prim_cons_is_weighted    = X_prim_is;
-      PIDin_prim_cons_des_weighted   = X_prim_des;
+      PIDin_prim_cons_is_weighted    = alpha_prim_cons*Qdot_relev_is + beta_prim_cons*T_prim_relev_is;
+      PIDin_prim_cons_des_weighted   = alpha_prim_cons*Qdot_relev_des + beta_prim_cons*T_prim_relev_des;
       PIDin_prim_prod_is_weighted    = 0;
       PIDin_prim_prod_des_weighted   = 0;
-      PIDin_sec_cons_is_weighted     = X_sec_is;
-      PIDin_sec_cons_des_weighted    = X_sec_des;
+      PIDin_sec_cons_is_weighted     = alpha_sec_cons*Qdot_relev_is + beta_sec_cons*T_sec_relev_is;
+      PIDin_sec_cons_des_weighted    = alpha_sec_cons*Qdot_relev_des + beta_sec_cons*T_sec_relev_des;
       PIDin_sec_prod_is_weighted     = 0;
       PIDin_sec_prod_des_weighted    = 0;
     end if;
 
     // assign PID controller inputs
-    PID_prim_cons.u_s    = PIDin_prim_cons_is_weighted;
-    PID_prim_cons.u_m    = PIDin_prim_cons_des_weighted;
-    PID_prim_prod.u_s    = PIDin_prim_prod_is_weighted;
-    PID_prim_prod.u_m    = PIDin_prim_prod_des_weighted;
-    PID_sec_cons.u_s     = PIDin_sec_cons_is_weighted;
-    PID_sec_cons.u_m     = PIDin_sec_cons_des_weighted;
-    PID_sec_prod.u_s     = PIDin_sec_prod_is_weighted;
-    PID_sec_prod.u_m     = PIDin_sec_prod_des_weighted;
+    PID_prim_cons.u_s    = PIDin_prim_cons_des_weighted;
+    PID_prim_cons.u_m    = PIDin_prim_cons_is_weighted;
+    PID_prim_prod.u_s    = PIDin_prim_prod_des_weighted;
+    PID_prim_prod.u_m    = PIDin_prim_prod_is_weighted;
+    PID_sec_cons.u_s     = PIDin_sec_cons_des_weighted;
+    PID_sec_cons.u_m     = PIDin_sec_cons_is_weighted;
+    PID_sec_prod.u_s     = PIDin_sec_prod_des_weighted;
+    PID_sec_prod.u_m     = PIDin_sec_prod_is_weighted;
 
     // connect secondary side temperature setpoint
     T_sec_set    =  T_sec_sim;

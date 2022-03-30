@@ -117,7 +117,10 @@ package Tests "Testing the new models and especially controllers"
             extent={{-134,-106},{-98,-114}},
             textColor={238,46,47},
             textString="hot")}),
-      experiment(StopTime=10, __Dymola_Algorithm="Dassl"));
+      experiment(
+        StopTime=1000,
+        Interval=1,
+        __Dymola_Algorithm="Dassl"));
   end Test_2houses_v1;
 
   model Test_PID_controller_v1
@@ -145,14 +148,6 @@ package Tests "Testing the new models and especially controllers"
       use_inputFilter_pumpsSec=true)
       annotation (Placement(transformation(extent={{-200,0},{-170,36}})));
 
-    Modelica.Blocks.Sources.RealExpression T_house1(y=273.15 + 45)
-      annotation (Placement(transformation(extent={{-252,-88},{-272,-68}})));
-    Modelica.Blocks.Sources.RealExpression u_pump1(y=0.5)
-      annotation (Placement(transformation(extent={{-252,-150},{-272,-130}})));
-    Modelica.Blocks.Sources.RealExpression kappa1(y=0.8)
-      annotation (Placement(transformation(extent={{-252,-164},{-272,-144}})));
-    Modelica.Blocks.Sources.RealExpression flow_house1(y=5)
-      annotation (Placement(transformation(extent={{-252,-100},{-272,-80}})));
     new_prosumer_models.heat_transfer_station consumer(
       redeclare Fluid.Pumps.Data.Pumps.QuadraticCharacteristic feedinPer,
       energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
@@ -178,8 +173,21 @@ package Tests "Testing the new models and especially controllers"
     Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare final package Medium =
           Media.Water)
       annotation (Placement(transformation(extent={{70,-94},{50,-74}})));
-    Controller_PID_based.PID_dP_dDeltaT PID_dP_dDeltaT
+    Controller_PID_based.PID_dP_dDeltaT PID_dP_dDeltaT(
+      Ti_prim_cons=5,
+      alpha_prim_cons=1,
+      beta_prim_cons=0.1,
+      k_prim_cons=-0.3,
+      k_sec_cons=1,
+      Ti_sec_cons=0.5,
+      beta_sec_cons=0.1,
+      controllerType=Modelica.Blocks.Types.SimpleController.PI,
+      initType=Modelica.Blocks.Types.Init.SteadyState)
       annotation (Placement(transformation(extent={{74,2},{22,52}})));
+    Modelica.Blocks.Sources.RealExpression Q_management(y=-6.5)
+      annotation (Placement(transformation(extent={{130,22},{110,42}})));
+    Modelica.Blocks.Sources.RealExpression T_house1(y=273.15 + 45)
+      annotation (Placement(transformation(extent={{132,40},{112,60}})));
   equation
     connect(T_house.y, producer.T_sec_in_set) annotation (Line(points={{-263,44},
             {-206,44},{-206,32},{-200,32}}, color={0,0,127}));
@@ -217,9 +225,34 @@ package Tests "Testing the new models and especially controllers"
             12},{0,12},{0,21},{-10,21}}, color={0,0,127}));
     connect(PID_dP_dDeltaT.kappa_set, consumer.kappa_set) annotation (Line(
           points={{22,2},{22,-8},{4,-8},{4,15},{-10,15}}, color={0,0,127}));
+    connect(consumer.T_sec_cold, PID_dP_dDeltaT.T_sec_cold) annotation (Line(
+          points={{-58.5333,54},{-58.5333,70},{40.2,70},{40.2,52}}, color={0,0,
+            127}));
+    connect(consumer.T_sec_hot, PID_dP_dDeltaT.T_sec_hot) annotation (Line(
+          points={{-30.8,54},{-30.8,66},{54,66},{54,56},{55.8,56},{55.8,52}},
+          color={0,0,127}));
+    connect(consumer.V_dot_sec, PID_dP_dDeltaT.V_dot_sec) annotation (Line(
+          points={{-44.6667,54},{-44.6667,72},{84,72},{84,42},{74,42}}, color={
+            0,0,127}));
+    connect(consumer.T_prim_hot, PID_dP_dDeltaT.T_prim_hot) annotation (Line(
+          points={{-30.8,0},{-30.8,-20},{56,-20},{56,-12},{55.8,-12},{55.8,2}},
+          color={0,0,127}));
+    connect(consumer.T_prim_cold, PID_dP_dDeltaT.T_prim_cold) annotation (Line(
+          points={{-58.5333,0},{-58,0},{-58,-24},{40.2,-24},{40.2,2}}, color={0,
+            0,127}));
+    connect(consumer.Q_dot_trnsf_is, PID_dP_dDeltaT.Qdot_is) annotation (Line(
+          points={{-10,6},{8,6},{8,-16},{84,-16},{84,22},{74,22}}, color={0,0,
+            127}));
+    connect(consumer.V_dot_prim, PID_dP_dDeltaT.V_dot_prim) annotation (Line(
+          points={{-44.6667,0},{-44,0},{-44,-18},{86,-18},{86,12},{74,12}},
+          color={0,0,127}));
+    connect(Q_management.y, PID_dP_dDeltaT.Qdot_set)
+      annotation (Line(points={{109,32},{74,32}}, color={0,0,127}));
+    connect(T_house1.y, PID_dP_dDeltaT.T_sec_sim) annotation (Line(points={{111,
+            50},{92,50},{92,52},{74,52}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-320,
-              -200},{100,100}})), Diagram(coordinateSystem(preserveAspectRatio=
-              false, extent={{-320,-200},{100,100}}), graphics={
+              -200},{140,100}})), Diagram(coordinateSystem(preserveAspectRatio=
+              false, extent={{-320,-200},{140,100}}), graphics={
           Text(
             extent={{-214,82},{-146,68}},
             textColor={238,46,47},
