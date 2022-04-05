@@ -852,8 +852,6 @@ secondary side
   equation
     connect(T_house.y, heat_transfer_station1.T_sec_in_set) annotation (Line(
           points={{-71,84},{-14,84},{-14,72},{-8,72}}, color={0,0,127}));
-    connect(flow_house.y, heat_transfer_station1.V_dot_sec_set) annotation (Line(
-          points={{-71,72},{-16,72},{-16,68},{-8,68}}, color={0,0,127}));
     connect(pi.y, heat_transfer_station1.pi) annotation (Line(points={{-71,54},{-16,
             54},{-16,62},{-8,62}}, color={255,127,0}));
     connect(mu.y, heat_transfer_station1.mu) annotation (Line(points={{-71,40},{-14,
@@ -872,6 +870,8 @@ secondary side
             {10,2},{28,2}}, color={0,0,127}));
     connect(bou.ports[1], pump_prim_prod.port_b)
       annotation (Line(points={{70,22},{40,22},{40,12}}, color={0,127,255}));
+    connect(flow_house.y, heat_transfer_station1.V_dot_sec_set) annotation (
+        Line(points={{-71,72},{-16,72},{-16,68},{-8,68}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Ellipse(lineColor = {75,138,73},
                   fillColor={255,255,255},
