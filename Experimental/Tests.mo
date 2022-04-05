@@ -180,17 +180,8 @@ package Tests "Testing the new models and especially controllers"
           273.15 + 45; 300,273.15 + 45; 600,273.15 + 45; 900,273.15 + 45; 1200,
           273.15 + 45; 1500,273.15 + 45; 1800,273.15 + 45; 2100,273.15 + 45])
       annotation (Placement(transformation(extent={{128,56},{108,76}})));
-    Controller_PID_based.PID_Q_T_weighted pID_Q_T_weighted(
-      Ti_prim_prod=0,
-      Td_prim_prod=0,
-      Ti_sec_prod=0,
-      Td_sec_prod=0,
-      k_prim_cons=-1,
-      Ti_prim_cons=0,
-      Td_prim_cons=0,
-      k_sec_cons=-1,
-      Ti_sec_cons=0,
-      Td_sec_cons=0)
+    Controller_PID_based.PID_Q_T_weighted pID_Q_T_weighted(controllerType=
+          Modelica.Blocks.Types.SimpleController.P)
       annotation (Placement(transformation(extent={{76,4},{30,48}})));
   equation
     connect(T_house.y, producer.T_sec_in_set) annotation (Line(points={{-263,44},

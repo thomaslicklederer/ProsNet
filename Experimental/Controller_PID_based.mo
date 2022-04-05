@@ -34,7 +34,7 @@ package Controller_PID_based
     parameter Real Td_prim_prod = 0.1
       "Derivative time constant for controller in [s]"
       annotation(Dialog(group="PID primary side - producer mode - tuning"));
-    parameter Real alpha_prim_prod(min=0, max=1) = 1
+    parameter Real alpha_prim_prod(min=0, max=1) = 0.5
       "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
       annotation(Dialog(group="PID primary side - producer mode - tuning"));
     parameter Real k_sec_prod = 1
@@ -46,7 +46,7 @@ package Controller_PID_based
     parameter Real Td_sec_prod = 0.1
       "Derivative time constant for controller in [s]"
       annotation(Dialog(group="PID secondary side - producer mode - tuning"));
-    parameter Real alpha_sec_prod(min=0, max=1) = 1
+    parameter Real alpha_sec_prod(min=0, max=1) = 0.5
       "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
       annotation(Dialog(group="PID secondary side - producer mode - tuning"));
     parameter Real k_prim_cons = 1
@@ -58,7 +58,7 @@ package Controller_PID_based
     parameter Real Td_prim_cons = 0.1
       "Derivative time constant for controller in [s]"
       annotation(Dialog(group="PID primary side - consumer mode - tuning"));
-    parameter Real alpha_prim_cons(min=0, max=1) = 1
+    parameter Real alpha_prim_cons(min=0, max=1) = 0.5
       "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
       annotation(Dialog(group="PID primary side - consumer mode - tuning"));
     parameter Real k_sec_cons = 1
@@ -70,7 +70,7 @@ package Controller_PID_based
     parameter Real Td_sec_cons = 0.1
       "Derivative time constant for controller in [s]"
       annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
-    parameter Real alpha_sec_cons(min=0, max=1) = 1
+    parameter Real alpha_sec_cons(min=0, max=1) = 0.5
       "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
       annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
     parameter .Modelica.Blocks.Types.SimpleController controllerType=
@@ -282,8 +282,8 @@ package Controller_PID_based
       T_prim_relev_is = T_prim_hot-T_prim_cold;
       T_sec_relev_des = T_sec_hot_des;
       T_sec_relev_is = T_sec_hot;
-      Qdot_relev_des = Qdot_set;
-      Qdot_relev_is = Qdot_is;
+      Qdot_relev_des = -Qdot_set;
+      Qdot_relev_is = -Qdot_is;
     elseif Qdot_set >= 0+tol then // production mode
       prosumer_mode = +1;
       pi_set = 1;
