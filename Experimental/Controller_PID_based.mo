@@ -8,12 +8,19 @@ package Controller_PID_based
     import Modelica.Blocks.Types.SimpleController;
 
       // !!!!! parameters !!!!!
-    parameter SI.Temperature T_prim_hot_des(min=277)=
-          -T_AbsZeroDegC + 65
+    parameter Real Delta_Qdot_norm = 1
+        "Heat power value for normalizing the error (deviation) of the transferred heat.
+      For alpha=0.5 a deviation of Delta_Qdot_norm in heat transfer is weigthed equal to a deviation of Delta_T_norm in temperature."
+        annotation(Dialog(group="Normalizing values"));
+    parameter SI.TemperatureDifference Delta_T_norm(min=0) = 5
+        "Temperature difference for normalizing the error (deviation) of the temperature.
+      For alpha=0.5 a deviation of Delta_T_norm in temperature is weighted equal to a deviation of Delta_Qdot_norm in heat transfer."
+        annotation(Dialog(group="Normalizing values"));
+
+    parameter SI.Temperature T_prim_hot_des(min=277)= - T_AbsZeroDegC + 65
         "desired temperature supply primary side"
         annotation(Dialog(group="Temperature objectives"));
-    parameter SI.Temperature T_sec_hot_des(min=277)=
-          -T_AbsZeroDegC + 60
+    parameter SI.Temperature T_sec_hot_des(min=277)= - T_AbsZeroDegC + 60
         "desired temperature supply secondary side"
         annotation(Dialog(group="Temperature objectives"));
     parameter SI.TemperatureDifference DeltaT_prim_des(min=1) =   15
@@ -309,29 +316,29 @@ package Controller_PID_based
      // determine inputs for the four PIDs
      // four PIDs in order to be able to have different gains for each situation
      //   explanation:
-     //   e_tot = alpha*e_Q + beta*e_T
+     //   e_tot = alpha*e_Q/Q_norm + beta*e_T/T_norm
      //   e_Q   = Q_is - Q_set;  e_T = e_is - e_set
-     //   e_tot = [ alpha*Q_is + beta*T_is ] - [ alpha*Q_set + beta * T_set ]
+     //   e_tot = [ alpha*Q_is/Q_norm + beta*T_is/T_norm ] - [ alpha*Q_set/Q_norm + beta * T_set/T_norm ]
      //   e_tot = PIDin_is_weighted - PIDin_des_weighted
 
     if prosumer_mode == 1 then // production mode
       PIDin_prim_cons_is_weighted    = 0;
       PIDin_prim_cons_des_weighted   = 0;
-      PIDin_prim_prod_is_weighted    = alpha_prim_prod*Qdot_relev_is + beta_prim_prod*T_prim_relev_is;
-      PIDin_prim_prod_des_weighted   = alpha_prim_prod*Qdot_relev_des + beta_prim_prod*T_prim_relev_des;
+      PIDin_prim_prod_is_weighted    = alpha_prim_prod*Qdot_relev_is/Delta_Qdot_norm + beta_prim_prod*T_prim_relev_is/Delta_T_norm;
+      PIDin_prim_prod_des_weighted   = alpha_prim_prod*Qdot_relev_des/Delta_Qdot_norm + beta_prim_prod*T_prim_relev_des/Delta_T_norm;
       PIDin_sec_cons_is_weighted     = 0;
       PIDin_sec_cons_des_weighted    = 0;
-      PIDin_sec_prod_is_weighted     = alpha_sec_prod*Qdot_relev_is + beta_sec_prod*T_sec_relev_is;
-      PIDin_sec_prod_des_weighted    = alpha_sec_prod*Qdot_relev_des + beta_sec_prod*T_sec_relev_des;
+      PIDin_sec_prod_is_weighted     = alpha_sec_prod*Qdot_relev_is/Delta_Qdot_norm + beta_sec_prod*T_sec_relev_is/Delta_T_norm;
+      PIDin_sec_prod_des_weighted    = alpha_sec_prod*Qdot_relev_des/Delta_Qdot_norm + beta_sec_prod*T_sec_relev_des/Delta_T_norm;
     else// consumption mode and idle mode - PID of consumption mode is active
         // for idle mode the values of T_des, T_is, Qdot_des and Qdot_is
         // are already adjusted in the if-clause above
-      PIDin_prim_cons_is_weighted    = alpha_prim_cons*Qdot_relev_is + beta_prim_cons*T_prim_relev_is;
-      PIDin_prim_cons_des_weighted   = alpha_prim_cons*Qdot_relev_des + beta_prim_cons*T_prim_relev_des;
+      PIDin_prim_cons_is_weighted    = alpha_prim_cons*Qdot_relev_is/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_is/Delta_T_norm;
+      PIDin_prim_cons_des_weighted   = alpha_prim_cons*Qdot_relev_des/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_des/Delta_T_norm;
       PIDin_prim_prod_is_weighted    = 0;
       PIDin_prim_prod_des_weighted   = 0;
-      PIDin_sec_cons_is_weighted     = alpha_sec_cons*Qdot_relev_is + beta_sec_cons*T_sec_relev_is;
-      PIDin_sec_cons_des_weighted    = alpha_sec_cons*Qdot_relev_des + beta_sec_cons*T_sec_relev_des;
+      PIDin_sec_cons_is_weighted     = alpha_sec_cons*Qdot_relev_is/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_is/Delta_T_norm;
+      PIDin_sec_cons_des_weighted    = alpha_sec_cons*Qdot_relev_des/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_des/Delta_T_norm;
       PIDin_sec_prod_is_weighted     = 0;
       PIDin_sec_prod_des_weighted    = 0;
     end if;
