@@ -30,14 +30,14 @@ model Test_prod_cons
   inner Modelica.Fluid.System system(T_ambient=285.15)
     annotation (Placement(transformation(extent={{70,-188},{90,-168}})));
   Fluid.Pipes.InsulatedPipe pipe_hot(allowFlowReversal=true, T_amb=system.T_ambient,
-    length=180,
-    zeta=1000)
+    length=90,
+    zeta=50)
     annotation (Placement(transformation(extent={{-126,-94},{-106,-74}})));
   Fluid.Pipes.InsulatedPipe pipe_cold(
     allowFlowReversal=true,
     T_amb=system.T_ambient,
-    length=180,
-    zeta=1000,
+    length=90,
+    zeta=50,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     annotation (Placement(transformation(extent={{-106,-58},{-126,-38}})));
   Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare final package Medium =
@@ -51,7 +51,7 @@ model Test_prod_cons
     annotation (Placement(transformation(extent={{134,10},{114,30}})));
   Modelica.Blocks.Sources.RealExpression u_pump1(y=0.5)
     annotation (Placement(transformation(extent={{134,-8},{114,12}})));
-  Modelica.Blocks.Sources.RealExpression flow_house1(y=6)
+  Modelica.Blocks.Sources.RealExpression flow_house1(y=10)
     annotation (Placement(transformation(extent={{134,42},{114,62}})));
   Modelica.Blocks.Sources.RealExpression T_house2(y=273.15 + 45)
     annotation (Placement(transformation(extent={{-304,44},{-284,64}})));
@@ -63,7 +63,7 @@ model Test_prod_cons
     annotation (Placement(transformation(extent={{-304,-18},{-284,2}})));
   Modelica.Blocks.Sources.RealExpression kappa2(y=0.8)
     annotation (Placement(transformation(extent={{-304,-32},{-284,-12}})));
-  Modelica.Blocks.Sources.RealExpression flow_house2(y=6)
+  Modelica.Blocks.Sources.RealExpression flow_house2(y=10)
     annotation (Placement(transformation(extent={{-304,32},{-284,52}})));
   Modelica.Blocks.Sources.RealExpression kappa1(y=1)
     annotation (Placement(transformation(extent={{140,-28},{120,-8}})));
@@ -80,8 +80,8 @@ equation
   connect(bou.ports[1], pipe_hot.port_b)
     annotation (Line(points={{50,-84},{-106,-84}}, color={0,127,255}));
   connect(T_house1.y, consumer.T_sec_in_set)
-    annotation (Line(points={{113,64},{-12,64},{-12,44},{-10,44},{-10,
-          37.7778},{-20,37.7778}},                       color={0,0,127}));
+    annotation (Line(points={{113,64},{-12,64},{-12,44},{-10,44},{-10,37.7778},
+          {-20,37.7778}},                                color={0,0,127}));
   connect(flow_house1.y, consumer.V_dot_sec_set)
     annotation (Line(points={{113,52},{-20,52},{-20,33.5556}},
                                                          color={0,0,127}));
@@ -91,8 +91,8 @@ equation
   connect(mu1.y, consumer.mu)
     annotation (Line(points={{113,20},{-10,20},{-10,23},{-20,23}},
                                                          color={255,127,0}));
-  connect(u_pump1.y, consumer.u_set) annotation (Line(points={{113,2},{-8,2},
-          {-8,18.7778},{-20,18.7778}},color={0,0,127}));
+  connect(u_pump1.y, consumer.u_set) annotation (Line(points={{113,2},{-8,2},{
+          -8,18.7778},{-20,18.7778}}, color={0,0,127}));
   connect(T_house2.y, producer.T_sec_in_set) annotation (Line(points={{-283,
           54},{-212,54},{-212,32},{-202,32}}, color={0,0,127}));
   connect(flow_house2.y, producer.V_dot_sec_set) annotation (Line(points={{
@@ -106,8 +106,8 @@ equation
   connect(kappa2.y, producer.kappa_set) annotation (Line(points={{-283,-22},
           {-272,-22},{-272,-10},{-260,-10},{-260,10},{-202,10}}, color={0,0,
           127}));
-  connect(consumer.kappa_set, kappa1.y) annotation (Line(points={{-20,
-          14.5556},{-10,14.5556},{-10,-18},{119,-18}}, color={0,0,127}));
+  connect(consumer.kappa_set, kappa1.y) annotation (Line(points={{-20,14.5556},
+          {-10,14.5556},{-10,-18},{119,-18}},          color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-320,
             -200},{140,100}})), Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-320,-200},{140,100}}), graphics={
