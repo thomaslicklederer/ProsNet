@@ -4,8 +4,6 @@ partial model PrimarySidePartial
   replaceable package Medium1 = ProsNet.Media.Water;
   replaceable package Medium2 = ProsNet.Media.Water;
 
-
-
   extends ProsNet.Fluid.Interfaces.PartialTwoPort(redeclare final package Medium = Medium1);
 
   /* Parameters */
@@ -69,7 +67,6 @@ partial model PrimarySidePartial
 
   Fluid.Sources.Boundary_pT bou(redeclare final package Medium = Medium2, nPorts=1)
     annotation (Placement(transformation(extent={{74,-68},{62,-56}})));
-
 
             Fluid.Sensors.TemperatureTwoPort temPriHot(redeclare final package Medium = Medium1,
     m_flow_nominal=m_flow_nominal_1,

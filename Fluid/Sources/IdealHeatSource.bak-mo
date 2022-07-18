@@ -1,5 +1,0 @@
-within ProsNet.Fluid.Sources;
-model IdealHeatSource
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
-end IdealHeatSource;

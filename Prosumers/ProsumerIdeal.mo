@@ -48,9 +48,6 @@ model ProsumerIdeal
 
   // Temperature sensors
 
-
-
-
   // Conditional input connectors
   Modelica.Blocks.Interfaces.RealInput m_flow_sec_set(unit="kg/s", displayUnit="kg/s") if
       use_m_flow_set_in "Mass flow rate on the secondary side" annotation (Placement(transformation(
@@ -122,7 +119,6 @@ protected
     tau=tau_temSen,
     initType=init_temSen) "Hot port temperature sensor on the secondary side"
     annotation (Placement(transformation(extent={{30,-86},{46,-66}})));
-
 
    Fluid.Sensors.TemperatureTwoPort temSecCold(
     redeclare final package Medium = Medium2,
@@ -199,7 +195,6 @@ equation
           {-16,-50},{-94,-50},{-94,-76},{-82,-76}}, color={0,127,255}));
   connect(temSecCold.port_a, secSide.port_a)
     annotation (Line(points={{-62,-76},{-6,-76}}, color={0,127,255}));
-
 
   connect(temSecHot.port_b, priSide.port_a2) annotation (Line(points={{46,-76},{
           52,-76},{52,-44},{48,-44}}, color={0,127,255}));

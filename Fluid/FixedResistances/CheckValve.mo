@@ -10,14 +10,11 @@ model CheckValve "Check valve that avoids flow reversal"
   extends ProsNet.Fluid.Valves.BaseClasses.ValveParameters(
     rhoStd=Medium.density_pTX(101325, 273.15 + 4, Medium.X_default));
 
-
-
   parameter Modelica.Units.SI.PressureDifference dpValve_closing=
       dpValve_nominal/2 "Pressure drop when the check valve starts to close"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Real l(min=1e-10, max=1)=0.001 "Valve leakage, l=Kv(y=0)/Kv(y=1)";
-
 
   Real k(min=Modelica.Constants.small)
     "Flow coefficient of valve and pipe in series in allowed/forward direction, 

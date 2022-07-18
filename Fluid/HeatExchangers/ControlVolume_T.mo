@@ -38,7 +38,6 @@ equation
    port_a.m_flow*(hSet - inStream(port_a.h_outflow)),
     port_b.m_flow*(hSet - inStream(port_b.h_outflow)), m_flow_small);
 
-
   connect(preHea.port, vol.heatPort) annotation (Line(points={{-30,48},{-20,48},
           {-20,-10},{-9.4,-10}}, color={191,0,0}));
   connect(HeatFlowRate.y, preHea.Q_flow)

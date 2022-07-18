@@ -4,7 +4,6 @@ model Boundaries
 
   replaceable package Medium = ProsNet.Media.Water;
 
-
   Boundary_pT bou(p=100000, nPorts=1)
     annotation (Placement(transformation(extent={{-82,40},{-62,60}})));
   Boundary_pT bou1(p=200000, nPorts=1)
