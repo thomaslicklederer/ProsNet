@@ -112,10 +112,7 @@ model PID_Q_T_weighted
   Real T_sec_relev_is
       "current value of relevant temperature (difference)
       for control of secondary side";
-  Real Qdot_relev_des
-      "desired value of heat transfer relevant for control";
-  Real Qdot_relev_is
-      "current value of heat transfer relevant for control";
+
   Real PIDin_prim_cons_is_weighted
       "weighted input of is-values for PID_prim_cons";
   Real PIDin_prim_cons_des_weighted
@@ -278,6 +275,14 @@ equation
   beta_sec_cons  = 1 - alpha_sec_cons;
 
   // determine easy static values that just depend on prosumer mode
+  // determine inputs for the four PIDs
+  // four PIDs in order to be able to have different gains for each situation
+  //   explanation:
+  //   e_tot = alpha*e_Q/Q_norm + beta*e_T/T_norm
+  //   e_Q   = Q_is - Q_set;  e_T = e_is - e_set
+  //   e_tot = [ alpha*Q_is/Q_norm + beta*T_is/T_norm ] - [ alpha*Q_set/Q_norm + beta * T_set/T_norm ]
+  //   e_tot = PIDin_is_weighted - PIDin_des_weighted
+
   if  Qdot_set <= 0-tol then // consumption mode
     prosumer_mode = -1;
     pi_set = 1;
@@ -286,8 +291,16 @@ equation
     T_prim_relev_is = T_prim_hot-T_prim_cold;
     T_sec_relev_des = T_sec_hot_des;
     T_sec_relev_is = T_sec_hot;
-    Qdot_relev_des = -Qdot_set;
-    Qdot_relev_is = -Qdot_is;
+
+    PIDin_prim_cons_is_weighted    = alpha_prim_cons*(-1)*Qdot_is/Delta_Qdot_norm + beta_prim_cons*(-1)*T_prim_relev_is/Delta_T_norm;
+    PIDin_prim_cons_des_weighted   = alpha_prim_cons*(-1)*Qdot_set/Delta_Qdot_norm + beta_prim_cons*(-1)*T_prim_relev_des/Delta_T_norm;
+    PIDin_prim_prod_is_weighted    = 0;
+    PIDin_prim_prod_des_weighted   = 0;
+    PIDin_sec_cons_is_weighted     = alpha_sec_cons*(-1)*Qdot_is/Delta_Qdot_norm + beta_sec_cons*(-1)*T_sec_relev_is/Delta_T_norm;
+    PIDin_sec_cons_des_weighted    = alpha_sec_cons*(-1)*Qdot_set/Delta_Qdot_norm + beta_sec_cons*(-1)*T_sec_relev_des/Delta_T_norm;
+    PIDin_sec_prod_is_weighted     = 0;
+    PIDin_sec_prod_des_weighted    = 0;
+
   elseif Qdot_set >= 0+tol then // production mode
     prosumer_mode = +1;
     pi_set = 1;
@@ -296,8 +309,16 @@ equation
     T_prim_relev_is = T_prim_hot;
     T_sec_relev_des = DeltaT_sec_des;
     T_sec_relev_is = T_sec_hot-T_sec_cold;
-    Qdot_relev_des = Qdot_set;
-    Qdot_relev_is = Qdot_is;
+
+    PIDin_prim_cons_is_weighted    = 0;
+    PIDin_prim_cons_des_weighted   = 0;
+    PIDin_prim_prod_is_weighted    = alpha_prim_prod*Qdot_is/Delta_Qdot_norm + beta_prim_prod*(-1)*T_prim_relev_is/Delta_T_norm;
+    PIDin_prim_prod_des_weighted   = alpha_prim_prod*Qdot_set/Delta_Qdot_norm + beta_prim_prod*(-1)*T_prim_relev_des/Delta_T_norm;
+    PIDin_sec_cons_is_weighted     = 0;
+    PIDin_sec_cons_des_weighted    = 0;
+    PIDin_sec_prod_is_weighted     = alpha_sec_prod*Qdot_is/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_is/Delta_T_norm;
+    PIDin_sec_prod_des_weighted    = alpha_sec_prod*Qdot_set/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_des/Delta_T_norm;
+
   else // idle mode
     prosumer_mode = 0;
     pi_set = 0;
@@ -306,38 +327,16 @@ equation
     T_prim_relev_is = 0;
     T_sec_relev_des = 0;
     T_sec_relev_is = 0;
-    Qdot_relev_des = 0;
-    Qdot_relev_is = 0;
-  end if;
 
-   // determine inputs for the four PIDs
-   // four PIDs in order to be able to have different gains for each situation
-   //   explanation:
-   //   e_tot = alpha*e_Q/Q_norm + beta*e_T/T_norm
-   //   e_Q   = Q_is - Q_set;  e_T = e_is - e_set
-   //   e_tot = [ alpha*Q_is/Q_norm + beta*T_is/T_norm ] - [ alpha*Q_set/Q_norm + beta * T_set/T_norm ]
-   //   e_tot = PIDin_is_weighted - PIDin_des_weighted
-
-  if prosumer_mode == 1 then // production mode
     PIDin_prim_cons_is_weighted    = 0;
     PIDin_prim_cons_des_weighted   = 0;
-    PIDin_prim_prod_is_weighted    = alpha_prim_prod*Qdot_relev_is/Delta_Qdot_norm + beta_prim_prod*T_prim_relev_is/Delta_T_norm;
-    PIDin_prim_prod_des_weighted   = alpha_prim_prod*Qdot_relev_des/Delta_Qdot_norm + beta_prim_prod*T_prim_relev_des/Delta_T_norm;
-    PIDin_sec_cons_is_weighted     = 0;
-    PIDin_sec_cons_des_weighted    = 0;
-    PIDin_sec_prod_is_weighted     = alpha_sec_prod*Qdot_relev_is/Delta_Qdot_norm + beta_sec_prod*T_sec_relev_is/Delta_T_norm;
-    PIDin_sec_prod_des_weighted    = alpha_sec_prod*Qdot_relev_des/Delta_Qdot_norm + beta_sec_prod*T_sec_relev_des/Delta_T_norm;
-  else// consumption mode and idle mode - PID of consumption mode is active
-      // for idle mode the values of T_des, T_is, Qdot_des and Qdot_is
-      // are already adjusted in the if-clause above
-    PIDin_prim_cons_is_weighted    = alpha_prim_cons*Qdot_relev_is/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_is/Delta_T_norm;
-    PIDin_prim_cons_des_weighted   = alpha_prim_cons*Qdot_relev_des/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_des/Delta_T_norm;
     PIDin_prim_prod_is_weighted    = 0;
     PIDin_prim_prod_des_weighted   = 0;
-    PIDin_sec_cons_is_weighted     = alpha_sec_cons*Qdot_relev_is/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_is/Delta_T_norm;
-    PIDin_sec_cons_des_weighted    = alpha_sec_cons*Qdot_relev_des/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_des/Delta_T_norm;
+    PIDin_sec_cons_is_weighted     = 0;
+    PIDin_sec_cons_des_weighted    = 0;
     PIDin_sec_prod_is_weighted     = 0;
     PIDin_sec_prod_des_weighted    = 0;
+
   end if;
 
   // assign PID controller inputs

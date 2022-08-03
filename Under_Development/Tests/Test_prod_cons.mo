@@ -106,8 +106,8 @@ equation
   connect(kappa2.y, producer.kappa_set) annotation (Line(points={{-283,-22},
           {-272,-22},{-272,-10},{-260,-10},{-260,10},{-202,10}}, color={0,0,
           127}));
-  connect(consumer.kappa_set, kappa1.y) annotation (Line(points={{-20,14.5556},
-          {-10,14.5556},{-10,-18},{119,-18}},          color={0,0,127}));
+  connect(kappa1.y, consumer.kappa_set) annotation (Line(points={{119,-18},{-10,
+          -18},{-10,14.5556},{-20,14.5556}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-320,
             -200},{140,100}})), Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-320,-200},{140,100}}), graphics={

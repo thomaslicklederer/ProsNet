@@ -25,6 +25,7 @@ model heat_transfer_station
   Fluid.Pumps.FlowControlled_m_flow pump_sec_cons(
     redeclare package Medium = Medium_sec,
     final energyDynamics=energyDynamics_pumpsSec,
+    T_start=313.15,
     final tau=tau_pumpsSec,
     final m_flow_nominal=m_flow_nominal_2,
     final use_inputFilter=use_inputFilter_pumpsSec,
@@ -38,6 +39,7 @@ model heat_transfer_station
   Fluid.Pumps.FlowControlled_m_flow pump_sec_prod(
     redeclare package Medium = Medium_sec,
     final energyDynamics=energyDynamics_pumpsSec,
+    T_start=313.15,
     final tau=tau_pumpsSec,
     final m_flow_nominal=m_flow_nominal_2,
     final use_inputFilter=use_inputFilter_pumpsSec,
@@ -82,6 +84,7 @@ model heat_transfer_station
   Fluid.Pumps.SpeedControlled_y pump_prim_prod(
     redeclare final package Medium = Medium_prim,
     final energyDynamics=energyDynamics_feedPump,
+    T_start=313.15,
     final tau=tau_feedPump,
     final per=feedinPer,
     final use_inputFilter=use_inputFilter_feedPump,
@@ -120,20 +123,22 @@ model heat_transfer_station
   Conversion conversion
     annotation (Placement(transformation(extent={{-140,-4},{-92,66}})));
   Modelica.Fluid.Sensors.MassFlowRate m_dot_sens_prim(
-    redeclare package Medium = Medium_prim) annotation (Placement(
+    redeclare package Medium = Medium_prim, allowFlowReversal=true)
+                                            annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-60,-72})));
   Modelica.Fluid.Sensors.TemperatureTwoPort T_sens_prim_hot(
-    redeclare package Medium = Medium_prim)
+    redeclare package Medium = Medium_prim, allowFlowReversal=true)
    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,-110})));
   Modelica.Fluid.Sensors.TemperatureTwoPort T_sens_prim_cold(
-    redeclare package Medium = Medium_prim) annotation (
+    redeclare package Medium = Medium_prim, allowFlowReversal=true)
+                                            annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -229,7 +234,7 @@ model heat_transfer_station
 equation
 
   cp_prim = 4200;
-  Q_dot_trnsf_is = cold_prim.m_flow * cp_prim *(T_sens_prim_hot.T - T_sens_prim_cold.T)/1000;
+  Q_dot_trnsf_is = m_dot_sens_prim.port_a.m_flow * cp_prim *(T_sens_prim_hot.T - T_sens_prim_cold.T)/1000;
   connect(heat_exchanger.port_b1, valve_prim_cons.port_b)
     annotation (Line(points={{10,-4},{20,-4},{20,-30}}, color={0,127,255}));
   connect(cheVal_prim_prod.port_b,heat_exchanger. port_b1)
@@ -251,40 +256,33 @@ equation
           140},{-148,140},{-148,57.7647},{-140,57.7647}}, color={0,0,127}));
   connect(conversion.V_dot_sec_set, V_dot_sec_set) annotation (Line(points={{-140,
           49.5294},{-174,49.5294},{-174,100},{-200,100}}, color={0,0,127}));
-  connect(pi, conversion.pi) annotation (Line(points={{-200,40},{-150,40},{
-          -150,28.9412},{-140,28.9412}},
-                                    color={255,127,0}));
-  connect(mu, conversion.mu) annotation (Line(points={{-200,0},{-150,0},{
-          -150,20.2941},{-140,20.2941}},
+  connect(pi, conversion.pi) annotation (Line(points={{-200,40},{-150,40},{-150,
+          28.9412},{-140,28.9412}}, color={255,127,0}));
+  connect(mu, conversion.mu) annotation (Line(points={{-200,0},{-150,0},{-150,
+          20.2941},{-140,20.2941}},
                            color={255,127,0}));
-  connect(u_set, conversion.u_set) annotation (Line(points={{-200,-40},{
-          -176,-40},{-176,-2},{-174,-2},{-174,12.4706},{-140,12.4706}},
+  connect(u_set, conversion.u_set) annotation (Line(points={{-200,-40},{-176,
+          -40},{-176,-2},{-174,-2},{-174,12.4706},{-140,12.4706}},
                                                               color={0,0,127}));
   connect(kappa_set, conversion.kappa_set) annotation (Line(points={{-200,-80},{
           -170,-80},{-170,4.23529},{-140,4.23529}}, color={0,0,127}));
   connect(conversion.T_sec_in, ideal_house.T_set) annotation (Line(points={{-106.4,
           66},{-110,66},{-110,158},{0,158},{0,152}}, color={0,0,127}));
   connect(conversion.pump_contr, pump_prim_prod.y) annotation (Line(points={{-92,
-          20.7059},{-78,20.7059},{-78,20},{-64,20},{-64,-24},{42,-24},{42,
-          -70},{48,-70}},
-                    color={0,0,127}));
+          20.7059},{-78,20.7059},{-78,20},{-64,20},{-64,-24},{42,-24},{42,-70},
+          {48,-70}},color={0,0,127}));
   connect(conversion.valve_contr, valve_prim_cons.y) annotation (Line(points={{-92,
           12.4706},{-82,12.4706},{-82,12},{-72,12},{-72,-40},{8,-40}}, color={0,
           0,127}));
   connect(conversion.m_dot_cons, pump_sec_cons.m_flow_in) annotation (Line(
         points={{-92,37.1765},{2,37.1765},{2,70},{8,70}}, color={0,0,127}));
   connect(conversion.m_dot_prod, pump_sec_prod.m_flow_in) annotation (Line(
-        points={{-92,45.4118},{-52,45.4118},{-52,46},{-12,46},{-12,24},{42,
-          24},{42,42},{48,42}},
-                           color={0,0,127}));
+        points={{-92,45.4118},{-52,45.4118},{-52,46},{-12,46},{-12,24},{42,24},
+          {42,42},{48,42}},color={0,0,127}));
   connect(ideal_house.T_sec_hot, T_sec_hot);
   connect(ideal_house.T_sec_cold, T_sec_cold);
   connect(ideal_house.m_dot_sec_is, conversion.m_dot_sec_is);
   connect(conversion.V_dot_sec_is, V_dot_sec);
-  connect(heat_exchanger.port_a1, m_dot_sens_prim.port_b)
-    annotation (Line(points={{-10,-4},{-60,-4},{-60,-62}}, color={0,127,255}));
-  connect(m_dot_sens_prim.port_a, T_sens_prim_hot.port_b) annotation (Line(
-        points={{-60,-82},{-60,-100}},                       color={0,127,255}));
   connect(T_sens_prim_hot.T, T_prim_hot);
   connect(m_dot_sens_prim.m_flow, conversion.m_dot_prim_is);
   connect(cheVal_prim_cons.port_b, T_sens_prim_cold.port_a) annotation (Line(
@@ -318,6 +316,10 @@ equation
           {40,-154},{40,-182}}, color={0,127,255}));
   connect(pressureDifference.p_rel, Delta_p_prim)
     annotation (Line(points={{-26,-163},{-26,-180}}, color={0,0,127}));
+  connect(heat_exchanger.port_a1, m_dot_sens_prim.port_a)
+    annotation (Line(points={{-10,-4},{-60,-4},{-60,-62}}, color={0,127,255}));
+  connect(m_dot_sens_prim.port_b, T_sens_prim_hot.port_b)
+    annotation (Line(points={{-60,-82},{-60,-100}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},
             {100,180}}),       graphics={
         Rectangle(

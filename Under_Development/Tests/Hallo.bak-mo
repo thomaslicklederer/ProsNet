@@ -1,0 +1,10 @@
+within ProsNet.Under_Development.Tests;
+model Hallo
+  annotation (
+    Icon(coordinateSystem(preserveAspectRatio=false)),
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    experiment(
+      StopTime=21000,
+      Interval=30,
+      __Dymola_Algorithm="Dassl"));
+end Hallo;
