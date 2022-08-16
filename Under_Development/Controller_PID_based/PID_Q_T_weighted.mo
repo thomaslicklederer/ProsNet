@@ -136,6 +136,12 @@ model PID_Q_T_weighted
   Real error_sec_weighted
       "weighted overall error of primary side controller";
 
+  Real Delta_T_prim
+      "weighted overall error of primary side controller";
+
+  Real Delta_T_sec
+      "weighted overall error of primary side controller";
+
   // !!!!! ports !!!!!
   Modelica.Blocks.Interfaces.RealOutput u_set
     "Normalized velocity of feed-in pump"
@@ -224,7 +230,7 @@ model PID_Q_T_weighted
     Ti=Ti_prim_cons,
     Td=Td_prim_cons,
     yMax=1,
-    yMin=0.1,
+    yMin=0,
     initType=initType,
     y_start=PID_prim_cons.yMax)
     annotation (Placement(transformation(extent={{-42,-38},{-22,-18}})));
@@ -381,6 +387,10 @@ equation
     u_set = 0;
     kappa_set = 0;
   end if;
+
+  Delta_T_prim      = T_prim_hot -T_sec_cold;
+  Delta_T_sec       = T_sec_hot  -T_sec_cold;
+
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Text(
           extent={{-70,56},{64,-56}},
