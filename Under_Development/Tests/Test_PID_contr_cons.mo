@@ -39,11 +39,15 @@ model Test_PID_contr_cons
 
   inner Modelica.Fluid.System system(T_ambient=285.15)
     annotation (Placement(transformation(extent={{70,-188},{90,-168}})));
-  Fluid.Pipes.InsulatedPipe pipe_hot(allowFlowReversal=true, T_amb=system.T_ambient)
+  Fluid.Pipes.InsulatedPipe pipe_hot(allowFlowReversal=true, T_amb=system.T_ambient,
+    length=90,
+    zeta=50)
     annotation (Placement(transformation(extent={{-126,-94},{-106,-74}})));
   Fluid.Pipes.InsulatedPipe pipe_cold(
     allowFlowReversal=true,
     T_amb=system.T_ambient,
+    length=90,
+    zeta=50,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     annotation (Placement(transformation(extent={{-106,-58},{-126,-38}})));
   Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare final package Medium =
@@ -56,8 +60,15 @@ model Test_PID_contr_cons
         273.15 + 45; 300,273.15 + 45; 600,273.15 + 45; 900,273.15 + 45; 1200,
         273.15 + 45; 1500,273.15 + 45; 1800,273.15 + 45; 2100,273.15 + 45])
     annotation (Placement(transformation(extent={{128,56},{108,76}})));
-  Controller_PID_based.PID_Q_T_weighted PID_Q_T_weighted_1(controllerType=
-        Modelica.Blocks.Types.SimpleController.P)
+  Controller_PID_based.PID_Q_T_weighted PID_Q_T_weighted_1(
+    Ti_prim_prod=30,
+    alpha_prim_prod=1,
+    k_sec_prod=1,
+    Ti_sec_prod=30,
+    alpha_sec_prod=1,
+    Ti_sec_cons=30,
+    alpha_sec_cons=1,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI)
     annotation (Placement(transformation(extent={{76,4},{30,48}})));
 equation
   connect(T_house.y, producer.T_sec_in_set) annotation (Line(points={{-263,44},

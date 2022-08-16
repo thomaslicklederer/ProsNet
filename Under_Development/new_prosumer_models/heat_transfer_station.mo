@@ -15,6 +15,7 @@ model heat_transfer_station
     redeclare package Medium1 = Medium_prim,
     m1_flow_nominal=m_flow_nominal_1,
     m2_flow_nominal=m_flow_nominal_2,
+    show_T=true,
     dp1_nominal=dp1_nominal,
     dp2_nominal=dp2_nominal,
     Q_flow_nominal=Q_flow_nominal,
@@ -118,7 +119,10 @@ model heat_transfer_station
   Modelica.Fluid.Interfaces.FluidPort_a hot_prim(
   redeclare final package Medium = Medium_prim)
     annotation (Placement(transformation(extent={{-70,-192},{-50,-172}})));
-  heat_source_sink_ideal ideal_house
+  heat_source_sink_ideal ideal_house(
+    energyDynamics_cv=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    tau_cv=10,
+    T_start_cv=313.15)
     annotation (Placement(transformation(extent={{-22,120},{22,152}})));
   Conversion conversion
     annotation (Placement(transformation(extent={{-140,-4},{-92,66}})));
@@ -144,13 +148,16 @@ model heat_transfer_station
         rotation=-90,
         origin={40,-110})));
   Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium_sec,
+    T=313.15,
       nPorts=1)
     annotation (Placement(transformation(extent={{88,118},{68,138}})));
   Fluid.Pipes.InsulatedPipe pipe_prim_hot(
     R_ins=R_ins_transferpipe,
     length=length_transfer_pipe_tot/2,
     diameter=d_transferpipe,
-    zeta=zeta_transferstation/2)         annotation (Placement(transformation(
+    zeta=zeta_transferstation/2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=313.15)                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,-138})));
@@ -158,7 +165,9 @@ model heat_transfer_station
     R_ins=R_ins_transferpipe,
     length=length_transfer_pipe_tot/2,
     diameter=d_transferpipe,
-    zeta=zeta_transferstation/2)  annotation (Placement(transformation(
+    zeta=zeta_transferstation/2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=313.15)               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,-136})));
