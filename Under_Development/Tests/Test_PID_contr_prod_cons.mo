@@ -3,7 +3,7 @@ model Test_PID_contr_prod_cons "Producer and Consumer with Controller"
   Real Losses;
 
   new_prosumer_models.heat_transfer_station HOUSE1(
-    redeclare Fluid.Pumps.Data.Pumps.IMP.NMTDPlusER25slash90dash180 feedinPer,
+    redeclare Fluid.Pumps.Data.Pumps.Wilo.Stratos25slash1to4 feedinPer,
     energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     tau_feedPump=3,
     use_inputFilter_feedPump=true,
@@ -23,7 +23,7 @@ model Test_PID_contr_prod_cons "Producer and Consumer with Controller"
     annotation (Placement(transformation(extent={{-202,2},{-172,38}})));
 
   new_prosumer_models.heat_transfer_station HOUSE2(
-    redeclare Fluid.Pumps.Data.Pumps.IMP.NMTDPlusER25slash90dash180 feedinPer,
+    redeclare Fluid.Pumps.Data.Pumps.Wilo.Stratos25slash1to4 feedinPer,
     energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     tau_feedPump=3,
     use_inputFilter_feedPump=true,
@@ -48,6 +48,7 @@ model Test_PID_contr_prod_cons "Producer and Consumer with Controller"
   Fluid.Pipes.InsulatedPipe pipe_hot(allowFlowReversal=true, T_amb=system.T_ambient,
     R_ins=7.56,
     length=90,
+    diameter=0.22,
     zeta=50,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=313.15)
@@ -57,6 +58,7 @@ model Test_PID_contr_prod_cons "Producer and Consumer with Controller"
     T_amb=system.T_ambient,
     R_ins=7.56,
     length=90,
+    diameter=0.22,
     zeta=50,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=313.15)
@@ -71,7 +73,7 @@ model Test_PID_contr_prod_cons "Producer and Consumer with Controller"
     T_sec_hot_des=313.15,
     DeltaT_prim_des=14,
     DeltaT_sec_des=10,
-    V_dot_sec_max=10,
+    V_dot_sec_max=22,
     k_prim_prod=1.5,
     Ti_prim_prod=35,
     alpha_prim_prod=0.4,
@@ -100,7 +102,7 @@ model Test_PID_contr_prod_cons "Producer and Consumer with Controller"
     T_sec_hot_des=313.15,
     DeltaT_prim_des=14,
     DeltaT_sec_des=10,
-    V_dot_sec_max=10,
+    V_dot_sec_max=22,
     k_prim_prod=1.5,
     Ti_prim_prod=35,
     alpha_prim_prod=0.4,
@@ -116,14 +118,14 @@ model Test_PID_contr_prod_cons "Producer and Consumer with Controller"
     controllerType=Modelica.Blocks.Types.SimpleController.PI)
     annotation (Placement(transformation(extent={{64,6},{22,54}})));
   Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_1(table=[0,
-        0; 900,4; 1800,4; 2700,4; 3600,0; 4500,0; 5400,0; 6300,4; 7200,7; 8100,
-        4; 9000,0; 9900,-4; 10800,-7; 11700,-4; 12600,0; 13500,7; 14400,0;
-        15300,0; 16200,-7; 17100,0; 18000,0])
+        0; 900,8; 1800,8; 2700,8; 3600,0; 4500,0; 5400,0; 6300,8; 7200,16; 8100,
+        8; 9000,0; 9900,-8; 10800,-16; 11700,-8; 12600,0; 13500,16; 14400,0;
+        15300,0; 16200,-16; 17100,0; 18000,0])
     annotation (Placement(transformation(extent={{-314,8},{-294,28}})));
   Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_2(table=[0,
-        0; 900,-4; 1800,-4; 2700,-4; 3600,0; 4500,0; 5400,0; 6300,-4; 7200,-7;
-        8100,-4; 9000,0; 9900,4; 10800,7; 11700,4; 12600,0; 13500,-7; 14400,0;
-        15300,0; 16200,7; 17100,0; 18000,0])
+        0; 900,-8; 1800,-8; 2700,-8; 3600,0; 4500,0; 5400,0; 6300,-8; 7200,-16;
+        8100,-8; 9000,0; 9900,8; 10800,16; 11700,8; 12600,0; 13500,-16; 14400,0;
+        15300,0; 16200,16; 17100,0; 18000,0])
     annotation (Placement(transformation(extent={{126,-6},{106,14}})));
   inner Modelica.Blocks.Noise.GlobalSeed globalSeed(enableNoise=false,
       fixedSeed=4345)
@@ -186,8 +188,8 @@ equation
   connect(HOUSE1.T_prim_hot, Controller_1.T_prim_hot) annotation (Line(points={
           {-190,2},{-190,-18},{-252,-18},{-252,-10},{-253.3,-10},{-253.3,-6}},
         color={0,0,127}));
-  connect(HOUSE1.T_prim_cold, Controller_1.T_prim_cold) annotation (Line(points
-        ={{-174,2},{-174,-6},{-218,-6},{-218,-12},{-240.7,-12},{-240.7,-6}},
+  connect(HOUSE1.T_prim_cold, Controller_1.T_prim_cold) annotation (Line(points=
+         {{-174,2},{-174,-6},{-218,-6},{-218,-12},{-240.7,-12},{-240.7,-6}},
         color={0,0,127}));
   connect(Controller_1.V_dot_prim, HOUSE1.V_dot_prim) annotation (Line(points={
           {-268,3.6},{-278,3.6},{-278,-22},{-182,-22},{-182,2}}, color={0,0,127}));
@@ -209,18 +211,18 @@ equation
           127}));
   connect(HOUSE2.T_sec_hot, Controller_2.T_sec_hot) annotation (Line(points={{-30.8,
           54},{-30.8,68},{48,68},{48,58},{49.3,58},{49.3,54}}, color={0,0,127}));
-  connect(HOUSE2.T_sec_cold, Controller_2.T_sec_cold) annotation (Line(points={
-          {-58.5333,54},{-56,54},{-56,66},{36.7,66},{36.7,54}}, color={0,0,127}));
+  connect(HOUSE2.T_sec_cold, Controller_2.T_sec_cold) annotation (Line(points={{
+          -58.5333,54},{-56,54},{-56,66},{36.7,66},{36.7,54}},  color={0,0,127}));
   connect(HOUSE2.V_dot_sec, Controller_2.V_dot_sec) annotation (Line(points={{
           -44.6667,54},{-44.6667,72},{74,72},{74,44.4},{64,44.4}}, color={0,0,
           127}));
   connect(HOUSE2.T_prim_hot, Controller_2.T_prim_hot) annotation (Line(points={
           {-30.8,0},{-30.8,-10},{48,-10},{48,2},{49.3,2},{49.3,6}}, color={0,0,
           127}));
-  connect(HOUSE2.T_prim_cold, Controller_2.T_prim_cold) annotation (Line(points
-        ={{-58.5333,0},{-60,0},{-60,-16},{36.7,-16},{36.7,6}}, color={0,0,127}));
-  connect(HOUSE2.V_dot_prim, Controller_2.V_dot_prim) annotation (Line(points={
-          {-44.6667,0},{-46,0},{-46,-14},{74,-14},{74,15.6},{64,15.6}}, color={
+  connect(HOUSE2.T_prim_cold, Controller_2.T_prim_cold) annotation (Line(points={{
+          -58.5333,0},{-60,0},{-60,-16},{36.7,-16},{36.7,6}},  color={0,0,127}));
+  connect(HOUSE2.V_dot_prim, Controller_2.V_dot_prim) annotation (Line(points={{
+          -44.6667,0},{-46,0},{-46,-14},{74,-14},{74,15.6},{64,15.6}},  color={
           0,0,127}));
   connect(HOUSE2.Q_dot_trnsf_is, Controller_2.Qdot_is) annotation (Line(points=
           {{-10,6},{-4,6},{-4,-18},{76,-18},{76,25.2},{64,25.2}}, color={0,0,
@@ -245,11 +247,11 @@ equation
             -200},{140,100}})), Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-320,-200},{140,100}}), graphics={
         Text(
-          extent={{-214,82},{-146,68}},
+          extent={{-242,78},{-174,64}},
           textColor={238,46,47},
           textString="House1"),
         Text(
-          extent={{-62,84},{6,70}},
+          extent={{-26,92},{42,78}},
           textColor={28,108,200},
           textString="House2"),
         Text(

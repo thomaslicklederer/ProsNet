@@ -136,6 +136,15 @@ model PID_Q_T_weighted
   Real error_sec_weighted
       "weighted overall error of primary side controller";
 
+  Real error_T_prim_abs
+      "temperature error of primary side controller";
+
+  Real error_T_sec_abs
+      "temperature error of primary side controller";
+
+  Real error_Q_abs
+      "temperature error of primary side controller";
+
   Real Delta_T_prim
       "weighted overall error of primary side controller";
 
@@ -281,6 +290,9 @@ model PID_Q_T_weighted
 
 equation
 
+  Delta_T_prim      = T_prim_hot -T_sec_cold;
+  Delta_T_sec       = T_sec_hot  -T_sec_cold;
+
   beta_prim_prod = 1 - alpha_prim_prod;
   beta_sec_prod  = 1 - alpha_sec_prod;
   beta_prim_cons = 1 - alpha_prim_cons;
@@ -316,6 +328,9 @@ equation
     error_prim_weighted            = PIDin_prim_cons_des_weighted - PIDin_prim_cons_is_weighted;
     error_sec_weighted             = PIDin_sec_cons_des_weighted - PIDin_sec_cons_is_weighted;
 
+    error_T_prim_abs               = DeltaT_prim_des - Delta_T_prim;
+    error_T_sec_abs                = T_sec_hot_des - T_sec_hot;
+
   elseif Qdot_set >= 0+tol then // production mode
     prosumer_mode = +1;
     pi_set = 1;
@@ -337,6 +352,9 @@ equation
     error_prim_weighted            = PIDin_prim_prod_des_weighted - PIDin_prim_prod_is_weighted;
     error_sec_weighted             = PIDin_sec_prod_des_weighted - PIDin_sec_prod_is_weighted;
 
+    error_T_prim_abs               = T_prim_hot_des - T_prim_hot;
+    error_T_sec_abs                = DeltaT_sec_des - Delta_T_sec;
+
   else // idle mode
     prosumer_mode = 0;
     pi_set = 0;
@@ -357,6 +375,9 @@ equation
 
     error_prim_weighted            = 0;
     error_sec_weighted             = 0;
+
+    error_T_prim_abs               = 0;
+    error_T_sec_abs                = 0;
 
   end if;
 
@@ -388,8 +409,8 @@ equation
     kappa_set = 0;
   end if;
 
-  Delta_T_prim      = T_prim_hot -T_sec_cold;
-  Delta_T_sec       = T_sec_hot  -T_sec_cold;
+
+  error_Q_abs = Qdot_set - Qdot_is;
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Text(
