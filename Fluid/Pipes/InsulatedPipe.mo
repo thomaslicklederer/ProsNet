@@ -27,19 +27,14 @@ model InsulatedPipe
   parameter Modelica.Units.SI.Temperature T_start=293.15
     "Start value for temperature" annotation (Dialog(tab="Dynamics"));
 
-  Modelica.Fluid.Pipes.DynamicPipe pipe(mediums(each preferredMediumStates = false),
+  Modelica.Fluid.Pipes.DynamicPipe pipe(
+    allowFlowReversal=true,             mediums(each preferredMediumStates = false),
    redeclare replaceable package Medium =
         ProsNet.Media.Water,
     length=length,
     diameter=diameter,
     use_HeatTransfer=true)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  inner Modelica.Fluid.System system(
-    energyDynamics=energyDynamics,
-    m_flow_start=m_flow_start,
-    p_start=p_start,
-    T_start=T_start)
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Modelica.Fluid.Fittings.SimpleGenericOrifice orifice2(
     redeclare replaceable package Medium = ProsNet.Media.Water,
     diameter=diameter,
@@ -70,7 +65,9 @@ equation
   connect(bou.port, thCond.port_b)
     annotation (Line(points={{-60,70},{-1,70},{-1,46}}, color={191,0,0}));
   connect(thCond.port_a, pipe.heatPorts[1])
-    annotation (Line(points={{-1,32},{0.1,32},{0.1,4.4}}, color={191,0,0}));
+    annotation (Line(points={{-1,32},{0.1,4.4}}, color={191,0,0}));
+  connect(thCond.port_a, pipe.heatPorts[2])
+    annotation (Line(points={{-1,32},{0.1,4.4}}, color={191,0,0}));
   annotation (defaultComponentName="pipe", Icon(coordinateSystem(preserveAspectRatio=true), graphics={
                                      Rectangle(
           extent={{-100,44},{100,-44}},

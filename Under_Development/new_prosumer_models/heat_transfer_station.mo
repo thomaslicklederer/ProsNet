@@ -152,6 +152,8 @@ model heat_transfer_station
       nPorts=1)
     annotation (Placement(transformation(extent={{88,118},{68,138}})));
   Fluid.Pipes.InsulatedPipe pipe_prim_hot(
+    allowFlowReversal=true,
+    T_amb = ambient_temperature,
     R_ins=R_ins_transferpipe,
     length=length_transfer_pipe_tot/2,
     diameter=d_transferpipe,
@@ -162,6 +164,8 @@ model heat_transfer_station
         rotation=90,
         origin={-60,-138})));
   Fluid.Pipes.InsulatedPipe pipe_prim_cold(
+    allowFlowReversal=true,
+    T_amb = ambient_temperature,
     R_ins=R_ins_transferpipe,
     length=length_transfer_pipe_tot/2,
     diameter=d_transferpipe,

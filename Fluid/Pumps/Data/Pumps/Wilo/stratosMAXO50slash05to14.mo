@@ -1,170 +1,50 @@
 within ProsNet.Fluid.Pumps.Data.Pumps.Wilo;
-record StratosMAXO50slash05to14 "Wilo Stratos MAXO 50/0,5-14 PN 6/10"
-  extends Modelica.Icons.Record;
-
-  // Pressure requires default values to avoid in Dymola the message
-  // Failed to expand the variable pressure.V_flow.
-  parameter ProsNet.Fluid.Pumps.BaseClasses.Characteristics.flowParameters pressure(
-    V_flow = {0, 0},
-    dp =     {0, 0}) "Volume flow rate vs. total pressure rise"
-    annotation(Evaluate=true,
-               Dialog(group="Pressure curve"));
-
-  parameter Boolean use_powerCharacteristic=false
-    "Use power data instead of motor efficiency"
-    annotation (Dialog(group="Power computation"));
-
-  parameter
-    ProsNet.Fluid.Pumps.BaseClasses.Characteristics.efficiencyParameters
-    hydraulicEfficiency(
-      V_flow={0},
-      eta={0.7}) "Hydraulic efficiency (used if use_powerCharacteristic=false)"
-    annotation (Dialog(group="Power computation",
-                       enable=not use_powerCharacteristic));
-  parameter
-    ProsNet.Fluid.Pumps.BaseClasses.Characteristics.efficiencyParameters
-    motorEfficiency(
-      V_flow={0},
-      eta={0.7})
-    "Electric motor efficiency (used if use_powerCharacteristic=false)"
-    annotation (Dialog(group="Power computation",
-                       enable=not use_powerCharacteristic));
-
-  // Power requires default values to avoid in Dymola the message
-  // Failed to expand the variable Power.V_flow
-  parameter ProsNet.Fluid.Pumps.BaseClasses.Characteristics.powerParameters power(V_flow={0},
-      P={0})
-    "Volume flow rate vs. electrical power consumption (used if use_powerCharacteristic=true)"
-    annotation (Dialog(group="Power computation", enable=
-          use_powerCharacteristic));
-
-  parameter Boolean motorCooledByFluid=true
-    "If true, then motor heat is added to fluid stream"
-    annotation(Dialog(group="Motor heat rejection"));
-
-  parameter Real speed_nominal(
-    final min=0,
-    final unit="1") = 1 "Nominal rotational speed for flow characteristic"
-    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm)"));
-
-  parameter Real constantSpeed(final min=0, final unit="1") = constantSpeed_rpm/speed_rpm_nominal
-    "Normalized speed set point, used if inputType = ProsNet.Fluid.Types.InputType.Constant"
-    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm)"));
-
-  parameter Real[:] speeds(each final min = 0, each final unit="1") = speeds_rpm/speed_rpm_nominal
-    "Vector of normalized speed set points, used if inputType = ProsNet.Fluid.Types.InputType.Stages"
-    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm)"));
-
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm speed_rpm_nominal=1500
-    "Nominal rotational speed for flow characteristic"
-    annotation (Dialog(group="Speeds in RPM"));
-
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm constantSpeed_rpm=
-      speed_rpm_nominal
-    "Speed set point, used if inputType = ProsNet.Fluid.Types.InputType.Constant"
-    annotation (Dialog(group="Speeds in RPM"));
-
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm[:] speeds_rpm={
-      speed_rpm_nominal}
-    "Vector of speed set points, used if inputType = ProsNet.Fluid.Types.InputType.Stages"
-    annotation (Dialog(group="Speeds in RPM"));
-
-  // Set a parameter in order for
-  // (a) FlowControlled_m_flow and FlowControlled_dp being able to set a reasonable
-  //     default pressure curve if it is not specified here, and
-  // (b) SpeedControlled_y and SpeedControlled_Nrpm being able to issue an assert
-  //     if no pressure curve is specified.
-  final parameter Boolean havePressureCurve=
-    sum(pressure.V_flow) > Modelica.Constants.eps and
-    sum(pressure.dp) > Modelica.Constants.eps
-    "= true, if default record values are being used";
+record StratosMAXO50slash05to14
+  "Pump data for a Wilo Stratos MAXO 50/0,5-14 PN 6/10"
+  extends ProsNet.Fluid.Pumps.Data.Generic(
+    speed_rpm_nominal=1800,
+    use_powerCharacteristic=true,
+    pressure(V_flow={0.0000e+00,5.5556e-04,1.1111e-03,1.6667e-03,2.2222e-03,
+          2.7778e-03,3.3333e-03,3.8889e-03,4.4444e-03,5.0000e-03,5.5556e-03,
+          8.3333e-03,1.1111e-02,1.3889e-02}, dp={160000,159000,158000,157000,
+          156000,155000,149250,143500,137750,132000,126250,97500,68750,40000}));
+    //power(V_flow={5.55555555556e-07,0.000402190923318,0.00052269170579,0.000643192488263,
+    //      0.000752738654147,0.000866979655712,0.000973395931142,0.00108607198748,
+    //      0.00115962441315}, P={14.2085618951,21.2596204596,23.3573239437,25.1349149442,
+    //      26.581943662,27.9121571534,28.8498841148,29.4981726255,29.7520982304}),
 
   annotation (
-  defaultComponentPrefixes = "parameter",
-  defaultComponentName = "per",
-  Documentation(revisions="<html>
+defaultComponentPrefixes="parameter",
+defaultComponentName="per",
+Documentation(info="<html>
+  <p>Data from:
+  <a href=\"http://productfinder.wilo.com/en/COM/product/0000000e000379df0002003a/fc_product_datasheet\">
+  http://productfinder.wilo.com/en/COM/product/0000000e000379df0002003a/fc_product_datasheet
+  </a>
+  </p>
+  <p>See
+  <a href=\"modelica://ProsNet.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">
+  IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6
+  </a>
+  for more information about how the data is derived.
+  </p>
+  </html>",
+  revisions="<html>
 <ul>
 <li>
-February 19, 2016, by Filip Jorissen:<br/>
-Refactored model such that <code>SpeedControlled_Nrpm</code>,
-<code>SpeedControlled_y</code> and <code>FlowControlled</code>
-are integrated into one record.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/417\">#417</a>.
-</li>
-<li>
 February 17, 2016, by Michael Wetter:<br/>
-Changed parameter <code>N_nominal</code> to
-<code>speed_rpm_nominal</code> as it is the same quantity as <code>speeds_rmp</code>.
-This is for
+Updated parameter names for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/396\">#396</a>.
 </li>
 <li>
-January 19, 2016, by Filip Jorissen:<br/>
-Added parameter <code>speeds_rpm</code>.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/396\">#396</a>.
+December 12, 2014, by Michael Wetter:<br/>
+Added <code>defaultComponentPrefixes</code> and
+<code>defaultComponentName</code> annotations.
 </li>
-<li>
-February 13, 2015, by Michael Wetter:<br/>
-Updated documentation.
-</li>
-<li>
-January 6, 2015, by Michael Wetter:<br/>
-Revised record for OpenModelica.
-</li>
-<li>
-November 22, 2014 by Michael Wetter:<br/>
-First implementation.
+<li>April 17, 2014
+    by Filip Jorissen:<br/>
+       Initial version
 </li>
 </ul>
-</html>", info="<html>
-<p>
-Record containing parameters for pumps or fans.
-</p>
-<h4>Typical use</h4>
-<p>
-This record may be used to assign for example fan performance data using
-declaration such as
-</p>
-<pre>
-  IBPSA.Fluid.Movers.SpeedControlled_y fan(
-    redeclare package Medium = Medium,
-      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
-                   dp={2*dp_nominal,dp_nominal,0}))) \"Fan\";
-</pre>
-<p>
-This data record can be used with
-<a href=\"modelica://IBPSA.Fluid.Movers.SpeedControlled_Nrpm\">
-IBPSA.Fluid.Movers.SpeedControlled_Nrpm</a>,
-<a href=\"modelica://IBPSA.Fluid.Movers.SpeedControlled_y\">
-IBPSA.Fluid.Movers.SpeedControlled_y</a>,
-<a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dp\">
-IBPSA.Fluid.Movers.FlowControlled_dp</a>,
-<a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_m_flow\">
-IBPSA.Fluid.Movers.FlowControlled_m_flow</a>.
-</p>
-<p>
-An example that uses manufacturer data can be found in
-<a href=\"modelica://IBPSA.Fluid.Movers.Validation.Pump_Nrpm_stratos\">
-IBPSA.Fluid.Movers.Validation.Pump_Nrpm_stratos</a>.
-</p>
-<h4>Parameters in RPM</h4>
-<p>
-The parameters <code>speed_rpm_nominal</code>,
-<code>constantSpeed_rpm</code> and
-<code>speeds_rpm</code> are used to assign the non-dimensional speeds
-</p>
-<pre>
-  parameter Real constantSpeed(final min=0, final unit=\"1\") = constantSpeed_rpm/speed_rpm_nominal;
-  parameter Real[:] speeds(each final min = 0, each final unit=\"1\") = speeds_rpm/speed_rpm_nominal;
-</pre>
-<p>
-In addition, <code>speed_rpm_nominal</code> is used in
-<a href=\"modelica://IBPSA.Fluid.Movers.SpeedControlled_Nrpm\">
-IBPSA.Fluid.Movers.SpeedControlled_Nrpm</a>
-to normalize the control input signal.
-Otherwise, these speed parameters in RPM are not used in the models.
-</p>
 </html>"));
 end StratosMAXO50slash05to14;

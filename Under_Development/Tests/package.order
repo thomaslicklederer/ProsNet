@@ -1,3 +1,4 @@
 Test_PID_contr_prod_cons
 Test_heat_exchanger
 Test_Controller_3_rad
+Test_Controller_3_rad_highkW
