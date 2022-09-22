@@ -2,22 +2,33 @@ within ProsNet.Fluid.Pipes.Validation;
 model InsulatedPipe "Tests InsulatedPipe model"
 
   extends Modelica.Icons.Example;
-  .ProsNet.Fluid.Pipes.InsulatedPipe insPipe(T_amb=253.15, length=100)
+  .ProsNet.Fluid.Pipes.InsulatedPipe insPipe(
+    T_amb=253.15,                                          length=100,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Sources.Boundary_pT bou(p=200000, nPorts=1)
+  Sources.Boundary_pT bou(
+    redeclare package Medium = Media.Water,
+    p=200000,                       nPorts=1)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Sources.Boundary_pT bou1(p=100000, nPorts=1)
+  Sources.Boundary_pT bou1(
+    redeclare package Medium = Media.Water,
+    p=100000,                        nPorts=1)
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  Sensors.TemperatureTwoPort senTem(m_flow_nominal=1, initType=Modelica.Blocks.Types.Init.SteadyState)
+  Sensors.TemperatureTwoPort senTem(
+    redeclare package Medium = Media.Water,
+                                    m_flow_nominal=1, initType=Modelica.Blocks.Types.Init.SteadyState)
     annotation (Placement(transformation(extent={{-42,-10},{-22,10}})));
   Sensors.TemperatureTwoPort senTem1(m_flow_nominal=1, initType=Modelica.Blocks.Types.Init.SteadyState)
     annotation (Placement(transformation(extent={{24,-10},{44,10}})));
-  .ProsNet.Fluid.Pipes.InsulatedPipe insPipe1 annotation (Placement(
+  .ProsNet.Fluid.Pipes.InsulatedPipe insPipe1(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                                              annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={42,-38})));
-  Sources.Boundary_pT bou2(p=500000, nPorts=1) annotation (Placement(
+  Sources.Boundary_pT bou2(
+    redeclare package Medium = Media.Water,
+    p=500000,                        nPorts=1) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

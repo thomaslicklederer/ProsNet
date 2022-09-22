@@ -1,6 +1,6 @@
 within ProsNet.Under_Development.Tests;
 model Test_PID_contr_cons
-  Modelica.Blocks.Sources.RealExpression T_house(y=273.15 + 70)
+  Modelica.Blocks.Sources.RealExpression T_house(y=273.15 + 45)
     annotation (Placement(transformation(extent={{-284,34},{-264,54}})));
   Modelica.Blocks.Sources.IntegerExpression pi(y=1)
     annotation (Placement(transformation(extent={{-284,4},{-264,24}})));
@@ -39,11 +39,17 @@ model Test_PID_contr_cons
 
   inner Modelica.Fluid.System system(T_ambient=285.15)
     annotation (Placement(transformation(extent={{70,-188},{90,-168}})));
-  Fluid.Pipes.InsulatedPipe pipe_hot(allowFlowReversal=true, T_amb=system.T_ambient)
+  Fluid.Pipes.InsulatedPipe pipe_hot(allowFlowReversal=true, T_amb=system.T_ambient,
+    R_ins=7.56,
+    length=90,
+    zeta=50)
     annotation (Placement(transformation(extent={{-126,-94},{-106,-74}})));
   Fluid.Pipes.InsulatedPipe pipe_cold(
     allowFlowReversal=true,
     T_amb=system.T_ambient,
+    R_ins=7.56,
+    length=90,
+    zeta=50,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     annotation (Placement(transformation(extent={{-106,-58},{-126,-38}})));
   Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare final package Medium =
@@ -53,12 +59,30 @@ model Test_PID_contr_cons
         [0,0; 300,-6.5; 600,0; 900,-5; 1200,-10; 1500,-6.5; 1800,0; 2100,0.0])
     annotation (Placement(transformation(extent={{130,12},{110,32}})));
   Controller_PID_based.auxiliary.TimeTable_noInterp T_sec_in_array(table=[0,
-        273.15 + 45; 300,273.15 + 45; 600,273.15 + 45; 900,273.15 + 45; 1200,
-        273.15 + 45; 1500,273.15 + 45; 1800,273.15 + 45; 2100,273.15 + 45])
+        273.15 + 30; 300,273.15 + 30; 600,273.15 + 30; 900,273.15 + 30; 1200,
+        273.15 + 30; 1500,273.15 + 30; 1800,273.15 + 30; 2100,273.15 + 30])
     annotation (Placement(transformation(extent={{128,56},{108,76}})));
-  Controller_PID_based.PID_Q_T_weighted PID_Q_T_weighted_1(controllerType=
-        Modelica.Blocks.Types.SimpleController.P)
-    annotation (Placement(transformation(extent={{76,4},{30,48}})));
+  Controller_PID_based.PID_Q_T_weighted PID_Q_T_weighted_1(
+    Delta_T_norm=3,
+    T_prim_hot_des=316.65,
+    T_sec_hot_des=313.15,
+    DeltaT_prim_des=14,
+    DeltaT_sec_des=10,
+    V_dot_sec_max=10,
+    k_prim_prod=1,
+    Ti_prim_prod=30,
+    alpha_prim_prod=0,
+    k_sec_prod=1,
+    Ti_sec_prod=30,
+    alpha_sec_prod=0,
+    k_prim_cons=1,
+    Ti_prim_cons=30,
+    alpha_prim_cons=0,
+    k_sec_cons=1,
+    Ti_sec_cons=30,
+    alpha_sec_cons=0,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    annotation (Placement(transformation(extent={{66,8},{24,56}})));
 equation
   connect(T_house.y, producer.T_sec_in_set) annotation (Line(points={{-263,44},
           {-206,44},{-206,32},{-200,32}}, color={0,0,127}));
@@ -84,43 +108,43 @@ equation
           -176,-0.2},{-176,-48},{-126,-48}}, color={0,127,255}));
   connect(bou.ports[1], pipe_hot.port_b)
     annotation (Line(points={{50,-84},{-106,-84}}, color={0,127,255}));
-  connect(PID_Q_T_weighted_1.T_sec_set, consumer.T_sec_in_set)
-    annotation (Line(points={{30,48},{-10,48}}, color={0,0,127}));
-  connect(PID_Q_T_weighted_1.V_dot_sec_set, consumer.V_dot_sec_set)
-    annotation (Line(points={{30,39.2},{11,39.2},{11,42},{-10,42}}, color={0,
-          0,127}));
-  connect(PID_Q_T_weighted_1.pi_set, consumer.pi) annotation (Line(points={{
-          30,30.4},{0,30.4},{0,33},{-10,33}}, color={255,127,0}));
-  connect(PID_Q_T_weighted_1.mu_set, consumer.mu) annotation (Line(points={{
-          30,21.6},{11,21.6},{11,27},{-10,27}}, color={255,127,0}));
-  connect(PID_Q_T_weighted_1.u_set, consumer.u_set) annotation (Line(points={
-          {30,12.8},{18,12.8},{18,20},{4,20},{4,21},{-10,21}}, color={0,0,127}));
-  connect(PID_Q_T_weighted_1.kappa_set, consumer.kappa_set) annotation (Line(
-        points={{30,4},{14,4},{14,15},{-10,15}}, color={0,0,127}));
+  connect(PID_Q_T_weighted_1.T_sec_set, consumer.T_sec_in_set) annotation (Line(
+        points={{24,56},{24,66},{0,66},{0,48},{-10,48}}, color={0,0,127}));
+  connect(PID_Q_T_weighted_1.V_dot_sec_set, consumer.V_dot_sec_set) annotation
+    (Line(points={{24,46.4},{0,46.4},{0,42},{-10,42}}, color={0,0,127}));
+  connect(PID_Q_T_weighted_1.pi_set, consumer.pi) annotation (Line(points={{24,
+          36.8},{0,36.8},{0,33},{-10,33}}, color={255,127,0}));
+  connect(PID_Q_T_weighted_1.mu_set, consumer.mu)
+    annotation (Line(points={{24,27.2},{-10,27}}, color={255,127,0}));
+  connect(PID_Q_T_weighted_1.u_set, consumer.u_set) annotation (Line(points={{
+          24,17.6},{0,17.6},{0,21},{-10,21}}, color={0,0,127}));
+  connect(PID_Q_T_weighted_1.kappa_set, consumer.kappa_set)
+    annotation (Line(points={{24,8},{0,8},{0,15},{-10,15}}, color={0,0,127}));
+  connect(consumer.T_prim_hot, PID_Q_T_weighted_1.T_prim_hot) annotation (Line(
+        points={{-30.8,0},{-30.8,-6},{50,-6},{50,4},{51.3,4},{51.3,8}}, color={
+          0,0,127}));
+  connect(PID_Q_T_weighted_1.T_prim_cold, consumer.T_prim_cold) annotation (
+      Line(points={{38.7,8},{38.7,-8},{-58.5333,-8},{-58.5333,0}}, color={0,0,
+          127}));
+  connect(consumer.T_sec_cold, PID_Q_T_weighted_1.T_sec_cold) annotation (Line(
+        points={{-58.5333,54},{-58.5333,68},{38.7,68},{38.7,56}}, color={0,0,
+          127}));
   connect(consumer.T_sec_hot, PID_Q_T_weighted_1.T_sec_hot) annotation (Line(
-        points={{-30.8,54},{8,54},{8,62},{59.9,62},{59.9,48}}, color={0,0,127}));
-  connect(consumer.T_sec_cold, PID_Q_T_weighted_1.T_sec_cold) annotation (
-      Line(points={{-58.5333,54},{-58.5333,60},{46.1,60},{46.1,48}}, color={0,
-          0,127}));
-  connect(consumer.T_prim_hot, PID_Q_T_weighted_1.T_prim_hot)
-    annotation (Line(points={{-30.8,0},{59.9,0},{59.9,4}}, color={0,0,127}));
-  connect(consumer.T_prim_cold, PID_Q_T_weighted_1.T_prim_cold) annotation (
-      Line(points={{-58.5333,0},{-58,0},{-58,-22},{46.1,-22},{46.1,4}}, color=
-         {0,0,127}));
-  connect(consumer.Q_dot_trnsf_is, PID_Q_T_weighted_1.Qdot_is) annotation (
-      Line(points={{-10,6},{22,6},{22,-2},{86,-2},{86,21.6},{76,21.6}}, color=
-         {0,0,127}));
-  connect(consumer.V_dot_prim, PID_Q_T_weighted_1.V_dot_prim) annotation (
-      Line(points={{-44.6667,0},{70,0},{70,-4},{88,-4},{88,12.8},{76,12.8}},
+        points={{-30.8,54},{-30.8,70},{50,70},{50,60},{51.3,60},{51.3,56}},
         color={0,0,127}));
   connect(consumer.V_dot_sec, PID_Q_T_weighted_1.V_dot_sec) annotation (Line(
-        points={{-44.6667,54},{-44.6667,66},{88,66},{88,39.2},{76,39.2}},
-        color={0,0,127}));
-  connect(T_sec_in_array.y, PID_Q_T_weighted_1.T_sec_sim) annotation (Line(
-        points={{107,66},{90,66},{90,54},{86,54},{86,48},{76,48}}, color={0,0,
+        points={{-44.6667,54},{-44.6667,74},{76,74},{76,46.4},{66,46.4}}, color
+        ={0,0,127}));
+  connect(consumer.Q_dot_trnsf_is, PID_Q_T_weighted_1.Qdot_is) annotation (Line(
+        points={{-10,6},{16,6},{16,0},{76,0},{76,27.2},{66,27.2}}, color={0,0,
           127}));
+  connect(consumer.V_dot_prim, PID_Q_T_weighted_1.V_dot_prim) annotation (Line(
+        points={{-44.6667,0},{-44.6667,-10},{78,-10},{78,17.6},{66,17.6}},
+        color={0,0,127}));
+  connect(T_sec_in_array.y, PID_Q_T_weighted_1.T_sec_sim)
+    annotation (Line(points={{107,66},{66,66},{66,56}}, color={0,0,127}));
   connect(Q_management_array.y, PID_Q_T_weighted_1.Qdot_set) annotation (Line(
-        points={{109,22},{86,22},{86,30.4},{76,30.4}}, color={0,0,127}));
+        points={{109,22},{80,22},{80,36.8},{66,36.8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-320,
             -200},{140,100}})), Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-320,-200},{140,100}}), graphics={

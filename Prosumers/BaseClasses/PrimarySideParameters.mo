@@ -83,7 +83,7 @@ partial class PrimarySideParameters
   parameter Real R_ins_transferpipe = 3.78
     "insulation resistance for pipes in heat transfer station [(K m)/W]"
    annotation(Dialog(group="Transfer station pipes"));
-   parameter Real ambient_temperature = 12
+   parameter Real ambient_temperature = 12+273.15
     "Ambient temperature, relevant for heat losses [K]"
    annotation(Dialog(group="Transfer station pipes"));
 

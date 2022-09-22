@@ -130,6 +130,27 @@ model PID_Q_T_weighted
   Real PIDin_sec_prod_des_weighted
       "weighted input of desired values for PID_sec_prod";
 
+  Real error_prim_weighted
+      "weighted overall error of primary side controller";
+
+  Real error_sec_weighted
+      "weighted overall error of primary side controller";
+
+  Real error_T_prim_abs
+      "temperature error of primary side controller";
+
+  Real error_T_sec_abs
+      "temperature error of primary side controller";
+
+  Real error_Q_abs
+      "temperature error of primary side controller";
+
+  Real Delta_T_prim
+      "weighted overall error of primary side controller";
+
+  Real Delta_T_sec
+      "weighted overall error of primary side controller";
+
   // !!!!! ports !!!!!
   Modelica.Blocks.Interfaces.RealOutput u_set
     "Normalized velocity of feed-in pump"
@@ -228,7 +249,7 @@ model PID_Q_T_weighted
     Ti=Ti_sec_cons,
     Td=Td_sec_cons,
     yMax=V_dot_sec_max,
-    yMin=0,
+    yMin=1,
     initType=initType,
     y_start=PID_sec_cons.yMax)
     annotation (Placement(transformation(extent={{-42,28},{-22,48}})));
@@ -238,7 +259,7 @@ model PID_Q_T_weighted
     Ti=Ti_prim_prod,
     Td=Td_prim_prod,
     yMax=1,
-    yMin=0,
+    yMin=0.1,
     initType=initType,
     y_start=PID_prim_prod.yMax) annotation (Placement(transformation(extent={{6,-38},{26,-18}})));
   Modelica.Blocks.Continuous.LimPID PID_sec_prod(
@@ -247,7 +268,7 @@ model PID_Q_T_weighted
     Ti=Ti_sec_prod,
     Td=Td_sec_prod,
     yMax=V_dot_sec_max,
-    yMin=0,
+    yMin=1,
     initType=initType,
     y_start=PID_sec_prod.yMax) annotation (Placement(transformation(extent={{6,28},{26,48}})));
   Modelica.Blocks.Interfaces.RealOutput T_sec_set(unit="K", displayUnit="degC")
@@ -268,6 +289,9 @@ model PID_Q_T_weighted
         origin={-100,100})));
 
 equation
+
+  Delta_T_prim      = T_prim_hot -T_sec_cold;
+  Delta_T_sec       = T_sec_hot  -T_sec_cold;
 
   beta_prim_prod = 1 - alpha_prim_prod;
   beta_sec_prod  = 1 - alpha_sec_prod;
@@ -301,6 +325,12 @@ equation
     PIDin_sec_prod_is_weighted     = 0;
     PIDin_sec_prod_des_weighted    = 0;
 
+    error_prim_weighted            = PIDin_prim_cons_des_weighted - PIDin_prim_cons_is_weighted;
+    error_sec_weighted             = PIDin_sec_cons_des_weighted - PIDin_sec_cons_is_weighted;
+
+    error_T_prim_abs               = DeltaT_prim_des - Delta_T_prim;
+    error_T_sec_abs                = T_sec_hot_des - T_sec_hot;
+
   elseif Qdot_set >= 0+tol then // production mode
     prosumer_mode = +1;
     pi_set = 1;
@@ -319,6 +349,12 @@ equation
     PIDin_sec_prod_is_weighted     = alpha_sec_prod*Qdot_is/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_is/Delta_T_norm;
     PIDin_sec_prod_des_weighted    = alpha_sec_prod*Qdot_set/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_des/Delta_T_norm;
 
+    error_prim_weighted            = PIDin_prim_prod_des_weighted - PIDin_prim_prod_is_weighted;
+    error_sec_weighted             = PIDin_sec_prod_des_weighted - PIDin_sec_prod_is_weighted;
+
+    error_T_prim_abs               = T_prim_hot_des - T_prim_hot;
+    error_T_sec_abs                = DeltaT_sec_des - Delta_T_sec;
+
   else // idle mode
     prosumer_mode = 0;
     pi_set = 0;
@@ -336,6 +372,12 @@ equation
     PIDin_sec_cons_des_weighted    = 0;
     PIDin_sec_prod_is_weighted     = 0;
     PIDin_sec_prod_des_weighted    = 0;
+
+    error_prim_weighted            = 0;
+    error_sec_weighted             = 0;
+
+    error_T_prim_abs               = 0;
+    error_T_sec_abs                = 0;
 
   end if;
 
@@ -366,6 +408,10 @@ equation
     u_set = 0;
     kappa_set = 0;
   end if;
+
+
+  error_Q_abs = Qdot_set - Qdot_is;
+
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Text(
           extent={{-70,56},{64,-56}},
