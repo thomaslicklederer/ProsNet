@@ -1550,10 +1550,9 @@ package Fabian
         T_a2_nominal=303.15,
         m_flow_nominal_1=0.358*6,
         m_flow_nominal_2=0.358*6,
-        redeclare Fluid.Pumps.Data.Pumps_FSP.FSPStratos25slash0pt5to8 feedinPer,
-
+        redeclare Fluid.Pumps.Data.Pumps.Wilo.StratosMAXO50slash05to14
+          feedinPer,
         energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_feedPump=3,
         use_inputFilter_feedPump=true,
         riseTime_feedPump=35,
@@ -1562,18 +1561,19 @@ package Fabian
         use_inputFilter_conVal=true,
         riseTime_conVal=35,
         init_conVal=Modelica.Blocks.Types.Init.InitialOutput,
+        Kv_cheVal=7.73,
         zeta_transferstation=2,
         d_transferpipe=0.0539,
         R_ins_transferpipe=25,
         ambient_temperature=system.T_ambient,
         energyDynamics_pumpsSec=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_pumpsSec=3,
         use_inputFilter_pumpsSec=true,
         riseTime_pumpsSec=35,
         tau_cv=10,
-        T_start_cv=313.15)
-        annotation (Placement(transformation(extent={{-202,2},{-172,38}})));
+        T_start_cv=313.15,
+        valve_prim_cons(kFixed=0))
+        annotation (Placement(transformation(extent={{-190,-4},{-138,48}})));
 
       Under_Development.new_prosumer_models.heat_transfer_station HOUSE2(
         Q_flow_nominal=30000*3,
@@ -1581,10 +1581,9 @@ package Fabian
         T_a2_nominal=303.15,
         m_flow_nominal_1=0.358*3,
         m_flow_nominal_2=0.358*3,
-        redeclare Fluid.Pumps.Data.Pumps_FSP.FSPStratos25slash0pt5to8 feedinPer,
-
+        redeclare Fluid.Pumps.Data.Pumps.Wilo.StratosMAXO50slash05to14
+          feedinPer,
         energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_feedPump=3,
         use_inputFilter_feedPump=true,
         riseTime_feedPump=35,
@@ -1593,12 +1592,12 @@ package Fabian
         use_inputFilter_conVal=true,
         riseTime_conVal=35,
         init_conVal=Modelica.Blocks.Types.Init.InitialOutput,
+        Kv_cheVal=4.19,
         zeta_transferstation=2,
         d_transferpipe=0.0419,
         R_ins_transferpipe=25,
         ambient_temperature=system.T_ambient,
         energyDynamics_pumpsSec=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_pumpsSec=3,
         use_inputFilter_pumpsSec=true,
         riseTime_pumpsSec=35,
@@ -1618,7 +1617,7 @@ package Fabian
         zeta=1,
         energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
         T_start=313.15)
-        annotation (Placement(transformation(extent={{-128,-92},{-108,-72}})));
+        annotation (Placement(transformation(extent={{-132,-108},{-96,-72}})));
       Fluid.Pipes.InsulatedPipe pipe_cold_12(
         allowFlowReversal=true,
         T_amb=system.T_ambient,
@@ -1628,11 +1627,11 @@ package Fabian
         zeta=1,
         energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
         T_start=313.15)
-        annotation (Placement(transformation(extent={{-106,-58},{-126,-38}})));
+        annotation (Placement(transformation(extent={{-98,-66},{-134,-30}})));
       Fluid.Sources.Boundary_pT bou(
-        T=313.15,                   nPorts=1, redeclare final package Medium =
+        T=310.65,                   nPorts=1, redeclare final package Medium =
             Media.Water)
-        annotation (Placement(transformation(extent={{-24,-174},{-44,-154}})));
+        annotation (Placement(transformation(extent={{-14,-186},{-46,-154}})));
       Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_1(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
@@ -1723,10 +1722,9 @@ package Fabian
         T_a2_nominal=303.15,
         m_flow_nominal_1=0.358*3,
         m_flow_nominal_2=0.358*3,
-        redeclare Fluid.Pumps.Data.Pumps_FSP.FSPStratos25slash0pt5to8 feedinPer,
-
+        redeclare Fluid.Pumps.Data.Pumps.Wilo.StratosMAXO50slash05to14
+          feedinPer,
         energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_feedPump=3,
         use_inputFilter_feedPump=true,
         riseTime_feedPump=35,
@@ -1735,12 +1733,12 @@ package Fabian
         use_inputFilter_conVal=true,
         riseTime_conVal=35,
         init_conVal=Modelica.Blocks.Types.Init.InitialOutput,
+        Kv_cheVal=3.86,
         zeta_transferstation=2,
         d_transferpipe=0.0419,
         R_ins_transferpipe=25,
         ambient_temperature=system.T_ambient,
         energyDynamics_pumpsSec=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_pumpsSec=3,
         use_inputFilter_pumpsSec=true,
         riseTime_pumpsSec=35,
@@ -1748,6 +1746,7 @@ package Fabian
         tau_cv=10,
         T_start_cv=313.15)
         annotation (Placement(transformation(extent={{284,0},{232,54}})));
+
       Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_3(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
@@ -1792,7 +1791,7 @@ package Fabian
         zeta=1,
         energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
         T_start=313.15)
-        annotation (Placement(transformation(extent={{202,-58},{182,-38}})));
+        annotation (Placement(transformation(extent={{202,-62},{168,-28}})));
       Fluid.Pipes.InsulatedPipe pipe_hot_23(
         allowFlowReversal=true,
         T_amb=system.T_ambient,
@@ -1802,7 +1801,7 @@ package Fabian
         zeta=1,
         energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
         T_start=313.15)
-        annotation (Placement(transformation(extent={{182,-94},{202,-74}})));
+        annotation (Placement(transformation(extent={{170,-104},{202,-72}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_3(table=[0,
             0; 900,-20; 1800,-20; 2700,-20; 3600,0; 4500,0; 5400,0; 6300,-20;
             7200,-35; 8100,-20; 9000,0; 9900,20; 10800,35; 11700,20; 12600,0;
@@ -1811,62 +1810,71 @@ package Fabian
     equation
       Losses = HOUSE1.Q_dot_trnsf_is+HOUSE2.Q_dot_trnsf_is;
 
-      connect(pipe_hot_12.port_a, HOUSE1.hot_prim) annotation (Line(points={{-128,
-              -82},{-188,-82},{-188,1.8}},
+      connect(pipe_hot_12.port_a, HOUSE1.hot_prim) annotation (Line(points={{-132,
+              -90},{-165.733,-90},{-165.733,-4.28889}},
                                       color={0,127,255}));
-      connect(pipe_hot_12.port_b, HOUSE2.hot_prim) annotation (Line(points={{-108,
-              -82},{-34.2667,-82},{-34.2667,-0.3}}, color={0,127,255}));
-      connect(pipe_cold_12.port_a, HOUSE2.cold_prim) annotation (Line(points={{-106,
-              -48},{-52,-48},{-52,-20},{-51.6,-20},{-51.6,-0.3}}, color={0,127,255}));
-      connect(HOUSE1.cold_prim, pipe_cold_12.port_b) annotation (Line(points={{-178,
-              1.8},{-178,-48},{-126,-48}}, color={0,127,255}));
-      connect(bou.ports[1], pipe_hot_12.port_b) annotation (Line(points={{-44,
-              -164},{-80,-164},{-80,-82},{-108,-82}},
+      connect(pipe_hot_12.port_b, HOUSE2.hot_prim) annotation (Line(points={{-96,-90},
+              {-34.2667,-90},{-34.2667,-0.3}},      color={0,127,255}));
+      connect(pipe_cold_12.port_a, HOUSE2.cold_prim) annotation (Line(points={{-98,-48},
+              {-52,-48},{-52,-20},{-51.6,-20},{-51.6,-0.3}},      color={0,127,255}));
+      connect(HOUSE1.cold_prim, pipe_cold_12.port_b) annotation (Line(points={{-148.4,
+              -4.28889},{-148.4,-48},{-134,-48}},
+                                           color={0,127,255}));
+      connect(bou.ports[1], pipe_hot_12.port_b) annotation (Line(points={{-46,
+              -170},{-80,-170},{-80,-90},{-96,-90}},
                                                 color={0,127,255}));
       connect(Controller_1.T_sec_set, HOUSE1.T_sec_in_set) annotation (Line(points={{-226,42},
-              {-226,52},{-210,52},{-210,34},{-202,34}},            color={0,0,127}));
+              {-226,52},{-210,52},{-210,42.2222},{-190,42.2222}},  color={0,0,127}));
       connect(Controller_1.V_dot_sec_set, HOUSE1.V_dot_sec_set) annotation (Line(
-            points={{-226,32.4},{-212,32.4},{-212,30},{-202,30}}, color={0,0,127}));
+            points={{-226,32.4},{-212,32.4},{-212,36.4444},{-190,36.4444}},
+                                                                  color={0,0,127}));
       connect(Controller_1.pi_set, HOUSE1.pi)
-        annotation (Line(points={{-226,22.8},{-202,24}}, color={255,127,0}));
+        annotation (Line(points={{-226,22.8},{-190,27.7778}},
+                                                         color={255,127,0}));
       connect(Controller_1.mu_set, HOUSE1.mu) annotation (Line(points={{-226,
-              13.2},{-210,13.2},{-210,20},{-202,20}},
+              13.2},{-210,13.2},{-210,22},{-190,22}},
                                                 color={255,127,0}));
-      connect(HOUSE1.u_set, Controller_1.u_set) annotation (Line(points={{-202,16},
-              {-208,16},{-208,3.6},{-226,3.6}}, color={0,0,127}));
-      connect(HOUSE1.kappa_set, Controller_1.kappa_set) annotation (Line(points={{-202,12},
-              {-212,12},{-212,-16},{-226,-16},{-226,-6}},     color={0,0,127}));
-      connect(HOUSE1.T_sec_hot, Controller_1.T_sec_hot) annotation (Line(points={{-190,38},
-              {-190,54},{-252,54},{-252,46},{-253.3,46},{-253.3,42}},     color={0,
+      connect(HOUSE1.u_set, Controller_1.u_set) annotation (Line(points={{-190,
+              16.2222},{-190,3.6},{-226,3.6}},  color={0,0,127}));
+      connect(HOUSE1.kappa_set, Controller_1.kappa_set) annotation (Line(points={{-190,
+              10.4444},{-210,10.4444},{-210,-16},{-226,-16},{-226,-6}},
+                                                              color={0,0,127}));
+      connect(HOUSE1.T_sec_hot, Controller_1.T_sec_hot) annotation (Line(points={{-169.2,
+              48},{-169.2,54},{-252,54},{-252,46},{-253.3,46},{-253.3,42}},
+                                                                          color={0,
               0,127}));
-      connect(HOUSE1.T_sec_cold, Controller_1.T_sec_cold) annotation (Line(points={{-174,38},
-              {-174,44},{-218,44},{-218,48},{-240.7,48},{-240.7,42}},
+      connect(HOUSE1.T_sec_cold, Controller_1.T_sec_cold) annotation (Line(points={{
+              -141.467,48},{-240.7,48},{-240.7,42}},
             color={0,0,127}));
-      connect(HOUSE1.V_dot_sec, Controller_1.V_dot_sec) annotation (Line(points={{-182,38},
-              {-182,58},{-278,58},{-278,32.4},{-268,32.4}},     color={0,0,127}));
-      connect(HOUSE1.T_prim_hot, Controller_1.T_prim_hot) annotation (Line(points={{-190,2},
-              {-190,-18},{-252,-18},{-252,-10},{-253.3,-10},{-253.3,-6}},
+      connect(HOUSE1.V_dot_sec, Controller_1.V_dot_sec) annotation (Line(points={{
+              -155.333,48},{-155.333,58},{-278,58},{-278,32.4},{-268,32.4}},
+                                                                color={0,0,127}));
+      connect(HOUSE1.T_prim_hot, Controller_1.T_prim_hot) annotation (Line(points={{-169.2,
+              -4},{-169.2,-18},{-252,-18},{-252,-10},{-253.3,-10},{-253.3,-6}},
             color={0,0,127}));
-      connect(HOUSE1.T_prim_cold, Controller_1.T_prim_cold) annotation (Line(points={{-174,2},
-              {-174,-6},{-218,-6},{-218,-12},{-240.7,-12},{-240.7,-6}},
+      connect(HOUSE1.T_prim_cold, Controller_1.T_prim_cold) annotation (Line(points={{
+              -141.467,-4},{-218,-4},{-218,-12},{-240.7,-12},{-240.7,-6}},
             color={0,0,127}));
       connect(Controller_1.V_dot_prim, HOUSE1.V_dot_prim) annotation (Line(points={{-268,
-              3.6},{-278,3.6},{-278,-22},{-182,-22},{-182,2}},       color={0,0,127}));
-      connect(HOUSE1.Q_dot_trnsf_is, Controller_1.Qdot_is) annotation (Line(points={{-202,6},
-              {-214,6},{-214,-24},{-280,-24},{-280,13.2},{-268,13.2}},
+              3.6},{-278,3.6},{-278,-22},{-155.333,-22},{-155.333,-4}},
+                                                                     color={0,0,127}));
+      connect(HOUSE1.Q_dot_trnsf_is, Controller_1.Qdot_is) annotation (Line(points={{-190,
+              1.77778},{-214,1.77778},{-214,-24},{-280,-24},{-280,13.2},{-268,
+              13.2}},
             color={0,0,127}));
-      connect(Controller_2.T_sec_set, HOUSE2.T_sec_in_set) annotation (Line(points=
-              {{22,54},{22,64},{0,64},{0,48},{-10,48}}, color={0,0,127}));
+      connect(Controller_2.T_sec_set, HOUSE2.T_sec_in_set) annotation (Line(points={{22,54},
+              {22,64},{0,64},{0,48},{-10,48}},          color={0,0,127}));
       connect(Controller_2.V_dot_sec_set, HOUSE2.V_dot_sec_set) annotation (Line(
             points={{22,44.4},{0,44.4},{0,42},{-10,42}}, color={0,0,127}));
       connect(Controller_2.pi_set, HOUSE2.pi)
         annotation (Line(points={{22,34.8},{-10,33}}, color={255,127,0}));
-      connect(Controller_2.mu_set, HOUSE2.mu) annotation (Line(points={{22,25.2},{0,
-              25.2},{0,27},{-10,27}}, color={255,127,0}));
+      connect(Controller_2.mu_set, HOUSE2.mu) annotation (Line(points={{22,25.2},
+              {0,25.2},{0,27},{-10,27}},
+                                      color={255,127,0}));
       connect(Controller_2.u_set, HOUSE2.u_set) annotation (Line(points={{22,15.6},
               {0,15.6},{0,21},{-10,21}}, color={0,0,127}));
-      connect(Controller_2.kappa_set, HOUSE2.kappa_set) annotation (Line(points={{
-              22,6},{14,6},{14,-6},{-2,-6},{-2,14},{-10,14},{-10,15}}, color={0,0,
+      connect(Controller_2.kappa_set, HOUSE2.kappa_set) annotation (Line(points={{22,6},{
+              14,6},{14,-6},{-2,-6},{-2,14},{-10,14},{-10,15}},        color={0,0,
               127}));
       connect(HOUSE2.T_sec_hot, Controller_2.T_sec_hot) annotation (Line(points={{-30.8,
               54},{-30.8,68},{48,68},{48,58},{49.3,58},{49.3,54}}, color={0,0,127}));
@@ -1875,16 +1883,16 @@ package Fabian
       connect(HOUSE2.V_dot_sec, Controller_2.V_dot_sec) annotation (Line(points={{
               -44.6667,54},{-44.6667,72},{74,72},{74,44.4},{64,44.4}}, color={0,0,
               127}));
-      connect(HOUSE2.T_prim_hot, Controller_2.T_prim_hot) annotation (Line(points={
-              {-30.8,0},{-30.8,-10},{48,-10},{48,2},{49.3,2},{49.3,6}}, color={0,0,
+      connect(HOUSE2.T_prim_hot, Controller_2.T_prim_hot) annotation (Line(points={{-30.8,0},
+              {-30.8,-10},{48,-10},{48,2},{49.3,2},{49.3,6}},           color={0,0,
               127}));
       connect(HOUSE2.T_prim_cold, Controller_2.T_prim_cold) annotation (Line(points={{
               -58.5333,0},{-60,0},{-60,-16},{36.7,-16},{36.7,6}},  color={0,0,127}));
       connect(HOUSE2.V_dot_prim, Controller_2.V_dot_prim) annotation (Line(points={{
               -44.6667,0},{-46,0},{-46,-14},{74,-14},{74,15.6},{64,15.6}},  color={
               0,0,127}));
-      connect(HOUSE2.Q_dot_trnsf_is, Controller_2.Qdot_is) annotation (Line(points=
-              {{-10,6},{-4,6},{-4,-18},{76,-18},{76,25.2},{64,25.2}}, color={0,0,
+      connect(HOUSE2.Q_dot_trnsf_is, Controller_2.Qdot_is) annotation (Line(points={{-10,6},
+              {-4,6},{-4,-18},{76,-18},{76,25.2},{64,25.2}},          color={0,0,
               127}));
       connect(Q_management_array_1.y, Controller_1.Qdot_set) annotation (Line(
             points={{-293,18},{-278,18},{-278,22.8},{-268,22.8}}, color={0,0,127}));
@@ -1941,21 +1949,22 @@ package Fabian
       connect(T_sec_in_array_3.y, add2.u2) annotation (Line(points={{439,-4},{430,
               -4},{430,26},{436,26},{436,36},{428,36}}, color={0,0,127}));
       connect(pipe_cold_12.port_a, pipe_cold_23.port_b)
-        annotation (Line(points={{-106,-48},{182,-48}}, color={0,127,255}));
-      connect(pipe_hot_12.port_b, pipe_hot_23.port_a)
-        annotation (Line(points={{-108,-82},{38,-82},{38,-84},{182,-84}},
+        annotation (Line(points={{-98,-48},{42,-48},{42,-45},{168,-45}},
                                                         color={0,127,255}));
-      connect(pipe_cold_23.port_a, HOUSE3.cold_prim) annotation (Line(points={{202,
-              -48},{240,-48},{240,-8},{242.4,-8},{242.4,-0.3}}, color={0,127,255}));
+      connect(pipe_hot_12.port_b, pipe_hot_23.port_a)
+        annotation (Line(points={{-96,-90},{38,-90},{38,-88},{170,-88}},
+                                                        color={0,127,255}));
+      connect(pipe_cold_23.port_a, HOUSE3.cold_prim) annotation (Line(points={{202,-45},
+              {240,-45},{240,-8},{242.4,-8},{242.4,-0.3}},      color={0,127,255}));
       connect(HOUSE3.hot_prim, pipe_hot_23.port_b) annotation (Line(points={{259.733,
-              -0.3},{256,-0.3},{256,-84},{202,-84}},         color={0,127,255}));
+              -0.3},{256,-0.3},{256,-88},{202,-88}},         color={0,127,255}));
       connect(Q_management_array_3.y, Controller_3.Qdot_set) annotation (Line(
             points={{401,-6},{376,-6},{376,34.8},{358,34.8}}, color={0,0,127}));
       annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-320,
                 -220},{780,100}})), Diagram(coordinateSystem(preserveAspectRatio=
                 false, extent={{-320,-220},{780,100}}), graphics={
             Text(
-              extent={{-214,82},{-146,68}},
+              extent={{-274,76},{-206,62}},
               textColor={0,0,0},
               textString="House1"),
             Text(
@@ -1979,5 +1988,1039 @@ package Fabian
           Interval=10,
           __Dymola_Algorithm="Dassl"));
     end Test_Controller_3_rad_highkW_Q_pump_maxV_in_PID;
+
+    model Test_Controller_3_new_dimensioning
+      "Producer and Consumer with Controller"
+      Real Losses;
+
+      Under_Development.new_prosumer_models.heat_transfer_station HOUSE1(
+        Q_flow_nominal=30000*6,
+        T_a1_nominal=318.15,
+        T_a2_nominal=303.15,
+        m_flow_nominal_1=0.358*6,
+        m_flow_nominal_2=0.358*6,
+        redeclare
+          Fluid.Pumps.Data.Pumps_FSP.FSPStratosMAXO40slash0dot5dash16PN6slash10
+          feedinPer,
+        energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+        tau_feedPump=3,
+        use_inputFilter_feedPump=true,
+        riseTime_feedPump=35,
+        init_feedPump=Modelica.Blocks.Types.Init.InitialOutput,
+        Kv_conVal=7.73,
+        use_inputFilter_conVal=true,
+        riseTime_conVal=35,
+        init_conVal=Modelica.Blocks.Types.Init.InitialOutput,
+        Kv_cheVal=7.73,
+        zeta_transferstation=2,
+        d_transferpipe=0.0539,
+        R_ins_transferpipe=25,
+        ambient_temperature=system.T_ambient,
+        energyDynamics_pumpsSec=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+        tau_pumpsSec=3,
+        use_inputFilter_pumpsSec=true,
+        riseTime_pumpsSec=35,
+        tau_cv=10,
+        T_start_cv=313.15,
+        valve_prim_cons(kFixed=0))
+        annotation (Placement(transformation(extent={{-190,-4},{-138,48}})));
+
+      Under_Development.new_prosumer_models.heat_transfer_station HOUSE2(
+        Q_flow_nominal=30000*3,
+        T_a1_nominal=318.15,
+        T_a2_nominal=303.15,
+        m_flow_nominal_1=0.358*3,
+        m_flow_nominal_2=0.358*3,
+        redeclare
+          Fluid.Pumps.Data.Pumps_FSP.FSPStratosMAXO40slash0dot5dash16PN6slash10
+          feedinPer,
+        energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+        tau_feedPump=3,
+        use_inputFilter_feedPump=true,
+        riseTime_feedPump=35,
+        init_feedPump=Modelica.Blocks.Types.Init.InitialOutput,
+        Kv_conVal=4.19,
+        use_inputFilter_conVal=true,
+        riseTime_conVal=35,
+        init_conVal=Modelica.Blocks.Types.Init.InitialOutput,
+        Kv_cheVal=4.19,
+        zeta_transferstation=2,
+        d_transferpipe=0.0419,
+        R_ins_transferpipe=25,
+        ambient_temperature=system.T_ambient,
+        energyDynamics_pumpsSec=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+        tau_pumpsSec=3,
+        use_inputFilter_pumpsSec=true,
+        riseTime_pumpsSec=35,
+        energyDynamics_cv=Modelica.Fluid.Types.Dynamics.SteadyState,
+        tau_cv=10,
+        T_start_cv=313.15)
+        annotation (Placement(transformation(extent={{-10,0},{-62,54}})));
+
+      inner Modelica.Fluid.System system(T_ambient=285.15)
+        annotation (Placement(transformation(extent={{70,-188},{90,-168}})));
+      Fluid.Pipes.InsulatedPipe pipe_hot_12(
+        allowFlowReversal=true,
+        T_amb=system.T_ambient,
+        R_ins=25,
+        length=30,
+        diameter=0.0539,
+        zeta=1,
+        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+        T_start=313.15)
+        annotation (Placement(transformation(extent={{-132,-108},{-96,-72}})));
+      Fluid.Pipes.InsulatedPipe pipe_cold_12(
+        allowFlowReversal=true,
+        T_amb=system.T_ambient,
+        R_ins=25,
+        length=30,
+        diameter=0.0539,
+        zeta=1,
+        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+        T_start=313.15)
+        annotation (Placement(transformation(extent={{-98,-66},{-134,-30}})));
+      Fluid.Sources.Boundary_pT bou(
+        T=310.65,                   nPorts=1, redeclare final package Medium =
+            Media.Water)
+        annotation (Placement(transformation(extent={{-14,-186},{-46,-154}})));
+      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_1(
+        Delta_T_norm=3,
+        T_prim_hot_des=316.65,
+        T_sec_hot_des=313.15,
+        DeltaT_prim_des=14,
+        DeltaT_sec_des=10,
+        V_dot_sec_max=200,
+        k_prim_prod=1.5,
+        Ti_prim_prod=35,
+        alpha_prim_prod=0.4,
+        k_sec_prod=1.5,
+        Ti_sec_prod=35,
+        alpha_sec_prod=0.8,
+        k_prim_cons=1.5,
+        Ti_prim_cons=35,
+        alpha_prim_cons=0.8,
+        k_sec_cons=1.5,
+        Ti_sec_cons=35,
+        alpha_sec_cons=0.4,
+        controllerType=Modelica.Blocks.Types.SimpleController.PI)
+        annotation (Placement(transformation(extent={{-268,-6},{-226,42}})));
+      Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp T_sec_in_array_1(table=[0,
+            273.15 + 45; 900,273.15 + 45; 1800,273.15 + 45; 2700,273.15 + 45;
+            3600,273.15 + 45; 4500,273.15 + 45; 5400,273.15 + 45; 6300,273.15
+             + 45; 7200,273.15 + 45; 8100,273.15 + 45; 9000,273.15 + 30; 9900,
+            273.15 + 30; 10800,273.15 + 30; 11700,273.15 + 30; 12600,273.15 +
+            45; 13500,273.15 + 45; 14400,273.15 + 45; 15300,273.15 + 30; 16200,
+            273.15 + 30; 17100,273.15 + 30; 18000,273.15 + 30])
+        annotation (Placement(transformation(extent={{-400,32},{-380,52}})));
+      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_2(
+        Delta_T_norm=3,
+        T_prim_hot_des=316.65,
+        T_sec_hot_des=313.15,
+        DeltaT_prim_des=14,
+        DeltaT_sec_des=10,
+        V_dot_sec_max=200,
+        k_prim_prod=1.5,
+        Ti_prim_prod=35,
+        alpha_prim_prod=0.4,
+        k_sec_prod=1.5,
+        Ti_sec_prod=35,
+        alpha_sec_prod=0.8,
+        k_prim_cons=1.5,
+        Ti_prim_cons=35,
+        alpha_prim_cons=0.8,
+        k_sec_cons=1.5,
+        Ti_sec_cons=35,
+        alpha_sec_cons=0.4,
+        controllerType=Modelica.Blocks.Types.SimpleController.PI)
+        annotation (Placement(transformation(extent={{64,6},{22,54}})));
+      Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_1(table=[0,
+            0; 900,40; 1800,40; 2700,40; 3600,0; 4500,0; 5400,0; 6300,40; 7200,
+            70; 8100,40; 9000,0; 9900,-40; 10800,-70; 11700,-40; 12600,0; 13500,
+            70; 14400,0; 15300,0; 16200,-70; 17100,0; 18000,0])
+        annotation (Placement(transformation(extent={{-314,8},{-294,28}})));
+      Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_2(table=[0,
+            0; 900,-20; 1800,-20; 2700,-20; 3600,0; 4500,0; 5400,0; 6300,-20;
+            7200,-35; 8100,-20; 9000,0; 9900,20; 10800,35; 11700,20; 12600,0;
+            13500,-35; 14400,0; 15300,0; 16200,35; 17100,0; 18000,0])
+        annotation (Placement(transformation(extent={{124,-10},{104,10}})));
+      inner Modelica.Blocks.Noise.GlobalSeed globalSeed(enableNoise=false,
+          fixedSeed=4345)
+        annotation (Placement(transformation(extent={{-126,72},{-106,92}})));
+      Modelica.Blocks.Noise.NormalNoise normalNoise(
+        samplePeriod=30,
+        mu=0,
+        sigma=3)
+        annotation (Placement(transformation(extent={{-400,70},{-380,90}})));
+      Modelica.Blocks.Math.Add add
+        annotation (Placement(transformation(extent={{-356,54},{-336,74}})));
+      Modelica.Blocks.Noise.NormalNoise normalNoise1(
+        samplePeriod=30,
+        mu=0,
+        sigma=3) annotation (Placement(transformation(extent={{178,54},{158,74}})));
+      Modelica.Blocks.Math.Add add1
+        annotation (Placement(transformation(extent={{132,32},{112,52}})));
+      Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp T_sec_in_array_2(table=[0,
+            273.15 + 30; 900,273.15 + 30; 1800,273.15 + 30; 2700,273.15 + 30;
+            3600,273.15 + 30; 4500,273.15 + 30; 5400,273.15 + 30; 6300,273.15
+             + 30; 7200,273.15 + 30; 8100,273.15 + 30; 9000,273.15 + 45; 9900,
+            273.15 + 45; 10800,273.15 + 45; 11700,273.15 + 45; 12600,273.15 +
+            30; 13500,273.15 + 30; 14400,273.15 + 30; 15300,273.15 + 45; 16200,
+            273.15 + 45; 17100,273.15 + 45; 18000,273.15 + 45])
+        annotation (Placement(transformation(extent={{166,-14},{146,6}})));
+      Under_Development.new_prosumer_models.heat_transfer_station HOUSE3(
+        Q_flow_nominal=30000*3,
+        T_a1_nominal=318.15,
+        T_a2_nominal=303.15,
+        m_flow_nominal_1=0.358*3,
+        m_flow_nominal_2=0.358*3,
+        redeclare
+          Fluid.Pumps.Data.Pumps_FSP.FSPStratosMAXO40slash0dot5dash16PN6slash10
+          feedinPer,
+        energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+        tau_feedPump=3,
+        use_inputFilter_feedPump=true,
+        riseTime_feedPump=35,
+        init_feedPump=Modelica.Blocks.Types.Init.InitialOutput,
+        Kv_conVal=3.86,
+        use_inputFilter_conVal=true,
+        riseTime_conVal=35,
+        init_conVal=Modelica.Blocks.Types.Init.InitialOutput,
+        Kv_cheVal=3.86,
+        zeta_transferstation=2,
+        d_transferpipe=0.0419,
+        R_ins_transferpipe=25,
+        ambient_temperature=system.T_ambient,
+        energyDynamics_pumpsSec=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+        tau_pumpsSec=3,
+        use_inputFilter_pumpsSec=true,
+        riseTime_pumpsSec=35,
+        energyDynamics_cv=Modelica.Fluid.Types.Dynamics.SteadyState,
+        tau_cv=10,
+        T_start_cv=313.15)
+        annotation (Placement(transformation(extent={{284,0},{232,54}})));
+
+      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_3(
+        Delta_T_norm=3,
+        T_prim_hot_des=316.65,
+        T_sec_hot_des=313.15,
+        DeltaT_prim_des=14,
+        DeltaT_sec_des=10,
+        V_dot_sec_max=200,
+        k_prim_prod=1.5,
+        Ti_prim_prod=35,
+        alpha_prim_prod=0.4,
+        k_sec_prod=1.5,
+        Ti_sec_prod=35,
+        alpha_sec_prod=0.8,
+        k_prim_cons=1.5,
+        Ti_prim_cons=35,
+        alpha_prim_cons=0.8,
+        k_sec_cons=1.5,
+        Ti_sec_cons=35,
+        alpha_sec_cons=0.4,
+        controllerType=Modelica.Blocks.Types.SimpleController.PI)
+        annotation (Placement(transformation(extent={{358,6},{316,54}})));
+      Modelica.Blocks.Noise.NormalNoise normalNoise2(
+        samplePeriod=30,
+        mu=0,
+        sigma=3) annotation (Placement(transformation(extent={{472,54},{452,74}})));
+      Modelica.Blocks.Math.Add add2
+        annotation (Placement(transformation(extent={{426,32},{406,52}})));
+      Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp T_sec_in_array_3(table=[0,
+            273.15 + 30; 900,273.15 + 30; 1800,273.15 + 30; 2700,273.15 + 30;
+            3600,273.15 + 30; 4500,273.15 + 30; 5400,273.15 + 30; 6300,273.15
+             + 30; 7200,273.15 + 30; 8100,273.15 + 30; 9000,273.15 + 45; 9900,
+            273.15 + 45; 10800,273.15 + 45; 11700,273.15 + 45; 12600,273.15 +
+            30; 13500,273.15 + 30; 14400,273.15 + 30; 15300,273.15 + 45; 16200,
+            273.15 + 45; 17100,273.15 + 45; 18000,273.15 + 45])
+        annotation (Placement(transformation(extent={{460,-14},{440,6}})));
+      Fluid.Pipes.InsulatedPipe pipe_cold_23(
+        allowFlowReversal=true,
+        T_amb=system.T_ambient,
+        R_ins=25,
+        length=30,
+        diameter=0.0419,
+        zeta=1,
+        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+        T_start=313.15)
+        annotation (Placement(transformation(extent={{202,-62},{168,-28}})));
+      Fluid.Pipes.InsulatedPipe pipe_hot_23(
+        allowFlowReversal=true,
+        T_amb=system.T_ambient,
+        R_ins=25,
+        length=30,
+        diameter=0.0419,
+        zeta=1,
+        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+        T_start=313.15)
+        annotation (Placement(transformation(extent={{170,-104},{202,-72}})));
+      Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_3(table=[0,
+            0; 900,-20; 1800,-20; 2700,-20; 3600,0; 4500,0; 5400,0; 6300,-20;
+            7200,-35; 8100,-20; 9000,0; 9900,20; 10800,35; 11700,20; 12600,0;
+            13500,-35; 14400,0; 15300,0; 16200,35; 17100,0; 18000,0])
+        annotation (Placement(transformation(extent={{422,-16},{402,4}})));
+    equation
+      Losses = HOUSE1.Q_dot_trnsf_is+HOUSE2.Q_dot_trnsf_is;
+
+      connect(pipe_hot_12.port_a, HOUSE1.hot_prim) annotation (Line(points={{-132,
+              -90},{-165.733,-90},{-165.733,-4.28889}},
+                                      color={0,127,255}));
+      connect(pipe_hot_12.port_b, HOUSE2.hot_prim) annotation (Line(points={{-96,-90},
+              {-34.2667,-90},{-34.2667,-0.3}},      color={0,127,255}));
+      connect(pipe_cold_12.port_a, HOUSE2.cold_prim) annotation (Line(points={{-98,-48},
+              {-52,-48},{-52,-20},{-51.6,-20},{-51.6,-0.3}},      color={0,127,255}));
+      connect(HOUSE1.cold_prim, pipe_cold_12.port_b) annotation (Line(points={{-148.4,
+              -4.28889},{-148.4,-48},{-134,-48}},
+                                           color={0,127,255}));
+      connect(bou.ports[1], pipe_hot_12.port_b) annotation (Line(points={{-46,
+              -170},{-80,-170},{-80,-90},{-96,-90}},
+                                                color={0,127,255}));
+      connect(Controller_1.T_sec_set, HOUSE1.T_sec_in_set) annotation (Line(points={{-226,42},
+              {-226,52},{-210,52},{-210,42.2222},{-190,42.2222}},  color={0,0,127}));
+      connect(Controller_1.V_dot_sec_set, HOUSE1.V_dot_sec_set) annotation (Line(
+            points={{-226,32.4},{-212,32.4},{-212,36.4444},{-190,36.4444}},
+                                                                  color={0,0,127}));
+      connect(Controller_1.pi_set, HOUSE1.pi)
+        annotation (Line(points={{-226,22.8},{-190,27.7778}},
+                                                         color={255,127,0}));
+      connect(Controller_1.mu_set, HOUSE1.mu) annotation (Line(points={{-226,
+              13.2},{-210,13.2},{-210,22},{-190,22}},
+                                                color={255,127,0}));
+      connect(HOUSE1.u_set, Controller_1.u_set) annotation (Line(points={{-190,
+              16.2222},{-190,3.6},{-226,3.6}},  color={0,0,127}));
+      connect(HOUSE1.kappa_set, Controller_1.kappa_set) annotation (Line(points={{-190,
+              10.4444},{-210,10.4444},{-210,-16},{-226,-16},{-226,-6}},
+                                                              color={0,0,127}));
+      connect(HOUSE1.T_sec_hot, Controller_1.T_sec_hot) annotation (Line(points={{-169.2,
+              48},{-169.2,54},{-252,54},{-252,46},{-253.3,46},{-253.3,42}},
+                                                                          color={0,
+              0,127}));
+      connect(HOUSE1.T_sec_cold, Controller_1.T_sec_cold) annotation (Line(points={{
+              -141.467,48},{-240.7,48},{-240.7,42}},
+            color={0,0,127}));
+      connect(HOUSE1.V_dot_sec, Controller_1.V_dot_sec) annotation (Line(points={{
+              -155.333,48},{-155.333,58},{-278,58},{-278,32.4},{-268,32.4}},
+                                                                color={0,0,127}));
+      connect(HOUSE1.T_prim_hot, Controller_1.T_prim_hot) annotation (Line(points={{-169.2,
+              -4},{-169.2,-18},{-252,-18},{-252,-10},{-253.3,-10},{-253.3,-6}},
+            color={0,0,127}));
+      connect(HOUSE1.T_prim_cold, Controller_1.T_prim_cold) annotation (Line(points={{
+              -141.467,-4},{-218,-4},{-218,-12},{-240.7,-12},{-240.7,-6}},
+            color={0,0,127}));
+      connect(Controller_1.V_dot_prim, HOUSE1.V_dot_prim) annotation (Line(points={{-268,
+              3.6},{-278,3.6},{-278,-22},{-155.333,-22},{-155.333,-4}},
+                                                                     color={0,0,127}));
+      connect(HOUSE1.Q_dot_trnsf_is, Controller_1.Qdot_is) annotation (Line(points={{-190,
+              1.77778},{-214,1.77778},{-214,-24},{-280,-24},{-280,13.2},{-268,
+              13.2}},
+            color={0,0,127}));
+      connect(Controller_2.T_sec_set, HOUSE2.T_sec_in_set) annotation (Line(points={{22,54},
+              {22,64},{0,64},{0,48},{-10,48}},          color={0,0,127}));
+      connect(Controller_2.V_dot_sec_set, HOUSE2.V_dot_sec_set) annotation (Line(
+            points={{22,44.4},{0,44.4},{0,42},{-10,42}}, color={0,0,127}));
+      connect(Controller_2.pi_set, HOUSE2.pi)
+        annotation (Line(points={{22,34.8},{-10,33}}, color={255,127,0}));
+      connect(Controller_2.mu_set, HOUSE2.mu) annotation (Line(points={{22,25.2},
+              {0,25.2},{0,27},{-10,27}},
+                                      color={255,127,0}));
+      connect(Controller_2.u_set, HOUSE2.u_set) annotation (Line(points={{22,15.6},
+              {0,15.6},{0,21},{-10,21}}, color={0,0,127}));
+      connect(Controller_2.kappa_set, HOUSE2.kappa_set) annotation (Line(points={{22,6},{
+              14,6},{14,-6},{-2,-6},{-2,14},{-10,14},{-10,15}},        color={0,0,
+              127}));
+      connect(HOUSE2.T_sec_hot, Controller_2.T_sec_hot) annotation (Line(points={{-30.8,
+              54},{-30.8,68},{48,68},{48,58},{49.3,58},{49.3,54}}, color={0,0,127}));
+      connect(HOUSE2.T_sec_cold, Controller_2.T_sec_cold) annotation (Line(points={{
+              -58.5333,54},{-56,54},{-56,66},{36.7,66},{36.7,54}},  color={0,0,127}));
+      connect(HOUSE2.V_dot_sec, Controller_2.V_dot_sec) annotation (Line(points={{
+              -44.6667,54},{-44.6667,72},{74,72},{74,44.4},{64,44.4}}, color={0,0,
+              127}));
+      connect(HOUSE2.T_prim_hot, Controller_2.T_prim_hot) annotation (Line(points={{-30.8,0},
+              {-30.8,-10},{48,-10},{48,2},{49.3,2},{49.3,6}},           color={0,0,
+              127}));
+      connect(HOUSE2.T_prim_cold, Controller_2.T_prim_cold) annotation (Line(points={{
+              -58.5333,0},{-60,0},{-60,-16},{36.7,-16},{36.7,6}},  color={0,0,127}));
+      connect(HOUSE2.V_dot_prim, Controller_2.V_dot_prim) annotation (Line(points={{
+              -44.6667,0},{-46,0},{-46,-14},{74,-14},{74,15.6},{64,15.6}},  color={
+              0,0,127}));
+      connect(HOUSE2.Q_dot_trnsf_is, Controller_2.Qdot_is) annotation (Line(points={{-10,6},
+              {-4,6},{-4,-18},{76,-18},{76,25.2},{64,25.2}},          color={0,0,
+              127}));
+      connect(Q_management_array_1.y, Controller_1.Qdot_set) annotation (Line(
+            points={{-293,18},{-278,18},{-278,22.8},{-268,22.8}}, color={0,0,127}));
+      connect(Q_management_array_2.y, Controller_2.Qdot_set) annotation (Line(
+            points={{103,0},{84,0},{84,34.8},{64,34.8}}, color={0,0,127}));
+      connect(normalNoise.y, add.u1) annotation (Line(points={{-379,80},{-366,80},{
+              -366,70},{-358,70}}, color={0,0,127}));
+      connect(T_sec_in_array_1.y, add.u2) annotation (Line(points={{-379,42},{-366,
+              42},{-366,58},{-358,58}}, color={0,0,127}));
+      connect(add.y, Controller_1.T_sec_sim) annotation (Line(points={{-335,64},{-318,
+              64},{-318,42},{-268,42}}, color={0,0,127}));
+      connect(normalNoise1.y, add1.u1) annotation (Line(points={{157,64},{144,64},{
+              144,48},{134,48}}, color={0,0,127}));
+      connect(add1.y, Controller_2.T_sec_sim) annotation (Line(points={{111,42},{80,
+              42},{80,54},{64,54}}, color={0,0,127}));
+      connect(T_sec_in_array_2.y, add1.u2) annotation (Line(points={{145,-4},{136,
+              -4},{136,26},{142,26},{142,36},{134,36}}, color={0,0,127}));
+      connect(Controller_3.T_sec_set, HOUSE3.T_sec_in_set) annotation (Line(points=
+              {{316,54},{316,64},{294,64},{294,48},{284,48}}, color={0,0,127}));
+      connect(Controller_3.V_dot_sec_set, HOUSE3.V_dot_sec_set) annotation (Line(
+            points={{316,44.4},{294,44.4},{294,42},{284,42}}, color={0,0,127}));
+      connect(Controller_3.pi_set, HOUSE3.pi)
+        annotation (Line(points={{316,34.8},{284,33}}, color={255,127,0}));
+      connect(Controller_3.mu_set, HOUSE3.mu) annotation (Line(points={{316,25.2},{
+              294,25.2},{294,27},{284,27}}, color={255,127,0}));
+      connect(Controller_3.u_set, HOUSE3.u_set) annotation (Line(points={{316,15.6},
+              {294,15.6},{294,21},{284,21}}, color={0,0,127}));
+      connect(Controller_3.kappa_set, HOUSE3.kappa_set) annotation (Line(points={{
+              316,6},{308,6},{308,-6},{292,-6},{292,14},{284,14},{284,15}}, color={
+              0,0,127}));
+      connect(HOUSE3.T_sec_hot, Controller_3.T_sec_hot) annotation (Line(points={{
+              263.2,54},{263.2,68},{342,68},{342,58},{343.3,58},{343.3,54}}, color=
+              {0,0,127}));
+      connect(HOUSE3.T_sec_cold, Controller_3.T_sec_cold) annotation (Line(points={{235.467,
+              54},{238,54},{238,66},{330.7,66},{330.7,54}},          color={0,0,127}));
+      connect(HOUSE3.V_dot_sec, Controller_3.V_dot_sec) annotation (Line(points={{249.333,
+              54},{249.333,72},{368,72},{368,44.4},{358,44.4}},         color={0,0,
+              127}));
+      connect(HOUSE3.T_prim_hot, Controller_3.T_prim_hot) annotation (Line(points={
+              {263.2,0},{263.2,-10},{342,-10},{342,2},{343.3,2},{343.3,6}}, color={
+              0,0,127}));
+      connect(HOUSE3.T_prim_cold, Controller_3.T_prim_cold) annotation (Line(points={{235.467,
+              0},{234,0},{234,-16},{330.7,-16},{330.7,6}},          color={0,0,127}));
+      connect(HOUSE3.V_dot_prim, Controller_3.V_dot_prim) annotation (Line(points={{249.333,
+              0},{248,0},{248,-14},{368,-14},{368,15.6},{358,15.6}},          color=
+             {0,0,127}));
+      connect(HOUSE3.Q_dot_trnsf_is, Controller_3.Qdot_is) annotation (Line(points=
+              {{284,6},{290,6},{290,-18},{370,-18},{370,25.2},{358,25.2}}, color={0,
+              0,127}));
+      connect(normalNoise2.y,add2. u1) annotation (Line(points={{451,64},{438,64},{
+              438,48},{428,48}}, color={0,0,127}));
+      connect(add2.y, Controller_3.T_sec_sim) annotation (Line(points={{405,42},{
+              374,42},{374,54},{358,54}}, color={0,0,127}));
+      connect(T_sec_in_array_3.y, add2.u2) annotation (Line(points={{439,-4},{430,
+              -4},{430,26},{436,26},{436,36},{428,36}}, color={0,0,127}));
+      connect(pipe_cold_12.port_a, pipe_cold_23.port_b)
+        annotation (Line(points={{-98,-48},{42,-48},{42,-45},{168,-45}},
+                                                        color={0,127,255}));
+      connect(pipe_hot_12.port_b, pipe_hot_23.port_a)
+        annotation (Line(points={{-96,-90},{38,-90},{38,-88},{170,-88}},
+                                                        color={0,127,255}));
+      connect(pipe_cold_23.port_a, HOUSE3.cold_prim) annotation (Line(points={{202,-45},
+              {240,-45},{240,-8},{242.4,-8},{242.4,-0.3}},      color={0,127,255}));
+      connect(HOUSE3.hot_prim, pipe_hot_23.port_b) annotation (Line(points={{259.733,
+              -0.3},{256,-0.3},{256,-88},{202,-88}},         color={0,127,255}));
+      connect(Q_management_array_3.y, Controller_3.Qdot_set) annotation (Line(
+            points={{401,-6},{376,-6},{376,34.8},{358,34.8}}, color={0,0,127}));
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-320,
+                -220},{780,100}})), Diagram(coordinateSystem(preserveAspectRatio=
+                false, extent={{-320,-220},{780,100}}), graphics={
+            Text(
+              extent={{-274,76},{-206,62}},
+              textColor={0,0,0},
+              textString="House1"),
+            Text(
+              extent={{-62,84},{6,70}},
+              textColor={0,0,0},
+              textString="House2"),
+            Text(
+              extent={{-134,-30},{-98,-38}},
+              textColor={28,108,200},
+              textString="cold"),
+            Text(
+              extent={{-134,-106},{-98,-114}},
+              textColor={238,46,47},
+              textString="hot"),
+            Text(
+              extent={{232,84},{300,70}},
+              textColor={0,0,0},
+              textString="House3")}),
+        experiment(
+          StopTime=18900,
+          Interval=10,
+          __Dymola_Algorithm="Dassl"));
+    end Test_Controller_3_new_dimensioning;
   end Tests;
+
+  package Pipe_Validation
+      extends Modelica.Icons.ExamplesPackage;
+
+    model InsulatedPipe "Tests InsulatedPipe model"
+
+      extends Modelica.Icons.Example;
+      .ProsNet.Fluid.Pipes.InsulatedPipe insPipe(
+        T_amb=283.15,                                          length=100,
+        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+        annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+      Fluid.Sources.Boundary_pT bou(
+        redeclare package Medium = Media.Water,
+        p=100000,
+        nPorts=1)
+        annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+      Fluid.Sources.Boundary_pT bou1(
+        redeclare package Medium = Media.Water,
+        p=100000,
+        nPorts=1)
+        annotation (Placement(transformation(extent={{80,-10},{60,10}})));
+      Fluid.Sensors.TemperatureTwoPort senTem(
+        redeclare package Medium = Media.Water,
+        m_flow_nominal=1,
+        initType=Modelica.Blocks.Types.Init.SteadyState)
+        annotation (Placement(transformation(extent={{-42,-10},{-22,10}})));
+      Fluid.Sensors.TemperatureTwoPort senTem1(m_flow_nominal=1, initType=
+            Modelica.Blocks.Types.Init.SteadyState)
+        annotation (Placement(transformation(extent={{24,-10},{44,10}})));
+      .ProsNet.Fluid.Pipes.InsulatedPipe insPipe1(T_amb=283.15,
+                                                  energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                                                  annotation (Placement(
+            transformation(
+            extent={{-10,-10},{10,10}},
+            rotation=-90,
+            origin={42,-38})));
+      Fluid.Sources.Boundary_pT bou2(
+        redeclare package Medium = Media.Water,
+        p=100000,
+        nPorts=1) annotation (Placement(transformation(
+            extent={{-10,-10},{10,10}},
+            rotation=90,
+            origin={42,-78})));
+    equation
+      connect(bou.ports[1], senTem.port_a)
+        annotation (Line(points={{-60,0},{-42,0}}, color={0,127,255}));
+      connect(senTem.port_b, insPipe.port_a)
+        annotation (Line(points={{-22,0},{-10,0}}, color={0,127,255}));
+      connect(insPipe.port_b, senTem1.port_a)
+        annotation (Line(points={{10,0},{24,0}}, color={0,127,255}));
+      connect(senTem1.port_b, bou1.ports[1])
+        annotation (Line(points={{44,0},{60,0}}, color={0,127,255}));
+      connect(senTem1.port_b, insPipe1.port_a)
+        annotation (Line(points={{44,0},{44,-28},{42,-28}}, color={0,127,255}));
+      connect(insPipe1.port_b, bou2.ports[1])
+        annotation (Line(points={{42,-48},{42,-68}}, color={0,127,255}));
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+            coordinateSystem(preserveAspectRatio=false)),
+        Documentation(info="<html>
+<p><b>This validation model tests the thermal and minor hydraulic losses feature of the main model.</b></p>
+</html>"));
+    end InsulatedPipe;
+
+    model Pipe_Validation_FSP
+      Fluid.Pipes.InsulatedPipe pipe
+        annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
+      Fluid.Sources.MassFlowSource_T boundary2(
+        redeclare package Medium = Media.Water,
+        m_flow=1,
+        T=282.15,
+        nPorts=1)
+        annotation (Placement(transformation(extent={{-64,-10},{-44,10}})));
+      Fluid.Sources.Boundary_pT bou(
+        redeclare package Medium = Media.Water,
+        T=282.15,
+        nPorts=1)
+        annotation (Placement(transformation(extent={{76,-10},{56,10}})));
+    equation
+      connect(boundary2.ports[1], pipe.port_a)
+        annotation (Line(points={{-44,0},{-8,0}}, color={0,127,255}));
+      connect(bou.ports[1], pipe.port_b)
+        annotation (Line(points={{56,0},{12,0}}, color={0,127,255}));
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+            coordinateSystem(preserveAspectRatio=false)));
+    end Pipe_Validation_FSP;
+
+    model Test_pipe_model
+      ProsNet.Fluid.Pipes.InsulatedPipe pipe(
+        allowFlowReversal=true,
+        length=1000,
+        zeta=10,
+        energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+        annotation (Placement(transformation(extent={{20,32},{40,52}})));
+      Modelica.Fluid.Sensors.VolumeFlowRate volumeFlowRate(redeclare package
+          Medium =
+            ProsNet.Media.Water)
+        annotation (Placement(transformation(extent={{-20,32},{0,52}})));
+      Modelica.Fluid.Sensors.RelativePressure relativePressure(redeclare
+          package Medium =
+                   ProsNet.Media.Water)
+        annotation (Placement(transformation(extent={{20,64},{40,84}})));
+      Modelica.Fluid.Sensors.RelativeTemperature relativeTemperature(redeclare
+          package Medium = ProsNet.Media.Water)
+        annotation (Placement(transformation(extent={{20,4},{40,-16}})));
+      Modelica.Fluid.Sources.MassFlowSource_T mass_source(
+        redeclare package Medium = ProsNet.Media.Water,
+        use_m_flow_in=true,
+        use_T_in=true,
+        m_flow=1,
+        T(displayUnit="K"),
+        nPorts=1) annotation (Placement(transformation(extent={{-94,32},{-74,52}})));
+      inner Modelica.Fluid.System system(
+        T_ambient=285.15,
+        allowFlowReversal=true,
+        energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+        annotation (Placement(transformation(extent={{64,-52},{84,-32}})));
+      Modelica.Fluid.Sources.Boundary_pT bou(redeclare package Medium =
+            ProsNet.Media.Water, nPorts=1)
+        annotation (Placement(transformation(extent={{104,32},{84,52}})));
+      ProsNet.Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp volume_flow(table=[0,
+            1; 10,5; 20,10; 30,11.4; 40,15; 50,20; 60,1; 70,5; 80,10; 90,11.4; 100,
+            15; 110,20; 120,1; 130,5; 140,10; 150,11.4; 160,15; 170,20; 7470,20;
+            7480,0; 10980,20; 17580,20], timeScale=1)
+        annotation (Placement(transformation(extent={{-182,50},{-162,70}})));
+      ProsNet.Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp temperatures(
+        table=[0,30; 10,30; 20,30; 30,30; 40,30; 50,30; 60,60; 70,60; 80,60; 90,60;
+            100,60; 110,60; 120,90; 130,90; 140,90; 150,90; 160,90; 170,90; 180,90;
+            7480,90; 10980,90; 17580,90],
+        timeScale=1,
+        y(unit="K"))
+        annotation (Placement(transformation(extent={{-182,16},{-162,36}})));
+      Modelica.Blocks.Math.Gain gain(k=1/60.266)
+        annotation (Placement(transformation(extent={{-138,50},{-118,70}})));
+      Modelica.Blocks.Math.UnitConversions.From_degC from_degC
+        annotation (Placement(transformation(extent={{-138,16},{-118,36}})));
+      ProsNet.Fluid.Sensors.TemperatureTwoPort Tem_in(
+        redeclare package Medium = ProsNet.Media.Water,
+        m_flow_nominal=1/6,
+        tau=1) annotation (Placement(transformation(extent={{-54,32},{-34,52}})));
+      ProsNet.Fluid.Sensors.TemperatureTwoPort Tem_out(
+        redeclare package Medium = ProsNet.Media.Water,
+        m_flow_nominal=1/6,
+        tau=1) annotation (Placement(transformation(extent={{54,32},{74,52}})));
+
+      Real DeltaT;
+    equation
+      connect(volumeFlowRate.port_b, pipe.port_a)
+        annotation (Line(points={{0,42},{20,42}}, color={0,127,255}));
+      connect(relativeTemperature.port_b, pipe.port_b) annotation (Line(points={{40,
+              -6},{44,-6},{44,42},{40,42}}, color={0,127,255}));
+      connect(relativeTemperature.port_a, pipe.port_a) annotation (Line(points={{20,
+              -6},{16,-6},{16,42},{20,42}}, color={0,127,255}));
+      connect(relativePressure.port_b, pipe.port_b) annotation (Line(points={{40,74},
+              {44,74},{44,42},{40,42}}, color={0,127,255}));
+      connect(relativePressure.port_a, pipe.port_a) annotation (Line(points={{20,74},
+              {16,74},{16,42},{20,42}}, color={0,127,255}));
+      connect(volume_flow.y, gain.u) annotation (Line(
+          points={{-161,60},{-161,60},{-142,60},{-140,60}},
+          color={0,0,127},
+          smooth=Smooth.Bezier));
+      connect(gain.y, mass_source.m_flow_in) annotation (Line(
+          points={{-117,60},{-94,60},{-94,50}},
+          color={0,0,127},
+          smooth=Smooth.Bezier));
+      connect(temperatures.y, from_degC.u) annotation (Line(
+          points={{-161,26},{-161,26},{-144,26},{-140,26}},
+          color={0,0,127},
+          smooth=Smooth.Bezier));
+      connect(from_degC.y, mass_source.T_in) annotation (Line(
+          points={{-117,26},{-102,26},{-102,46},{-96,46}},
+          color={0,0,127},
+          smooth=Smooth.Bezier));
+      connect(mass_source.ports[1], Tem_in.port_a) annotation (Line(
+          points={{-74,42},{-54,42}},
+          color={0,127,255},
+          smooth=Smooth.Bezier));
+      connect(Tem_in.port_b, volumeFlowRate.port_a) annotation (Line(
+          points={{-34,42},{-20,42}},
+          color={0,127,255},
+          smooth=Smooth.Bezier));
+      connect(Tem_out.port_a, pipe.port_b) annotation (Line(
+          points={{54,42},{48,42},{40,42}},
+          color={0,127,255},
+          smooth=Smooth.Bezier));
+      connect(Tem_out.port_b, bou.ports[1]) annotation (Line(
+          points={{74,42},{84,42}},
+          color={0,127,255},
+          smooth=Smooth.Bezier));
+
+      DeltaT = Tem_out.T - Tem_in.T;
+      annotation (                                                       experiment(
+          StopTime=7381,
+          Interval=10,
+          __Dymola_Algorithm="Dassl"));
+    end Test_pipe_model;
+
+    model Test_pump_curve
+
+      ProsNet.Fluid.Pumps.SpeedControlled_y
+                                    pump_prim_prod(
+        redeclare final package Medium = ProsNet.Media.Water,
+        final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+        inputType=ProsNet.Fluid.Types.InputType.Continuous,
+        final tau=1,
+        redeclare final ProsNet.Fluid.Pumps.Data.Pumps.IMP.NMTPlus152025to40 per,
+        final use_inputFilter=true,
+        final riseTime=1,
+        final init=Modelica.Blocks.Types.Init.SteadyState,
+        final y_start=0)                annotation (Placement(transformation(
+            extent={{10,10},{-10,-10}},
+            rotation=-90,
+            origin={-44,-8})));
+      ProsNet.Fluid.Sources.Boundary_pT
+                                bou(redeclare package Medium =
+            ProsNet.Media.Water,
+          nPorts=1)
+        annotation (Placement(transformation(extent={{68,36},{48,56}})));
+      Modelica.Blocks.Sources.RealExpression realExpression(y=1)
+        annotation (Placement(transformation(extent={{-168,2},{-148,22}})));
+      Modelica.Blocks.Sources.Ramp ramp(
+        height=-1,
+        duration=1200,
+        offset=1,
+        startTime=5)
+        annotation (Placement(transformation(extent={{140,-42},{120,-22}})));
+      Modelica.Fluid.Valves.ValveLinear valveLinear(
+        redeclare package Medium = ProsNet.Media.Water,
+        dp_start=0,
+        dp_nominal=70000,
+        m_flow_nominal=0.55)
+        annotation (Placement(transformation(extent={{42,-20},{62,0}})));
+    equation
+      connect(realExpression.y, pump_prim_prod.y) annotation (Line(points={{-147,12},
+              {-64,12},{-64,-8},{-56,-8}}, color={0,0,127}));
+      connect(pump_prim_prod.port_b, bou.ports[1]) annotation (Line(points={{-44,2},
+              {-44,20},{42,20},{42,46},{48,46}}, color={0,127,255}));
+      connect(pump_prim_prod.port_b, valveLinear.port_a) annotation (Line(points={{-44,2},
+              {-44,20},{42,20},{42,2},{32,2},{32,-10},{42,-10}},        color={0,
+              127,255}));
+      connect(valveLinear.port_b, pump_prim_prod.port_a) annotation (Line(points={{62,-10},
+              {64,-10},{64,-26},{-44,-26},{-44,-18}},         color={0,127,255}));
+      connect(ramp.y, valveLinear.opening) annotation (Line(points={{119,-32},{66,
+              -32},{66,2},{52,2},{52,-2}}, color={0,0,127}));
+      annotation ();
+    end Test_pump_curve;
+
+    model Test_control_valve_model
+      Modelica.Fluid.Sensors.VolumeFlowRate volumeFlowRate(redeclare package
+          Medium =
+            ProsNet.Media.Water)
+        annotation (Placement(transformation(extent={{-20,32},{0,52}})));
+      Modelica.Fluid.Sensors.RelativePressure relativePressure(redeclare
+          package Medium =
+                   ProsNet.Media.Water)
+        annotation (Placement(transformation(extent={{20,64},{40,84}})));
+      Modelica.Fluid.Sources.MassFlowSource_T mass_source(
+        redeclare package Medium = ProsNet.Media.Water,
+        use_m_flow_in=true,
+        use_T_in=true,
+        m_flow=1,
+        T(displayUnit="K"),
+        nPorts=1) annotation (Placement(transformation(extent={{-94,32},{-74,52}})));
+      inner Modelica.Fluid.System system(
+        T_ambient=285.15,
+        allowFlowReversal=true,
+        energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+        annotation (Placement(transformation(extent={{64,-52},{84,-32}})));
+      Modelica.Fluid.Sources.Boundary_pT bou(redeclare package Medium =
+            ProsNet.Media.Water,
+        T=309.9,                 nPorts=1)
+        annotation (Placement(transformation(extent={{104,32},{84,52}})));
+      ProsNet.Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp
+        mass_flow_kg_s(table=[0,0; 900,0.1; 1800,0.2; 2700,0.3; 3600,0.4; 4500,
+            0.5; 5400,0.6; 6300,0.7; 7200,0.8; 8100,0.9; 9000,1; 9900,1.1;
+            10800,1.2; 11700,1.3; 12600,1.4; 13500,1.5; 14400,1.6; 15300,1.7;
+            16200,1.8; 17100,1.9; 18000,2], timeScale=1)
+        annotation (Placement(transformation(extent={{-182,50},{-162,70}})));
+      ProsNet.Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp temperatures(
+        table=[0,36.75; 900,36.75; 1800,36.75; 2700,36.75; 3600,36.75; 4500,
+            36.75; 5400,36.75; 6300,36.75; 7200,36.75; 8100,36.75; 9000,36.75;
+            9900,36.75; 10800,36.75; 11700,36.75; 12600,36.75; 13500,36.75;
+            14400,36.75; 15300,36.75; 16200,36.75; 17100,36.75; 18000,36.75],
+        timeScale=1,
+        y(unit="K"))
+        annotation (Placement(transformation(extent={{-182,16},{-162,36}})));
+      Modelica.Blocks.Math.UnitConversions.From_degC from_degC
+        annotation (Placement(transformation(extent={{-138,16},{-118,36}})));
+      ProsNet.Fluid.Sensors.TemperatureTwoPort Tem_in(
+        redeclare package Medium = ProsNet.Media.Water,
+        m_flow_nominal=1/6,
+        tau=1) annotation (Placement(transformation(extent={{-54,32},{-34,52}})));
+      ProsNet.Fluid.Sensors.TemperatureTwoPort Tem_out(
+        redeclare package Medium = ProsNet.Media.Water,
+        m_flow_nominal=1/6,
+        tau=1) annotation (Placement(transformation(extent={{54,32},{74,52}})));
+
+      Real DeltaT;
+      Fluid.Valves.TwoWayEqualPercentage valve_prim_cons(
+        m_flow_nominal=1.25,
+        kFixed=0,
+        redeclare final package Medium = Media.Water,
+        final CvData=ProsNet.Fluid.Types.CvTypes.Kv,
+        final Kv=6.29,
+        final use_inputFilter=true,
+        final riseTime=35,
+        final init=Modelica.Blocks.Types.Init.InitialState,
+        final y_start=0,
+        final l=0.002)    annotation (Placement(transformation(
+            extent={{-10,10},{10,-10}},
+            rotation=180,
+            origin={26,34})));
+      Modelica.Blocks.Sources.Constant const(k=1)
+        annotation (Placement(transformation(extent={{-20,66},{0,86}})));
+    equation
+      connect(temperatures.y, from_degC.u) annotation (Line(
+          points={{-161,26},{-161,26},{-144,26},{-140,26}},
+          color={0,0,127},
+          smooth=Smooth.Bezier));
+      connect(from_degC.y, mass_source.T_in) annotation (Line(
+          points={{-117,26},{-102,26},{-102,46},{-96,46}},
+          color={0,0,127},
+          smooth=Smooth.Bezier));
+      connect(mass_source.ports[1], Tem_in.port_a) annotation (Line(
+          points={{-74,42},{-54,42}},
+          color={0,127,255},
+          smooth=Smooth.Bezier));
+      connect(Tem_in.port_b, volumeFlowRate.port_a) annotation (Line(
+          points={{-34,42},{-20,42}},
+          color={0,127,255},
+          smooth=Smooth.Bezier));
+      connect(Tem_out.port_b, bou.ports[1]) annotation (Line(
+          points={{74,42},{84,42}},
+          color={0,127,255},
+          smooth=Smooth.Bezier));
+
+      DeltaT = Tem_out.T - Tem_in.T;
+      connect(mass_flow_kg_s.y, mass_source.m_flow_in) annotation (Line(points=
+              {{-161,60},{-128,60},{-128,50},{-94,50}}, color={0,0,127}));
+      connect(const.y, valve_prim_cons.y) annotation (Line(points={{1,76},{14,
+              76},{14,46},{26,46}}, color={0,0,127}));
+      connect(volumeFlowRate.port_b, valve_prim_cons.port_b) annotation (Line(
+            points={{0,42},{10,42},{10,34},{16,34}}, color={0,127,255}));
+      connect(valve_prim_cons.port_a, Tem_out.port_a) annotation (Line(points={
+              {36,34},{46,34},{46,42},{54,42}}, color={0,127,255}));
+      connect(relativePressure.port_b, valve_prim_cons.port_a)
+        annotation (Line(points={{40,74},{40,34},{36,34}}, color={0,127,255}));
+      connect(valve_prim_cons.port_b, relativePressure.port_a) annotation (Line(
+            points={{16,34},{6,34},{6,74},{20,74}}, color={0,127,255}));
+      annotation (                                                       experiment(
+          StopTime=18000,
+          Interval=10,
+          __Dymola_Algorithm="Dassl"));
+    end Test_control_valve_model;
+
+    model Test_check_valve_model
+      Modelica.Fluid.Sensors.VolumeFlowRate volumeFlowRate(redeclare package
+          Medium =
+            ProsNet.Media.Water)
+        annotation (Placement(transformation(extent={{-20,32},{0,52}})));
+      Modelica.Fluid.Sensors.RelativePressure relativePressure(redeclare
+          package Medium =
+                   ProsNet.Media.Water)
+        annotation (Placement(transformation(extent={{20,64},{40,84}})));
+      Modelica.Fluid.Sources.MassFlowSource_T mass_source(
+        redeclare package Medium = ProsNet.Media.Water,
+        use_m_flow_in=true,
+        use_T_in=true,
+        m_flow=1,
+        T(displayUnit="K"),
+        nPorts=1) annotation (Placement(transformation(extent={{-94,32},{-74,52}})));
+      inner Modelica.Fluid.System system(
+        T_ambient=285.15,
+        allowFlowReversal=true,
+        energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+        annotation (Placement(transformation(extent={{64,-52},{84,-32}})));
+      Modelica.Fluid.Sources.Boundary_pT bou(redeclare package Medium =
+            ProsNet.Media.Water,
+        T=309.9,                 nPorts=1)
+        annotation (Placement(transformation(extent={{104,32},{84,52}})));
+      ProsNet.Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp
+        mass_flow_kg_s(table=[0,0; 900,0.1; 1800,0.2; 2700,0.3; 3600,0.4; 4500,
+            0.5; 5400,0.6; 6300,0.7; 7200,0.8; 8100,0.9; 9000,1; 9900,1.1;
+            10800,1.2; 11700,1.3; 12600,1.4; 13500,1.5; 14400,1.6; 15300,1.7;
+            16200,1.8; 17100,1.9; 18000,2], timeScale=1)
+        annotation (Placement(transformation(extent={{-182,50},{-162,70}})));
+      ProsNet.Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp temperatures(
+        table=[0,36.75; 900,36.75; 1800,36.75; 2700,36.75; 3600,36.75; 4500,
+            36.75; 5400,36.75; 6300,36.75; 7200,36.75; 8100,36.75; 9000,36.75;
+            9900,36.75; 10800,36.75; 11700,36.75; 12600,36.75; 13500,36.75;
+            14400,36.75; 15300,36.75; 16200,36.75; 17100,36.75; 18000,36.75],
+        timeScale=1,
+        y(unit="K"))
+        annotation (Placement(transformation(extent={{-182,16},{-162,36}})));
+      Modelica.Blocks.Math.UnitConversions.From_degC from_degC
+        annotation (Placement(transformation(extent={{-138,16},{-118,36}})));
+      ProsNet.Fluid.Sensors.TemperatureTwoPort Tem_in(
+        redeclare package Medium = ProsNet.Media.Water,
+        m_flow_nominal=1/6,
+        tau=1) annotation (Placement(transformation(extent={{-54,32},{-34,52}})));
+      ProsNet.Fluid.Sensors.TemperatureTwoPort Tem_out(
+        redeclare package Medium = ProsNet.Media.Water,
+        m_flow_nominal=1/6,
+        tau=1) annotation (Placement(transformation(extent={{54,32},{74,52}})));
+
+      Real DeltaT;
+      Modelica.Blocks.Sources.Constant const(k=1)
+        annotation (Placement(transformation(extent={{-20,66},{0,86}})));
+      Fluid.FixedResistances.CheckValve cheVal_prim_cons(
+        m_flow_nominal=1.25,
+        redeclare final package Medium = Media.Water,
+        final CvData=ProsNet.Fluid.Types.CvTypes.Kv,
+        final Kv=6.29,
+        final l=0.002)    annotation (Placement(transformation(
+            extent={{10,-10},{-10,10}},
+            rotation=180,
+            origin={32,42})));
+    equation
+      connect(temperatures.y, from_degC.u) annotation (Line(
+          points={{-161,26},{-161,26},{-144,26},{-140,26}},
+          color={0,0,127},
+          smooth=Smooth.Bezier));
+      connect(from_degC.y, mass_source.T_in) annotation (Line(
+          points={{-117,26},{-102,26},{-102,46},{-96,46}},
+          color={0,0,127},
+          smooth=Smooth.Bezier));
+      connect(mass_source.ports[1], Tem_in.port_a) annotation (Line(
+          points={{-74,42},{-54,42}},
+          color={0,127,255},
+          smooth=Smooth.Bezier));
+      connect(Tem_in.port_b, volumeFlowRate.port_a) annotation (Line(
+          points={{-34,42},{-20,42}},
+          color={0,127,255},
+          smooth=Smooth.Bezier));
+      connect(Tem_out.port_b, bou.ports[1]) annotation (Line(
+          points={{74,42},{84,42}},
+          color={0,127,255},
+          smooth=Smooth.Bezier));
+
+      DeltaT = Tem_out.T - Tem_in.T;
+      connect(mass_flow_kg_s.y, mass_source.m_flow_in) annotation (Line(points=
+              {{-161,60},{-128,60},{-128,50},{-94,50}}, color={0,0,127}));
+      connect(cheVal_prim_cons.port_b, Tem_out.port_a)
+        annotation (Line(points={{42,42},{54,42}}, color={0,127,255}));
+      connect(volumeFlowRate.port_b, cheVal_prim_cons.port_a)
+        annotation (Line(points={{0,42},{22,42}}, color={0,127,255}));
+      connect(relativePressure.port_a, cheVal_prim_cons.port_a)
+        annotation (Line(points={{20,74},{22,74},{22,42}}, color={0,127,255}));
+      connect(relativePressure.port_b, cheVal_prim_cons.port_b) annotation (
+          Line(points={{40,74},{42,74},{42,42},{42,42}}, color={0,127,255}));
+      annotation (                                                       experiment(
+          StopTime=18000,
+          Interval=10,
+          __Dymola_Algorithm="Dassl"));
+    end Test_check_valve_model;
+
+    model Test_check_and_control_valve_model_FLOWINCREASE
+      Modelica.Fluid.Sensors.VolumeFlowRate volumeFlowRate(redeclare package
+          Medium =
+            ProsNet.Media.Water)
+        annotation (Placement(transformation(extent={{-48,32},{-28,52}})));
+      Modelica.Fluid.Sensors.RelativePressure relativePressure(redeclare
+          package Medium =
+                   ProsNet.Media.Water)
+        annotation (Placement(transformation(extent={{4,64},{24,84}})));
+      Modelica.Fluid.Sources.MassFlowSource_T mass_source(
+        redeclare package Medium = ProsNet.Media.Water,
+        use_m_flow_in=true,
+        use_T_in=true,
+        m_flow=1,
+        T(displayUnit="K"),
+        nPorts=1) annotation (Placement(transformation(extent={{-122,32},{-102,
+                52}})));
+      inner Modelica.Fluid.System system(
+        T_ambient=285.15,
+        allowFlowReversal=true,
+        energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+        annotation (Placement(transformation(extent={{64,-52},{84,-32}})));
+      Modelica.Fluid.Sources.Boundary_pT bou(redeclare package Medium =
+            ProsNet.Media.Water,
+        p=200000,
+        T=309.9,
+        nPorts=1)
+        annotation (Placement(transformation(extent={{106,-4},{86,16}})));
+      ProsNet.Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp temperatures(
+        table=[0,36.75; 900,36.75; 1800,36.75; 2700,36.75; 3600,36.75; 4500,
+            36.75; 5400,36.75; 6300,36.75; 7200,36.75; 8100,36.75; 9000,36.75;
+            9900,36.75; 10800,36.75; 11700,36.75; 12600,36.75; 13500,36.75;
+            14400,36.75; 15300,36.75; 16200,36.75; 17100,36.75; 18000,36.75],
+        timeScale=1,
+        y(unit="K"))
+        annotation (Placement(transformation(extent={{-210,16},{-190,36}})));
+      Modelica.Blocks.Math.UnitConversions.From_degC from_degC
+        annotation (Placement(transformation(extent={{-166,16},{-146,36}})));
+      ProsNet.Fluid.Sensors.TemperatureTwoPort Tem_in(
+        redeclare package Medium = ProsNet.Media.Water,
+        m_flow_nominal=1/6,
+        tau=1) annotation (Placement(transformation(extent={{-82,32},{-62,52}})));
+      ProsNet.Fluid.Sensors.TemperatureTwoPort Tem_out(
+        redeclare package Medium = ProsNet.Media.Water,
+        m_flow_nominal=1/6,
+        tau=1) annotation (Placement(transformation(extent={{54,32},{74,52}})));
+
+      Real DeltaT;
+      Fluid.FixedResistances.CheckValve cheVal_prim_cons(
+        m_flow_nominal=2.148,
+        redeclare final package Medium = Media.Water,
+        final CvData=ProsNet.Fluid.Types.CvTypes.Kv,
+        final Kv=6.29,
+        final l=0.001)    annotation (Placement(transformation(
+            extent={{10,-10},{-10,10}},
+            rotation=180,
+            origin={32,42})));
+      Fluid.Valves.TwoWayEqualPercentage valve_prim_cons(
+        m_flow_nominal=2.148,
+        kFixed=0,
+        redeclare final package Medium = Media.Water,
+        final CvData=ProsNet.Fluid.Types.CvTypes.Kv,
+        final Kv=6.29,
+        final use_inputFilter=true,
+        final riseTime=35,
+        final init=Modelica.Blocks.Types.Init.InitialOutput,
+        final y_start=0,
+        final l=0.002)    annotation (Placement(transformation(
+            extent={{10,10},{-10,-10}},
+            rotation=180,
+            origin={-4,42})));
+      Modelica.Blocks.Sources.Ramp ramp_m_flow(
+        height=2,
+        duration=1200,
+        offset=0,
+        startTime=5)
+        annotation (Placement(transformation(extent={{-178,70},{-158,90}})));
+      Modelica.Blocks.Sources.Ramp ramp_y(
+        height=-0.5,
+        duration=1200,
+        offset=1,
+        startTime=1300)
+        annotation (Placement(transformation(extent={{-82,72},{-62,92}})));
+    equation
+      connect(temperatures.y, from_degC.u) annotation (Line(
+          points={{-189,26},{-189,26},{-172,26},{-168,26}},
+          color={0,0,127},
+          smooth=Smooth.Bezier));
+      connect(from_degC.y, mass_source.T_in) annotation (Line(
+          points={{-145,26},{-130,26},{-130,46},{-124,46}},
+          color={0,0,127},
+          smooth=Smooth.Bezier));
+      connect(mass_source.ports[1], Tem_in.port_a) annotation (Line(
+          points={{-102,42},{-82,42}},
+          color={0,127,255},
+          smooth=Smooth.Bezier));
+      connect(Tem_in.port_b, volumeFlowRate.port_a) annotation (Line(
+          points={{-62,42},{-48,42}},
+          color={0,127,255},
+          smooth=Smooth.Bezier));
+
+      DeltaT = Tem_out.T - Tem_in.T;
+      connect(cheVal_prim_cons.port_b, Tem_out.port_a)
+        annotation (Line(points={{42,42},{54,42}}, color={0,127,255}));
+      connect(relativePressure.port_b, cheVal_prim_cons.port_b)
+        annotation (Line(points={{24,74},{42,74},{42,42}}, color={0,127,255}));
+      connect(volumeFlowRate.port_b, valve_prim_cons.port_a)
+        annotation (Line(points={{-28,42},{-14,42}}, color={0,127,255}));
+      connect(valve_prim_cons.port_b, cheVal_prim_cons.port_a)
+        annotation (Line(points={{6,42},{22,42}}, color={0,127,255}));
+      connect(relativePressure.port_a, valve_prim_cons.port_a) annotation (Line(
+            points={{4,74},{-20,74},{-20,42},{-14,42}}, color={0,127,255}));
+      connect(bou.ports[1], Tem_out.port_b) annotation (Line(points={{86,6},{82,
+              6},{82,42},{74,42}}, color={0,127,255}));
+      connect(mass_source.m_flow_in, ramp_m_flow.y) annotation (Line(points={{
+              -122,50},{-140,50},{-140,80},{-157,80}}, color={0,0,127}));
+      connect(valve_prim_cons.y, ramp_y.y) annotation (Line(points={{-4,54},{
+              -34,54},{-34,82},{-61,82}}, color={0,0,127}));
+      annotation (                                                       experiment(
+          StopTime=7381,
+          Interval=10,
+          __Dymola_Algorithm="Dassl"));
+    end Test_check_and_control_valve_model_FLOWINCREASE;
+  annotation (Documentation(info="<html>
+<p><b>Validation models for pipes.</b></p>
+</html>"));
+  end Pipe_Validation;
 end Fabian;

@@ -53,7 +53,7 @@ Added <code>defaultComponentPrefixes</code> and
   record FSPStratosMAXO40slash0dot5dash16PN6slash10
     "FSP_Pump1 data for a Stratos MAXO 40/0,5-16 PN 6/10"
     extends ProsNet.Fluid.Pumps.Data.Generic(
-      speed_rpm_nominal=3600,
+      speed_rpm_nominal=3850,
       use_powerCharacteristic=true,
       pressure(V_flow={0,1,2,3,4,5,6,7,8,9,10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28}/3600,
       dp={154450,157883, 158863,158863,156902, 154450,151018,147096,142193,137289,131405,125031,118657, 113754,107870,101986, 96593,91003,85414,79824,74234,68645,63055,57465,51876,46286,40696,35107,29517}));
