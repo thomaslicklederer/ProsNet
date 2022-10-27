@@ -1,0 +1,5 @@
+within ProsNet.Under_Development.Tests;
+model test_procedure
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+        coordinateSystem(preserveAspectRatio=false)));
+end test_procedure;
