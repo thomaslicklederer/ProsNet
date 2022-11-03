@@ -1,5 +1,5 @@
 within ProsNet.Under_Development.Tests;
-model Test_PID_contr_prod_cons "Producer and Consumer with Controller"
+model Test_Controller_2Pros "Producer and Consumer with Controller"
   Real Losses;
 
   new_prosumer_models.heat_transfer_station HOUSE1(
@@ -91,14 +91,6 @@ model Test_PID_contr_prod_cons "Producer and Consumer with Controller"
     alpha_sec_cons=0.3,
     controllerType=Modelica.Blocks.Types.SimpleController.PI)
     annotation (Placement(transformation(extent={{-268,-6},{-226,42}})));
-  Controller_PID_based.auxiliary.TimeTable_noInterp T_sec_in_array_1(table=[0,
-        273.15 + 45; 900,273.15 + 45; 1800,273.15 + 45; 2700,273.15 + 45; 3600,
-        273.15 + 45; 4500,273.15 + 45; 5400,273.15 + 45; 6300,273.15 + 45; 7200,
-        273.15 + 45; 8100,273.15 + 45; 9000,273.15 + 30; 9900,273.15 + 30;
-        10800,273.15 + 30; 11700,273.15 + 30; 12600,273.15 + 45; 13500,273.15
-         + 45; 14400,273.15 + 45; 15300,273.15 + 30; 16200,273.15 + 30; 17100,
-        273.15 + 30; 18000,273.15 + 30])
-    annotation (Placement(transformation(extent={{-400,32},{-380,52}})));
   Controller_PID_based.PID_Q_T_weighted Controller_2(
     Delta_T_norm=3,
     T_prim_hot_des=316.65,
@@ -120,40 +112,17 @@ model Test_PID_contr_prod_cons "Producer and Consumer with Controller"
     alpha_sec_cons=0.3,
     controllerType=Modelica.Blocks.Types.SimpleController.PI)
     annotation (Placement(transformation(extent={{64,6},{22,54}})));
-  Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_1(table=[0,
-        0; 900,8; 1800,8; 2700,8; 3600,0; 4500,0; 5400,0; 6300,8; 7200,12; 8100,
-        8; 9000,0; 9900,-8; 10800,-12; 11700,-8; 12600,0; 13500,12; 14400,0;
-        15300,0; 16200,-12; 17100,0; 18000,0])
-    annotation (Placement(transformation(extent={{-314,8},{-294,28}})));
-  Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_2(table=[0,
-        0; 900,-8; 1800,-8; 2700,-8; 3600,0; 4500,0; 5400,0; 6300,-8; 7200,-12;
-        8100,-8; 9000,0; 9900,8; 10800,12; 11700,8; 12600,0; 13500,-12; 14400,0;
-        15300,0; 16200,12; 17100,0; 18000,0])
-    annotation (Placement(transformation(extent={{126,-6},{106,14}})));
   inner Modelica.Blocks.Noise.GlobalSeed globalSeed(enableNoise=false,
       fixedSeed=4345)
     annotation (Placement(transformation(extent={{-126,72},{-106,92}})));
-  Modelica.Blocks.Noise.NormalNoise normalNoise(
-    samplePeriod=30,
-    mu=0,
-    sigma=3)
-    annotation (Placement(transformation(extent={{-400,70},{-380,90}})));
-  Modelica.Blocks.Math.Add add
-    annotation (Placement(transformation(extent={{-356,54},{-336,74}})));
-  Modelica.Blocks.Noise.NormalNoise normalNoise1(
-    samplePeriod=30,
-    mu=0,
-    sigma=3) annotation (Placement(transformation(extent={{202,62},{182,82}})));
-  Modelica.Blocks.Math.Add add1
-    annotation (Placement(transformation(extent={{156,40},{136,60}})));
-  Controller_PID_based.auxiliary.TimeTable_noInterp T_sec_in_array_2(table=[0,
-        273.15 + 30; 900,273.15 + 30; 1800,273.15 + 30; 2700,273.15 + 30; 3600,
-        273.15 + 30; 4500,273.15 + 30; 5400,273.15 + 30; 6300,273.15 + 30; 7200,
-        273.15 + 30; 8100,273.15 + 30; 9000,273.15 + 45; 9900,273.15 + 45;
-        10800,273.15 + 45; 11700,273.15 + 45; 12600,273.15 + 30; 13500,273.15
-         + 30; 14400,273.15 + 30; 15300,273.15 + 45; 16200,273.15 + 45; 17100,
-        273.15 + 45; 18000,273.15 + 45])
-    annotation (Placement(transformation(extent={{190,-6},{170,14}})));
+  Controller_PID_based.auxiliary.test_procedure test_procedure2
+    annotation (Placement(transformation(extent={{-316,16},{-296,36}})));
+  Controller_PID_based.auxiliary.test_procedure test_procedure1(test_procedure=
+        [0,0,0; 900,-1,6; 1800,-1,6; 2700,-1,6; 3600,0,0; 4500,0,0; 5400,0,0;
+        6300,-1,6; 7200,-1,9; 8100,-1,6; 9000,0,0; 9900,1,6; 10800,1,9; 11700,1,
+        6; 12600,0,0; 13500,-1,9; 14400,0,0; 15300,0,0; 16200,1,9; 17100,0,0;
+        18000,0,0])
+    annotation (Placement(transformation(extent={{124,26},{104,46}})));
 equation
   Losses = HOUSE1.Q_dot_trnsf_is+HOUSE2.Q_dot_trnsf_is;
 
@@ -230,22 +199,14 @@ equation
   connect(HOUSE2.Q_dot_trnsf_is, Controller_2.Qdot_is) annotation (Line(points=
           {{-10,6},{-4,6},{-4,-18},{76,-18},{76,25.2},{64,25.2}}, color={0,0,
           127}));
-  connect(Q_management_array_1.y, Controller_1.Qdot_set) annotation (Line(
-        points={{-293,18},{-278,18},{-278,22.8},{-268,22.8}}, color={0,0,127}));
-  connect(Q_management_array_2.y, Controller_2.Qdot_set) annotation (Line(
-        points={{105,4},{84,4},{84,34.8},{64,34.8}}, color={0,0,127}));
-  connect(normalNoise.y, add.u1) annotation (Line(points={{-379,80},{-366,80},{
-          -366,70},{-358,70}}, color={0,0,127}));
-  connect(T_sec_in_array_1.y, add.u2) annotation (Line(points={{-379,42},{-366,
-          42},{-366,58},{-358,58}}, color={0,0,127}));
-  connect(add.y, Controller_1.T_sec_sim) annotation (Line(points={{-335,64},{-318,
-          64},{-318,42},{-268,42}}, color={0,0,127}));
-  connect(normalNoise1.y, add1.u1) annotation (Line(points={{181,72},{168,72},{
-          168,56},{158,56}}, color={0,0,127}));
-  connect(add1.y, Controller_2.T_sec_sim) annotation (Line(points={{135,50},{86,
-          50},{86,56},{64,56},{64,54}}, color={0,0,127}));
-  connect(T_sec_in_array_2.y, add1.u2) annotation (Line(points={{169,4},{160,4},
-          {160,34},{166,34},{166,44},{158,44}}, color={0,0,127}));
+  connect(test_procedure2.T, Controller_1.T_sec_sim) annotation (Line(points={{
+          -296,24},{-274,24},{-274,52},{-268,52},{-268,42}}, color={0,0,127}));
+  connect(test_procedure2.dotQ, Controller_1.Qdot_set) annotation (Line(points=
+          {{-296,30},{-282,30},{-282,22.8},{-268,22.8}}, color={0,0,127}));
+  connect(test_procedure1.T, Controller_2.T_sec_sim) annotation (Line(points={{
+          104,34},{70,34},{70,64},{64,64},{64,54}}, color={0,0,127}));
+  connect(test_procedure1.dotQ, Controller_2.Qdot_set) annotation (Line(points=
+          {{104,40},{70,40},{70,66},{64,66},{64,34.8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-320,
             -200},{140,100}})), Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-320,-200},{140,100}}), graphics={
@@ -266,8 +227,7 @@ equation
           textColor={238,46,47},
           textString="hot")}),
     experiment(
-      StartTime=6000,
-      StopTime=9500,
+      StopTime=18000,
       Interval=10,
       __Dymola_Algorithm="Dassl"));
-end Test_PID_contr_prod_cons;
+end Test_Controller_2Pros;
