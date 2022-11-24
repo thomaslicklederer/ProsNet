@@ -2,3 +2,6 @@ Test_Controller_2Pros
 Test_heat_exchanger
 Test_pipe_model
 Test_pump_curve
+Test_check_valve_model
+Test_check_and_control_valve_model_FLOWINCREASE
+Test_control_valve_model
