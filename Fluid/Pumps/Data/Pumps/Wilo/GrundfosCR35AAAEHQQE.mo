@@ -1,13 +1,11 @@
 within ProsNet.Fluid.Pumps.Data.Pumps.Wilo;
-record StratosMAXO50slash05to14
-  "Pump data for a Wilo Stratos MAXO 50/0,5-14 PN 6/10"
+record GrundfosCR35AAAEHQQE
+  "Pump data for a Grundfos CR 3-5 A-A-A-E-HQQE"
   extends ProsNet.Fluid.Pumps.Data.Generic(
     speed_rpm_nominal=1800,
     use_powerCharacteristic=true,
-    pressure(V_flow={0.0000e+00,5.5556e-04,1.1111e-03,1.6667e-03,2.2222e-03,
-          2.7778e-03,3.3333e-03,3.8889e-03,4.4444e-03,5.0000e-03,5.5556e-03,
-          8.3333e-03,1.1111e-02,1.3889e-02}, dp={160000,159000,158000,157000,
-          156000,155000,149250,143500,137750,132000,126250,97500,68750,40000}));
+    pressure(V_flow={0.0,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0,2.2,2.4,2.6,2.8,3.0,3.2,3.4,3.6,3.8,4.0}/3600,
+     dp={325360,321440,316540,314580,310660,306740,302820,298900,294000,287140,282240,276360,267540,257740,248920,239120,226380,213640,199920,184240,168560}));
     //power(V_flow={5.55555555556e-07,0.000402190923318,0.00052269170579,0.000643192488263,
     //      0.000752738654147,0.000866979655712,0.000973395931142,0.00108607198748,
     //      0.00115962441315}, P={14.2085618951,21.2596204596,23.3573239437,25.1349149442,
@@ -47,4 +45,4 @@ Added <code>defaultComponentPrefixes</code> and
 </li>
 </ul>
 </html>"));
-end StratosMAXO50slash05to14;
+end GrundfosCR35AAAEHQQE;
