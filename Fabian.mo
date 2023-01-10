@@ -2571,7 +2571,7 @@ package Fabian
       Real Losses;
 
       Under_Development.new_prosumer_models.heat_transfer_station PROSUMER1(
-        Q_flow_nominal=26000,
+        Q_flow_nominal=26000*1.2,
         T_a1_nominal=338.15,
         T_a2_nominal=318.15,
         m_flow_nominal_1=0.41,
@@ -2580,7 +2580,6 @@ package Fabian
         dp2_nominal=20000,
         redeclare Fluid.Pumps.Data.Pumps_FSP.GrundfosCR17AAAEHQQE feedinPer,
         energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_feedPump=3,
         use_inputFilter_feedPump=true,
         riseTime_feedPump=35,
@@ -2596,17 +2595,17 @@ package Fabian
         R_ins_transferpipe=6.4,
         ambient_temperature=system.T_ambient,
         energyDynamics_pumpsSec=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_pumpsSec=3,
         use_inputFilter_pumpsSec=true,
         riseTime_pumpsSec=35,
         tau_cv=10,
         T_start_cv=333.15,
-        valve_prim_cons(kFixed=0))
-        annotation (Placement(transformation(extent={{-190,-4},{-138,48}})));
+        valve_prim_cons(kFixed=0),
+        heat_exchanger(T_a1_nominal=338.15, T_a2_nominal=318.15))
+        annotation (Placement(transformation(extent={{-190,-2},{-138,50}})));
 
       Under_Development.new_prosumer_models.heat_transfer_station PROSUMER2(
-        Q_flow_nominal=22000,
+        Q_flow_nominal=22000*1.2,
         T_a1_nominal=338.15,
         T_a2_nominal=318.15,
         m_flow_nominal_1=0.35,
@@ -2615,7 +2614,6 @@ package Fabian
         dp2_nominal=20000,
         redeclare Fluid.Pumps.Data.Pumps_FSP.GrundfosCR17AAAEHQQE feedinPer,
         energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_feedPump=3,
         use_inputFilter_feedPump=true,
         riseTime_feedPump=35,
@@ -2631,17 +2629,18 @@ package Fabian
         R_ins_transferpipe=6.4,
         ambient_temperature=system.T_ambient,
         energyDynamics_pumpsSec=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_pumpsSec=3,
         use_inputFilter_pumpsSec=true,
         riseTime_pumpsSec=35,
         energyDynamics_cv=Modelica.Fluid.Types.Dynamics.SteadyState,
         tau_cv=10,
-        T_start_cv=333.15)
-        annotation (Placement(transformation(extent={{-10,0},{-62,54}})));
+        T_start_cv=333.15,
+        heat_exchanger(T_a1_nominal=PROSUMER2.T_a1_nominal, T_a2_nominal=
+              PROSUMER2.T_a2_nominal))
+        annotation (Placement(transformation(extent={{-12,0},{-64,54}})));
 
       inner Modelica.Fluid.System system(T_ambient=285.15)
-        annotation (Placement(transformation(extent={{70,-188},{90,-168}})));
+        annotation (Placement(transformation(extent={{70,-188},{126,-162}})));
       Fluid.Pipes.InsulatedPipe Pipe_ID_2_pipe_hot_12(
         allowFlowReversal=true,
         T_amb=system.T_ambient,
@@ -2651,7 +2650,7 @@ package Fabian
         zeta=3.6,
         energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
         T_start=313.15)
-        annotation (Placement(transformation(extent={{-134,-110},{-98,-74}})));
+        annotation (Placement(transformation(extent={{-132,-110},{-96,-74}})));
       Fluid.Pipes.InsulatedPipe Pipe_ID_2_pipe_cold_12(
         allowFlowReversal=true,
         T_amb=system.T_ambient,
@@ -2663,16 +2662,16 @@ package Fabian
         T_start=313.15)
         annotation (Placement(transformation(extent={{-98,-66},{-134,-30}})));
       Fluid.Sources.Boundary_pT bou(
-        T=310.65,                   nPorts=1, redeclare final package Medium =
+        T=330.65,                   nPorts=1, redeclare final package Medium =
             Media.Water)
-        annotation (Placement(transformation(extent={{-14,-186},{-46,-154}})));
+        annotation (Placement(transformation(extent={{-2,-198},{-46,-154}})));
       Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_1(
         Delta_T_norm=3,
-        T_prim_hot_des=316.65,
-        T_sec_hot_des=313.15,
-        DeltaT_prim_des=14,
-        DeltaT_sec_des=10,
-        V_dot_sec_max=200,
+        T_prim_hot_des=338.15,
+        T_sec_hot_des=333.15,
+        DeltaT_prim_des=15,
+        DeltaT_sec_des=12,
+        V_dot_sec_max=29.02,
         k_prim_prod=1.5,
         Ti_prim_prod=35,
         alpha_prim_prod=0.4,
@@ -2685,23 +2684,26 @@ package Fabian
         k_sec_cons=1.5,
         Ti_sec_cons=35,
         alpha_sec_cons=0.4,
-        controllerType=Modelica.Blocks.Types.SimpleController.PI)
+        controllerType=Modelica.Blocks.Types.SimpleController.PI,
+        initType=Modelica.Blocks.Types.Init.InitialOutput)
         annotation (Placement(transformation(extent={{-268,-6},{-226,42}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp T_sec_in_array_1(table=[0,
-            273.15 + 45; 900,273.15 + 45; 1800,273.15 + 45; 2700,273.15 + 45;
-            3600,273.15 + 45; 4500,273.15 + 45; 5400,273.15 + 45; 6300,273.15
-             + 45; 7200,273.15 + 45; 8100,273.15 + 45; 9000,273.15 + 30; 9900,
-            273.15 + 30; 10800,273.15 + 30; 11700,273.15 + 30; 12600,273.15 +
-            45; 13500,273.15 + 45; 14400,273.15 + 45; 15300,273.15 + 30; 16200,
-            273.15 + 30; 17100,273.15 + 30; 18000,273.15 + 30])
+            341.15; 900,341.15; 1800,341.15; 2700,341.15; 3600,341.15; 4500,
+            341.15; 5400,318.15; 6300,318.15; 7200,318.15; 8100,318.15; 9000,
+            318.15; 9900,318.15; 10800,318.15; 11700,318.15; 12600,318.15;
+            13500,318.15; 14400,318.15; 15300,318.15; 16200,341.15; 17100,
+            341.15; 18000,341.15; 18900,341.15; 19800,341.15; 20700,341.15;
+            21600,318.15; 22500,318.15; 23400,318.15; 24300,318.15; 25200,
+            318.15; 26100,318.15; 27000,341.15; 27900,341.15; 28800,341.15;
+            29700,341.15; 30600,341.15])
         annotation (Placement(transformation(extent={{-400,32},{-380,52}})));
       Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_2(
         Delta_T_norm=3,
         T_prim_hot_des=338.15,
         T_sec_hot_des=333.15,
         DeltaT_prim_des=15,
-        DeltaT_sec_des=15,
-        V_dot_sec_max=25,
+        DeltaT_sec_des=12,
+        V_dot_sec_max=24.7,
         k_prim_prod=1.5,
         Ti_prim_prod=35,
         alpha_prim_prod=0.4,
@@ -2714,17 +2716,26 @@ package Fabian
         k_sec_cons=1.5,
         Ti_sec_cons=35,
         alpha_sec_cons=0.4,
-        controllerType=Modelica.Blocks.Types.SimpleController.PI)
+        controllerType=Modelica.Blocks.Types.SimpleController.PI,
+        initType=Modelica.Blocks.Types.Init.InitialOutput)
         annotation (Placement(transformation(extent={{64,6},{22,54}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_1(table=[0,
-            0; 900,40; 1800,40; 2700,40; 3600,0; 4500,0; 5400,0; 6300,40; 7200,
-            70; 8100,40; 9000,0; 9900,-40; 10800,-70; 11700,-40; 12600,0; 13500,
-            70; 14400,0; 15300,0; 16200,-70; 17100,0; 18000,0])
+            12.64; 900,25.27; 1800,25.27; 2700,25.27; 3600,25.27; 4500,12.64;
+            5400,-12.64; 6300,-25.27; 7200,-25.27; 8100,-25.27; 9000,-25.27;
+            9900,-12.64; 10800,-12.64; 11700,-25.27; 12600,-25.27; 13500,-25.27;
+            14400,-25.27; 15300,-12.64; 16200,12.64; 17100,25.27; 18000,25.27;
+            18900,25.27; 19800,25.27; 20700,12.64; 21600,-10.16; 22500,-20.32;
+            23400,-20.32; 24300,-20.32; 25200,-20.32; 26100,-10.16; 27000,10.16;
+            27900,20.32; 28800,20.32; 29700,20.32; 30600,20.32])
         annotation (Placement(transformation(extent={{-314,8},{-294,28}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_2(table=[0,
-            0; 900,-20; 1800,-20; 2700,-20; 3600,0; 4500,0; 5400,0; 6300,-20;
-            7200,-35; 8100,-20; 9000,0; 9900,20; 10800,35; 11700,20; 12600,0;
-            13500,-35; 14400,0; 15300,0; 16200,35; 17100,0; 18000,0])
+            10.75; 900,21.51; 1800,21.51; 2700,21.51; 3600,21.51; 4500,10.75;
+            5400,-10.75; 6300,-21.51; 7200,-21.51; 8100,-21.51; 9000,-21.51;
+            9900,-10.75; 10800,-10.75; 11700,-21.51; 12600,-21.51; 13500,-21.51;
+            14400,-21.51; 15300,-10.75; 16200,10.75; 17100,21.51; 18000,21.51;
+            18900,21.51; 19800,21.51; 20700,10.75; 21600,-10.75; 22500,-21.51;
+            23400,-21.51; 24300,-21.51; 25200,-21.51; 26100,-10.75; 27000,10.75;
+            27900,21.51; 28800,21.51; 29700,21.51; 30600,21.51])
         annotation (Placement(transformation(extent={{124,-10},{104,10}})));
       inner Modelica.Blocks.Noise.GlobalSeed globalSeed(enableNoise=false,
           fixedSeed=4345)
@@ -2743,15 +2754,17 @@ package Fabian
       Modelica.Blocks.Math.Add add1
         annotation (Placement(transformation(extent={{132,32},{112,52}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp T_sec_in_array_2(table=[0,
-            273.15 + 30; 900,273.15 + 30; 1800,273.15 + 30; 2700,273.15 + 30;
-            3600,273.15 + 30; 4500,273.15 + 30; 5400,273.15 + 30; 6300,273.15
-             + 30; 7200,273.15 + 30; 8100,273.15 + 30; 9000,273.15 + 45; 9900,
-            273.15 + 45; 10800,273.15 + 45; 11700,273.15 + 45; 12600,273.15 +
-            30; 13500,273.15 + 30; 14400,273.15 + 30; 15300,273.15 + 45; 16200,
-            273.15 + 45; 17100,273.15 + 45; 18000,273.15 + 45])
+            341.15; 900,341.15; 1800,341.15; 2700,341.15; 3600,341.15; 4500,
+            341.15; 5400,318.15; 6300,318.15; 7200,318.15; 8100,318.15; 9000,
+            318.15; 9900,318.15; 10800,318.15; 11700,318.15; 12600,318.15;
+            13500,318.15; 14400,318.15; 15300,318.15; 16200,341.15; 17100,
+            341.15; 18000,341.15; 18900,341.15; 19800,341.15; 20700,341.15;
+            21600,318.15; 22500,318.15; 23400,318.15; 24300,318.15; 25200,
+            318.15; 26100,318.15; 27000,341.15; 27900,341.15; 28800,341.15;
+            29700,341.15; 30600,341.15])
         annotation (Placement(transformation(extent={{166,-14},{146,6}})));
       Under_Development.new_prosumer_models.heat_transfer_station PROSUMER3(
-        Q_flow_nominal=22000,
+        Q_flow_nominal=22000*1.2,
         T_a1_nominal=338.15,
         T_a2_nominal=318.15,
         m_flow_nominal_1=0.34,
@@ -2760,7 +2773,6 @@ package Fabian
         dp2_nominal=20000,
         redeclare Fluid.Pumps.Data.Pumps_FSP.GrundfosCR17AAAEHQQE feedinPer,
         energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_feedPump=3,
         use_inputFilter_feedPump=true,
         riseTime_feedPump=35,
@@ -2776,7 +2788,6 @@ package Fabian
         R_ins_transferpipe=6.4,
         ambient_temperature=system.T_ambient,
         energyDynamics_pumpsSec=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_pumpsSec=3,
         use_inputFilter_pumpsSec=true,
         riseTime_pumpsSec=35,
@@ -2790,8 +2801,8 @@ package Fabian
         T_prim_hot_des=338.15,
         T_sec_hot_des=333.15,
         DeltaT_prim_des=15,
-        DeltaT_sec_des=15,
-        V_dot_sec_max=25,
+        DeltaT_sec_des=12,
+        V_dot_sec_max=24.4,
         k_prim_prod=1.5,
         Ti_prim_prod=35,
         alpha_prim_prod=0.4,
@@ -2804,8 +2815,9 @@ package Fabian
         k_sec_cons=1.5,
         Ti_sec_cons=35,
         alpha_sec_cons=0.4,
-        controllerType=Modelica.Blocks.Types.SimpleController.PI)
-        annotation (Placement(transformation(extent={{358,6},{316,54}})));
+        controllerType=Modelica.Blocks.Types.SimpleController.PI,
+        initType=Modelica.Blocks.Types.Init.InitialOutput)
+        annotation (Placement(transformation(extent={{360,6},{318,54}})));
       Modelica.Blocks.Noise.NormalNoise normalNoise2(
         samplePeriod=30,
         mu=0,
@@ -2813,12 +2825,14 @@ package Fabian
       Modelica.Blocks.Math.Add add2
         annotation (Placement(transformation(extent={{426,32},{406,52}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp T_sec_in_array_3(table=[0,
-            273.15 + 30; 900,273.15 + 30; 1800,273.15 + 30; 2700,273.15 + 30;
-            3600,273.15 + 30; 4500,273.15 + 30; 5400,273.15 + 30; 6300,273.15
-             + 30; 7200,273.15 + 30; 8100,273.15 + 30; 9000,273.15 + 45; 9900,
-            273.15 + 45; 10800,273.15 + 45; 11700,273.15 + 45; 12600,273.15 +
-            30; 13500,273.15 + 30; 14400,273.15 + 30; 15300,273.15 + 45; 16200,
-            273.15 + 45; 17100,273.15 + 45; 18000,273.15 + 45])
+            341.15; 900,341.15; 1800,341.15; 2700,341.15; 3600,341.15; 4500,
+            341.15; 5400,318.15; 6300,318.15; 7200,318.15; 8100,318.15; 9000,
+            318.15; 9900,318.15; 10800,341.15; 11700,341.15; 12600,341.15;
+            13500,341.15; 14400,341.15; 15300,341.15; 16200,318.15; 17100,
+            318.15; 18000,318.15; 18900,318.15; 19800,318.15; 20700,318.15;
+            21600,318.15; 22500,318.15; 23400,318.15; 24300,318.15; 25200,
+            318.15; 26100,318.15; 27000,341.15; 27900,341.15; 28800,341.15;
+            29700,341.15; 30600,341.15])
         annotation (Placement(transformation(extent={{460,-14},{440,6}})));
       Fluid.Pipes.InsulatedPipe Pipe_ID_4_pipe_cold_23(
         allowFlowReversal=true,
@@ -2841,19 +2855,23 @@ package Fabian
         T_start=313.15)
         annotation (Placement(transformation(extent={{168,-106},{202,-72}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_3(table=[0,
-            0; 900,-20; 1800,-20; 2700,-20; 3600,0; 4500,0; 5400,0; 6300,-20;
-            7200,-35; 8100,-20; 9000,0; 9900,20; 10800,35; 11700,20; 12600,0;
-            13500,-35; 14400,0; 15300,0; 16200,35; 17100,0; 18000,0])
+            8.55; 900,17.11; 1800,17.11; 2700,17.11; 3600,17.11; 4500,8.55;
+            5400,-8.15; 6300,-16.29; 7200,-16.29; 8100,-16.29; 9000,-16.29;
+            9900,-8.15; 10800,11.15; 11700,22.31; 12600,22.31; 13500,22.31;
+            14400,22.31; 15300,11.15; 16200,-10.62; 17100,-21.24; 18000,-21.24;
+            18900,-21.24; 19800,-21.24; 20700,-10.62; 21600,-10.62; 22500,-21.24;
+            23400,-21.24; 24300,-21.24; 25200,-21.24; 26100,-10.62; 27000,11.15;
+            27900,22.31; 28800,22.31; 29700,22.31; 30600,22.31])
         annotation (Placement(transformation(extent={{422,-16},{402,4}})));
       Under_Development.new_prosumer_models.heat_transfer_station PROSUMER4(
-        Q_flow_nominal=43000,
+        Q_flow_nominal=43000*1.2,
         T_a1_nominal=338.15,
         T_a2_nominal=318.15,
         m_flow_nominal_1=0.68,
         dp1_nominal=20000,
         m_flow_nominal_2=0.68,
         dp2_nominal=20000,
-        redeclare Fluid.Pumps.Data.Pumps.Wilo.GrundfosCR35AAAEHQQE feedinPer,
+        redeclare Fluid.Pumps.Data.Pumps_FSP.GrundfosCR35AAAEHQQE feedinPer,
         energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
 
         tau_feedPump=3,
@@ -2885,8 +2903,8 @@ package Fabian
         T_prim_hot_des=338.15,
         T_sec_hot_des=333.15,
         DeltaT_prim_des=15,
-        DeltaT_sec_des=15,
-        V_dot_sec_max=49,
+        DeltaT_sec_des=12,
+        V_dot_sec_max=48.03,
         k_prim_prod=1.5,
         Ti_prim_prod=35,
         alpha_prim_prod=0.4,
@@ -2899,7 +2917,8 @@ package Fabian
         k_sec_cons=1.5,
         Ti_sec_cons=35,
         alpha_sec_cons=0.4,
-        controllerType=Modelica.Blocks.Types.SimpleController.PI)
+        controllerType=Modelica.Blocks.Types.SimpleController.PI,
+        initType=Modelica.Blocks.Types.Init.InitialOutput)
         annotation (Placement(transformation(extent={{654,12},{612,60}})));
       Modelica.Blocks.Noise.NormalNoise normalNoise3(
         samplePeriod=30,
@@ -2909,15 +2928,22 @@ package Fabian
         annotation (Placement(transformation(extent={{722,38},{702,58}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp T_sec_in_array_4(table=[0,
             318.15; 900,318.15; 1800,318.15; 2700,318.15; 3600,318.15; 4500,
-            318.15; 5400,318.15; 6300,318.15; 7200,318.15; 8100,318.15; 9000,
-            318.15; 9900,303.15; 10800,303.15; 11700,303.15; 12600,303.15;
-            13500,318.15; 14400,318.15; 15300,318.15; 16200,303.15; 17100,
-            303.15; 18000,303.15])
+            318.15; 5400,341.15; 6300,341.15; 7200,341.15; 8100,341.15; 9000,
+            341.15; 9900,341.15; 10800,341.15; 11700,341.15; 12600,341.15;
+            13500,341.15; 14400,341.15; 15300,341.15; 16200,318.15; 17100,
+            318.15; 18000,318.15; 18900,318.15; 19800,318.15; 20700,318.15;
+            21600,341.15; 22500,341.15; 23400,341.15; 24300,341.15; 25200,
+            341.15; 26100,341.15; 27000,318.15; 27900,318.15; 28800,318.15;
+            29700,318.15; 30600,318.15])
         annotation (Placement(transformation(extent={{756,-8},{736,12}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_4(table=[0,
-            0; 900,20; 1800,20; 2700,20; 3600,0; 4500,0; 5400,0; 6300,20; 7200,
-            35; 8100,20; 9000,0; 9900,-20; 10800,-35; 11700,-20; 12600,0; 13500,
-            35; 14400,0; 15300,0; 16200,-35; 17100,0; 18000,0])
+            -20.91; 900,-41.83; 1800,-41.83; 2700,-41.83; 3600,-41.83; 4500,-20.91;
+            5400,20.91; 6300,41.83; 7200,41.83; 8100,41.83; 9000,41.83; 9900,
+            20.91; 10800,6.38; 11700,12.77; 12600,12.77; 13500,12.77; 14400,
+            12.77; 15300,6.38; 16200,-6.38; 17100,-12.77; 18000,-12.77; 18900,-12.77;
+            19800,-12.77; 20700,-6.38; 21600,20.91; 22500,41.83; 23400,41.83;
+            24300,41.83; 25200,41.83; 26100,20.91; 27000,-20.91; 27900,-41.83;
+            28800,-41.83; 29700,-41.83; 30600,-41.83])
         annotation (Placement(transformation(extent={{718,-10},{698,10}})));
       Fluid.Pipes.InsulatedPipe Pipe_ID_6_pipe_hot_34(
         allowFlowReversal=true,
@@ -2940,7 +2966,7 @@ package Fabian
         T_start=313.15)
         annotation (Placement(transformation(extent={{394,-60},{360,-26}})));
       Under_Development.new_prosumer_models.heat_transfer_station PROSUMER5(
-        Q_flow_nominal=22000,
+        Q_flow_nominal=22000*1.2,
         T_a1_nominal=338.15,
         T_a2_nominal=318.15,
         m_flow_nominal_1=0.34,
@@ -2949,7 +2975,6 @@ package Fabian
         dp2_nominal=20000,
         redeclare Fluid.Pumps.Data.Pumps_FSP.GrundfosCR17AAAEHQQE feedinPer,
         energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_feedPump=3,
         use_inputFilter_feedPump=true,
         riseTime_feedPump=35,
@@ -2965,7 +2990,6 @@ package Fabian
         R_ins_transferpipe=6.4,
         ambient_temperature=system.T_ambient,
         energyDynamics_pumpsSec=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_pumpsSec=3,
         use_inputFilter_pumpsSec=true,
         riseTime_pumpsSec=35,
@@ -2979,8 +3003,8 @@ package Fabian
         T_prim_hot_des=338.15,
         T_sec_hot_des=333.15,
         DeltaT_prim_des=15,
-        DeltaT_sec_des=15,
-        V_dot_sec_max=25,
+        DeltaT_sec_des=12,
+        V_dot_sec_max=24.4,
         k_prim_prod=1.5,
         Ti_prim_prod=35,
         alpha_prim_prod=0.4,
@@ -2993,8 +3017,9 @@ package Fabian
         k_sec_cons=1.5,
         Ti_sec_cons=35,
         alpha_sec_cons=0.4,
-        controllerType=Modelica.Blocks.Types.SimpleController.PI)
-        annotation (Placement(transformation(extent={{932,14},{890,62}})));
+        controllerType=Modelica.Blocks.Types.SimpleController.PI,
+        initType=Modelica.Blocks.Types.Init.InitialOutput)
+        annotation (Placement(transformation(extent={{934,16},{892,64}})));
       Modelica.Blocks.Noise.NormalNoise normalNoise4(
         samplePeriod=30,
         mu=0,
@@ -3003,17 +3028,24 @@ package Fabian
       Modelica.Blocks.Math.Add add4
         annotation (Placement(transformation(extent={{1000,40},{980,60}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp T_sec_in_array_5(table=[0,
-            303.15; 900,303.15; 1800,303.15; 2700,303.15; 3600,303.15; 4500,
-            303.15; 5400,303.15; 6300,303.15; 7200,303.15; 8100,303.15; 9000,
-            303.15; 9900,318.15; 10800,318.15; 11700,318.15; 12600,318.15;
-            13500,303.15; 14400,303.15; 15300,303.15; 16200,318.15; 17100,
-            318.15; 18000,318.15])
+            318.15; 900,318.15; 1800,318.15; 2700,318.15; 3600,318.15; 4500,
+            318.15; 5400,341.15; 6300,341.15; 7200,341.15; 8100,341.15; 9000,
+            341.15; 9900,341.15; 10800,341.15; 11700,341.15; 12600,341.15;
+            13500,341.15; 14400,341.15; 15300,341.15; 16200,318.15; 17100,
+            318.15; 18000,318.15; 18900,318.15; 19800,318.15; 20700,318.15;
+            21600,341.15; 22500,341.15; 23400,341.15; 24300,341.15; 25200,
+            341.15; 26100,341.15; 27000,318.15; 27900,318.15; 28800,318.15;
+            29700,318.15; 30600,318.15])
         annotation (Placement(transformation(extent={{1034,-6},{1014,14}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_5(table=[0,
-            0; 900,-20; 1800,-20; 2700,-20; 3600,0; 4500,0; 5400,0; 6300,-20;
-            7200,-35; 8100,-20; 9000,0; 9900,20; 10800,35; 11700,20; 12600,0;
-            13500,-35; 14400,0; 15300,0; 16200,35; 17100,0; 18000,0])
-        annotation (Placement(transformation(extent={{996,-8},{976,12}})));
+            -10.62; 900,-21.24; 1800,-21.24; 2700,-21.24; 3600,-21.24; 4500,-10.62;
+            5400,11.15; 6300,22.31; 7200,22.31; 8100,22.31; 9000,22.31; 9900,
+            11.15; 10800,6.7; 11700,13.41; 12600,13.41; 13500,13.41; 14400,
+            13.41; 15300,6.7; 16200,-6.38; 17100,-12.77; 18000,-12.77; 18900,-12.77;
+            19800,-12.77; 20700,-6.38; 21600,11.15; 22500,22.31; 23400,22.31;
+            24300,22.31; 25200,22.31; 26100,11.15; 27000,-10.62; 27900,-21.24;
+            28800,-21.24; 29700,-21.24; 30600,-21.24])
+        annotation (Placement(transformation(extent={{998,-8},{978,12}})));
       Fluid.Pipes.InsulatedPipe Pipe_ID_8_pipe_hot_45(
         allowFlowReversal=true,
         T_amb=system.T_ambient,
@@ -3038,88 +3070,89 @@ package Fabian
       Losses =PROSUMER1.Q_dot_trnsf_is + PROSUMER2.Q_dot_trnsf_is;
 
       connect(Pipe_ID_2_pipe_hot_12.port_a, PROSUMER1.hot_prim) annotation (
-          Line(points={{-134,-92},{-165.733,-92},{-165.733,-4.28889}}, color={0,
+          Line(points={{-132,-92},{-165.733,-92},{-165.733,-2.28889}}, color={0,
               127,255}));
       connect(Pipe_ID_2_pipe_hot_12.port_b, PROSUMER2.hot_prim) annotation (
-          Line(points={{-98,-92},{-34.2667,-92},{-34.2667,-0.3}}, color={0,127,
+          Line(points={{-96,-92},{-36.2667,-92},{-36.2667,-0.3}}, color={0,127,
               255}));
       connect(Pipe_ID_2_pipe_cold_12.port_a, PROSUMER2.cold_prim) annotation (
-          Line(points={{-98,-48},{-52,-48},{-52,-20},{-51.6,-20},{-51.6,-0.3}},
+          Line(points={{-98,-48},{-52,-48},{-52,-20},{-53.6,-20},{-53.6,-0.3}},
             color={0,127,255}));
       connect(PROSUMER1.cold_prim, Pipe_ID_2_pipe_cold_12.port_b) annotation (
-          Line(points={{-148.4,-4.28889},{-148.4,-48},{-134,-48}}, color={0,127,
+          Line(points={{-148.4,-2.28889},{-148.4,-48},{-134,-48}}, color={0,127,
               255}));
       connect(bou.ports[1], Pipe_ID_2_pipe_hot_12.port_b) annotation (Line(
-            points={{-46,-170},{-80,-170},{-80,-92},{-98,-92}}, color={0,127,
+            points={{-46,-176},{-80,-176},{-80,-92},{-96,-92}}, color={0,127,
               255}));
       connect(Controller_1.T_sec_set, PROSUMER1.T_sec_in_set) annotation (Line(
-            points={{-226,42},{-226,52},{-210,52},{-210,42.2222},{-190,42.2222}},
+            points={{-226,42},{-226,52},{-210,52},{-210,44.2222},{-190,44.2222}},
             color={0,0,127}));
       connect(Controller_1.V_dot_sec_set, PROSUMER1.V_dot_sec_set) annotation (
-          Line(points={{-226,32.4},{-212,32.4},{-212,36.4444},{-190,36.4444}},
+          Line(points={{-226,32.4},{-212,32.4},{-212,38.4444},{-190,38.4444}},
             color={0,0,127}));
       connect(Controller_1.pi_set, PROSUMER1.pi) annotation (Line(points={{-226,
-              22.8},{-190,27.7778}}, color={255,127,0}));
+              22.8},{-190,29.7778}}, color={255,127,0}));
       connect(Controller_1.mu_set, PROSUMER1.mu) annotation (Line(points={{-226,
-              13.2},{-210,13.2},{-210,22},{-190,22}}, color={255,127,0}));
-      connect(PROSUMER1.u_set, Controller_1.u_set) annotation (Line(points={{
-              -190,16.2222},{-190,3.6},{-226,3.6}}, color={0,0,127}));
+              13.2},{-210,13.2},{-210,24},{-190,24}}, color={255,127,0}));
+      connect(PROSUMER1.u_set, Controller_1.u_set) annotation (Line(points={{-190,
+              18.2222},{-190,3.6},{-226,3.6}},      color={0,0,127}));
       connect(PROSUMER1.kappa_set, Controller_1.kappa_set) annotation (Line(
-            points={{-190,10.4444},{-210,10.4444},{-210,-16},{-226,-16},{-226,
+            points={{-190,12.4444},{-210,12.4444},{-210,-16},{-226,-16},{-226,
               -6}}, color={0,0,127}));
       connect(PROSUMER1.T_sec_hot, Controller_1.T_sec_hot) annotation (Line(
-            points={{-169.2,48},{-169.2,54},{-252,54},{-252,46},{-253.3,46},{-253.3,
-              42}}, color={0,0,127}));
+            points={{-169.2,50},{-169.2,54},{-252,54},{-252,46},{-253.3,46},{
+              -253.3,42}},
+                    color={0,0,127}));
       connect(PROSUMER1.T_sec_cold, Controller_1.T_sec_cold) annotation (Line(
-            points={{-141.467,48},{-240.7,48},{-240.7,42}}, color={0,0,127}));
+            points={{-141.467,50},{-240.7,50},{-240.7,42}}, color={0,0,127}));
       connect(PROSUMER1.V_dot_sec, Controller_1.V_dot_sec) annotation (Line(
-            points={{-155.333,48},{-155.333,58},{-278,58},{-278,32.4},{-268,
+            points={{-155.333,50},{-155.333,58},{-278,58},{-278,32.4},{-268,
               32.4}}, color={0,0,127}));
       connect(PROSUMER1.T_prim_hot, Controller_1.T_prim_hot) annotation (Line(
-            points={{-169.2,-4},{-169.2,-18},{-252,-18},{-252,-10},{-253.3,-10},
+            points={{-169.2,-2},{-169.2,-18},{-252,-18},{-252,-10},{-253.3,-10},
               {-253.3,-6}}, color={0,0,127}));
       connect(PROSUMER1.T_prim_cold, Controller_1.T_prim_cold) annotation (Line(
-            points={{-141.467,-4},{-218,-4},{-218,-12},{-240.7,-12},{-240.7,-6}},
+            points={{-141.467,-2},{-218,-2},{-218,-12},{-240.7,-12},{-240.7,-6}},
             color={0,0,127}));
       connect(Controller_1.V_dot_prim, PROSUMER1.V_dot_prim) annotation (Line(
             points={{-268,3.6},{-278,3.6},{-278,-22},{-155.333,-22},{-155.333,
-              -4}}, color={0,0,127}));
+              -2}}, color={0,0,127}));
       connect(PROSUMER1.Q_dot_trnsf_is, Controller_1.Qdot_is) annotation (Line(
-            points={{-190,1.77778},{-214,1.77778},{-214,-24},{-280,-24},{-280,
+            points={{-190,3.77778},{-214,3.77778},{-214,-24},{-280,-24},{-280,
               13.2},{-268,13.2}}, color={0,0,127}));
       connect(Controller_2.T_sec_set, PROSUMER2.T_sec_in_set) annotation (Line(
-            points={{22,54},{22,64},{0,64},{0,48},{-10,48}}, color={0,0,127}));
+            points={{22,54},{22,64},{0,64},{0,48},{-12,48}}, color={0,0,127}));
       connect(Controller_2.V_dot_sec_set, PROSUMER2.V_dot_sec_set) annotation (
-          Line(points={{22,44.4},{0,44.4},{0,42},{-10,42}}, color={0,0,127}));
+          Line(points={{22,44.4},{0,44.4},{0,42},{-12,42}}, color={0,0,127}));
       connect(Controller_2.pi_set, PROSUMER2.pi)
-        annotation (Line(points={{22,34.8},{-10,33}}, color={255,127,0}));
-      connect(Controller_2.mu_set, PROSUMER2.mu) annotation (Line(points={{22,
-              25.2},{0,25.2},{0,27},{-10,27}}, color={255,127,0}));
-      connect(Controller_2.u_set, PROSUMER2.u_set) annotation (Line(points={{22,
-              15.6},{0,15.6},{0,21},{-10,21}}, color={0,0,127}));
+        annotation (Line(points={{22,34.8},{-12,33}}, color={255,127,0}));
+      connect(Controller_2.mu_set, PROSUMER2.mu) annotation (Line(points={{22,25.2},
+              {0,25.2},{0,27},{-12,27}},       color={255,127,0}));
+      connect(Controller_2.u_set, PROSUMER2.u_set) annotation (Line(points={{22,15.6},
+              {0,15.6},{0,21},{-12,21}},       color={0,0,127}));
       connect(Controller_2.kappa_set, PROSUMER2.kappa_set) annotation (Line(
-            points={{22,6},{14,6},{14,-6},{-2,-6},{-2,14},{-10,14},{-10,15}},
+            points={{22,6},{14,6},{14,-6},{-2,-6},{-2,14},{-12,14},{-12,15}},
             color={0,0,127}));
       connect(PROSUMER2.T_sec_hot, Controller_2.T_sec_hot) annotation (Line(
-            points={{-30.8,54},{-30.8,68},{48,68},{48,58},{49.3,58},{49.3,54}},
+            points={{-32.8,54},{-32.8,68},{48,68},{48,58},{49.3,58},{49.3,54}},
             color={0,0,127}));
       connect(PROSUMER2.T_sec_cold, Controller_2.T_sec_cold) annotation (Line(
-            points={{-58.5333,54},{-56,54},{-56,66},{36.7,66},{36.7,54}}, color
-            ={0,0,127}));
+            points={{-60.5333,54},{-56,54},{-56,66},{36.7,66},{36.7,54}}, color=
+             {0,0,127}));
       connect(PROSUMER2.V_dot_sec, Controller_2.V_dot_sec) annotation (Line(
-            points={{-44.6667,54},{-44.6667,72},{74,72},{74,44.4},{64,44.4}},
+            points={{-46.6667,54},{-46.6667,72},{74,72},{74,44.4},{64,44.4}},
             color={0,0,127}));
       connect(PROSUMER2.T_prim_hot, Controller_2.T_prim_hot) annotation (Line(
-            points={{-30.8,0},{-30.8,-10},{48,-10},{48,2},{49.3,2},{49.3,6}},
+            points={{-32.8,0},{-32.8,-10},{48,-10},{48,2},{49.3,2},{49.3,6}},
             color={0,0,127}));
       connect(PROSUMER2.T_prim_cold, Controller_2.T_prim_cold) annotation (Line(
-            points={{-58.5333,0},{-60,0},{-60,-16},{36.7,-16},{36.7,6}}, color=
+            points={{-60.5333,0},{-60,0},{-60,-16},{36.7,-16},{36.7,6}}, color=
               {0,0,127}));
       connect(PROSUMER2.V_dot_prim, Controller_2.V_dot_prim) annotation (Line(
-            points={{-44.6667,0},{-46,0},{-46,-14},{74,-14},{74,15.6},{64,15.6}},
+            points={{-46.6667,0},{-46,0},{-46,-14},{74,-14},{74,15.6},{64,15.6}},
             color={0,0,127}));
       connect(PROSUMER2.Q_dot_trnsf_is, Controller_2.Qdot_is) annotation (Line(
-            points={{-10,6},{-4,6},{-4,-18},{76,-18},{76,25.2},{64,25.2}},
+            points={{-12,6},{-4,6},{-4,-18},{76,-18},{76,25.2},{64,25.2}},
             color={0,0,127}));
       connect(Q_management_array_1.y, Controller_1.Qdot_set) annotation (Line(
             points={{-293,18},{-278,18},{-278,22.8},{-268,22.8}}, color={0,0,127}));
@@ -3138,51 +3171,51 @@ package Fabian
       connect(T_sec_in_array_2.y, add1.u2) annotation (Line(points={{145,-4},{136,
               -4},{136,26},{142,26},{142,36},{134,36}}, color={0,0,127}));
       connect(Controller_3.T_sec_set, PROSUMER3.T_sec_in_set) annotation (Line(
-            points={{316,54},{316,64},{294,64},{294,48},{284,48}}, color={0,0,
+            points={{318,54},{318,64},{294,64},{294,48},{284,48}}, color={0,0,
               127}));
       connect(Controller_3.V_dot_sec_set, PROSUMER3.V_dot_sec_set) annotation (
-          Line(points={{316,44.4},{294,44.4},{294,42},{284,42}}, color={0,0,127}));
+          Line(points={{318,44.4},{294,44.4},{294,42},{284,42}}, color={0,0,127}));
       connect(Controller_3.pi_set, PROSUMER3.pi)
-        annotation (Line(points={{316,34.8},{284,33}}, color={255,127,0}));
-      connect(Controller_3.mu_set, PROSUMER3.mu) annotation (Line(points={{316,
+        annotation (Line(points={{318,34.8},{284,33}}, color={255,127,0}));
+      connect(Controller_3.mu_set, PROSUMER3.mu) annotation (Line(points={{318,
               25.2},{294,25.2},{294,27},{284,27}}, color={255,127,0}));
-      connect(Controller_3.u_set, PROSUMER3.u_set) annotation (Line(points={{
-              316,15.6},{294,15.6},{294,21},{284,21}}, color={0,0,127}));
+      connect(Controller_3.u_set, PROSUMER3.u_set) annotation (Line(points={{318,
+              15.6},{294,15.6},{294,21},{284,21}},     color={0,0,127}));
       connect(Controller_3.kappa_set, PROSUMER3.kappa_set) annotation (Line(
-            points={{316,6},{308,6},{308,-6},{292,-6},{292,14},{284,14},{284,15}},
+            points={{318,6},{308,6},{308,-6},{292,-6},{292,14},{284,14},{284,15}},
             color={0,0,127}));
       connect(PROSUMER3.T_sec_hot, Controller_3.T_sec_hot) annotation (Line(
-            points={{263.2,54},{263.2,68},{342,68},{342,58},{343.3,58},{343.3,
+            points={{263.2,54},{263.2,68},{342,68},{342,58},{345.3,58},{345.3,
               54}}, color={0,0,127}));
       connect(PROSUMER3.T_sec_cold, Controller_3.T_sec_cold) annotation (Line(
-            points={{235.467,54},{238,54},{238,66},{330.7,66},{330.7,54}},
+            points={{235.467,54},{238,54},{238,66},{332.7,66},{332.7,54}},
             color={0,0,127}));
       connect(PROSUMER3.V_dot_sec, Controller_3.V_dot_sec) annotation (Line(
-            points={{249.333,54},{249.333,72},{368,72},{368,44.4},{358,44.4}},
+            points={{249.333,54},{249.333,72},{368,72},{368,44.4},{360,44.4}},
             color={0,0,127}));
       connect(PROSUMER3.T_prim_hot, Controller_3.T_prim_hot) annotation (Line(
-            points={{263.2,0},{263.2,-10},{342,-10},{342,2},{343.3,2},{343.3,6}},
+            points={{263.2,0},{263.2,-10},{342,-10},{342,2},{345.3,2},{345.3,6}},
             color={0,0,127}));
       connect(PROSUMER3.T_prim_cold, Controller_3.T_prim_cold) annotation (Line(
-            points={{235.467,0},{234,0},{234,-16},{330.7,-16},{330.7,6}}, color
-            ={0,0,127}));
+            points={{235.467,0},{234,0},{234,-16},{332.7,-16},{332.7,6}}, color=
+             {0,0,127}));
       connect(PROSUMER3.V_dot_prim, Controller_3.V_dot_prim) annotation (Line(
-            points={{249.333,0},{248,0},{248,-14},{368,-14},{368,15.6},{358,
+            points={{249.333,0},{248,0},{248,-14},{368,-14},{368,15.6},{360,
               15.6}}, color={0,0,127}));
       connect(PROSUMER3.Q_dot_trnsf_is, Controller_3.Qdot_is) annotation (Line(
-            points={{284,6},{290,6},{290,-18},{370,-18},{370,25.2},{358,25.2}},
+            points={{284,6},{290,6},{290,-18},{370,-18},{370,25.2},{360,25.2}},
             color={0,0,127}));
       connect(normalNoise2.y,add2. u1) annotation (Line(points={{451,64},{438,64},{
               438,48},{428,48}}, color={0,0,127}));
-      connect(add2.y, Controller_3.T_sec_sim) annotation (Line(points={{405,42},{
-              374,42},{374,54},{358,54}}, color={0,0,127}));
+      connect(add2.y, Controller_3.T_sec_sim) annotation (Line(points={{405,42},
+              {374,42},{374,54},{360,54}},color={0,0,127}));
       connect(T_sec_in_array_3.y, add2.u2) annotation (Line(points={{439,-4},{430,
               -4},{430,26},{436,26},{436,36},{428,36}}, color={0,0,127}));
       connect(Pipe_ID_2_pipe_cold_12.port_a, Pipe_ID_4_pipe_cold_23.port_b)
         annotation (Line(points={{-98,-48},{42,-48},{42,-45},{168,-45}}, color=
               {0,127,255}));
       connect(Pipe_ID_2_pipe_hot_12.port_b, Pipe_ID_4_pipe_hot_23.port_a)
-        annotation (Line(points={{-98,-92},{38,-92},{38,-89},{168,-89}}, color=
+        annotation (Line(points={{-96,-92},{38,-92},{38,-89},{168,-89}}, color=
               {0,127,255}));
       connect(Pipe_ID_4_pipe_cold_23.port_a, PROSUMER3.cold_prim) annotation (
           Line(points={{202,-45},{240,-45},{240,-8},{242.4,-8},{242.4,-0.3}},
@@ -3191,7 +3224,7 @@ package Fabian
           Line(points={{259.733,-0.3},{256,-0.3},{256,-89},{202,-89}}, color={0,
               127,255}));
       connect(Q_management_array_3.y, Controller_3.Qdot_set) annotation (Line(
-            points={{401,-6},{376,-6},{376,34.8},{358,34.8}}, color={0,0,127}));
+            points={{401,-6},{376,-6},{376,34.8},{360,34.8}}, color={0,0,127}));
       connect(Controller_4.T_sec_set, PROSUMER4.T_sec_in_set) annotation (Line(
             points={{612,60},{612,70},{590,70},{590,56},{580,56}}, color={0,0,
               127}));
@@ -3250,50 +3283,50 @@ package Fabian
           Line(points={{555.733,7.7},{554.866,7.7},{554.866,-88},{394,-88}},
             color={0,127,255}));
       connect(Controller_5.T_sec_set, PROSUMER5.T_sec_in_set) annotation (Line(
-            points={{890,62},{890,72},{868,72},{868,56},{858,56}}, color={0,0,
+            points={{892,64},{892,72},{868,72},{868,56},{858,56}}, color={0,0,
               127}));
       connect(Controller_5.V_dot_sec_set, PROSUMER5.V_dot_sec_set) annotation (
-          Line(points={{890,52.4},{868,52.4},{868,50},{858,50}}, color={0,0,127}));
+          Line(points={{892,54.4},{868,54.4},{868,50},{858,50}}, color={0,0,127}));
       connect(Controller_5.pi_set, PROSUMER5.pi)
-        annotation (Line(points={{890,42.8},{858,41}}, color={255,127,0}));
-      connect(Controller_5.mu_set, PROSUMER5.mu) annotation (Line(points={{890,
-              33.2},{868,33.2},{868,35},{858,35}}, color={255,127,0}));
-      connect(Controller_5.u_set, PROSUMER5.u_set) annotation (Line(points={{
-              890,23.6},{868,23.6},{868,29},{858,29}}, color={0,0,127}));
+        annotation (Line(points={{892,44.8},{858,41}}, color={255,127,0}));
+      connect(Controller_5.mu_set, PROSUMER5.mu) annotation (Line(points={{892,
+              35.2},{868,35.2},{868,35},{858,35}}, color={255,127,0}));
+      connect(Controller_5.u_set, PROSUMER5.u_set) annotation (Line(points={{892,
+              25.6},{868,25.6},{868,29},{858,29}},     color={0,0,127}));
       connect(Controller_5.kappa_set, PROSUMER5.kappa_set) annotation (Line(
-            points={{890,14},{882,14},{882,2},{866,2},{866,22},{858,22},{858,23}},
+            points={{892,16},{882,16},{882,2},{866,2},{866,22},{858,22},{858,23}},
             color={0,0,127}));
       connect(PROSUMER5.T_sec_hot, Controller_5.T_sec_hot) annotation (Line(
-            points={{837.2,62},{837.2,76},{916,76},{916,66},{917.3,66},{917.3,
-              62}}, color={0,0,127}));
+            points={{837.2,62},{837.2,76},{916,76},{916,66},{919.3,66},{919.3,
+              64}}, color={0,0,127}));
       connect(PROSUMER5.T_sec_cold, Controller_5.T_sec_cold) annotation (Line(
-            points={{809.467,62},{812,62},{812,74},{904.7,74},{904.7,62}},
+            points={{809.467,62},{812,62},{812,74},{906.7,74},{906.7,64}},
             color={0,0,127}));
       connect(PROSUMER5.V_dot_sec, Controller_5.V_dot_sec) annotation (Line(
-            points={{823.333,62},{823.333,80},{942,80},{942,52.4},{932,52.4}},
+            points={{823.333,62},{823.333,80},{942,80},{942,54.4},{934,54.4}},
             color={0,0,127}));
       connect(PROSUMER5.T_prim_hot, Controller_5.T_prim_hot) annotation (Line(
-            points={{837.2,8},{837.2,-2},{916,-2},{916,10},{917.3,10},{917.3,14}},
+            points={{837.2,8},{837.2,-2},{916,-2},{916,10},{919.3,10},{919.3,16}},
             color={0,0,127}));
       connect(PROSUMER5.T_prim_cold, Controller_5.T_prim_cold) annotation (Line(
-            points={{809.467,8},{808,8},{808,-8},{904.7,-8},{904.7,14}}, color=
+            points={{809.467,8},{808,8},{808,-8},{906.7,-8},{906.7,16}}, color=
               {0,0,127}));
       connect(PROSUMER5.V_dot_prim, Controller_5.V_dot_prim) annotation (Line(
-            points={{823.333,8},{822,8},{822,-6},{942,-6},{942,23.6},{932,23.6}},
+            points={{823.333,8},{822,8},{822,-6},{942,-6},{942,25.6},{934,25.6}},
             color={0,0,127}));
       connect(PROSUMER5.Q_dot_trnsf_is, Controller_5.Qdot_is) annotation (Line(
-            points={{858,14},{864,14},{864,-10},{944,-10},{944,33.2},{932,33.2}},
+            points={{858,14},{864,14},{864,-10},{944,-10},{944,35.2},{934,35.2}},
             color={0,0,127}));
       connect(normalNoise4.y,add4. u1) annotation (Line(points={{1025,72},{1012,
               72},{1012,56},{1002,56}},
                                  color={0,0,127}));
       connect(add4.y,Controller_5. T_sec_sim) annotation (Line(points={{979,50},
-              {948,50},{948,62},{932,62}},color={0,0,127}));
+              {948,50},{948,64},{934,64}},color={0,0,127}));
       connect(T_sec_in_array_5.y,add4. u2) annotation (Line(points={{1013,4},{
               1004,4},{1004,34},{1010,34},{1010,44},{1002,44}},
                                                         color={0,0,127}));
       connect(Q_management_array_5.y,Controller_5. Qdot_set) annotation (Line(
-            points={{975,2},{950,2},{950,42.8},{932,42.8}},   color={0,0,127}));
+            points={{977,2},{950,2},{950,44.8},{934,44.8}},   color={0,0,127}));
       connect(PROSUMER5.cold_prim, Pipe_ID_8_pipe_cold_45.port_a) annotation (
           Line(points={{816.4,7.7},{815.2,7.7},{815.2,-41},{714,-41}}, color={0,
               127,255}));
@@ -3571,7 +3604,7 @@ SF1"),      Text(
         final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
         inputType=ProsNet.Fluid.Types.InputType.Continuous,
         final tau=1,
-        redeclare final ProsNet.Fluid.Pumps.Data.Pumps.IMP.NMTPlus152025to40 per,
+        redeclare final Fluid.Pumps.Data.Pumps_FSP.GrundfosCR17AAAEHQQE per,
         final use_inputFilter=true,
         final riseTime=1,
         final init=Modelica.Blocks.Types.Init.SteadyState,
@@ -3584,33 +3617,30 @@ SF1"),      Text(
             ProsNet.Media.Water,
           nPorts=1)
         annotation (Placement(transformation(extent={{68,36},{48,56}})));
-      Modelica.Blocks.Sources.RealExpression realExpression(y=1)
-        annotation (Placement(transformation(extent={{-168,2},{-148,22}})));
       Modelica.Blocks.Sources.Ramp ramp(
         height=-1,
         duration=1200,
         offset=1,
         startTime=5)
-        annotation (Placement(transformation(extent={{140,-42},{120,-22}})));
-      Modelica.Fluid.Valves.ValveLinear valveLinear(
-        redeclare package Medium = ProsNet.Media.Water,
-        dp_start=0,
-        dp_nominal=70000,
-        m_flow_nominal=0.55)
-        annotation (Placement(transformation(extent={{42,-20},{62,0}})));
+        annotation (Placement(transformation(extent={{-52,42},{-72,62}})));
+      Fluid.FixedResistances.PressureDrop res(
+        redeclare package Medium = Media.Water,
+        m_flow_nominal=0.5,
+        dp_nominal(displayUnit="kPa") = 419000)
+        annotation (Placement(transformation(extent={{32,-36},{52,-16}})));
     equation
-      connect(realExpression.y, pump_prim_prod.y) annotation (Line(points={{-147,12},
-              {-64,12},{-64,-8},{-56,-8}}, color={0,0,127}));
       connect(pump_prim_prod.port_b, bou.ports[1]) annotation (Line(points={{-44,2},
               {-44,20},{42,20},{42,46},{48,46}}, color={0,127,255}));
-      connect(pump_prim_prod.port_b, valveLinear.port_a) annotation (Line(points={{-44,2},
-              {-44,20},{42,20},{42,2},{32,2},{32,-10},{42,-10}},        color={0,
-              127,255}));
-      connect(valveLinear.port_b, pump_prim_prod.port_a) annotation (Line(points={{62,-10},
-              {64,-10},{64,-26},{-44,-26},{-44,-18}},         color={0,127,255}));
-      connect(ramp.y, valveLinear.opening) annotation (Line(points={{119,-32},{66,
-              -32},{66,2},{52,2},{52,-2}}, color={0,0,127}));
-      annotation ();
+      connect(pump_prim_prod.port_b, res.port_b) annotation (Line(points={{-44,
+              2},{62,2},{62,-26},{52,-26}}, color={0,127,255}));
+      connect(res.port_a, pump_prim_prod.port_a) annotation (Line(points={{32,
+              -26},{-44,-26},{-44,-18}}, color={0,127,255}));
+      connect(ramp.y, pump_prim_prod.y) annotation (Line(points={{-73,52},{-92,
+              52},{-92,-8},{-56,-8}}, color={0,0,127}));
+      annotation (experiment(
+          StopTime=1200,
+          __Dymola_NumberOfIntervals=600,
+          __Dymola_Algorithm="Dassl"));
     end Test_pump_curve;
 
     model Test_control_valve_model
@@ -3945,6 +3975,63 @@ SF1"),      Text(
           Interval=10,
           __Dymola_Algorithm="Dassl"));
     end Test_check_and_control_valve_model_FLOWINCREASE;
+
+    model Test_pump_curve_points
+
+      ProsNet.Fluid.Pumps.SpeedControlled_y
+                                    pump_prim_prod(
+        redeclare final package Medium = ProsNet.Media.Water,
+        final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+        inputType=ProsNet.Fluid.Types.InputType.Continuous,
+        final tau=1,
+        redeclare final
+          Fluid.Pumps.Data.Pumps_FSP.FSPStratosMAXO40slash0dot5dash16PN6slash10
+          per,
+        final use_inputFilter=true,
+        final riseTime=1,
+        final init=Modelica.Blocks.Types.Init.SteadyState,
+        final y_start=0)                annotation (Placement(transformation(
+            extent={{10,10},{-10,-10}},
+            rotation=-90,
+            origin={-44,-8})));
+      ProsNet.Fluid.Sources.Boundary_pT
+                                bou(redeclare package Medium =
+            ProsNet.Media.Water,
+          nPorts=1)
+        annotation (Placement(transformation(extent={{68,36},{48,56}})));
+      Modelica.Blocks.Sources.RealExpression realExpression(y=1)
+        annotation (Placement(transformation(extent={{-168,2},{-148,22}})));
+      Modelica.Blocks.Sources.Ramp ramp(
+        height=-1,
+        duration=1200,
+        offset=1,
+        startTime=5)
+        annotation (Placement(transformation(extent={{140,-42},{120,-22}})));
+      Modelica.Fluid.Valves.ValveLinear valveLinear(
+        redeclare package Medium = ProsNet.Media.Water,
+        dp_start=0,
+        dp_nominal=70000,
+        m_flow_nominal=0.55)
+        annotation (Placement(transformation(extent={{42,-20},{62,0}})));
+      Fluid.FixedResistances.PressureDrop res
+        annotation (Placement(transformation(extent={{-24,-64},{-4,-44}})));
+    equation
+      connect(realExpression.y, pump_prim_prod.y) annotation (Line(points={{-147,12},
+              {-64,12},{-64,-8},{-56,-8}}, color={0,0,127}));
+      connect(pump_prim_prod.port_b, bou.ports[1]) annotation (Line(points={{-44,2},
+              {-44,20},{42,20},{42,46},{48,46}}, color={0,127,255}));
+      connect(pump_prim_prod.port_b, valveLinear.port_a) annotation (Line(points={{-44,2},
+              {-44,20},{42,20},{42,2},{32,2},{32,-10},{42,-10}},        color={0,
+              127,255}));
+      connect(valveLinear.port_b, pump_prim_prod.port_a) annotation (Line(points={{62,-10},
+              {64,-10},{64,-26},{-44,-26},{-44,-18}},         color={0,127,255}));
+      connect(ramp.y, valveLinear.opening) annotation (Line(points={{119,-32},{66,
+              -32},{66,2},{52,2},{52,-2}}, color={0,0,127}));
+      annotation (experiment(
+          StopTime=1200,
+          __Dymola_NumberOfIntervals=600,
+          __Dymola_Algorithm="Dassl"));
+    end Test_pump_curve_points;
   annotation (Documentation(info="<html>
 <p><b>Validation models for pipes.</b></p>
 </html>"));
