@@ -2669,8 +2669,8 @@ package Fabian
         Delta_T_norm=3,
         T_prim_hot_des=338.15,
         T_sec_hot_des=333.15,
-        DeltaT_prim_des=15,
-        DeltaT_sec_des=12,
+        DeltaT_prim_des=10,
+        DeltaT_sec_des=10,
         V_dot_sec_max=29.02,
         k_prim_prod=1.5,
         Ti_prim_prod=35,
@@ -2701,8 +2701,8 @@ package Fabian
         Delta_T_norm=3,
         T_prim_hot_des=338.15,
         T_sec_hot_des=333.15,
-        DeltaT_prim_des=15,
-        DeltaT_sec_des=12,
+        DeltaT_prim_des=10,
+        DeltaT_sec_des=10,
         V_dot_sec_max=24.7,
         k_prim_prod=1.5,
         Ti_prim_prod=35,
@@ -2720,22 +2720,22 @@ package Fabian
         initType=Modelica.Blocks.Types.Init.InitialOutput)
         annotation (Placement(transformation(extent={{64,6},{22,54}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_1(table=[0,
-            12.64; 900,25.27; 1800,25.27; 2700,25.27; 3600,25.27; 4500,12.64;
+            26.54; 900,26.54; 1800,26.54; 2700,26.54; 3600,26.54; 4500,13.27;
             5400,-12.64; 6300,-25.27; 7200,-25.27; 8100,-25.27; 9000,-25.27;
             9900,-12.64; 10800,-12.64; 11700,-25.27; 12600,-25.27; 13500,-25.27;
-            14400,-25.27; 15300,-12.64; 16200,12.64; 17100,25.27; 18000,25.27;
-            18900,25.27; 19800,25.27; 20700,12.64; 21600,-10.16; 22500,-20.32;
-            23400,-20.32; 24300,-20.32; 25200,-20.32; 26100,-10.16; 27000,10.16;
-            27900,20.32; 28800,20.32; 29700,20.32; 30600,20.32])
+            14400,-25.27; 15300,-12.64; 16200,13.27; 17100,26.54; 18000,26.54;
+            18900,26.54; 19800,26.54; 20700,13.27; 21600,-10.16; 22500,-20.32;
+            23400,-20.32; 24300,-20.32; 25200,-20.32; 26100,-10.16; 27000,10.67;
+            27900,21.34; 28800,21.34; 29700,21.34; 30600,21.34])
         annotation (Placement(transformation(extent={{-314,8},{-294,28}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_2(table=[0,
-            10.75; 900,21.51; 1800,21.51; 2700,21.51; 3600,21.51; 4500,10.75;
+            22.58; 900,22.58; 1800,22.58; 2700,22.58; 3600,22.58; 4500,11.29;
             5400,-10.75; 6300,-21.51; 7200,-21.51; 8100,-21.51; 9000,-21.51;
             9900,-10.75; 10800,-10.75; 11700,-21.51; 12600,-21.51; 13500,-21.51;
-            14400,-21.51; 15300,-10.75; 16200,10.75; 17100,21.51; 18000,21.51;
-            18900,21.51; 19800,21.51; 20700,10.75; 21600,-10.75; 22500,-21.51;
-            23400,-21.51; 24300,-21.51; 25200,-21.51; 26100,-10.75; 27000,10.75;
-            27900,21.51; 28800,21.51; 29700,21.51; 30600,21.51])
+            14400,-21.51; 15300,-10.75; 16200,11.29; 17100,22.58; 18000,22.58;
+            18900,22.58; 19800,22.58; 20700,11.29; 21600,-10.75; 22500,-21.51;
+            23400,-21.51; 24300,-21.51; 25200,-21.51; 26100,-10.75; 27000,11.29;
+            27900,22.58; 28800,22.58; 29700,22.58; 30600,22.58])
         annotation (Placement(transformation(extent={{124,-10},{104,10}})));
       inner Modelica.Blocks.Noise.GlobalSeed globalSeed(enableNoise=false,
           fixedSeed=4345)
@@ -2800,8 +2800,8 @@ package Fabian
         Delta_T_norm=3,
         T_prim_hot_des=338.15,
         T_sec_hot_des=333.15,
-        DeltaT_prim_des=15,
-        DeltaT_sec_des=12,
+        DeltaT_prim_des=10,
+        DeltaT_sec_des=10,
         V_dot_sec_max=24.4,
         k_prim_prod=1.5,
         Ti_prim_prod=35,
@@ -2855,7 +2855,7 @@ package Fabian
         T_start=313.15)
         annotation (Placement(transformation(extent={{168,-106},{202,-72}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_3(table=[0,
-            8.55; 900,17.11; 1800,17.11; 2700,17.11; 3600,17.11; 4500,8.55;
+            17.11; 900,17.11; 1800,17.11; 2700,17.11; 3600,17.11; 4500,8.55;
             5400,-8.15; 6300,-16.29; 7200,-16.29; 8100,-16.29; 9000,-16.29;
             9900,-8.15; 10800,11.15; 11700,22.31; 12600,22.31; 13500,22.31;
             14400,22.31; 15300,11.15; 16200,-10.62; 17100,-21.24; 18000,-21.24;
@@ -2873,7 +2873,6 @@ package Fabian
         dp2_nominal=20000,
         redeclare Fluid.Pumps.Data.Pumps_FSP.GrundfosCR35AAAEHQQE feedinPer,
         energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_feedPump=3,
         use_inputFilter_feedPump=true,
         riseTime_feedPump=35,
@@ -2889,7 +2888,6 @@ package Fabian
         R_ins_transferpipe=6.3,
         ambient_temperature=system.T_ambient,
         energyDynamics_pumpsSec=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-
         tau_pumpsSec=3,
         use_inputFilter_pumpsSec=true,
         riseTime_pumpsSec=35,
@@ -2902,8 +2900,8 @@ package Fabian
         Delta_T_norm=3,
         T_prim_hot_des=338.15,
         T_sec_hot_des=333.15,
-        DeltaT_prim_des=15,
-        DeltaT_sec_des=12,
+        DeltaT_prim_des=10,
+        DeltaT_sec_des=10,
         V_dot_sec_max=48.03,
         k_prim_prod=1.5,
         Ti_prim_prod=35,
@@ -2937,12 +2935,12 @@ package Fabian
             29700,318.15; 30600,318.15])
         annotation (Placement(transformation(extent={{756,-8},{736,12}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_4(table=[0,
-            -20.91; 900,-41.83; 1800,-41.83; 2700,-41.83; 3600,-41.83; 4500,-20.91;
-            5400,20.91; 6300,41.83; 7200,41.83; 8100,41.83; 9000,41.83; 9900,
-            20.91; 10800,6.38; 11700,12.77; 12600,12.77; 13500,12.77; 14400,
-            12.77; 15300,6.38; 16200,-6.38; 17100,-12.77; 18000,-12.77; 18900,-12.77;
-            19800,-12.77; 20700,-6.38; 21600,20.91; 22500,41.83; 23400,41.83;
-            24300,41.83; 25200,41.83; 26100,20.91; 27000,-20.91; 27900,-41.83;
+            -41.83; 900,-41.83; 1800,-41.83; 2700,-41.83; 3600,-41.83; 4500,-20.91;
+            5400,21.96; 6300,43.92; 7200,43.92; 8100,43.92; 9000,43.92; 9900,
+            21.96; 10800,6.7; 11700,13.41; 12600,13.41; 13500,13.41; 14400,
+            13.41; 15300,6.7; 16200,-6.38; 17100,-12.77; 18000,-12.77; 18900,-12.77;
+            19800,-12.77; 20700,-6.38; 21600,21.96; 22500,43.92; 23400,43.92;
+            24300,43.92; 25200,43.92; 26100,21.96; 27000,-20.91; 27900,-41.83;
             28800,-41.83; 29700,-41.83; 30600,-41.83])
         annotation (Placement(transformation(extent={{718,-10},{698,10}})));
       Fluid.Pipes.InsulatedPipe Pipe_ID_6_pipe_hot_34(
@@ -3002,8 +3000,8 @@ package Fabian
         Delta_T_norm=3,
         T_prim_hot_des=338.15,
         T_sec_hot_des=333.15,
-        DeltaT_prim_des=15,
-        DeltaT_sec_des=12,
+        DeltaT_prim_des=10,
+        DeltaT_sec_des=10,
         V_dot_sec_max=24.4,
         k_prim_prod=1.5,
         Ti_prim_prod=35,
@@ -3038,7 +3036,7 @@ package Fabian
             29700,318.15; 30600,318.15])
         annotation (Placement(transformation(extent={{1034,-6},{1014,14}})));
       Under_Development.Controller_PID_based.auxiliary.TimeTable_noInterp Q_management_array_5(table=[0,
-            -10.62; 900,-21.24; 1800,-21.24; 2700,-21.24; 3600,-21.24; 4500,-10.62;
+            -21.24; 900,-21.24; 1800,-21.24; 2700,-21.24; 3600,-21.24; 4500,-10.62;
             5400,11.15; 6300,22.31; 7200,22.31; 8100,22.31; 9000,22.31; 9900,
             11.15; 10800,6.7; 11700,13.41; 12600,13.41; 13500,13.41; 14400,
             13.41; 15300,6.7; 16200,-6.38; 17100,-12.77; 18000,-12.77; 18900,-12.77;
@@ -3395,9 +3393,11 @@ SF1"),      Text(
               textColor={28,108,200},
               textString="cold")}),
         experiment(
-          StopTime=18900,
+          StopTime=30600,
           Interval=10,
-          __Dymola_Algorithm="Dassl"));
+          __Dymola_Algorithm="Dassl"),
+        __Dymola_Commands(file="Scripts/COSES_PLOT.mos" "COSES_PLOT", file=
+              "Scripts/cosesplot.mos" "cosesplot"));
     end Test_CoSES_5_Prosumers;
   end Tests;
 
