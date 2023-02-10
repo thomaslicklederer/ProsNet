@@ -1,5 +1,5 @@
 Log-file of program ./dymosim
-(generated: Wed Jan 11 11:45:07 2023)
+(generated: Wed Feb  1 11:34:02 2023)
 
 dymosim started
 ... "dsin.txt" loading (dymosim input file)
@@ -159,28 +159,344 @@ d[i] = ------------------------------------------------- < -108478
 Otherwise, a solution to the equations may not exist if the fan or pump speed is reduced.
 In this situation, the solver will fail due to non-convergence and
 the simulation stops.
-... "Test_CoSES_5_Prosumers.mat" creating (simulation result file)
+... "CoSES_5_Prosumers_new_SCENARIOS.mat" creating (simulation result file)
 
 Integration started at T = 0 using integration method DASSL
 (DAE multi-step solver (dassl/dasslrt of Petzold modified by Dassault Systemes))
-Integration terminated successfully at T = 30600
+
+ERROR: Failed to solve nonlinear system using Newton solver.
+  Time: 18903.88189014253
+  Tag: simulation.nonlinear[1]
+
+  Common causes:
+   * The system of equations has no solution - the residual will be above zero.
+     - In some cases the event-logic can cause this.
+   * Starting values are too far from the solution.
+     - In rare cases this could occur at events.
+   * The equations are too discontinuous for the nonlinear solver - the residual will have knees.
+     - Likely caused by over-using noEvent.
+
+  To get more information consider the options:
+   * Simulation/Setup/Translation/Generate listing of translated Modelica code in dsmodel.mof
+   * Simulation/Setup/Translation/List non-linear iteration variables
+   * The options under the group Simulation/Setup/Debug/Nonlinear solver diagnostics
+
+  Jacobian inverse norm estimate: 1.30603e+16
+  Condition number estimate: 6.08487e+12
+  1-norm of the residual = 9.23152
+  The estimates indicate that the Jacobian is close to singular, suggesting that there is no solution.
+
+  Last value of the solution:
+    PROSUMER2.cheVal_prim_prod.dp = -806.858
+    PROSUMER2.cheVal_prim_cons.dp = 300.351
+    PROSUMER2.pipe_prim_hot.orifice1.dp_fg = -0.482251
+    PROSUMER2.pipe_prim_hot.pipe.port_a.p = 300001
+    PROSUMER2.pipe_prim_hot.pipe.statesFM[2].p = 300002
+    PROSUMER2.pipe_prim_hot.pipe.statesFM[3].p = 300003
+    PROSUMER2.pipe_prim_hot.pipe.statesFM[4].p = 300004
+    PROSUMER2.pipe_prim_hot.pipe.statesFM[5].p = 300005
+    PROSUMER2.pipe_prim_hot.pipe.statesFM[6].p = 300007
+    PROSUMER2.pipe_prim_hot.pipe.statesFM[7].p = 300008
+    PROSUMER2.pipe_prim_hot.pipe.statesFM[8].p = 300009
+    PROSUMER2.pipe_prim_hot.pipe.statesFM[9].p = 300011
+    PROSUMER2.pipe_prim_hot.pipe.port_b.p = 300013
+    PROSUMER2.pipe_prim_hot.orifice2.dp_fg = -0.633628
+    PROSUMER2.pump_prim_prod.port_a.p = 283301
+    PROSUMER2.pipe_prim_cold.orifice1.dp_fg = -0.573795
+    PROSUMER2.pipe_prim_cold.pipe.port_a.p = 283302
+    PROSUMER2.pipe_prim_cold.pipe.statesFM[2].p = 283304
+    PROSUMER2.pipe_prim_cold.pipe.statesFM[3].p = 283305
+    PROSUMER2.pipe_prim_cold.pipe.statesFM[4].p = 283307
+    PROSUMER2.pipe_prim_cold.pipe.statesFM[5].p = 283308
+    PROSUMER2.pipe_prim_cold.pipe.statesFM[6].p = 283309
+    PROSUMER2.pipe_prim_cold.pipe.statesFM[7].p = 283310
+    PROSUMER2.pipe_prim_cold.pipe.statesFM[8].p = 283311
+    PROSUMER2.pipe_prim_cold.pipe.statesFM[9].p = 283313
+    PROSUMER2.pipe_prim_cold.pipe.port_b.p = 283314
+    PROSUMER3.cheVal_prim_prod.dp = 277.318
+    PROSUMER3.cheVal_prim_cons.dp = 135.979
+    PROSUMER3.pipe_prim_hot.orifice1.dp_fg = -12.6804
+    PROSUMER3.pipe_prim_hot.pipe.port_a.p = 299995
+    PROSUMER3.pipe_prim_hot.pipe.statesFM[2].p = 299998
+    PROSUMER3.pipe_prim_hot.pipe.statesFM[3].p = 299999
+    PROSUMER3.pipe_prim_hot.pipe.statesFM[4].p = 300000
+    PROSUMER3.pipe_prim_hot.pipe.statesFM[5].p = 300001
+    PROSUMER3.pipe_prim_hot.pipe.statesFM[6].p = 300003
+    PROSUMER3.pipe_prim_hot.pipe.statesFM[7].p = 300004
+    PROSUMER3.pipe_prim_hot.pipe.statesFM[8].p = 300005
+    PROSUMER3.pipe_prim_hot.pipe.statesFM[9].p = 300006
+    PROSUMER3.pipe_prim_hot.pipe.port_b.p = 300007
+    PROSUMER3.pipe_prim_hot.orifice2.dp_fg = -12.4046
+    PROSUMER3.pump_prim_prod.port_a.p = 283290
+    PROSUMER3.pipe_prim_cold.orifice1.dp_fg = -12.4556
+    PROSUMER3.pipe_prim_cold.pipe.port_a.p = 283302
+    PROSUMER3.pipe_prim_cold.pipe.statesFM[2].p = 283303
+    PROSUMER3.pipe_prim_cold.pipe.statesFM[3].p = 283304
+    PROSUMER3.pipe_prim_cold.pipe.statesFM[4].p = 283306
+    PROSUMER3.pipe_prim_cold.pipe.statesFM[5].p = 283307
+    PROSUMER3.pipe_prim_cold.pipe.statesFM[6].p = 283308
+    PROSUMER3.pipe_prim_cold.pipe.statesFM[7].p = 283309
+    PROSUMER3.pipe_prim_cold.pipe.statesFM[8].p = 283310
+    PROSUMER3.pipe_prim_cold.pipe.statesFM[9].p = 283312
+    PROSUMER3.pipe_prim_cold.pipe.port_b.p = 283315
+    PROSUMER4.cheVal_prim_prod.dp = -3048.62
+    PROSUMER4.cheVal_prim_cons.dp = 152.382
+    PROSUMER4.pipe_prim_hot.orifice1.dp_fg = 0.654917
+    PROSUMER4.pipe_prim_hot.pipe.port_a.p = 299943
+    PROSUMER4.pipe_prim_hot.pipe.statesFM[2].p = 299943
+    PROSUMER4.pipe_prim_hot.pipe.statesFM[3].p = 299943
+    PROSUMER4.pipe_prim_hot.pipe.statesFM[4].p = 299942
+    PROSUMER4.pipe_prim_hot.pipe.statesFM[5].p = 299942
+    PROSUMER4.pipe_prim_hot.pipe.statesFM[6].p = 299942
+    PROSUMER4.pipe_prim_hot.pipe.statesFM[7].p = 299941
+    PROSUMER4.pipe_prim_hot.pipe.statesFM[8].p = 299941
+    PROSUMER4.pipe_prim_hot.pipe.statesFM[9].p = 299940
+    PROSUMER4.pipe_prim_hot.pipe.port_b.p = 299940
+    PROSUMER4.pipe_prim_hot.orifice2.dp_fg = 0.660933
+    PROSUMER4.pump_prim_prod.port_a.p = 283368
+    PROSUMER4.pipe_prim_cold.orifice1.dp_fg = 0.643167
+    PROSUMER4.pipe_prim_cold.pipe.port_a.p = 283368
+    PROSUMER4.pipe_prim_cold.pipe.statesFM[2].p = 283367
+    PROSUMER4.pipe_prim_cold.pipe.statesFM[3].p = 283367
+    PROSUMER4.pipe_prim_cold.pipe.statesFM[4].p = 283367
+    PROSUMER4.pipe_prim_cold.pipe.statesFM[5].p = 283366
+    PROSUMER4.pipe_prim_cold.pipe.statesFM[6].p = 283366
+    PROSUMER4.pipe_prim_cold.pipe.statesFM[7].p = 283366
+    PROSUMER4.pipe_prim_cold.pipe.statesFM[8].p = 283365
+    PROSUMER4.pipe_prim_cold.pipe.statesFM[9].p = 283365
+    PROSUMER4.pipe_prim_cold.pipe.port_b.p = 283364
+    PROSUMER5.cheVal_prim_prod.dp = 139.979
+    PROSUMER5.cheVal_prim_cons.dp = 134.183
+    Pipe_ID_4_pipe_hot_23.orifice1.dp_fg = 0.729673
+    Pipe_ID_4_pipe_hot_23.pipe.port_a.p = 299999
+    Pipe_ID_4_pipe_hot_23.pipe.statesFM[2].p = 299997
+    Pipe_ID_4_pipe_hot_23.pipe.statesFM[3].p = 299996
+    Pipe_ID_4_pipe_hot_23.pipe.statesFM[4].p = 299994
+    Pipe_ID_4_pipe_hot_23.pipe.statesFM[5].p = 299993
+    Pipe_ID_4_pipe_hot_23.pipe.statesFM[6].p = 299991
+    Pipe_ID_4_pipe_hot_23.pipe.statesFM[7].p = 299989
+    Pipe_ID_4_pipe_hot_23.pipe.statesFM[8].p = 299988
+    Pipe_ID_4_pipe_hot_23.pipe.statesFM[9].p = 299986
+    Pipe_ID_4_pipe_hot_23.pipe.port_b.p = 299982
+    Pipe_ID_4_pipe_hot_23.orifice2.dp_fg = 0.783352
+    PROSUMER3.hot_prim.p = 299982
+    Pipe_ID_6_pipe_hot_34.orifice1.dp_fg = 0.923195
+    Pipe_ID_6_pipe_hot_34.pipe.port_a.p = 299981
+    Pipe_ID_6_pipe_hot_34.pipe.statesFM[2].p = 299976
+    Pipe_ID_6_pipe_hot_34.pipe.statesFM[3].p = 299972
+    Pipe_ID_6_pipe_hot_34.pipe.statesFM[4].p = 299969
+    Pipe_ID_6_pipe_hot_34.pipe.statesFM[5].p = 299965
+    Pipe_ID_6_pipe_hot_34.pipe.statesFM[6].p = 299961
+    Pipe_ID_6_pipe_hot_34.pipe.statesFM[7].p = 299958
+    Pipe_ID_6_pipe_hot_34.pipe.statesFM[8].p = 299954
+    Pipe_ID_6_pipe_hot_34.pipe.statesFM[9].p = 299950
+    Pipe_ID_6_pipe_hot_34.pipe.port_b.p = 299945
+    Pipe_ID_6_pipe_hot_34.orifice2.dp_fg = 0.939483
+    PROSUMER4.hot_prim.p = 299944
+    Pipe_ID_8_pipe_hot_45.orifice1.dp_fg = 1.62274
+    Pipe_ID_8_pipe_hot_45.pipe.port_a.p = 299942
+    Pipe_ID_8_pipe_hot_45.pipe.statesFM[2].p = 299928
+    Pipe_ID_8_pipe_hot_45.pipe.statesFM[3].p = 299918
+    Pipe_ID_8_pipe_hot_45.pipe.statesFM[4].p = 299908
+    Pipe_ID_8_pipe_hot_45.pipe.statesFM[5].p = 299898
+    Pipe_ID_8_pipe_hot_45.pipe.statesFM[6].p = 299888
+    Pipe_ID_8_pipe_hot_45.pipe.statesFM[7].p = 299877
+    Pipe_ID_8_pipe_hot_45.pipe.statesFM[8].p = 299868
+    Pipe_ID_8_pipe_hot_45.pipe.statesFM[9].p = 299858
+    Pipe_ID_8_pipe_hot_45.pipe.port_b.p = 299846
+    Pipe_ID_8_pipe_hot_45.orifice2.dp_fg = 1.46038
+    PROSUMER5.hot_prim.p = 299844
+    PROSUMER5.pipe_prim_hot.orifice1.dp_fg = 1.52587
+    PROSUMER5.pipe_prim_hot.pipe.port_a.p = 299843
+    PROSUMER5.pipe_prim_hot.pipe.statesFM[2].p = 299840
+    PROSUMER5.pipe_prim_hot.pipe.statesFM[3].p = 299840
+    PROSUMER5.pipe_prim_hot.pipe.statesFM[4].p = 299839
+    PROSUMER5.pipe_prim_hot.pipe.statesFM[5].p = 299838
+    PROSUMER5.pipe_prim_hot.pipe.statesFM[6].p = 299837
+    PROSUMER5.pipe_prim_hot.pipe.statesFM[7].p = 299836
+    PROSUMER5.pipe_prim_hot.pipe.statesFM[8].p = 299834
+    PROSUMER5.pipe_prim_hot.pipe.statesFM[9].p = 299832
+    PROSUMER5.pipe_prim_hot.pipe.port_b.p = 299828
+    PROSUMER5.pipe_prim_hot.orifice2.dp_fg = 1.92098
+    PROSUMER5.pump_prim_prod.port_a.p = 283490
+    PROSUMER5.pipe_prim_cold.orifice1.dp_fg = 1.85441
+    PROSUMER5.pipe_prim_cold.pipe.port_a.p = 283488
+    PROSUMER5.pipe_prim_cold.pipe.statesFM[2].p = 283485
+    PROSUMER5.pipe_prim_cold.pipe.statesFM[3].p = 283483
+    PROSUMER5.pipe_prim_cold.pipe.statesFM[4].p = 283481
+    PROSUMER5.pipe_prim_cold.pipe.statesFM[5].p = 283479
+    PROSUMER5.pipe_prim_cold.pipe.statesFM[6].p = 283477
+    PROSUMER5.pipe_prim_cold.pipe.statesFM[7].p = 283475
+    PROSUMER5.pipe_prim_cold.pipe.statesFM[8].p = 283472
+    PROSUMER5.pipe_prim_cold.pipe.statesFM[9].p = 283470
+    PROSUMER5.pipe_prim_cold.pipe.port_b.p = 283468
+    PROSUMER5.pipe_prim_cold.orifice2.dp_fg = 1.78184
+    PROSUMER5.cold_prim.p = 283466
+    Pipe_ID_8_pipe_cold_45.orifice1.dp_fg = 1.57987
+    Pipe_ID_8_pipe_cold_45.pipe.port_a.p = 283464
+    Pipe_ID_8_pipe_cold_45.pipe.statesFM[2].p = 283450
+    Pipe_ID_8_pipe_cold_45.pipe.statesFM[3].p = 283440
+    Pipe_ID_8_pipe_cold_45.pipe.statesFM[4].p = 283430
+    Pipe_ID_8_pipe_cold_45.pipe.statesFM[5].p = 283420
+    Pipe_ID_8_pipe_cold_45.pipe.statesFM[6].p = 283410
+    Pipe_ID_8_pipe_cold_45.pipe.statesFM[7].p = 283400
+    Pipe_ID_8_pipe_cold_45.pipe.statesFM[8].p = 283390
+    Pipe_ID_8_pipe_cold_45.pipe.statesFM[9].p = 283380
+    Pipe_ID_8_pipe_cold_45.pipe.port_b.p = 283365
+    Pipe_ID_8_pipe_cold_45.orifice2.dp_fg = 1.62254
+    PROSUMER4.pipe_prim_cold.orifice2.dp_fg = 0.652173
+    PROSUMER4.cold_prim.p = 283364
+    Pipe_ID_6_pipe_cold_34.orifice1.dp_fg = 0.938977
+    Pipe_ID_6_pipe_cold_34.pipe.port_a.p = 283363
+    Pipe_ID_6_pipe_cold_34.pipe.statesFM[2].p = 283357
+    Pipe_ID_6_pipe_cold_34.pipe.statesFM[3].p = 283354
+    Pipe_ID_6_pipe_cold_34.pipe.statesFM[4].p = 283350
+    Pipe_ID_6_pipe_cold_34.pipe.statesFM[5].p = 283347
+    Pipe_ID_6_pipe_cold_34.pipe.statesFM[6].p = 283343
+    Pipe_ID_6_pipe_cold_34.pipe.statesFM[7].p = 283339
+    Pipe_ID_6_pipe_cold_34.pipe.statesFM[8].p = 283336
+    Pipe_ID_6_pipe_cold_34.pipe.statesFM[9].p = 283333
+    Pipe_ID_6_pipe_cold_34.pipe.port_b.p = 283329
+    Pipe_ID_6_pipe_cold_34.orifice2.dp_fg = 0.84451
+    PROSUMER3.pipe_prim_cold.orifice2.dp_fg = -12.7819
+    PROSUMER3.cold_prim.p = 283329
+    Pipe_ID_4_pipe_cold_23.orifice1.dp_fg = 0.667996
+    Pipe_ID_4_pipe_cold_23.pipe.port_a.p = 283329
+    Pipe_ID_4_pipe_cold_23.pipe.statesFM[2].p = 283325
+    Pipe_ID_4_pipe_cold_23.pipe.statesFM[3].p = 283324
+    Pipe_ID_4_pipe_cold_23.pipe.statesFM[4].p = 283324
+    Pipe_ID_4_pipe_cold_23.pipe.statesFM[5].p = 283323
+    Pipe_ID_4_pipe_cold_23.pipe.statesFM[6].p = 283321
+    Pipe_ID_4_pipe_cold_23.pipe.statesFM[7].p = 283320
+    Pipe_ID_4_pipe_cold_23.pipe.statesFM[8].p = 283319
+    Pipe_ID_4_pipe_cold_23.pipe.statesFM[9].p = 283317
+    Pipe_ID_4_pipe_cold_23.pipe.port_b.p = 283315
+    Pipe_ID_4_pipe_cold_23.orifice2.dp_fg = 0.709418
+    PROSUMER2.pipe_prim_cold.orifice2.dp_fg = -0.5283
+    PROSUMER2.cold_prim.p = 283315
+    Pipe_ID_2_pipe_cold_12.orifice1.dp_fg = 1.20811
+    Pipe_ID_2_pipe_cold_12.pipe.port_a.p = 283315
+    Pipe_ID_2_pipe_cold_12.pipe.statesFM[2].p = 283321
+    Pipe_ID_2_pipe_cold_12.pipe.statesFM[3].p = 283324
+    Pipe_ID_2_pipe_cold_12.pipe.statesFM[4].p = 283327
+    Pipe_ID_2_pipe_cold_12.pipe.statesFM[5].p = 283330
+    Pipe_ID_2_pipe_cold_12.pipe.statesFM[6].p = 283334
+    Pipe_ID_2_pipe_cold_12.pipe.statesFM[7].p = 283337
+    Pipe_ID_2_pipe_cold_12.pipe.statesFM[8].p = 283340
+    Pipe_ID_2_pipe_cold_12.pipe.statesFM[9].p = 283344
+    Pipe_ID_2_pipe_cold_12.pipe.port_b.p = 283350
+    Pipe_ID_2_pipe_cold_12.orifice2.dp_fg = 1.16815
+    PROSUMER1.cold_prim.p = 283350
+    PROSUMER1.pipe_prim_cold.orifice2.dp_fg = -1.32126
+    PROSUMER1.pipe_prim_cold.pipe.port_b.p = 283350
+    PROSUMER1.pipe_prim_cold.pipe.statesFM[9].p = 283351
+    PROSUMER1.pipe_prim_cold.pipe.statesFM[8].p = 283352
+    PROSUMER1.pipe_prim_cold.pipe.statesFM[7].p = 283353
+    PROSUMER1.pipe_prim_cold.pipe.statesFM[6].p = 283354
+    PROSUMER1.pipe_prim_cold.pipe.statesFM[5].p = 283354
+    PROSUMER1.pipe_prim_cold.pipe.statesFM[4].p = 283354
+    PROSUMER1.pipe_prim_cold.pipe.statesFM[3].p = 283353
+    PROSUMER1.pipe_prim_cold.pipe.statesFM[2].p = 283350
+    PROSUMER1.pipe_prim_cold.pipe.port_a.p = 283341
+    PROSUMER1.pipe_prim_cold.orifice1.dp_fg = -2.89601
+    PROSUMER1.pump_prim_prod.port_a.p = 283337
+    Pipe_ID_2_pipe_hot_12.pipe.port_b.p = 300001
+    Pipe_ID_2_pipe_hot_12.pipe.statesFM[9].p = 299994
+    Pipe_ID_2_pipe_hot_12.pipe.statesFM[8].p = 299991
+    Pipe_ID_2_pipe_hot_12.pipe.statesFM[7].p = 299987
+    Pipe_ID_2_pipe_hot_12.pipe.statesFM[6].p = 299984
+    Pipe_ID_2_pipe_hot_12.pipe.statesFM[5].p = 299981
+    Pipe_ID_2_pipe_hot_12.pipe.statesFM[4].p = 299977
+    Pipe_ID_2_pipe_hot_12.pipe.statesFM[3].p = 299974
+    Pipe_ID_2_pipe_hot_12.pipe.statesFM[2].p = 299970
+    Pipe_ID_2_pipe_hot_12.pipe.port_a.p = 299961
+    Pipe_ID_2_pipe_hot_12.orifice1.dp_fg = 1.0742
+    PROSUMER1.hot_prim.p = 299962
+    PROSUMER1.pipe_prim_hot.orifice1.dp_fg = -1.21075
+    PROSUMER1.pipe_prim_hot.pipe.port_a.p = 299962
+    PROSUMER1.pipe_prim_hot.pipe.statesFM[2].p = 299963
+    PROSUMER1.pipe_prim_hot.pipe.statesFM[3].p = 299964
+    PROSUMER1.pipe_prim_hot.pipe.statesFM[4].p = 299963
+    PROSUMER1.pipe_prim_hot.pipe.statesFM[5].p = 299962
+    PROSUMER1.pipe_prim_hot.pipe.statesFM[6].p = 299962
+    PROSUMER1.pipe_prim_hot.pipe.statesFM[7].p = 299962
+    PROSUMER1.pipe_prim_hot.pipe.statesFM[8].p = 299964
+    PROSUMER1.pipe_prim_hot.pipe.statesFM[9].p = 299968
+    PROSUMER1.pipe_prim_hot.pipe.port_b.p = 299992
+    PROSUMER1.pipe_prim_hot.orifice2.dp_fg = -3.84434
+    PROSUMER1.cheVal_prim_cons.dp = 418.346
+    PROSUMER1.cheVal_prim_prod.dp = -128.407
+    Pipe_ID_2_pipe_hot_12.orifice2.dp_fg = 1.17181
+  Last value of the residual:
+    { 0.428844, 0.0026329, 0.0202672, 0.020415, 0.0137698,
+      0.00201353, -0.0152144, -0.0350512, -0.0771867, 1.75814,
+      -0.0182218, -0.000166401, -0.00626092, -0.0498517, -0.0210924,
+      -0.00614199, 0.00562378, 0.0132633, 0.0176422, 0.0200661,
+      0.0216956, 0.0225862, -0.000746377, -0.00694383, 0.000682144,
+      -0.0146221, 0.0960717, -0.00597771, -0.00570325, -0.00517182,
+      -0.00478495, -0.00440743, -0.00362427, -0.00179615, 0.00127785,
+      0.00426586, 2.0928, -0.0101139, 1.16798E-05, -0.0122478,
+      -0.000756077, 0.00216222, 0.00372656, 0.00439772, 0.00458055,
+      0.00455457, 0.00439556, 0.00405049, 0.00248022, 0.00011243,
+      0.011571, 0.000105841, 0.0109252, 0.0282566, 0.0215086,
+      0.0209487, 0.0208238, 0.0208034, 0.0207204, 0.0205052,
+      0.0201165, 0.0243579, 0.000149253, -0.0120386, 0.000586297,
+      -0.0111417, 0.022031, 0.0188795, 0.02009, 0.0206154,
+      0.0207514, 0.0206375, 0.0201957, 0.0192709, 0.023448,
+      0.000678933, -0.0120057, 0.000600065, -0.0123625, -1.0997,
+      0.00788846, 0.00242855, -0.000506518, -0.00203171, -0.00275028,
+      -0.00316438, -0.00374961, -0.00509811, -0.0088586, -0.273602,
+      0.0312704, 0.000151687, 0.0318112, 0.00520301, 0.00359962,
+      0.00316244, 0.00296674, 0.00268637, 0.00189483, -0.00014161,
+      -0.00470094, -0.0144359, 0.000276055, -0.0320087, -0.000115527,
+      -0.0313709, 0.024732, 0.0215037, 0.0184459, 0.0161871,
+      0.014994, 0.0146321, 0.0149089, 0.0150423, 0.000848967,
+      -0.00313297, 0.00121396, -0.00162832, 0.0131261, 0.0144945,
+      0.0141735, 0.0135468, 0.0128167, 0.0119405, 0.0107901,
+      0.00924757, 0.0069963, 0.000263696, -0.00563147, 0.00016526,
+      -0.003842, 0.23144, 0.00197102, 0.00304496, 0.00357071,
+      0.00387401, 0.00389296, 0.0035698, 0.0029115, 0.00218888,
+      0.00194523, 0.082097, 0.00184921, 1.54549E-05, 0.001966,
+      -0.0032201, -0.00371176, -0.00403234, -0.00423455, -0.0042281,
+      -0.00402477, -0.00364273, -0.0031, -0.00205861, 1.67324E-05,
+      -0.00201952, 7.70538E-05, -0.00219624, -0.00961766, -0.0095115,
+      -0.00972228, -0.00971629, -0.00935229, -0.00865194, -0.00755752,
+      -0.00568337, -0.000108309, -0.0052781, -0.000148931, -0.00475123,
+      -0.00566355, -0.00739427, -0.0082702, -0.00857047, -0.00825482,
+      -0.00706263, -0.00449942, 0.000126443, 0.00694175, 0.000661054,
+      -0.00193299, -0.000103619, -0.00526205, -0.422465, -0.0223766,
+      -0.0223656, -0.0190527, -0.0139642, -0.0086684, -0.0041386,
+      -0.000578338, 0.00221153, -0.668859, -0.0099926, 0.000296533,
+      -0.0120859, 0.000580165, -4.22014E-05, -0.000373489, -0.000539375,
+      -0.000707688, -0.00100171, -0.00146248, -0.00205595, -0.00261934,
+      6.52837E-05, -0.0107028, -3.26519E-05, -0.010329, -0.000459585,
+      -0.000188288, 2.70286E-05, 0.000142276, 0.000170719, 0.00012789,
+      -0.000104584, -0.00104988, -0.00526551, 0.0001933, -0.00771352,
+      -1.02876E-05, -0.00654838, -0.0016302, -0.000385074, 2.92945E-06,
+      0.000143253, 0.000174447, 0.000147464, 3.70758E-05, -0.000177065,
+      -0.000456048, -9.83289E-06, -0.00654979, 5.25313E-05, -0.00685014,
+      -0.09306, -0.0893409, 0.0376469, 0.00459779, 0.0303382 }
+ 
+Solver will attempt to handle this problem.
+
+Integration terminated successfully at T = 34200
   WARNING: You have many time events. This is probably due to fast sampling.
   Enable logging of event in Simulation/Setup/Debug/Events during simulation
-   CPU-time for integration                : 1.49e+03 seconds
-   CPU-time for one grid interval          : 488 milliseconds
-   CPU-time for initialization             : 1.47 seconds
-   Number of result points                 : 4771
-   Number of grid points                   : 3061
-   Number of accepted steps                : 6149
-   Number of f-evaluations (dynamics)      : 11461
-   Number of crossing function evaluations : 12125
-   Number of Jacobian-evaluations          : 2508
-   Number of model time events             : 1020
+   CPU-time for integration                : 2.21e+03 seconds
+   CPU-time for one grid interval          : 647 milliseconds
+   CPU-time for initialization             : 1.75 seconds
+   Number of result points                 : 5617
+   Number of grid points                   : 3421
+   Number of accepted steps                : 8288
+   Number of f-evaluations (dynamics)      : 15709
+   Number of crossing function evaluations : 15911
+   Number of Jacobian-evaluations          : 3637
+   Number of model time events             : 1140
    Number of input time events             : 0
-   Number of state events                  : 366
+   Number of state events                  : 542
    Number of step events                   : 0
-   Minimum integration stepsize            : 1.9e-05
-   Maximum integration stepsize            : 755
+   Minimum integration stepsize            : 1.14e-05
+   Maximum integration stepsize            : 961
    Maximum integration order               : 5
 Calling terminal section
 ... "dsfinal.txt" creating (final states)

@@ -48,7 +48,7 @@ DeclareVariable("globalSeed.seed", "Actually used global seed [:#(type=Integer)]
 DeclareVariable("globalSeed.id_impure", "ID for impure random number generators Modelica.Math.Random.Utilities.impureXXX [:#(type=Integer)]",\
  0, 0.0,0.0,0.0,0,1541)
 DeclareVariable("Losses", "", 0.0, 0.0,0.0,0.0,0,512)
-DeclareParameter("PROSUMER1.Q_flow_nominal", "Heat flow rate [W]", 8, 31200.0, \
+DeclareParameter("PROSUMER1.Q_flow_nominal", "Heat flow rate [W]", 8, 30327.6, \
 0.0,0.0,0.0,0,560)
 DeclareParameter("PROSUMER1.T_a1_nominal", "Inlet temperature on the primary side [K|degC]",\
  9, 338.15, 0.0,1E+100,300.0,0,560)
@@ -232,7 +232,7 @@ DeclareParameter("PROSUMER1.zeta_transferstation", "flow coefficient for bends a
 DeclareParameter("PROSUMER1.d_transferpipe", "diamter of pipes in heat transfer station [m] []",\
  31, 0.0273, 0.0,0.0,0.0,0,560)
 DeclareParameter("PROSUMER1.R_ins_transferpipe", "insulation resistance for pipes in heat transfer station [(K m)/W] []",\
- 32, 6.4, 0.0,0.0,0.0,0,560)
+ 32, 1000, 0.0,0.0,0.0,0,560)
 DeclareVariable("PROSUMER1.ambient_temperature", "Ambient temperature, relevant for heat losses [K] []",\
  285.15, 0.0,0.0,0.0,0,513)
 DeclareVariable("PROSUMER1.energyDynamics_pumpsSec", "Energy dynamics [:#(type=Modelica.Fluid.Types.Dynamics)]",\
@@ -8695,7 +8695,7 @@ DeclareVariable("PROSUMER1.T_sec_hot", "K [K|degC]", 318.15, 277.0,1E+100,0.0,0,
 DeclareVariable("PROSUMER1.T_sec_cold", "K [K|degC]", 303.15, 277.0,1E+100,0.0,0,512)
 DeclareVariable("PROSUMER1.Delta_p_prim", "[Pa|bar]", 0.0, 0.0,0.0,0.0,0,512)
 DeclareVariable("PROSUMER1.Q_dot_trnsf_is", "kW [kW|kW]", 0.0, 0.0,0.0,0.0,0,512)
-DeclareParameter("PROSUMER2.Q_flow_nominal", "Heat flow rate [W]", 219, 26400.0,\
+DeclareParameter("PROSUMER2.Q_flow_nominal", "Heat flow rate [W]", 219, 25809.6,\
  0.0,0.0,0.0,0,560)
 DeclareParameter("PROSUMER2.T_a1_nominal", "Inlet temperature on the primary side [K|degC]",\
  220, 338.15, 0.0,1E+100,300.0,0,560)
@@ -8879,7 +8879,7 @@ DeclareParameter("PROSUMER2.zeta_transferstation", "flow coefficient for bends a
 DeclareParameter("PROSUMER2.d_transferpipe", "diamter of pipes in heat transfer station [m] []",\
  242, 0.0273, 0.0,0.0,0.0,0,560)
 DeclareParameter("PROSUMER2.R_ins_transferpipe", "insulation resistance for pipes in heat transfer station [(K m)/W] []",\
- 243, 6.4, 0.0,0.0,0.0,0,560)
+ 243, 1000, 0.0,0.0,0.0,0,560)
 DeclareVariable("PROSUMER2.ambient_temperature", "Ambient temperature, relevant for heat losses [K] []",\
  285.15, 0.0,0.0,0.0,0,513)
 DeclareVariable("PROSUMER2.energyDynamics_pumpsSec", "Energy dynamics [:#(type=Modelica.Fluid.Types.Dynamics)]",\
@@ -17360,7 +17360,7 @@ DeclareVariable("Pipe_ID_2_pipe_hot_12.port_b.h_outflow", "Specific thermodynami
 DeclareVariable("Pipe_ID_2_pipe_hot_12.T_amb", "Ambient temperature [K|degC]", \
 285.15, 0.0,1E+100,300.0,0,513)
 DeclareParameter("Pipe_ID_2_pipe_hot_12.R_ins", "Thermal resistance per meter [(K.m)/W]",\
- 427, 6.4, 0.0,1E+100,0.0,0,560)
+ 427, 1000, 0.0,1E+100,0.0,0,560)
 DeclareVariable("Pipe_ID_2_pipe_hot_12.length", "Length of the pipe [m]", 40, \
 0.0,0.0,0.0,0,513)
 DeclareParameter("Pipe_ID_2_pipe_hot_12.diameter", "Diameter of the pipe [m]", 428,\
@@ -19241,7 +19241,7 @@ DeclareVariable("Pipe_ID_2_pipe_cold_12.port_b.h_outflow", "Specific thermodynam
 DeclareVariable("Pipe_ID_2_pipe_cold_12.T_amb", "Ambient temperature [K|degC]", \
 285.15, 0.0,1E+100,300.0,0,513)
 DeclareParameter("Pipe_ID_2_pipe_cold_12.R_ins", "Thermal resistance per meter [(K.m)/W]",\
- 442, 6.4, 0.0,1E+100,0.0,0,560)
+ 442, 1000, 0.0,1E+100,0.0,0,560)
 DeclareVariable("Pipe_ID_2_pipe_cold_12.length", "Length of the pipe [m]", 40, \
 0.0,0.0,0.0,0,513)
 DeclareParameter("Pipe_ID_2_pipe_cold_12.diameter", "Diameter of the pipe [m]", 443,\
@@ -21162,13 +21162,13 @@ DeclareParameter("Controller_1.Delta_Qdot_norm", "Heat power value for normalizi
 DeclareParameter("Controller_1.Delta_T_norm", "Temperature difference for normalizing the error (deviation) of the temperature.      For alpha=0.5 a deviation of Delta_T_norm in temperature is weighted equal to a deviation of Delta_Qdot_norm in heat transfer. [K,]",\
  461, 3, 0.0,1E+100,0.0,0,560)
 DeclareParameter("Controller_1.T_prim_hot_des", "desired temperature supply primary side [K|degC]",\
- 462, 338.15, 277.0,1E+100,300.0,0,560)
+ 462, 340.15, 277.0,1E+100,300.0,0,560)
 DeclareParameter("Controller_1.T_sec_hot_des", "desired temperature supply secondary side [K|degC]",\
  463, 333.15, 277.0,1E+100,300.0,0,560)
 DeclareParameter("Controller_1.DeltaT_prim_des", "desired temperature difference primary side [K,]",\
- 464, 10, 1.0,1E+100,0.0,0,560)
+ 464, 15, 1.0,1E+100,0.0,0,560)
 DeclareParameter("Controller_1.DeltaT_sec_des", "desired temperature difference secondary side [K,]",\
- 465, 10, 1.0,1E+100,0.0,0,560)
+ 465, 15, 1.0,1E+100,0.0,0,560)
 DeclareVariable("Controller_1.V_dot_sec_max", "maximum secondary side volume flow in [l/min] [l/min|l/min]",\
  29.02, 0.0,0.0,0.0,0,513)
 DeclareParameter("Controller_1.k_prim_prod", "Proportional gain for controller in [-] []",\
@@ -21176,33 +21176,33 @@ DeclareParameter("Controller_1.k_prim_prod", "Proportional gain for controller i
 DeclareParameter("Controller_1.Ti_prim_prod", "Integral time constant for controller in [s] []",\
  467, 35, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_1.Td_prim_prod", "Derivative time constant for controller in [s] []",\
- 468, 0.1, 0.0,0.0,0.0,0,560)
+ 468, 0, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_1.alpha_prim_prod", "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)",\
- 469, 0.4, 0.0,1.0,0.0,0,560)
+ 469, 0.85, 0.0,1.0,0.0,0,560)
 DeclareParameter("Controller_1.k_sec_prod", "Proportional gain for controller in [-] []",\
  470, 1.5, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_1.Ti_sec_prod", "Integral time constant for controller in [s] []",\
  471, 35, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_1.Td_sec_prod", "Derivative time constant for controller in [s] []",\
- 472, 0.1, 0.0,0.0,0.0,0,560)
+ 472, 0, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_1.alpha_sec_prod", "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)",\
- 473, 0.8, 0.0,1.0,0.0,0,560)
+ 473, 0.85, 0.0,1.0,0.0,0,560)
 DeclareParameter("Controller_1.k_prim_cons", "Proportional gain for controller in [-] []",\
  474, 1.5, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_1.Ti_prim_cons", "Integral time constant for controller in [s] []",\
  475, 35, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_1.Td_prim_cons", "Derivative time constant for controller in [s] []",\
- 476, 0.1, 0.0,0.0,0.0,0,560)
+ 476, 0, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_1.alpha_prim_cons", "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)",\
- 477, 0.8, 0.0,1.0,0.0,0,560)
+ 477, 0.9, 0.0,1.0,0.0,0,560)
 DeclareParameter("Controller_1.k_sec_cons", "Proportional gain for controller in [-] []",\
  478, 1.5, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_1.Ti_sec_cons", "Integral time constant for controller in [s] []",\
  479, 35, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_1.Td_sec_cons", "Derivative time constant for controller in [s] []",\
- 480, 0.1, 0.0,0.0,0.0,0,560)
+ 480, 0, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_1.alpha_sec_cons", "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)",\
- 481, 0.4, 0.0,1.0,0.0,0,560)
+ 481, 0.3, 0.0,1.0,0.0,0,560)
 DeclareVariable("Controller_1.controllerType", "Type of controller [:#(type=Modelica.Blocks.Types.SimpleController)]",\
  2, 1.0,4.0,0.0,0,517)
 DeclareVariable("Controller_1.initType", "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output) [:#(type=Modelica.Blocks.Types.Init)]",\
@@ -21790,15 +21790,15 @@ DeclareParameter("T_sec_in_array_1.table[6, 2]", "Table matrix (time = first col
 DeclareParameter("T_sec_in_array_1.table[7, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  554, 5400.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[7, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
- 555, 318.15, 0.0,0.0,0.0,0,560)
+ 555, 341.15, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[8, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  556, 6300.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[8, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
- 557, 318.15, 0.0,0.0,0.0,0,560)
+ 557, 341.15, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[9, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  558, 7200.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[9, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
- 559, 318.15, 0.0,0.0,0.0,0,560)
+ 559, 341.15, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[10, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  560, 8100.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[10, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
@@ -21838,15 +21838,15 @@ DeclareParameter("T_sec_in_array_1.table[18, 2]", "Table matrix (time = first co
 DeclareParameter("T_sec_in_array_1.table[19, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  578, 16200.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[19, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
- 579, 341.15, 0.0,0.0,0.0,0,560)
+ 579, 318.15, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[20, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  580, 17100.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[20, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
- 581, 341.15, 0.0,0.0,0.0,0,560)
+ 581, 318.15, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[21, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  582, 18000.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[21, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
- 583, 341.15, 0.0,0.0,0.0,0,560)
+ 583, 318.15, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[22, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  584, 18900.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[22, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
@@ -21862,27 +21862,27 @@ DeclareParameter("T_sec_in_array_1.table[24, 2]", "Table matrix (time = first co
 DeclareParameter("T_sec_in_array_1.table[25, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  590, 21600.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[25, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
- 591, 318.15, 0.0,0.0,0.0,0,560)
+ 591, 341.15, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[26, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  592, 22500.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[26, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
- 593, 318.15, 0.0,0.0,0.0,0,560)
+ 593, 341.15, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[27, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  594, 23400.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[27, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
- 595, 318.15, 0.0,0.0,0.0,0,560)
+ 595, 341.15, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[28, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  596, 24300.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[28, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
- 597, 318.15, 0.0,0.0,0.0,0,560)
+ 597, 341.15, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[29, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  598, 25200.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[29, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
- 599, 318.15, 0.0,0.0,0.0,0,560)
+ 599, 341.15, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[30, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  600, 26100.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[30, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
- 601, 318.15, 0.0,0.0,0.0,0,560)
+ 601, 341.15, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[31, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  602, 27000.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[31, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
@@ -21898,19 +21898,31 @@ DeclareParameter("T_sec_in_array_1.table[33, 2]", "Table matrix (time = first co
 DeclareParameter("T_sec_in_array_1.table[34, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  608, 29700.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[34, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
- 609, 341.15, 0.0,0.0,0.0,0,560)
+ 609, 318.15, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[35, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
  610, 30600.0, 0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.table[35, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
- 611, 341.15, 0.0,0.0,0.0,0,560)
+ 611, 318.15, 0.0,0.0,0.0,0,560)
+DeclareParameter("T_sec_in_array_1.table[36, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
+ 612, 31500.0, 0.0,0.0,0.0,0,560)
+DeclareParameter("T_sec_in_array_1.table[36, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
+ 613, 318.15, 0.0,0.0,0.0,0,560)
+DeclareParameter("T_sec_in_array_1.table[37, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
+ 614, 32400.0, 0.0,0.0,0.0,0,560)
+DeclareParameter("T_sec_in_array_1.table[37, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
+ 615, 318.15, 0.0,0.0,0.0,0,560)
+DeclareParameter("T_sec_in_array_1.table[38, 1]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
+ 616, 33300.0, 0.0,0.0,0.0,0,560)
+DeclareParameter("T_sec_in_array_1.table[38, 2]", "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])",\
+ 617, 318.15, 0.0,0.0,0.0,0,560)
 DeclareVariable("T_sec_in_array_1.timeScale", "Time scale of first table column [s]",\
  1, 1E-15,1E+100,0.0,0,513)
 DeclareAlias2("T_sec_in_array_1.y", "Connector of Real output signal", \
 "T_sec_in_array_1.a", 1, 5, 6174, 0)
-DeclareParameter("T_sec_in_array_1.offset", "Offset of output signal y", 612, 0,\
+DeclareParameter("T_sec_in_array_1.offset", "Offset of output signal y", 618, 0,\
  0.0,0.0,0.0,0,560)
 DeclareParameter("T_sec_in_array_1.startTime", "Output y = offset for time < startTime [s]",\
- 613, 0, 0.0,0.0,0.0,0,560)
+ 619, 0, 0.0,0.0,0.0,0,560)
 DeclareVariable("T_sec_in_array_1.shiftTime", "Shift time of first table column [s]",\
  0.0, 0.0,0.0,0.0,0,513)
 DeclareVariable("T_sec_in_array_1.a", "Interpolation coefficient a of actual interval (y=a*x+b)",\
@@ -21925,51 +21937,51 @@ DeclareVariable("T_sec_in_array_1.nextEventScaled", "Next scaled event instant",
  0, 0.0,0.0,0.0,0,2688)
 DeclareVariable("T_sec_in_array_1.timeScaled", "Scaled time", 0.0, 0.0,0.0,0.0,0,2560)
 DeclareParameter("Controller_2.Delta_Qdot_norm", "Heat power value for normalizing the error (deviation) of the transferred heat.      For alpha=0.5 a deviation of Delta_Qdot_norm in heat transfer is weigthed equal to a deviation of Delta_T_norm in temperature.",\
- 614, 1, 0.0,0.0,0.0,0,560)
+ 620, 1, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.Delta_T_norm", "Temperature difference for normalizing the error (deviation) of the temperature.      For alpha=0.5 a deviation of Delta_T_norm in temperature is weighted equal to a deviation of Delta_Qdot_norm in heat transfer. [K,]",\
- 615, 3, 0.0,1E+100,0.0,0,560)
+ 621, 3, 0.0,1E+100,0.0,0,560)
 DeclareParameter("Controller_2.T_prim_hot_des", "desired temperature supply primary side [K|degC]",\
- 616, 338.15, 277.0,1E+100,300.0,0,560)
+ 622, 340.15, 277.0,1E+100,300.0,0,560)
 DeclareParameter("Controller_2.T_sec_hot_des", "desired temperature supply secondary side [K|degC]",\
- 617, 333.15, 277.0,1E+100,300.0,0,560)
+ 623, 333.15, 277.0,1E+100,300.0,0,560)
 DeclareParameter("Controller_2.DeltaT_prim_des", "desired temperature difference primary side [K,]",\
- 618, 10, 1.0,1E+100,0.0,0,560)
+ 624, 15, 1.0,1E+100,0.0,0,560)
 DeclareParameter("Controller_2.DeltaT_sec_des", "desired temperature difference secondary side [K,]",\
- 619, 10, 1.0,1E+100,0.0,0,560)
+ 625, 15, 1.0,1E+100,0.0,0,560)
 DeclareVariable("Controller_2.V_dot_sec_max", "maximum secondary side volume flow in [l/min] [l/min|l/min]",\
  24.7, 0.0,0.0,0.0,0,513)
 DeclareParameter("Controller_2.k_prim_prod", "Proportional gain for controller in [-] []",\
- 620, 1.5, 0.0,0.0,0.0,0,560)
+ 626, 1.5, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.Ti_prim_prod", "Integral time constant for controller in [s] []",\
- 621, 35, 0.0,0.0,0.0,0,560)
+ 627, 35, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.Td_prim_prod", "Derivative time constant for controller in [s] []",\
- 622, 0.1, 0.0,0.0,0.0,0,560)
+ 628, 0, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.alpha_prim_prod", "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)",\
- 623, 0.4, 0.0,1.0,0.0,0,560)
+ 629, 0.85, 0.0,1.0,0.0,0,560)
 DeclareParameter("Controller_2.k_sec_prod", "Proportional gain for controller in [-] []",\
- 624, 1.5, 0.0,0.0,0.0,0,560)
+ 630, 1.5, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.Ti_sec_prod", "Integral time constant for controller in [s] []",\
- 625, 35, 0.0,0.0,0.0,0,560)
+ 631, 35, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.Td_sec_prod", "Derivative time constant for controller in [s] []",\
- 626, 0.1, 0.0,0.0,0.0,0,560)
+ 632, 0, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.alpha_sec_prod", "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)",\
- 627, 0.8, 0.0,1.0,0.0,0,560)
+ 633, 0.85, 0.0,1.0,0.0,0,560)
 DeclareParameter("Controller_2.k_prim_cons", "Proportional gain for controller in [-] []",\
- 628, 1.5, 0.0,0.0,0.0,0,560)
+ 634, 1.5, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.Ti_prim_cons", "Integral time constant for controller in [s] []",\
- 629, 35, 0.0,0.0,0.0,0,560)
+ 635, 35, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.Td_prim_cons", "Derivative time constant for controller in [s] []",\
- 630, 0.1, 0.0,0.0,0.0,0,560)
+ 636, 0, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.alpha_prim_cons", "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)",\
- 631, 0.8, 0.0,1.0,0.0,0,560)
+ 637, 0.9, 0.0,1.0,0.0,0,560)
 DeclareParameter("Controller_2.k_sec_cons", "Proportional gain for controller in [-] []",\
- 632, 1.5, 0.0,0.0,0.0,0,560)
+ 638, 1.5, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.Ti_sec_cons", "Integral time constant for controller in [s] []",\
- 633, 35, 0.0,0.0,0.0,0,560)
+ 639, 35, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.Td_sec_cons", "Derivative time constant for controller in [s] []",\
- 634, 0.1, 0.0,0.0,0.0,0,560)
+ 640, 0, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.alpha_sec_cons", "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)",\
- 635, 0.4, 0.0,1.0,0.0,0,560)
+ 641, 0.4, 0.0,1.0,0.0,0,560)
 DeclareVariable("Controller_2.controllerType", "Type of controller [:#(type=Modelica.Blocks.Types.SimpleController)]",\
  2, 1.0,4.0,0.0,0,517)
 DeclareVariable("Controller_2.initType", "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output) [:#(type=Modelica.Blocks.Types.Init)]",\
@@ -22069,23 +22081,23 @@ DeclareVariable("Controller_2.PID_prim_cons.yMax", "Upper limit of output", 1, \
 DeclareVariable("Controller_2.PID_prim_cons.yMin", "Lower limit of output", 0, \
 0.0,0.0,0.0,0,513)
 DeclareParameter("Controller_2.PID_prim_cons.wp", "Set-point weight for Proportional block (0..1)",\
- 636, 1, 0.0,1E+100,0.0,0,560)
+ 642, 1, 0.0,1E+100,0.0,0,560)
 DeclareParameter("Controller_2.PID_prim_cons.wd", "Set-point weight for Derivative block (0..1)",\
- 637, 0, 0.0,1E+100,0.0,0,560)
+ 643, 0, 0.0,1E+100,0.0,0,560)
 DeclareParameter("Controller_2.PID_prim_cons.Ni", "Ni*Ti is time constant of anti-windup compensation",\
- 638, 0.9, 1E-13,1E+100,0.0,0,560)
+ 644, 0.9, 1E-13,1E+100,0.0,0,560)
 DeclareParameter("Controller_2.PID_prim_cons.Nd", "The higher Nd, the more ideal the derivative block",\
- 639, 10, 1E-13,1E+100,0.0,0,560)
+ 645, 10, 1E-13,1E+100,0.0,0,560)
 DeclareVariable("Controller_2.PID_prim_cons.withFeedForward", "Use feed-forward input? [:#(type=Boolean)]",\
  false, 0.0,0.0,0.0,0,515)
 DeclareParameter("Controller_2.PID_prim_cons.kFF", "Gain of feed-forward input",\
- 640, 1, 0.0,0.0,0.0,0,560)
+ 646, 1, 0.0,0.0,0.0,0,560)
 DeclareVariable("Controller_2.PID_prim_cons.initType", "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output) [:#(type=Modelica.Blocks.Types.Init)]",\
  4, 1.0,4.0,0.0,0,517)
 DeclareParameter("Controller_2.PID_prim_cons.xi_start", "Initial or guess value for integrator output (= integrator state)",\
- 641, 0, 0.0,0.0,0.0,0,560)
+ 647, 0, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.PID_prim_cons.xd_start", "Initial or guess value for state of derivative block",\
- 642, 0, 0.0,0.0,0.0,0,560)
+ 648, 0, 0.0,0.0,0.0,0,560)
 DeclareVariable("Controller_2.PID_prim_cons.y_start", "Initial value of output",\
  1, 0.0,0.0,0.0,0,513)
 DeclareVariable("Controller_2.PID_prim_cons.homotopyType", "Simplified model for homotopy-based initialization [:#(type=Modelica.Blocks.Types.LimiterHomotopy)]",\
@@ -22102,9 +22114,9 @@ DeclareVariable("Controller_2.PID_prim_cons.addP.y", "Connector of Real output s
 DeclareVariable("Controller_2.PID_prim_cons.addP.k1", "Gain of input signal 1", \
 0.0, 0.0,0.0,0.0,0,513)
 DeclareParameter("Controller_2.PID_prim_cons.addP.k2", "Gain of input signal 2",\
- 643, -1, 0.0,0.0,0.0,0,560)
+ 649, -1, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.PID_prim_cons.P.k", "Gain value multiplied with input signal [1]",\
- 644, 1, 0.0,0.0,0.0,0,560)
+ 650, 1, 0.0,0.0,0.0,0,560)
 DeclareAlias2("Controller_2.PID_prim_cons.P.u", "Input signal connector", \
 "Controller_2.PID_prim_cons.addP.y", 1, 5, 6222, 0)
 DeclareVariable("Controller_2.PID_prim_cons.P.y", "Output signal connector", 0.0,\
@@ -22116,15 +22128,15 @@ DeclareVariable("Controller_2.PID_prim_cons.gainPID.u", "Input signal connector"
 DeclareVariable("Controller_2.PID_prim_cons.gainPID.y", "Output signal connector",\
  0.0, 0.0,0.0,0.0,0,512)
 DeclareParameter("Controller_2.PID_prim_cons.addPID.k1", "Gain of input signal 1",\
- 645, 1, 0.0,0.0,0.0,0,560)
+ 651, 1, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.PID_prim_cons.addPID.k2", "Gain of input signal 2",\
- 646, 1, 0.0,0.0,0.0,0,560)
+ 652, 1, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.PID_prim_cons.addPID.k3", "Gain of input signal 3",\
- 647, 1, 0.0,0.0,0.0,0,560)
+ 653, 1, 0.0,0.0,0.0,0,560)
 DeclareAlias2("Controller_2.PID_prim_cons.addPID.u1", "Connector of Real input signal 1",\
  "Controller_2.PID_prim_cons.P.y", 1, 5, 6224, 0)
 DeclareAlias2("Controller_2.PID_prim_cons.addPID.u2", "Connector of Real input signal 2",\
- "Controller_2.PID_prim_cons.Dzero.k", 1, 7, 648, 0)
+ "Controller_2.PID_prim_cons.Dzero.k", 1, 7, 654, 0)
 DeclareAlias2("Controller_2.PID_prim_cons.addPID.u3", "Connector of Real input signal 3",\
  "Controller_2.PID_prim_cons.I.y", 1, 1, 232, 0)
 DeclareAlias2("Controller_2.PID_prim_cons.addPID.y", "Connector of Real output signal",\
@@ -22149,22 +22161,22 @@ DeclareVariable("Controller_2.PID_prim_cons.with_I", "[:#(type=Boolean)]", true,
  0.0,0.0,0.0,0,1539)
 DeclareVariable("Controller_2.PID_prim_cons.with_D", "[:#(type=Boolean)]", false,\
  0.0,0.0,0.0,0,1539)
-DeclareParameter("Controller_2.PID_prim_cons.Dzero.k", "Constant output value", 648,\
+DeclareParameter("Controller_2.PID_prim_cons.Dzero.k", "Constant output value", 654,\
  0, 0.0,0.0,0.0,0,560)
 DeclareAlias2("Controller_2.PID_prim_cons.Dzero.y", "Connector of Real output signal",\
- "Controller_2.PID_prim_cons.Dzero.k", 1, 7, 648, 0)
+ "Controller_2.PID_prim_cons.Dzero.k", 1, 7, 654, 0)
 DeclareParameter("Controller_2.PID_prim_cons.FFzero.k", "Constant output value",\
- 649, 0, 0.0,0.0,0.0,0,560)
+ 655, 0, 0.0,0.0,0.0,0,560)
 DeclareAlias2("Controller_2.PID_prim_cons.FFzero.y", "Connector of Real output signal",\
- "Controller_2.PID_prim_cons.FFzero.k", 1, 7, 649, 0)
+ "Controller_2.PID_prim_cons.FFzero.k", 1, 7, 655, 0)
 DeclareAlias2("Controller_2.PID_prim_cons.addFF.u1", "Connector of Real input signal 1",\
  "Controller_2.PID_prim_cons.gainPID.y", 1, 5, 6227, 0)
 DeclareAlias2("Controller_2.PID_prim_cons.addFF.u2", "Connector of Real input signal 2",\
- "Controller_2.PID_prim_cons.FFzero.k", 1, 7, 649, 0)
+ "Controller_2.PID_prim_cons.FFzero.k", 1, 7, 655, 0)
 DeclareAlias2("Controller_2.PID_prim_cons.addFF.y", "Connector of Real output signal",\
  "Controller_2.PID_prim_cons.limiter.u", 1, 5, 6232, 0)
 DeclareParameter("Controller_2.PID_prim_cons.addFF.k1", "Gain of input signal 1",\
- 650, 1, 0.0,0.0,0.0,0,560)
+ 656, 1, 0.0,0.0,0.0,0,560)
 DeclareVariable("Controller_2.PID_prim_cons.addFF.k2", "Gain of input signal 2",\
  0.0, 0.0,0.0,0.0,0,513)
 DeclareAlias2("Controller_2.PID_sec_cons.u_s", "Connector of setpoint input signal",\
@@ -22188,35 +22200,24 @@ DeclareVariable("Controller_2.PID_sec_cons.yMax", "Upper limit of output", 24.7,
 DeclareVariable("Controller_2.PID_sec_cons.yMin", "Lower limit of output", 1, \
 0.0,0.0,0.0,0,513)
 DeclareParameter("Controller_2.PID_sec_cons.wp", "Set-point weight for Proportional block (0..1)",\
- 651, 1, 0.0,1E+100,0.0,0,560)
+ 657, 1, 0.0,1E+100,0.0,0,560)
 DeclareParameter("Controller_2.PID_sec_cons.wd", "Set-point weight for Derivative block (0..1)",\
- 652, 0, 0.0,1E+100,0.0,0,560)
+ 658, 0, 0.0,1E+100,0.0,0,560)
 DeclareParameter("Controller_2.PID_sec_cons.Ni", "Ni*Ti is time constant of anti-windup compensation",\
- 653, 0.9, 1E-13,1E+100,0.0,0,560)
+ 659, 0.9, 1E-13,1E+100,0.0,0,560)
 DeclareParameter("Controller_2.PID_sec_cons.Nd", "The higher Nd, the more ideal the derivative block",\
- 654, 10, 1E-13,1E+100,0.0,0,560)
+ 660, 10, 1E-13,1E+100,0.0,0,560)
 DeclareVariable("Controller_2.PID_sec_cons.withFeedForward", "Use feed-forward input? [:#(type=Boolean)]",\
  false, 0.0,0.0,0.0,0,515)
-DeclareParameter("Controller_2.PID_sec_cons.kFF", "Gain of feed-forward input", 655,\
+DeclareParameter("Controller_2.PID_sec_cons.kFF", "Gain of feed-forward input", 661,\
  1, 0.0,0.0,0.0,0,560)
 DeclareVariable("Controller_2.PID_sec_cons.initType", "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output) [:#(type=Modelica.Blocks.Types.Init)]",\
  4, 1.0,4.0,0.0,0,517)
 DeclareParameter("Controller_2.PID_sec_cons.xi_start", "Initial or guess value for integrator output (= integrator state)",\
- 656, 0, 0.0,0.0,0.0,0,560)
+ 662, 0, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_2.PID_sec_cons.xd_start", "Initial or guess value for state of derivative block",\
- 657, 0, 0.0,0.0,0.0,0,560)
+ 663, 0, 0.0,0.0,0.0,0,560)
 DeclareVariable("Controller_2.PID_sec_cons.y_start", "Initial value of output", \
 24.7, 0.0,0.0,0.0,0,513)
-DeclareVariable("Controller_2.PID_sec_cons.homotopyType", "Simplified model for homotopy-based initialization [:#(type=Modelica.Blocks.Types.LimiterHomotopy)]",\
- 2, 1.0,4.0,0.0,0,517)
-DeclareVariable("Controller_2.PID_sec_cons.strict", "= true, if strict limits with noEvent(..) [:#(type=Boolean)]",\
- false, 0.0,0.0,0.0,0,515)
-DeclareVariable("Controller_2.PID_sec_cons.unitTime", "[s]", 1, 0.0,0.0,0.0,0,1537)
-DeclareAlias2("Controller_2.PID_sec_cons.addP.u1", "Connector of Real input signal 1",\
- "Controller_2.PIDin_sec_cons_des_weighted", 1, 5, 6198, 0)
-DeclareAlias2("Controller_2.PID_sec_cons.addP.u2", "Connector of Real input signal 2",\
- "Controller_2.PIDin_sec_cons_is_weighted", 1, 5, 6197, 0)
-DeclareVariable("Controller_2.PID_sec_cons.addP.y", "Connector of Real output signal",\
- 0.0, 0.0,0.0,0.0,0,512)
 EndNonAlias(9)
 PreNonAliasNew(10)
