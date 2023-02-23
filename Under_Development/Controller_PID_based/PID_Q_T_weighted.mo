@@ -290,7 +290,7 @@ model PID_Q_T_weighted
 
 equation
 
-  Delta_T_prim      = T_prim_hot -T_sec_cold;
+  Delta_T_prim      = T_prim_hot -T_prim_cold;
   Delta_T_sec       = T_sec_hot  -T_sec_cold;
 
   beta_prim_prod = 1 - alpha_prim_prod;
