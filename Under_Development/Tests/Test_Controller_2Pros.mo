@@ -3,7 +3,7 @@ model Test_Controller_2Pros "Producer and Consumer with Controller"
   Real Losses;
 
   new_prosumer_models.heat_transfer_station HOUSE1(
-    redeclare Fluid.Pumps.Data.Pumps.Wilo.StratosMAXO50slash05to14 feedinPer,
+    redeclare Fluid.Pumps.Data.Pumps.IMP.NMTDPlusER25slash90dash180 feedinPer,
     energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     tau_feedPump=3,
     use_inputFilter_feedPump=true,
@@ -20,10 +20,10 @@ model Test_Controller_2Pros "Producer and Consumer with Controller"
     riseTime_pumpsSec=35,
     tau_cv=10,
     T_start_cv=313.15)
-    annotation (Placement(transformation(extent={{-202,2},{-172,38}})));
+    annotation (Placement(transformation(extent={{-200,2},{-138,58}})));
 
   new_prosumer_models.heat_transfer_station HOUSE2(
-    redeclare Fluid.Pumps.Data.Pumps.Wilo.StratosMAXO50slash05to14 feedinPer,
+    redeclare Fluid.Pumps.Data.Pumps.IMP.NMTDPlusER25slash90dash180 feedinPer,
     energyDynamics_feedPump=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     tau_feedPump=3,
     use_inputFilter_feedPump=true,
@@ -41,7 +41,7 @@ model Test_Controller_2Pros "Producer and Consumer with Controller"
     energyDynamics_cv=Modelica.Fluid.Types.Dynamics.SteadyState,
     tau_cv=10,
     T_start_cv=313.15)
-    annotation (Placement(transformation(extent={{-10,0},{-62,54}})));
+    annotation (Placement(transformation(extent={{-20,0},{-82,56}})));
 
   inner Modelica.Fluid.System system(
     T_ambient=285.15,
@@ -90,7 +90,7 @@ model Test_Controller_2Pros "Producer and Consumer with Controller"
     Ti_sec_cons=35,
     alpha_sec_cons=0.3,
     controllerType=Modelica.Blocks.Types.SimpleController.PI)
-    annotation (Placement(transformation(extent={{-268,-6},{-226,42}})));
+    annotation (Placement(transformation(extent={{-148,78},{-190,126}})));
   Controller_PID_based.PID_Q_T_weighted Controller_2(
     Delta_T_norm=3,
     T_prim_hot_des=316.65,
@@ -111,111 +111,64 @@ model Test_Controller_2Pros "Producer and Consumer with Controller"
     Ti_sec_cons=35,
     alpha_sec_cons=0.3,
     controllerType=Modelica.Blocks.Types.SimpleController.PI)
-    annotation (Placement(transformation(extent={{64,6},{22,54}})));
+    annotation (Placement(transformation(extent={{-72,76},{-30,124}})));
   inner Modelica.Blocks.Noise.GlobalSeed globalSeed(enableNoise=false,
       fixedSeed=4345)
-    annotation (Placement(transformation(extent={{-126,72},{-106,92}})));
+    annotation (Placement(transformation(extent={{34,-188},{54,-168}})));
   Controller_PID_based.auxiliary.test_procedure test_procedure2
-    annotation (Placement(transformation(extent={{-316,16},{-296,36}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-172,174})));
   Controller_PID_based.auxiliary.test_procedure test_procedure1(test_procedure=
         [0,0,0; 900,-1,6; 1800,-1,6; 2700,-1,6; 3600,0,0; 4500,0,0; 5400,0,0;
         6300,-1,6; 7200,-1,9; 8100,-1,6; 9000,0,0; 9900,1,6; 10800,1,9; 11700,1,
         6; 12600,0,0; 13500,-1,9; 14400,0,0; 15300,0,0; 16200,1,9; 17100,0,0;
         18000,0,0])
-    annotation (Placement(transformation(extent={{124,26},{104,46}})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-52,174})));
 equation
-  Losses = HOUSE1.Q_dot_trnsf_is+HOUSE2.Q_dot_trnsf_is;
+  Losses = HOUSE1.Q_dot_is+HOUSE2.Q_dot_is;
 
-  connect(pipe_hot.port_a, HOUSE1.hot_prim) annotation (Line(points={{-126,-84},
-          {-188,-84},{-188,1.8}},  color={0,127,255}));
-  connect(pipe_hot.port_b, HOUSE2.hot_prim) annotation (Line(points={{-106,-84},
-          {-34.2667,-84},{-34.2667,-0.3}}, color={0,127,255}));
-  connect(pipe_cold.port_a, HOUSE2.cold_prim) annotation (Line(points={{-106,-48},
-          {-50,-48},{-50,-4},{-51.6,-4},{-51.6,-0.3}}, color={0,127,255}));
-  connect(HOUSE1.cold_prim, pipe_cold.port_b) annotation (Line(points={{-178,
-          1.8},{-178,-48},{-126,-48}},
-                                  color={0,127,255}));
+  connect(pipe_hot.port_a, HOUSE1.hot_prim) annotation (Line(points={{-126,-84},{-190.7,
+          -84},{-190.7,1.68889}},  color={0,127,255}));
+  connect(pipe_hot.port_b, HOUSE2.hot_prim) annotation (Line(points={{-106,-84},{-29.3,-84},
+          {-29.3,-0.311111}},              color={0,127,255}));
+  connect(pipe_cold.port_a, HOUSE2.cold_prim) annotation (Line(points={{-106,-48},{-72.7,
+          -48},{-72.7,0}},                             color={0,127,255}));
+  connect(HOUSE1.cold_prim, pipe_cold.port_b) annotation (Line(points={{-147.3,2},{-147.3,
+          -48},{-126,-48}},       color={0,127,255}));
   connect(bou.ports[1], pipe_hot.port_b)
     annotation (Line(points={{50,-84},{-106,-84}}, color={0,127,255}));
-  connect(Controller_1.T_sec_set, HOUSE1.T_sec_in_set) annotation (Line(points=
-          {{-226,42},{-226,52},{-210,52},{-210,34},{-202,34}}, color={0,0,127}));
-  connect(Controller_1.V_dot_sec_set, HOUSE1.V_dot_sec_set) annotation (Line(
-        points={{-226,32.4},{-212,32.4},{-212,30},{-202,30}}, color={0,0,127}));
-  connect(Controller_1.pi_set, HOUSE1.pi)
-    annotation (Line(points={{-226,22.8},{-202,24}}, color={255,127,0}));
-  connect(Controller_1.mu_set, HOUSE1.mu) annotation (Line(points={{-226,13.2},
-          {-210,13.2},{-210,20},{-202,20}}, color={255,127,0}));
-  connect(HOUSE1.u_set, Controller_1.u_set) annotation (Line(points={{-202,16},
-          {-208,16},{-208,3.6},{-226,3.6}}, color={0,0,127}));
-  connect(HOUSE1.kappa_set, Controller_1.kappa_set) annotation (Line(points={{-202,
-          12},{-212,12},{-212,-16},{-226,-16},{-226,-6}}, color={0,0,127}));
-  connect(HOUSE1.T_sec_hot, Controller_1.T_sec_hot) annotation (Line(points={{-190,
-          38},{-190,54},{-252,54},{-252,46},{-253.3,46},{-253.3,42}}, color={0,
-          0,127}));
-  connect(HOUSE1.T_sec_cold, Controller_1.T_sec_cold) annotation (Line(points={
-          {-174,38},{-174,44},{-218,44},{-218,48},{-240.7,48},{-240.7,42}},
-        color={0,0,127}));
-  connect(HOUSE1.V_dot_sec, Controller_1.V_dot_sec) annotation (Line(points={{-182,
-          38},{-182,58},{-278,58},{-278,32.4},{-268,32.4}}, color={0,0,127}));
-  connect(HOUSE1.T_prim_hot, Controller_1.T_prim_hot) annotation (Line(points={
-          {-190,2},{-190,-18},{-252,-18},{-252,-10},{-253.3,-10},{-253.3,-6}},
-        color={0,0,127}));
-  connect(HOUSE1.T_prim_cold, Controller_1.T_prim_cold) annotation (Line(points=
-         {{-174,2},{-174,-6},{-218,-6},{-218,-12},{-240.7,-12},{-240.7,-6}},
-        color={0,0,127}));
-  connect(Controller_1.V_dot_prim, HOUSE1.V_dot_prim) annotation (Line(points={
-          {-268,3.6},{-278,3.6},{-278,-22},{-182,-22},{-182,2}}, color={0,0,127}));
-  connect(HOUSE1.Q_dot_trnsf_is, Controller_1.Qdot_is) annotation (Line(points=
-          {{-202,6},{-214,6},{-214,-24},{-280,-24},{-280,13.2},{-268,13.2}},
-        color={0,0,127}));
-  connect(Controller_2.T_sec_set, HOUSE2.T_sec_in_set) annotation (Line(points=
-          {{22,54},{22,64},{0,64},{0,48},{-10,48}}, color={0,0,127}));
-  connect(Controller_2.V_dot_sec_set, HOUSE2.V_dot_sec_set) annotation (Line(
-        points={{22,44.4},{0,44.4},{0,42},{-10,42}}, color={0,0,127}));
-  connect(Controller_2.pi_set, HOUSE2.pi)
-    annotation (Line(points={{22,34.8},{-10,33}}, color={255,127,0}));
-  connect(Controller_2.mu_set, HOUSE2.mu) annotation (Line(points={{22,25.2},{0,
-          25.2},{0,27},{-10,27}}, color={255,127,0}));
-  connect(Controller_2.u_set, HOUSE2.u_set) annotation (Line(points={{22,15.6},
-          {0,15.6},{0,21},{-10,21}}, color={0,0,127}));
-  connect(Controller_2.kappa_set, HOUSE2.kappa_set) annotation (Line(points={{
-          22,6},{14,6},{14,-6},{-2,-6},{-2,14},{-10,14},{-10,15}}, color={0,0,
-          127}));
-  connect(HOUSE2.T_sec_hot, Controller_2.T_sec_hot) annotation (Line(points={{-30.8,
-          54},{-30.8,68},{48,68},{48,58},{49.3,58},{49.3,54}}, color={0,0,127}));
-  connect(HOUSE2.T_sec_cold, Controller_2.T_sec_cold) annotation (Line(points={{
-          -58.5333,54},{-56,54},{-56,66},{36.7,66},{36.7,54}},  color={0,0,127}));
-  connect(HOUSE2.V_dot_sec, Controller_2.V_dot_sec) annotation (Line(points={{
-          -44.6667,54},{-44.6667,72},{74,72},{74,44.4},{64,44.4}}, color={0,0,
-          127}));
-  connect(HOUSE2.T_prim_hot, Controller_2.T_prim_hot) annotation (Line(points={
-          {-30.8,0},{-30.8,-10},{48,-10},{48,2},{49.3,2},{49.3,6}}, color={0,0,
-          127}));
-  connect(HOUSE2.T_prim_cold, Controller_2.T_prim_cold) annotation (Line(points={{
-          -58.5333,0},{-60,0},{-60,-16},{36.7,-16},{36.7,6}},  color={0,0,127}));
-  connect(HOUSE2.V_dot_prim, Controller_2.V_dot_prim) annotation (Line(points={{
-          -44.6667,0},{-46,0},{-46,-14},{74,-14},{74,15.6},{64,15.6}},  color={
-          0,0,127}));
-  connect(HOUSE2.Q_dot_trnsf_is, Controller_2.Qdot_is) annotation (Line(points=
-          {{-10,6},{-4,6},{-4,-18},{76,-18},{76,25.2},{64,25.2}}, color={0,0,
-          127}));
-  connect(test_procedure2.T, Controller_1.T_sec_sim) annotation (Line(points={{
-          -296,24},{-274,24},{-274,52},{-268,52},{-268,42}}, color={0,0,127}));
-  connect(test_procedure2.dotQ, Controller_1.Qdot_set) annotation (Line(points=
-          {{-296,30},{-282,30},{-282,22.8},{-268,22.8}}, color={0,0,127}));
-  connect(test_procedure1.T, Controller_2.T_sec_sim) annotation (Line(points={{
-          104,34},{70,34},{70,64},{64,64},{64,54}}, color={0,0,127}));
-  connect(test_procedure1.dotQ, Controller_2.Qdot_set) annotation (Line(points=
-          {{104,40},{70,40},{70,66},{64,66},{64,34.8}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-320,
-            -200},{140,100}})), Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-320,-200},{140,100}}), graphics={
+  connect(HOUSE1.contr_vars_real, Controller_1.contr_vars_real) annotation (Line(points={{-200.31,
+          30},{-208,30},{-208,100.588},{-190,100.588}},          color={0,0,127}));
+  connect(Controller_1.states, HOUSE1.states) annotation (Line(points={{-148,100.588},{
+          -128,100.588},{-128,30},{-138,30}},
+                                         color={0,0,127}));
+  connect(Controller_2.states, HOUSE2.states) annotation (Line(points={{-72,98.5882},{
+          -92,98.5882},{-92,28},{-82,28}},
+                                       color={0,0,127}));
+  connect(Controller_2.contr_vars_real, HOUSE2.contr_vars_real) annotation (Line(points={{-30,
+          98.5882},{-10,98.5882},{-10,28},{-19.69,28}},      color={0,0,127}));
+  connect(test_procedure2.dotQ, Controller_1.Q_dot_set) annotation (Line(points={{-168,
+          164},{-164,164},{-164,127.129},{-158.5,127.129}},
+                                                       color={0,0,127}));
+  connect(test_procedure2.T, Controller_1.T_sec_in_is) annotation (Line(points={{-174,
+          164},{-178,164},{-178,127.412},{-179.5,127.412}},
+                                                       color={0,0,127}));
+  connect(test_procedure1.dotQ, Controller_2.Q_dot_set) annotation (Line(points={{-56,164},
+          {-56,125.129},{-61.5,125.129}}, color={0,0,127}));
+  connect(test_procedure1.T, Controller_2.T_sec_in_is) annotation (Line(points={{-50,164},
+          {-46,164},{-46,125.412},{-40.5,125.412}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-320,-200},{140,
+            220}})),            Diagram(coordinateSystem(preserveAspectRatio=
+            false, extent={{-320,-200},{140,220}}), graphics={
         Text(
-          extent={{-242,78},{-174,64}},
+          extent={{-196,214},{-128,200}},
           textColor={238,46,47},
           textString="House1"),
         Text(
-          extent={{-26,92},{42,78}},
+          extent={{-84,216},{-16,202}},
           textColor={28,108,200},
           textString="House2"),
         Text(
@@ -225,7 +178,9 @@ equation
         Text(
           extent={{-134,-106},{-98,-114}},
           textColor={238,46,47},
-          textString="hot")}),
+          textString="hot"),
+        Rectangle(extent={{-218,194},{-118,-8}}, lineColor={0,0,0}),
+        Rectangle(extent={{-98,194},{2,-8}}, lineColor={0,0,0})}),
     experiment(
       StopTime=18000,
       Interval=10,

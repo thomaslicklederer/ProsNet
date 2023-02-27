@@ -620,14 +620,12 @@ package Simulations
             -366,70},{-358,70}}, color={0,0,127}));
     connect(T_sec_in_array_1.y, add.u2) annotation (Line(points={{-379,42},{-366,
             42},{-366,58},{-358,58}}, color={0,0,127}));
-    connect(add.y, Controller_1.T_sec_sim) annotation (Line(points={{-335,64},{
-            -318,64},{-318,44},{-268,44}},
-                                      color={0,0,127}));
+    connect(add.y, Controller_1.T_sec_in_is) annotation (Line(points={{-335,64},{-318,
+            64},{-318,44},{-268,44}}, color={0,0,127}));
     connect(normalNoise1.y, add1.u1) annotation (Line(points={{157,64},{144,64},{
             144,48},{134,48}}, color={0,0,127}));
-    connect(add1.y, Controller_2.T_sec_sim) annotation (Line(points={{111,42},{
-            80,42},{80,56},{64,56}},
-                                  color={0,0,127}));
+    connect(add1.y, Controller_2.T_sec_in_is)
+      annotation (Line(points={{111,42},{80,42},{80,56},{64,56}}, color={0,0,127}));
     connect(T_sec_in_array_2.y, add1.u2) annotation (Line(points={{145,-4},{136,
             -4},{136,26},{142,26},{142,36},{134,36}}, color={0,0,127}));
     connect(Controller_3.T_sec_set, PROSUMER3.T_sec_in_set) annotation (Line(
@@ -667,8 +665,8 @@ package Simulations
           color={0,0,127}));
     connect(normalNoise2.y,add2. u1) annotation (Line(points={{451,64},{438,64},{
             438,48},{428,48}}, color={0,0,127}));
-    connect(add2.y, Controller_3.T_sec_sim) annotation (Line(points={{405,42},{
-            374,42},{374,56},{360,56}}, color={0,0,127}));
+    connect(add2.y, Controller_3.T_sec_in_is)
+      annotation (Line(points={{405,42},{374,42},{374,56},{360,56}}, color={0,0,127}));
     connect(T_sec_in_array_3.y, add2.u2) annotation (Line(points={{439,-4},{430,
             -4},{430,26},{436,26},{436,36},{428,36}}, color={0,0,127}));
     connect(Pipe_ID_2_pipe_cold_12.port_a, Pipe_ID_4_pipe_cold_23.port_b)
@@ -723,8 +721,8 @@ package Simulations
     connect(normalNoise3.y,add3. u1) annotation (Line(points={{747,70},{734,
             70},{734,54},{724,54}},
                                color={0,0,127}));
-    connect(add3.y,Controller_4. T_sec_sim) annotation (Line(points={{701,48},{
-            670,48},{670,58},{658,58}}, color={0,0,127}));
+    connect(add3.y, Controller_4.T_sec_in_is)
+      annotation (Line(points={{701,48},{670,48},{670,58},{658,58}}, color={0,0,127}));
     connect(T_sec_in_array_4.y,add3. u2) annotation (Line(points={{735,4},{726,
             4},{726,32},{732,32},{732,42},{724,42}},  color={0,0,127}));
     connect(Q_management_array_4.y,Controller_4. Qdot_set) annotation (Line(
@@ -779,8 +777,8 @@ package Simulations
     connect(normalNoise4.y,add4. u1) annotation (Line(points={{1025,72},{1012,
             72},{1012,56},{1002,56}},
                                color={0,0,127}));
-    connect(add4.y,Controller_5. T_sec_sim) annotation (Line(points={{979,50},{
-            948,50},{948,68},{936,68}}, color={0,0,127}));
+    connect(add4.y, Controller_5.T_sec_in_is)
+      annotation (Line(points={{979,50},{948,50},{948,68},{936,68}}, color={0,0,127}));
     connect(T_sec_in_array_5.y,add4. u2) annotation (Line(points={{1013,6},{
             1004,6},{1004,34},{1010,34},{1010,44},{1002,44}},
                                                       color={0,0,127}));

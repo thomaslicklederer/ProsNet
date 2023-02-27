@@ -8,7 +8,7 @@ package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
   Modelica.Blocks.Math.Product volume2mass_flow
     annotation (Placement(transformation(extent={{-10,22},{10,42}})));
   Controls.SecondaryFlowControl secFlowCon
-    annotation (Placement(transformation(extent={{28,4},{48,24}})));
+    annotation (Placement(transformation(extent={{30,4},{50,24}})));
   Controls.PrimaryFlowControl priFlowCon
     annotation (Placement(transformation(extent={{-8,-26},{12,-46}})));
   Controls.Linearizer         lin(redeclare final
@@ -21,9 +21,9 @@ package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
     annotation (Placement(transformation(extent={{-120,120},{-80,160}})));
   Modelica.Blocks.Interfaces.RealInput V_dot_sec_set "l/min"
     annotation (Placement(transformation(extent={{-120,80},{-80,120}})));
-  Modelica.Blocks.Interfaces.IntegerInput pi "{0;1}"
+  Modelica.Blocks.Interfaces.RealInput pi "{0;1}"
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
-  Modelica.Blocks.Interfaces.IntegerInput mu "{-1;0;1}"
+  Modelica.Blocks.Interfaces.RealInput mu "{-1;0;1}"
     annotation (Placement(transformation(extent={{-120,-62},{-80,-22}})));
   Modelica.Blocks.Interfaces.RealInput kappa_set "[0;1]"
     annotation (Placement(transformation(extent={{-120,-140},{-80,-100}})));
@@ -64,6 +64,10 @@ package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
     annotation (Placement(transformation(extent={{48,-132},{28,-112}})));
   Modelica.Blocks.Sources.Constant factor3(k=(60000)*(1/Medium.d_const))
     annotation (Placement(transformation(extent={{82,-108},{62,-88}})));
+  Modelica.Blocks.Math.RealToInteger realToInteger
+    annotation (Placement(transformation(extent={{-72,-10},{-52,10}})));
+  Modelica.Blocks.Math.RealToInteger realToInteger1
+    annotation (Placement(transformation(extent={{-72,-52},{-52,-32}})));
 equation
   connect(factor1.y, volume2mass_flow.u1) annotation (Line(points={{-31,50},{-18,
           50},{-18,38},{-12,38}}, color={0,0,127}));
@@ -77,24 +81,16 @@ equation
           {48,120},{48,66},{38,66}}, color={0,0,127}));
   connect(mass2volume_flow.y, V_dot_sec_is)
     annotation (Line(points={{15,60},{0,60},{0,180}}, color={0,0,127}));
-  connect(mu, secFlowCon.mu) annotation (Line(points={{-100,-42},{-18,-42},{-18,
-          16},{16,16},{16,20},{26,20}}, color={255,127,0}));
-  connect(pi, secFlowCon.pi) annotation (Line(points={{-100,0},{18,0},{18,8},{26,
-          8}}, color={255,127,0}));
   connect(volume2mass_flow.y, secFlowCon.m_flow_set)
-    annotation (Line(points={{11,32},{38,32},{38,26}}, color={0,0,127}));
-  connect(secFlowCon.m_flow_production, m_dot_prod) annotation (Line(points={{49,
-          19.1},{49,32},{84,32},{84,64},{74,64},{74,80},{100,80}}, color={0,0,127}));
-  connect(secFlowCon.m_flow_consumption, m_dot_cons) annotation (Line(points={{49,
-          8.9},{62,8.9},{62,28},{82,28},{82,40},{100,40}}, color={0,0,127}));
+    annotation (Line(points={{11,32},{40,32},{40,26}}, color={0,0,127}));
+  connect(secFlowCon.m_flow_production, m_dot_prod) annotation (Line(points={{51,19.1},
+          {51,32},{84,32},{84,64},{74,64},{74,80},{100,80}},       color={0,0,127}));
+  connect(secFlowCon.m_flow_consumption, m_dot_cons) annotation (Line(points={{51,8.9},
+          {62,8.9},{62,28},{82,28},{82,40},{100,40}},      color={0,0,127}));
   connect(priFlowCon.pump_y, pump_contr) annotation (Line(points={{13,-30.9},{84,
           -30.9},{84,-40},{100,-40}}, color={0,0,127}));
   connect(priFlowCon.valve_op, valve_contr) annotation (Line(points={{13,-41.1},
           {82,-41.1},{82,-80},{100,-80}}, color={0,0,127}));
-  connect(pi, priFlowCon.pi) annotation (Line(points={{-100,0},{-14,0},{-14,-30},
-          {-10,-30}}, color={255,127,0}));
-  connect(mu, priFlowCon.mu)
-    annotation (Line(points={{-100,-42},{-10,-42}}, color={255,127,0}));
   connect(lin.op, priFlowCon.valve_op_set)
     annotation (Line(points={{-19,-70},{6,-70},{6,-48}}, color={0,0,127}));
   connect(kappa_set, lin.kappa) annotation (Line(points={{-100,-120},{-52,-120},
@@ -109,6 +105,18 @@ equation
                                           color={0,0,127}));
   connect(mass2volume_flow1.y, V_dot_prim_is)
     annotation (Line(points={{27,-122},{0,-122},{0,-160}}, color={0,0,127}));
+  connect(realToInteger.y, secFlowCon.pi)
+    annotation (Line(points={{-51,0},{20,0},{20,8},{28,8}}, color={255,127,0}));
+  connect(realToInteger.y, priFlowCon.pi)
+    annotation (Line(points={{-51,0},{-24,0},{-24,-30},{-10,-30}}, color={255,127,0}));
+  connect(realToInteger.u, pi)
+    annotation (Line(points={{-74,0},{-100,0}}, color={0,0,127}));
+  connect(mu, realToInteger1.u)
+    annotation (Line(points={{-100,-42},{-74,-42}}, color={0,0,127}));
+  connect(realToInteger1.y, priFlowCon.mu)
+    annotation (Line(points={{-51,-42},{-10,-42}}, color={255,127,0}));
+  connect(realToInteger1.y, secFlowCon.mu) annotation (Line(points={{-51,-42},{-32,-42},
+          {-32,14},{2,14},{2,20},{28,20}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},
             {100,180}}), graphics={Rectangle(
           extent={{-100,180},{100,-160}},

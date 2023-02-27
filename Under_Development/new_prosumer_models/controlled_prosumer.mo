@@ -47,18 +47,18 @@ equation
   connect(pID_Q_T_weighted.kappa_set, heat_transfer_station1.kappa_set)
     annotation (Line(points={{-16,-22},{14,-22},{14,-9.44444},{20,-9.44444}},
         color={0,0,127}));
-  connect(heat_transfer_station1.hot_prim, hot_prim) annotation (Line(points={{
-          55.4667,-30.4111},{-60,-30.4111},{-60,-100}}, color={0,127,255}));
-  connect(heat_transfer_station1.cold_prim, cold_prim) annotation (Line(points=
-          {{80.8,-30.4111},{80.8,-84},{60,-84},{60,-100}}, color={0,127,255}));
+  connect(heat_transfer_station1.hot_prim, hot_prim) annotation (Line(points={{55.4667,
+          -30.4111},{-60,-30.4111},{-60,-100}},         color={0,127,255}));
+  connect(heat_transfer_station1.cold_prim, cold_prim) annotation (Line(points={{80.8,
+          -30.4111},{80.8,-84},{60,-84},{60,-100}},        color={0,127,255}));
   connect(heat_transfer_station1.T_sec_cold, pID_Q_T_weighted.T_sec_cold)
     annotation (Line(points={{90.9333,44},{90.9333,50},{-38,50},{-38,40},{-39.1,
           40},{-39.1,36}}, color={0,0,127}));
   connect(heat_transfer_station1.T_sec_hot, pID_Q_T_weighted.T_sec_hot)
     annotation (Line(points={{50.4,44},{50.4,52},{-58.9,52},{-58.9,36}}, color=
           {0,0,127}));
-  connect(T_sec_sim, pID_Q_T_weighted.T_sec_sim) annotation (Line(points={{60,
-          100},{60,54},{-82,54},{-82,36}}, color={0,0,127}));
+  connect(T_sec_sim, pID_Q_T_weighted.T_sec_in_is) annotation (Line(points={{60,100},{
+          60,54},{-32.5,54},{-32.5,36}}, color={0,0,127}));
   connect(heat_transfer_station1.V_dot_sec, pID_Q_T_weighted.V_dot_sec)
     annotation (Line(points={{70.6667,44},{70.6667,60},{-92,60},{-92,24.4},{-82,
           24.4}}, color={0,0,127}));

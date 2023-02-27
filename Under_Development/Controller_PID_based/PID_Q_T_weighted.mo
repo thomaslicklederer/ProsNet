@@ -151,88 +151,102 @@ model PID_Q_T_weighted
   Real Delta_T_sec
       "weighted overall error of primary side controller";
 
+   Real Delta_p_prim(unit="Pa", displayUnit="bar") annotation (
+      Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=180,
+        origin={-80,-140})));
+
   // !!!!! ports !!!!!
-  Modelica.Blocks.Interfaces.RealOutput u_set
+
+  Modelica.Blocks.Interfaces.RealVectorInput states[7]
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
+  Modelica.Blocks.Interfaces.RealVectorOutput contr_vars_real[6]
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
+  Real u_set
     "Normalized velocity of feed-in pump"
       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={100,-60}), iconTransformation(
+        origin={80,-60}),  iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={100,-60})));
-  Modelica.Blocks.Interfaces.RealOutput kappa_set
+  Real kappa_set
     "Normalized flow coefficient for control valve"
      annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={100,-100}),
-                          iconTransformation(
+        origin={80,-100}),iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={100,-100})));
-  Modelica.Blocks.Interfaces.IntegerOutput pi_set
+  Real pi_set
     "Participation" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={100,20}),   iconTransformation(
+        origin={80,20}),    iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={100,20})));
-  Modelica.Blocks.Interfaces.IntegerOutput mu_set
+  Real mu_set
     "Operating mode" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={100,-20}), iconTransformation(
+        origin={80,-20}),  iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={100,-20})));
-  Modelica.Blocks.Interfaces.RealInput T_sec_hot(
+  Real T_sec_hot(
     unit="K",
     displayUnit="degC",
     min=277) "current temperature hot level secondary side"      annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={-30,100})));
-  Modelica.Blocks.Interfaces.RealInput T_sec_cold(
+        rotation=0,
+        origin={-80,60})));
+  Real T_sec_cold(
     unit="K",
     displayUnit="degC",
     min=277)
            "current temperature cold  level secondary side"    annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={30,100})));
-  Modelica.Blocks.Interfaces.RealInput T_prim_hot(
+        rotation=0,
+        origin={-80,20})));
+  Real T_prim_hot(
     unit="K",
     displayUnit="degC",
     min=277)
            "current temperature hot level primary side"        annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={-30,-100})));
-  Modelica.Blocks.Interfaces.RealInput T_prim_cold(
+        rotation=0,
+        origin={-80,140})));
+  Real T_prim_cold(
     unit="K",
     displayUnit="degC",
     min=277)
             "current temperature cold level primary side"       annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={30,-100})));
-  Modelica.Blocks.Interfaces.RealInput Qdot_set(unit="kW", displayUnit="kW")
+        rotation=0,
+        origin={-80,100})));
+  Modelica.Blocks.Interfaces.RealInput Q_dot_set(unit="kW", displayUnit="kW")
     "setpoint heat transfer (positive production, negative consumption)"
-    annotation (Placement(transformation(extent={{-120,0},{-80,40}})));
-  Modelica.Blocks.Interfaces.RealInput V_dot_prim(unit="l/min", displayUnit="l/min")
-    annotation (Placement(transformation(extent={{-120,-80},{-80,-40}})));
-  Modelica.Blocks.Interfaces.RealInput V_dot_sec(unit="l/min", displayUnit="l/min")
-    annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-60,188})));
+  Real V_dot_prim(unit="l/min", displayUnit="l/min")
+    annotation (Placement(transformation(extent={{-100,-40},{-60,0}})));
+  Real V_dot_sec(unit="l/min", displayUnit="l/min")
+    annotation (Placement(transformation(extent={{-100,-80},{-60,-40}})));
 
-  Modelica.Blocks.Interfaces.RealInput Qdot_is(unit="kW", displayUnit="kW")
+  Real Q_dot_is(unit="kW", displayUnit="kW")
     "currently transferred heat (positive production, negative consumption)"
-    annotation (Placement(transformation(extent={{-120,-40},{-80,0}})));
+    annotation (Placement(transformation(extent={{-100,-120},{-60,-80}})));
   Modelica.Blocks.Continuous.LimPID PID_prim_cons(
     controllerType=controllerType,
     k=k_prim_cons,
@@ -242,7 +256,7 @@ model PID_Q_T_weighted
     yMin=0,
     initType=initType,
     y_start=PID_prim_cons.yMax)
-    annotation (Placement(transformation(extent={{-42,-38},{-22,-18}})));
+    annotation (Placement(transformation(extent={{-30,-32},{-10,-12}})));
   Modelica.Blocks.Continuous.LimPID PID_sec_cons(
     controllerType=controllerType,
     k=k_sec_cons,
@@ -252,7 +266,7 @@ model PID_Q_T_weighted
     yMin=1,
     initType=initType,
     y_start=PID_sec_cons.yMax)
-    annotation (Placement(transformation(extent={{-42,28},{-22,48}})));
+    annotation (Placement(transformation(extent={{-34,28},{-14,48}})));
   Modelica.Blocks.Continuous.LimPID PID_prim_prod(
     controllerType=controllerType,
     k=k_prim_prod,
@@ -261,7 +275,8 @@ model PID_Q_T_weighted
     yMax=1,
     yMin=0.1,
     initType=initType,
-    y_start=PID_prim_prod.yMax) annotation (Placement(transformation(extent={{6,-38},{26,-18}})));
+    y_start=PID_prim_prod.yMax) annotation (Placement(transformation(extent={{12,-30},
+            {32,-10}})));
   Modelica.Blocks.Continuous.LimPID PID_sec_prod(
     controllerType=controllerType,
     k=k_sec_prod,
@@ -270,25 +285,37 @@ model PID_Q_T_weighted
     yMax=V_dot_sec_max,
     yMin=1,
     initType=initType,
-    y_start=PID_sec_prod.yMax) annotation (Placement(transformation(extent={{6,28},{26,48}})));
-  Modelica.Blocks.Interfaces.RealOutput T_sec_set(unit="K", displayUnit="degC")
+    y_start=PID_sec_prod.yMax) annotation (Placement(transformation(extent={{10,28},
+            {30,48}})));
+  Real T_sec_set(unit="K", displayUnit="degC")
      "Temperature on the secondary side" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={100,100})));
-  Modelica.Blocks.Interfaces.RealOutput V_dot_sec_set(unit="l/min", displayUnit=
+        origin={80,100})));
+  Real V_dot_sec_set(unit="l/min", displayUnit=
        "l/min") "volume flow rate setpoint on the secondary side" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={100,60})));
-  Modelica.Blocks.Interfaces.RealInput T_sec_sim(unit="K", displayUnit="degC")
-"Temperature on the secondary side" annotation (Placement(
-        transformation(
+        origin={80,60})));
+  Modelica.Blocks.Interfaces.RealInput T_sec_in_is(unit="K", displayUnit="degC")
+    "Temperature on the secondary side" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-100,100})));
+        rotation=270,
+        origin={60,190})));
+
 
 equation
+
+  // assign inputs
+  T_prim_hot   = states[1];
+  T_prim_cold  = states[2];
+  T_sec_hot    = states[3];
+  T_sec_cold   = states[4];
+  V_dot_prim   = states[5];
+  V_dot_sec    = states[6];
+  Q_dot_is     = states[7];
+  Delta_p_prim = states[8];
+
 
   Delta_T_prim      = T_prim_hot -T_prim_cold;
   Delta_T_sec       = T_sec_hot  -T_sec_cold;
@@ -307,7 +334,7 @@ equation
   //   e_tot = [ alpha*Q_is/Q_norm + beta*T_is/T_norm ] - [ alpha*Q_set/Q_norm + beta * T_set/T_norm ]
   //   e_tot = PIDin_is_weighted - PIDin_des_weighted
 
-  if  Qdot_set <= 0-tol then // consumption mode
+  if  Q_dot_set <= 0-tol then // consumption mode
     prosumer_mode = -1;
     pi_set = 1;
     mu_set = -1;
@@ -316,12 +343,12 @@ equation
     T_sec_relev_des = T_sec_hot_des;
     T_sec_relev_is = T_sec_hot;
 
-    PIDin_prim_cons_is_weighted    = alpha_prim_cons*(-1)*Qdot_is/Delta_Qdot_norm + beta_prim_cons*(-1)*T_prim_relev_is/Delta_T_norm;
-    PIDin_prim_cons_des_weighted   = alpha_prim_cons*(-1)*Qdot_set/Delta_Qdot_norm + beta_prim_cons*(-1)*T_prim_relev_des/Delta_T_norm;
+    PIDin_prim_cons_is_weighted    = alpha_prim_cons*(-1)*Q_dot_is/Delta_Qdot_norm + beta_prim_cons*(-1)*T_prim_relev_is/Delta_T_norm;
+    PIDin_prim_cons_des_weighted   = alpha_prim_cons*(-1)*Q_dot_set/Delta_Qdot_norm + beta_prim_cons*(-1)*T_prim_relev_des/Delta_T_norm;
     PIDin_prim_prod_is_weighted    = 0;
     PIDin_prim_prod_des_weighted   = 0;
-    PIDin_sec_cons_is_weighted     = alpha_sec_cons*(-1)*Qdot_is/Delta_Qdot_norm + beta_sec_cons*(-1)*T_sec_relev_is/Delta_T_norm;
-    PIDin_sec_cons_des_weighted    = alpha_sec_cons*(-1)*Qdot_set/Delta_Qdot_norm + beta_sec_cons*(-1)*T_sec_relev_des/Delta_T_norm;
+    PIDin_sec_cons_is_weighted     = alpha_sec_cons*(-1)*Q_dot_is/Delta_Qdot_norm + beta_sec_cons*(-1)*T_sec_relev_is/Delta_T_norm;
+    PIDin_sec_cons_des_weighted    = alpha_sec_cons*(-1)*Q_dot_set/Delta_Qdot_norm + beta_sec_cons*(-1)*T_sec_relev_des/Delta_T_norm;
     PIDin_sec_prod_is_weighted     = 0;
     PIDin_sec_prod_des_weighted    = 0;
 
@@ -331,7 +358,7 @@ equation
     error_T_prim_abs               = DeltaT_prim_des - Delta_T_prim;
     error_T_sec_abs                = T_sec_hot_des - T_sec_hot;
 
-  elseif Qdot_set >= 0+tol then // production mode
+  elseif Q_dot_set >= 0+tol then // production mode
     prosumer_mode = +1;
     pi_set = 1;
     mu_set = 1;
@@ -342,12 +369,12 @@ equation
 
     PIDin_prim_cons_is_weighted    = 0;
     PIDin_prim_cons_des_weighted   = 0;
-    PIDin_prim_prod_is_weighted    = alpha_prim_prod*Qdot_is/Delta_Qdot_norm + beta_prim_prod*(-1)*T_prim_relev_is/Delta_T_norm;
-    PIDin_prim_prod_des_weighted   = alpha_prim_prod*Qdot_set/Delta_Qdot_norm + beta_prim_prod*(-1)*T_prim_relev_des/Delta_T_norm;
+    PIDin_prim_prod_is_weighted    = alpha_prim_prod*Q_dot_is/Delta_Qdot_norm + beta_prim_prod*(-1)*T_prim_relev_is/Delta_T_norm;
+    PIDin_prim_prod_des_weighted   = alpha_prim_prod*Q_dot_set/Delta_Qdot_norm + beta_prim_prod*(-1)*T_prim_relev_des/Delta_T_norm;
     PIDin_sec_cons_is_weighted     = 0;
     PIDin_sec_cons_des_weighted    = 0;
-    PIDin_sec_prod_is_weighted     = alpha_sec_prod*Qdot_is/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_is/Delta_T_norm;
-    PIDin_sec_prod_des_weighted    = alpha_sec_prod*Qdot_set/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_des/Delta_T_norm;
+    PIDin_sec_prod_is_weighted     = alpha_sec_prod*Q_dot_is/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_is/Delta_T_norm;
+    PIDin_sec_prod_des_weighted    = alpha_sec_prod*Q_dot_set/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_des/Delta_T_norm;
 
     error_prim_weighted            = PIDin_prim_prod_des_weighted - PIDin_prim_prod_is_weighted;
     error_sec_weighted             = PIDin_sec_prod_des_weighted - PIDin_sec_prod_is_weighted;
@@ -392,7 +419,7 @@ equation
   PID_sec_prod.u_m     = PIDin_sec_prod_is_weighted;
 
   // connect secondary side temperature setpoint
-  T_sec_set    =  T_sec_sim;
+  T_sec_set    =  T_sec_in_is;
 
   // assign PID outputs to controller outputs
   if prosumer_mode == -1 then // consumption mode
@@ -410,15 +437,23 @@ equation
   end if;
 
 
-  error_Q_abs = Qdot_set - Qdot_is;
+  error_Q_abs = Q_dot_set - Q_dot_is;
 
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  // assign control variables vector
+  contr_vars_real[1]   =  T_sec_set;
+  contr_vars_real[2]   =  V_dot_sec;
+  contr_vars_real[3]   =  pi_set;
+  contr_vars_real[4]   =  mu_set;
+  contr_vars_real[5]   =  u_set;
+  contr_vars_real[6]   =  kappa_set;
+
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-160},{
+            120,180}}),                                           graphics={
           Text(
           extent={{-70,56},{64,-56}},
           textColor={28,108,200},
-          textString="CTRL
-PID
-Q-T-
-weighted")}),                                                      Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+          textString="weighted
+PID"), Rectangle(extent={{-120,180},{120,-160}}, lineColor={0,0,0})}),
+                                                                   Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-120,-160},{120,180}})));
 end PID_Q_T_weighted;
