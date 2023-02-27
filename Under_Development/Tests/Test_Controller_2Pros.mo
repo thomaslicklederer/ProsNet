@@ -115,18 +115,28 @@ model Test_Controller_2Pros "Producer and Consumer with Controller"
   inner Modelica.Blocks.Noise.GlobalSeed globalSeed(enableNoise=false,
       fixedSeed=4345)
     annotation (Placement(transformation(extent={{34,-188},{54,-168}})));
-  Controller_PID_based.auxiliary.test_procedure test_procedure2
+  Controller_PID_based.auxiliary.TimeTable_noInterp                   Q_management_array_1(table=[0,
+        5; 900,5; 1800,12; 2700,12; 3600,-5; 4500,-5; 5400,-12; 6300,-12])
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-172,174})));
-  Controller_PID_based.auxiliary.test_procedure test_procedure1(test_procedure=
-        [0,0,0; 900,-1,6; 1800,-1,6; 2700,-1,6; 3600,0,0; 4500,0,0; 5400,0,0;
-        6300,-1,6; 7200,-1,9; 8100,-1,6; 9000,0,0; 9900,1,6; 10800,1,9; 11700,1,
-        6; 12600,0,0; 13500,-1,9; 14400,0,0; 15300,0,0; 16200,1,9; 17100,0,0;
-        18000,0,0])
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={-52,174})));
+        rotation=-90,
+        origin={-142,170})));
+  Controller_PID_based.auxiliary.TimeTable_noInterp                   T_sec_in_array_1(table=[0,
+        341.15; 900,341.15; 1800,341.15; 2700,341.15; 3600,318.15; 4500,318.15; 5400,
+        318.15; 6300,318.15])
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-196,170})));
+  Controller_PID_based.auxiliary.TimeTable_noInterp                   T_sec_in_array_2(table=[0,
+        318.15; 900,318.15; 1800,318.15; 2700,318.15; 3600,341.15; 4500,341.15; 5400,
+        341.15; 6300,341.15])
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-26,172})));
+  Controller_PID_based.auxiliary.TimeTable_noInterp                   Q_management_array_2(table=[0,
+        -5; 900,-5; 1800,-12; 2700,-12; 3600,5; 4500,5; 5400,12; 6300,12])
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-72,174})));
 equation
   Losses = HOUSE1.Q_dot_is+HOUSE2.Q_dot_is;
 
@@ -150,16 +160,15 @@ equation
                                        color={0,0,127}));
   connect(Controller_2.contr_vars_real, HOUSE2.contr_vars_real) annotation (Line(points={{-30,
           98.5882},{-10,98.5882},{-10,28},{-19.69,28}},      color={0,0,127}));
-  connect(test_procedure2.dotQ, Controller_1.Q_dot_set) annotation (Line(points={{-168,
-          164},{-164,164},{-164,127.129},{-158.5,127.129}},
-                                                       color={0,0,127}));
-  connect(test_procedure2.T, Controller_1.T_sec_in_is) annotation (Line(points={{-174,
-          164},{-178,164},{-178,127.412},{-179.5,127.412}},
-                                                       color={0,0,127}));
-  connect(test_procedure1.dotQ, Controller_2.Q_dot_set) annotation (Line(points={{-56,164},
-          {-56,125.129},{-61.5,125.129}}, color={0,0,127}));
-  connect(test_procedure1.T, Controller_2.T_sec_in_is) annotation (Line(points={{-50,164},
-          {-46,164},{-46,125.412},{-40.5,125.412}}, color={0,0,127}));
+  connect(Q_management_array_1.y, Controller_1.Q_dot_set) annotation (Line(points={{-142,
+          159},{-142,136},{-158.5,136},{-158.5,127.129}},      color={0,0,127}));
+  connect(T_sec_in_array_1.y, Controller_1.T_sec_in_is) annotation (Line(points={{-196,
+          159},{-196,136},{-178,136},{-178,132},{-179.5,132},{-179.5,127.412}}, color={
+          0,0,127}));
+  connect(Q_management_array_2.y, Controller_2.Q_dot_set) annotation (Line(points={{-72,163},
+          {-72,130},{-61.5,130},{-61.5,125.129}},      color={0,0,127}));
+  connect(T_sec_in_array_2.y, Controller_2.T_sec_in_is) annotation (Line(points={{-26,161},
+          {-26,134},{-40.5,134},{-40.5,125.412}},      color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-320,-200},{140,
             220}})),            Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-320,-200},{140,220}}), graphics={

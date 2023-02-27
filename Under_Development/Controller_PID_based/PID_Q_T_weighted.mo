@@ -159,7 +159,7 @@ model PID_Q_T_weighted
 
   // !!!!! ports !!!!!
 
-  Modelica.Blocks.Interfaces.RealVectorInput states[7]
+  Modelica.Blocks.Interfaces.RealVectorInput states[8]
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Modelica.Blocks.Interfaces.RealVectorOutput contr_vars_real[6]

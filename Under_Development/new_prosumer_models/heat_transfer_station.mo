@@ -272,7 +272,7 @@ equation
   kappa_set    =  contr_vars_real[6];
 
   cp_prim = 4200;
-  Q_dot_is = m_dot_sens_prim.port_a.m_flow * cp_prim *(T_sens_prim_hot.T - T_sens_prim_cold.T)/1000;
+  states[7] = m_dot_sens_prim.port_a.m_flow * cp_prim *(T_sens_prim_hot.T - T_sens_prim_cold.T)/1000;
 
   connect(heat_exchanger.port_b1, valve_prim_cons.port_b)
     annotation (Line(points={{50,-4},{60,-4},{60,-30}}, color={0,127,255}));
@@ -360,7 +360,6 @@ equation
   connect(ideal_house.T_sec_cold, states[4]);
   connect(conversion.V_dot_prim_is, states[5]);
   connect(conversion.V_dot_sec_is, states[6]);
-  connect(Q_dot_is, states[7]);
   connect(pressureDifference.p_rel, states[8]);
 
   T_prim_hot   = T_sens_prim_hot.T;
@@ -369,7 +368,7 @@ equation
   T_sec_cold   = ideal_house.T_sec_cold;
   V_dot_prim   = conversion.V_dot_prim_is;
   V_dot_sec    = conversion.V_dot_sec_is;
-  Q_dot_is     = Q_dot_is;
+  Q_dot_is     = states[7];
   Delta_p_prim = pressureDifference.p_rel;
 
   annotation (Diagram(coordinateSystem(extent={{-200,-180},{200,180}})), Icon(
