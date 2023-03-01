@@ -111,7 +111,7 @@ model Test_Controller_2Pros "Producer and Consumer with Controller"
     Ti_sec_cons=35,
     alpha_sec_cons=0.3,
     controllerType=Modelica.Blocks.Types.SimpleController.PI)
-    annotation (Placement(transformation(extent={{-72,76},{-30,124}})));
+    annotation (Placement(transformation(extent={{-74,76},{-32,124}})));
   inner Modelica.Blocks.Noise.GlobalSeed globalSeed(enableNoise=false,
       fixedSeed=4345)
     annotation (Placement(transformation(extent={{34,-188},{54,-168}})));
@@ -155,10 +155,10 @@ equation
   connect(Controller_1.states, HOUSE1.states) annotation (Line(points={{-148,100.588},{
           -128,100.588},{-128,30},{-138,30}},
                                          color={0,0,127}));
-  connect(Controller_2.states, HOUSE2.states) annotation (Line(points={{-72,98.5882},{
+  connect(Controller_2.states, HOUSE2.states) annotation (Line(points={{-74,98.5882},{
           -92,98.5882},{-92,28},{-82,28}},
                                        color={0,0,127}));
-  connect(Controller_2.contr_vars_real, HOUSE2.contr_vars_real) annotation (Line(points={{-30,
+  connect(Controller_2.contr_vars_real, HOUSE2.contr_vars_real) annotation (Line(points={{-32,
           98.5882},{-10,98.5882},{-10,28},{-19.69,28}},      color={0,0,127}));
   connect(Q_management_array_1.y, Controller_1.Q_dot_set) annotation (Line(points={{-142,
           159},{-142,136},{-158.5,136},{-158.5,127.129}},      color={0,0,127}));
@@ -166,9 +166,9 @@ equation
           159},{-196,136},{-178,136},{-178,132},{-179.5,132},{-179.5,127.412}}, color={
           0,0,127}));
   connect(Q_management_array_2.y, Controller_2.Q_dot_set) annotation (Line(points={{-72,163},
-          {-72,130},{-61.5,130},{-61.5,125.129}},      color={0,0,127}));
+          {-72,130},{-63.5,130},{-63.5,125.129}},      color={0,0,127}));
   connect(T_sec_in_array_2.y, Controller_2.T_sec_in_is) annotation (Line(points={{-26,161},
-          {-26,134},{-40.5,134},{-40.5,125.412}},      color={0,0,127}));
+          {-26,134},{-42.5,134},{-42.5,125.412}},      color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-320,-200},{140,
             220}})),            Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-320,-200},{140,220}}), graphics={

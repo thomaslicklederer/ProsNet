@@ -11,7 +11,7 @@ model PID_Q_T_weighted
       "Heat power value for normalizing the error (deviation) of the transferred heat.
       For alpha=0.5 a deviation of Delta_Qdot_norm in heat transfer is weigthed equal to a deviation of Delta_T_norm in temperature."
       annotation(Dialog(group="Normalizing values"));
-  parameter SI.TemperatureDifference Delta_T_norm(min=0) = 5
+  parameter SI.TemperatureDifference Delta_T_norm(min=0) = 3
       "Temperature difference for normalizing the error (deviation) of the temperature.
       For alpha=0.5 a deviation of Delta_T_norm in temperature is weighted equal to a deviation of Delta_Qdot_norm in heat transfer."
       annotation(Dialog(group="Normalizing values"));
@@ -441,7 +441,7 @@ equation
 
   // assign control variables vector
   contr_vars_real[1]   =  T_sec_set;
-  contr_vars_real[2]   =  V_dot_sec;
+  contr_vars_real[2]   =  V_dot_sec_set;
   contr_vars_real[3]   =  pi_set;
   contr_vars_real[4]   =  mu_set;
   contr_vars_real[5]   =  u_set;

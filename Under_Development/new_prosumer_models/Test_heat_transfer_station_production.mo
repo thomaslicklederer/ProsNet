@@ -67,9 +67,11 @@ equation
   connect(kappa.y, heat_transfer_station1.kappa_set) annotation (Line(points={{-71,
           8},{-58,8},{-58,50},{-8,50}}, color={0,0,127}));
   connect(heat_transfer_station1.hot_prim, volume.ports[1])
-    annotation (Line(points={{6,39.8},{6,-24},{10,-24}}, color={0,127,255}));
+    annotation (Line(points={{-3.5,39.8},{-3.5,-24},{10,-24}},
+                                                         color={0,127,255}));
   connect(valve_for_test.port_b, heat_transfer_station1.cold_prim) annotation (
-      Line(points={{36,6},{36,34},{16,34},{16,39.8}}, color={0,127,255}));
+      Line(points={{36,6},{36,34},{17.5,34},{17.5,40}},
+                                                      color={0,127,255}));
   connect(valve_for_test.port_a, volume.ports[2])
     annotation (Line(points={{36,-14},{36,-24},{14,-24}}, color={0,127,255}));
   connect(ramp.y, valve_for_test.y) annotation (Line(points={{-71,-22},{0,-22},{

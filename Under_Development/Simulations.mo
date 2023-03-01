@@ -527,16 +527,16 @@ package Simulations
     Losses =PROSUMER1.Q_dot_trnsf_is + PROSUMER2.Q_dot_trnsf_is;
 
     connect(Pipe_ID_2_pipe_hot_12.port_a, PROSUMER1.hot_prim) annotation (
-        Line(points={{-132,-92},{-165.733,-92},{-165.733,-10.2889}}, color={0,
+        Line(points={{-132,-92},{-182.2,-92},{-182.2,-10.2889}},     color={0,
             127,255}));
     connect(Pipe_ID_2_pipe_hot_12.port_b, PROSUMER2.hot_prim) annotation (
-        Line(points={{-96,-92},{-36.2667,-92},{-36.2667,1.7}},  color={0,127,
+        Line(points={{-96,-92},{-19.8,-92},{-19.8,1.7}},        color={0,127,
             255}));
     connect(Pipe_ID_2_pipe_cold_12.port_a, PROSUMER2.cold_prim) annotation (
-        Line(points={{-98,-48},{-52,-48},{-52,-20},{-53.6,-20},{-53.6,1.7}},
+        Line(points={{-98,-48},{-52,-48},{-52,-20},{-56.2,-20},{-56.2,2}},
           color={0,127,255}));
     connect(PROSUMER1.cold_prim, Pipe_ID_2_pipe_cold_12.port_b) annotation (
-        Line(points={{-148.4,-10.2889},{-148.4,-48},{-134,-48}}, color={0,127,
+        Line(points={{-145.8,-10},{-145.8,-48},{-134,-48}},      color={0,127,
             255}));
     connect(bou.ports[1], Pipe_ID_2_pipe_hot_12.port_b) annotation (Line(
           points={{-46,-176},{-80,-176},{-80,-92},{-96,-92}}, color={0,127,
@@ -621,11 +621,13 @@ package Simulations
     connect(T_sec_in_array_1.y, add.u2) annotation (Line(points={{-379,42},{-366,
             42},{-366,58},{-358,58}}, color={0,0,127}));
     connect(add.y, Controller_1.T_sec_in_is) annotation (Line(points={{-335,64},{-318,
-            64},{-318,44},{-268,44}}, color={0,0,127}));
+            64},{-318,45.4118},{-236.5,45.4118}},
+                                      color={0,0,127}));
     connect(normalNoise1.y, add1.u1) annotation (Line(points={{157,64},{144,64},{
             144,48},{134,48}}, color={0,0,127}));
     connect(add1.y, Controller_2.T_sec_in_is)
-      annotation (Line(points={{111,42},{80,42},{80,56},{64,56}}, color={0,0,127}));
+      annotation (Line(points={{111,42},{80,42},{80,57.4118},{32.5,57.4118}},
+                                                                  color={0,0,127}));
     connect(T_sec_in_array_2.y, add1.u2) annotation (Line(points={{145,-4},{136,
             -4},{136,26},{142,26},{142,36},{134,36}}, color={0,0,127}));
     connect(Controller_3.T_sec_set, PROSUMER3.T_sec_in_set) annotation (Line(
@@ -666,7 +668,8 @@ package Simulations
     connect(normalNoise2.y,add2. u1) annotation (Line(points={{451,64},{438,64},{
             438,48},{428,48}}, color={0,0,127}));
     connect(add2.y, Controller_3.T_sec_in_is)
-      annotation (Line(points={{405,42},{374,42},{374,56},{360,56}}, color={0,0,127}));
+      annotation (Line(points={{405,42},{374,42},{374,57.4118},{328.5,57.4118}},
+                                                                     color={0,0,127}));
     connect(T_sec_in_array_3.y, add2.u2) annotation (Line(points={{439,-4},{430,
             -4},{430,26},{436,26},{436,36},{428,36}}, color={0,0,127}));
     connect(Pipe_ID_2_pipe_cold_12.port_a, Pipe_ID_4_pipe_cold_23.port_b)
@@ -676,10 +679,10 @@ package Simulations
       annotation (Line(points={{-96,-92},{38,-92},{38,-89},{168,-89}}, color=
             {0,127,255}));
     connect(Pipe_ID_4_pipe_cold_23.port_a, PROSUMER3.cold_prim) annotation (
-        Line(points={{202,-45},{240,-45},{240,-8},{242.4,-8},{242.4,-0.3}},
+        Line(points={{202,-45},{240,-45},{240,-8},{239.8,-8},{239.8,0}},
           color={0,127,255}));
     connect(PROSUMER3.hot_prim, Pipe_ID_4_pipe_hot_23.port_b) annotation (
-        Line(points={{259.733,-0.3},{256,-0.3},{256,-89},{202,-89}}, color={0,
+        Line(points={{276.2,-0.3},{256,-0.3},{256,-89},{202,-89}},   color={0,
             127,255}));
     connect(Q_management_array_3.y, Controller_3.Qdot_set) annotation (Line(
           points={{401,-4},{376,-4},{376,36.8},{360,36.8}}, color={0,0,127}));
@@ -722,7 +725,8 @@ package Simulations
             70},{734,54},{724,54}},
                                color={0,0,127}));
     connect(add3.y, Controller_4.T_sec_in_is)
-      annotation (Line(points={{701,48},{670,48},{670,58},{658,58}}, color={0,0,127}));
+      annotation (Line(points={{701,48},{670,48},{670,59.4118},{626.5,59.4118}},
+                                                                     color={0,0,127}));
     connect(T_sec_in_array_4.y,add3. u2) annotation (Line(points={{735,4},{726,
             4},{726,32},{732,32},{732,42},{724,42}},  color={0,0,127}));
     connect(Q_management_array_4.y,Controller_4. Qdot_set) annotation (Line(
@@ -731,13 +735,13 @@ package Simulations
       annotation (Line(points={{362,-88},{282,-88},{282,-89},{202,-89}},
           color={0,127,255}));
     connect(PROSUMER4.cold_prim, Pipe_ID_6_pipe_cold_34.port_a) annotation (
-        Line(points={{540.4,7.7},{537.2,7.7},{537.2,-43},{394,-43}}, color={0,
+        Line(points={{537.8,8},{537.2,8},{537.2,-43},{394,-43}},     color={0,
             127,255}));
     connect(Pipe_ID_6_pipe_cold_34.port_b, PROSUMER3.cold_prim) annotation (
-        Line(points={{360,-43},{238,-43},{238,-45},{240,-45},{240,-8},{242.4,
-            -8},{242.4,-0.3}}, color={0,127,255}));
+        Line(points={{360,-43},{238,-43},{238,-45},{240,-45},{240,-8},{239.8,-8},{239.8,
+            0}},               color={0,127,255}));
     connect(PROSUMER4.hot_prim, Pipe_ID_6_pipe_hot_34.port_b) annotation (
-        Line(points={{557.733,7.7},{554.866,7.7},{554.866,-88},{394,-88}},
+        Line(points={{574.2,7.7},{554.866,7.7},{554.866,-88},{394,-88}},
           color={0,127,255}));
     connect(Controller_5.T_sec_set, PROSUMER5.T_sec_in_set) annotation (Line(
           points={{894,68},{894,72},{868,72},{868,56},{858,56}}, color={0,0,
@@ -778,20 +782,21 @@ package Simulations
             72},{1012,56},{1002,56}},
                                color={0,0,127}));
     connect(add4.y, Controller_5.T_sec_in_is)
-      annotation (Line(points={{979,50},{948,50},{948,68},{936,68}}, color={0,0,127}));
+      annotation (Line(points={{979,50},{948,50},{948,69.4118},{904.5,69.4118}},
+                                                                     color={0,0,127}));
     connect(T_sec_in_array_5.y,add4. u2) annotation (Line(points={{1013,6},{
             1004,6},{1004,34},{1010,34},{1010,44},{1002,44}},
                                                       color={0,0,127}));
     connect(Q_management_array_5.y,Controller_5. Qdot_set) annotation (Line(
           points={{977,2},{950,2},{950,48.8},{936,48.8}},   color={0,0,127}));
     connect(PROSUMER5.cold_prim, Pipe_ID_8_pipe_cold_45.port_a) annotation (
-        Line(points={{816.4,7.7},{815.2,7.7},{815.2,-41},{714,-41}}, color={0,
+        Line(points={{813.8,8},{815.2,8},{815.2,-41},{714,-41}},     color={0,
             127,255}));
     connect(Pipe_ID_8_pipe_cold_45.port_b, Pipe_ID_6_pipe_cold_34.port_a)
       annotation (Line(points={{680,-41},{610,-41},{610,-44},{536,-44},{536,-43},
             {394,-43}}, color={0,127,255}));
     connect(Pipe_ID_8_pipe_hot_45.port_b, PROSUMER5.hot_prim) annotation (
-        Line(points={{710,-90},{834,-90},{834,7.7},{833.733,7.7}}, color={0,
+        Line(points={{710,-90},{834,-90},{834,7.7},{850.2,7.7}},   color={0,
             127,255}));
     connect(Pipe_ID_8_pipe_hot_45.port_a, Pipe_ID_6_pipe_hot_34.port_b)
       annotation (Line(points={{678,-90},{616,-90},{616,-88},{394,-88}},
@@ -861,4 +866,40 @@ SF1"),    Text(
         file="Scripts/cosesplot.mos" "cosesplot",
         file="Scripts/coses_plot_tables.mos" "coses_plot_tables"));
   end Speer_IEWT2023;
+
+  model Licklederer_weiPID_01
+    new_prosumer_models.heat_transfer_station B1(n=0.5) annotation (Placement(
+          transformation(
+          extent={{20,-18},{-20,18}},
+          rotation=0,
+          origin={-48,8})));
+    Controller_PID_based.PID_Q_T_weighted Ctrl1 annotation (Placement(transformation(
+          extent={{-12,-17},{12,17}},
+          rotation=0,
+          origin={-46,75})));
+    Controller_PID_based.auxiliary.TimeTable_noInterp power_set1 annotation (Placement(
+          transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=-90,
+          origin={-70,134})));
+    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in1 annotation (
+        Placement(transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=-90,
+          origin={-28,134})));
+    Fluid.Pipes.InsulatedPipe_plug pipe
+      annotation (Placement(transformation(extent={{-54,-54},{-34,-34}})));
+  equation
+    connect(B1.contr_vars_real, Ctrl1.contr_vars_real)
+      annotation (Line(points={{-27.8,8},{-20,8},{-20,74},{-34,74}}, color={0,0,127}));
+    connect(Ctrl1.states, B1.states)
+      annotation (Line(points={{-58,74},{-74,74},{-74,8},{-68,8}}, color={0,0,127}));
+    connect(power_set1.y, Ctrl1.Q_dot_set) annotation (Line(points={{-70,123},{-70,118},
+            {-52,118},{-52,92.8}}, color={0,0,127}));
+    connect(temp_sec_in1.y, Ctrl1.T_sec_in_is) annotation (Line(points={{-28,123},{-28,
+            118},{-40,118},{-40,93}}, color={0,0,127}));
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+          coordinateSystem(preserveAspectRatio=false), graphics={Rectangle(extent={{-92,
+                154},{-2,-20}}, lineColor={28,108,200})}));
+  end Licklederer_weiPID_01;
 end Simulations;

@@ -226,35 +226,27 @@ model heat_transfer_station
     T=313.15,
       nPorts=1)
     annotation (Placement(transformation(extent={{128,118},{108,138}})));
-  Fluid.Pipes.InsulatedPipe pipe_prim_hot(
-    allowFlowReversal=true,
-    T_amb = ambient_temperature,
-    R_ins=R_ins_transferpipe,
-    length=length_transfer_pipe_tot/2,
-    diameter=d_transferpipe,
-    zeta=zeta_transferstation/2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=313.15)                      annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-20,-138})));
-  Fluid.Pipes.InsulatedPipe pipe_prim_cold(
-    allowFlowReversal=true,
-    T_amb = ambient_temperature,
-    R_ins=R_ins_transferpipe,
-    length=length_transfer_pipe_tot/2,
-    diameter=d_transferpipe,
-    zeta=zeta_transferstation/2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=313.15)               annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={80,-136})));
 
   Fluid.Sensors.RelativePressure          pressureDifference(
   redeclare package Medium = Medium_prim)
     annotation (Placement(transformation(extent={{4,-164},{24,-144}})));
 
+  Fluid.Pipes.InsulatedPipe_plug pipe_prim_hot(
+    T_amb=ambient_temperature,
+    R_ins=R_ins_transferpipe,
+    length=length_transfer_pipe_tot/2,
+    diameter=d_transferstation/2) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-20,-138})));
+  Fluid.Pipes.InsulatedPipe_plug pipe_prim_cold(
+    T_amb=ambient_temperature,
+    R_ins=R_ins_transferpipe,
+    length=length_transfer_pipe_tot/2,
+    diameter=d_transferstation/2) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={80,-140})));
 equation
 
   connect(contr_vars_real[1], conversion.T_sec_in_set);
@@ -334,16 +326,6 @@ equation
   connect(bou.ports[1], cheVal_sec_prod.port_b)
     annotation (Line(points={{108,128},{100,128},{100,80}},
                                                          color={0,127,255}));
-  connect(hot_prim, pipe_prim_hot.port_a)
-    annotation (Line(points={{-140,-182},{-140,-154},{-20,-154},{-20,-148}},
-                                                     color={0,127,255}));
-  connect(pipe_prim_hot.port_b, T_sens_prim_hot.port_a)
-    annotation (Line(points={{-20,-128},{-20,-120}}, color={0,127,255}));
-  connect(T_sens_prim_cold.port_b, pipe_prim_cold.port_a)
-    annotation (Line(points={{80,-120},{80,-126}}, color={0,127,255}));
-  connect(pipe_prim_cold.port_b, cold_prim)
-    annotation (Line(points={{80,-146},{80,-166},{140,-166},{140,-180}},
-                                                   color={0,127,255}));
   connect(hot_prim, pressureDifference.port_a) annotation (Line(points={{-140,-182},
           {-140,-154},{4,-154}},  color={0,127,255}));
   connect(pressureDifference.port_b, cold_prim) annotation (Line(points={{24,-154},
@@ -371,6 +353,14 @@ equation
   Q_dot_is     = states[7];
   Delta_p_prim = pressureDifference.p_rel;
 
+  connect(pipe_prim_hot.port_b, T_sens_prim_hot.port_a)
+    annotation (Line(points={{-20,-128},{-20,-120}}, color={0,127,255}));
+  connect(pipe_prim_hot.port_a, hot_prim) annotation (Line(points={{-20,-148},{-20,-154},
+          {-140,-154},{-140,-182}}, color={0,127,255}));
+  connect(T_sens_prim_cold.port_b, pipe_prim_cold.port_a)
+    annotation (Line(points={{80,-120},{80,-130}}, color={0,127,255}));
+  connect(pipe_prim_cold.port_b, cold_prim) annotation (Line(points={{80,-150},{80,-166},
+          {140,-166},{140,-180}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-200,-180},{200,180}})), Icon(
         coordinateSystem(extent={{-200,-180},{200,180}}), graphics={
         Line(
