@@ -31,7 +31,7 @@ model PID_Q_T_weighted
   parameter Real V_dot_sec_max(unit="l/min", displayUnit="l/min") = 8.5
     "maximum secondary side volume flow in [l/min]"
     annotation(Dialog(group="General PID settings"));
-  parameter Real k_prim_prod = 1.5
+  parameter Real k_prim_prod = 1.0
     "Proportional gain for controller in [-]"
     annotation(Dialog(group="PID primary side - producer mode - tuning"));
   parameter Real Ti_prim_prod = 8
@@ -43,7 +43,7 @@ model PID_Q_T_weighted
   parameter Real alpha_prim_prod(min=0, max=1) = 0.25
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID primary side - producer mode - tuning"));
-  parameter Real k_sec_prod = 1.5
+  parameter Real k_sec_prod = 1.0
     "Proportional gain for controller in [-]"
     annotation(Dialog(group="PID secondary side - producer mode - tuning"));
   parameter Real Ti_sec_prod = 8
@@ -55,7 +55,7 @@ model PID_Q_T_weighted
   parameter Real alpha_sec_prod(min=0, max=1) = 0.75
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID secondary side - producer mode - tuning"));
-  parameter Real k_prim_cons = 1.0
+  parameter Real k_prim_cons = 0.75
     "Proportional gain for controller in [-]"
     annotation(Dialog(group="PID primary side - consumer mode - tuning"));
   parameter Real Ti_prim_cons = 35
@@ -67,7 +67,7 @@ model PID_Q_T_weighted
   parameter Real alpha_prim_cons(min=0, max=1) = 0.75
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID primary side - consumer mode - tuning"));
-  parameter Real k_sec_cons = 1.5
+  parameter Real k_sec_cons = 1.0
     "Proportional gain for controller in [-]"
     annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
   parameter Real Ti_sec_cons = 8
@@ -80,9 +80,9 @@ model PID_Q_T_weighted
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
   parameter .Modelica.Blocks.Types.SimpleController controllerType=
-         Modelica.Blocks.Types.SimpleController.P "Type of controller"
+         Modelica.Blocks.Types.SimpleController.PID "Type of controller"
          annotation(Dialog(tab="Advanced", group="PIDs general"));
-  parameter Init initType = Modelica.Blocks.Types.Init.SteadyState
+  parameter Init initType = Modelica.Blocks.Types.Init.NoInit
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
     annotation(Dialog(tab="Advanced", group="PIDs general"));
   parameter Real tol = 0.1
