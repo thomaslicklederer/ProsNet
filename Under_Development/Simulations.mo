@@ -868,7 +868,9 @@ SF1"),    Text(
   end Speer_IEWT2023;
 
   model Licklederer_weiPID_01
-    new_prosumer_models.heat_transfer_station B1(n=0.5) annotation (Placement(
+    new_prosumer_models.heat_transfer_station B1(n=0.5, redeclare
+        Fluid.Pumps.Data.Pumps.IMP.NMTSmart25_120to180 feedinPer)
+                                                        annotation (Placement(
           transformation(
           extent={{20,-18},{-20,18}},
           rotation=0,
@@ -876,7 +878,7 @@ SF1"),    Text(
     Controller_PID_based.PID_Q_T_weighted Ctrl1 annotation (Placement(transformation(
           extent={{-12,-17},{12,17}},
           rotation=0,
-          origin={-46,75})));
+          origin={-44,75})));
     Controller_PID_based.auxiliary.TimeTable_noInterp power_set1 annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
@@ -891,13 +893,13 @@ SF1"),    Text(
       annotation (Placement(transformation(extent={{-54,-54},{-34,-34}})));
   equation
     connect(B1.contr_vars_real, Ctrl1.contr_vars_real)
-      annotation (Line(points={{-27.8,8},{-20,8},{-20,74},{-34,74}}, color={0,0,127}));
+      annotation (Line(points={{-27.8,8},{-20,8},{-20,74},{-32,74}}, color={0,0,127}));
     connect(Ctrl1.states, B1.states)
-      annotation (Line(points={{-58,74},{-74,74},{-74,8},{-68,8}}, color={0,0,127}));
+      annotation (Line(points={{-56,74},{-74,74},{-74,8},{-68,8}}, color={0,0,127}));
     connect(power_set1.y, Ctrl1.Q_dot_set) annotation (Line(points={{-70,123},{-70,118},
-            {-52,118},{-52,92.8}}, color={0,0,127}));
+            {-50,118},{-50,92.8}}, color={0,0,127}));
     connect(temp_sec_in1.y, Ctrl1.T_sec_in_is) annotation (Line(points={{-28,123},{-28,
-            118},{-40,118},{-40,93}}, color={0,0,127}));
+            118},{-38,118},{-38,93}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false), graphics={Rectangle(extent={{-92,
                 154},{-2,-20}}, lineColor={28,108,200})}));

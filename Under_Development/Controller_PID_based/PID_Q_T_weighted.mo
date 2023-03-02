@@ -16,67 +16,67 @@ model PID_Q_T_weighted
       For alpha=0.5 a deviation of Delta_T_norm in temperature is weighted equal to a deviation of Delta_Qdot_norm in heat transfer."
       annotation(Dialog(group="Normalizing values"));
 
-  parameter SI.Temperature T_prim_hot_des(min=277)= - T_AbsZeroDegC + 65
+  parameter SI.Temperature T_prim_hot_des(min=277)= - T_AbsZeroDegC + 53.5
       "desired temperature supply primary side"
       annotation(Dialog(group="Temperature objectives"));
-  parameter SI.Temperature T_sec_hot_des(min=277)= - T_AbsZeroDegC + 60
+  parameter SI.Temperature T_sec_hot_des(min=277)= - T_AbsZeroDegC + 50
       "desired temperature supply secondary side"
       annotation(Dialog(group="Temperature objectives"));
-  parameter SI.TemperatureDifference DeltaT_prim_des(min=1) =   15
+  parameter SI.TemperatureDifference DeltaT_prim_des(min=1) =   20
       "desired temperature difference primary side"
       annotation(Dialog(group="Temperature objectives"));
-  parameter SI.TemperatureDifference DeltaT_sec_des(min=1) =   15
+  parameter SI.TemperatureDifference DeltaT_sec_des(min=1) =   27
       "desired temperature difference secondary side"
       annotation(Dialog(group="Temperature objectives"));
-  parameter Real V_dot_sec_max(unit="l/min", displayUnit="l/min") = 10
+  parameter Real V_dot_sec_max(unit="l/min", displayUnit="l/min") = 8.5
     "maximum secondary side volume flow in [l/min]"
     annotation(Dialog(group="General PID settings"));
-  parameter Real k_prim_prod = 1
+  parameter Real k_prim_prod = 1.5
     "Proportional gain for controller in [-]"
     annotation(Dialog(group="PID primary side - producer mode - tuning"));
-  parameter Real Ti_prim_prod = 0.5
+  parameter Real Ti_prim_prod = 8
     "Integral time constant for controller in [s]"
     annotation(Dialog(group="PID primary side - producer mode - tuning"));
-  parameter Real Td_prim_prod = 0.1
+  parameter Real Td_prim_prod = 0
     "Derivative time constant for controller in [s]"
     annotation(Dialog(group="PID primary side - producer mode - tuning"));
-  parameter Real alpha_prim_prod(min=0, max=1) = 0.5
+  parameter Real alpha_prim_prod(min=0, max=1) = 0.25
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID primary side - producer mode - tuning"));
-  parameter Real k_sec_prod = 1
+  parameter Real k_sec_prod = 1.5
     "Proportional gain for controller in [-]"
     annotation(Dialog(group="PID secondary side - producer mode - tuning"));
-  parameter Real Ti_sec_prod = 0.5
+  parameter Real Ti_sec_prod = 8
     "Integral time constant for controller in [s]"
     annotation(Dialog(group="PID secondary side - producer mode - tuning"));
-  parameter Real Td_sec_prod = 0.1
+  parameter Real Td_sec_prod = 0
     "Derivative time constant for controller in [s]"
     annotation(Dialog(group="PID secondary side - producer mode - tuning"));
-  parameter Real alpha_sec_prod(min=0, max=1) = 0.5
+  parameter Real alpha_sec_prod(min=0, max=1) = 0.75
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID secondary side - producer mode - tuning"));
-  parameter Real k_prim_cons = 1
+  parameter Real k_prim_cons = 1.0
     "Proportional gain for controller in [-]"
     annotation(Dialog(group="PID primary side - consumer mode - tuning"));
-  parameter Real Ti_prim_cons = 0.5
+  parameter Real Ti_prim_cons = 35
     "Integral time constant for controller in [s]"
     annotation(Dialog(group="PID primary side - consumer mode - tuning"));
-  parameter Real Td_prim_cons = 0.1
+  parameter Real Td_prim_cons = 0
     "Derivative time constant for controller in [s]"
     annotation(Dialog(group="PID primary side - consumer mode - tuning"));
-  parameter Real alpha_prim_cons(min=0, max=1) = 0.5
+  parameter Real alpha_prim_cons(min=0, max=1) = 0.75
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID primary side - consumer mode - tuning"));
-  parameter Real k_sec_cons = 1
+  parameter Real k_sec_cons = 1.5
     "Proportional gain for controller in [-]"
     annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
-  parameter Real Ti_sec_cons = 0.5
+  parameter Real Ti_sec_cons = 8
     "Integral time constant for controller in [s]"
     annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
-  parameter Real Td_sec_cons = 0.1
+  parameter Real Td_sec_cons = 0
     "Derivative time constant for controller in [s]"
     annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
-  parameter Real alpha_sec_cons(min=0, max=1) = 0.5
+  parameter Real alpha_sec_cons(min=0, max=1) = 0.25
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
   parameter .Modelica.Blocks.Types.SimpleController controllerType=
