@@ -1,0 +1,98 @@
+Log-file of program ./dymosim
+(generated: Fri Mar  3 16:32:10 2023)
+
+dymosim started
+... "ProsNet.Under_Development.Simulations.Licklederer_weiPID_01" simulating
+... "dsin.txt" loading (dymosim input file)
+
+Warning:
+========
+It is recommended that the volume flow rate versus pressure relation
+of the fan or pump satisfies the minimum decrease condition
+
+        (per.pressure.dp[i+1]-per.pressure.dp[i])
+d[i] = ------------------------------------------------- < -9506.17
+       (per.pressure.V_flow[i+1]-per.pressure.V_flow[i])
+
+ is
+  d[1]=1.41216e+07
+  d[2]=-3.53039e+07
+  d[3]=-4.94255e+07
+  d[4]=-4.05995e+07
+  d[5]=-4.05995e+07
+  d[6]=-3.17735e+07
+  d[7]=-8.25287e+07
+
+Otherwise, a solution to the equations may not exist if the fan or pump speed is reduced.
+In this situation, the solver will fail due to non-convergence and
+the simulation stops.
+
+Warning:
+========
+It is recommended that the volume flow rate versus pressure relation
+of the fan or pump satisfies the minimum decrease condition
+
+        (per.pressure.dp[i+1]-per.pressure.dp[i])
+d[i] = ------------------------------------------------- < -9506.17
+       (per.pressure.V_flow[i+1]-per.pressure.V_flow[i])
+
+ is
+  d[1]=1.41216e+07
+  d[2]=-3.53039e+07
+  d[3]=-4.94255e+07
+  d[4]=-4.05995e+07
+  d[5]=-4.05995e+07
+  d[6]=-3.17735e+07
+  d[7]=-8.25287e+07
+
+Otherwise, a solution to the equations may not exist if the fan or pump speed is reduced.
+In this situation, the solver will fail due to non-convergence and
+the simulation stops.
+
+Warning:
+========
+It is recommended that the volume flow rate versus pressure relation
+of the fan or pump satisfies the minimum decrease condition
+
+        (per.pressure.dp[i+1]-per.pressure.dp[i])
+d[i] = ------------------------------------------------- < -9506.17
+       (per.pressure.V_flow[i+1]-per.pressure.V_flow[i])
+
+ is
+  d[1]=1.41216e+07
+  d[2]=-3.53039e+07
+  d[3]=-4.94255e+07
+  d[4]=-4.05995e+07
+  d[5]=-4.05995e+07
+  d[6]=-3.17735e+07
+  d[7]=-8.25287e+07
+
+Otherwise, a solution to the equations may not exist if the fan or pump speed is reduced.
+In this situation, the solver will fail due to non-convergence and
+the simulation stops.
+... "Licklederer_weiPID_01.mat" creating (simulation result file)
+
+Integration started at T = 0 using integration method DASSL
+(DAE multi-step solver (dassl/dasslrt of Petzold modified by Dassault Systemes))
+
+Integration terminated successfully at T = 18000
+   CPU-time for integration                : 4.59 seconds
+   CPU-time for one grid interval          : 0.255 milliseconds
+   CPU-time for initialization             : 0.01 seconds
+   Number of result points                 : 18170
+   Number of grid points                   : 18001
+   Number of accepted steps                : 1882
+   Number of f-evaluations (dynamics)      : 3565
+   Number of crossing function evaluations : 20615
+   Number of Jacobian-evaluations          : 785
+   Number of model time events             : 6
+   Number of input time events             : 0
+   Number of state events                  : 81
+   Number of step events                   : 0
+   Minimum integration stepsize            : 3.04e-05
+   Maximum integration stepsize            : 312
+   Maximum integration order               : 5
+Calling terminal section
+... "dsfinal.txt" creating (final states)
+
+SUCCESSFUL simulation of ProsNet.Under_Development.Simulations.Licklederer_weiPID_01

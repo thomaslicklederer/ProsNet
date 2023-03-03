@@ -40,7 +40,7 @@ model PID_Q_T_weighted
   parameter Real Td_prim_prod = 0
     "Derivative time constant for controller in [s]"
     annotation(Dialog(group="PID primary side - producer mode - tuning"));
-  parameter Real alpha_prim_prod(min=0, max=1) = 0.25
+  parameter Real alpha_prim_prod(min=0, max=1) = 0.5
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID primary side - producer mode - tuning"));
   parameter Real k_sec_prod = 1.0
