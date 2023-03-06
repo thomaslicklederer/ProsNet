@@ -876,12 +876,13 @@ SF1"),    Text(
           rotation=0,
           origin={-48,8})));
     Controller_PID_based.PID_Q_T_weighted Ctrl1(
-      Delta_T_norm=3,
-      alpha_prim_prod=0.4,
-      alpha_sec_prod=0.7)                       annotation (Placement(transformation(
+      alpha_prim_prod=0,
+      alpha_sec_prod=1,
+      alpha_prim_cons=0,
+      alpha_sec_cons=1)                         annotation (Placement(transformation(
           extent={{-12,-17},{12,17}},
           rotation=0,
-          origin={-44,73})));
+          origin={-44,75})));
     Controller_PID_based.auxiliary.TimeTable_noInterp power_set1(table=[0,10; 900,10;
           1800,10; 3600,10; 7200,-10; 10800,-4; 14400,4; 18000,4])
                                                                  annotation (Placement(
@@ -906,9 +907,10 @@ SF1"),    Text(
           rotation=0,
           origin={50,8})));
     Controller_PID_based.PID_Q_T_weighted Ctrl2(
-      Delta_T_norm=3,
-      alpha_prim_prod=0.4,
-      alpha_sec_prod=0.7)                       annotation (Placement(transformation(
+      alpha_prim_prod=0,
+      alpha_sec_prod=1,
+      alpha_prim_cons=0,
+      alpha_sec_cons=1)                         annotation (Placement(transformation(
           extent={{-12,-17},{12,17}},
           rotation=0,
           origin={52,73})));
@@ -934,9 +936,10 @@ SF1"),    Text(
           rotation=0,
           origin={148,8})));
     Controller_PID_based.PID_Q_T_weighted Ctrl3(
-      Delta_T_norm=3,
-      alpha_prim_prod=0.4,
-      alpha_sec_prod=0.7)                       annotation (Placement(transformation(
+      alpha_prim_prod=0,
+      alpha_sec_prod=1,
+      alpha_prim_cons=0,
+      alpha_sec_cons=1)                         annotation (Placement(transformation(
           extent={{-12,-17},{12,17}},
           rotation=0,
           origin={148,71})));
@@ -993,13 +996,17 @@ SF1"),    Text(
           extent={{-5,-5},{5,5}},
           rotation=-90,
           origin={155,103})));
+
+    Real Losses;
+
+
   equation
     connect(B1.contr_vars_real, Ctrl1.contr_vars_real)
-      annotation (Line(points={{-27.8,8},{-20,8},{-20,72},{-32,72}}, color={0,0,127}));
+      annotation (Line(points={{-27.8,8},{-20,8},{-20,74},{-32,74}}, color={0,0,127}));
     connect(Ctrl1.states, B1.states)
-      annotation (Line(points={{-56,72},{-74,72},{-74,8},{-68,8}}, color={0,0,127}));
+      annotation (Line(points={{-56,74},{-74,74},{-74,8},{-68,8}}, color={0,0,127}));
     connect(power_set1.y, Ctrl1.Q_dot_set) annotation (Line(points={{-70,123},{-70,118},
-            {-50,118},{-50,90.8}}, color={0,0,127}));
+            {-50,118},{-50,92.8}}, color={0,0,127}));
     connect(B2.contr_vars_real,Ctrl2. contr_vars_real)
       annotation (Line(points={{70.2,8},{78,8},{78,72},{64,72}},     color={0,0,127}));
     connect(Ctrl2.states,B2. states)
@@ -1031,7 +1038,7 @@ SF1"),    Text(
     connect(pipe_hot12.port_a, boundary.ports[1])
       annotation (Line(points={{-8,-45},{-72,-45}}, color={0,127,255}));
     connect(add.y, Ctrl1.T_sec_in_is)
-      annotation (Line(points={{-31,97.5},{-31,91},{-38,91}}, color={0,0,127}));
+      annotation (Line(points={{-31,97.5},{-31,93},{-38,93}}, color={0,0,127}));
     connect(temp_sec_in1.y, add.u2) annotation (Line(points={{-28,123},{-28,114},{-34,
             114},{-34,109}}, color={0,0,127}));
     connect(add.u1, realExpression.y) annotation (Line(points={{-28,109},{-12,109},{-12,
@@ -1048,6 +1055,8 @@ SF1"),    Text(
             166,94},{166,89},{154,89}}, color={0,0,127}));
     connect(realExpression2.y, add2.u1) annotation (Line(points={{178,111.5},{178,106},
             {164,106},{164,109},{158,109}}, color={0,0,127}));
+        Losses = Ctrl1.Q_dot_is + Ctrl2.Q_dot_is + Ctrl3.Q_dot_is;
+
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{
               200,160}})),                                         Diagram(
           coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{200,160}}),

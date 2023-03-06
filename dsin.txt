@@ -102,7 +102,7 @@ int settings(13,1)
 
 
 #    Names of initial variables
-char initialName(9296,72)
+char initialName(9297,72)
 system.p_ambient
 system.T_ambient
 system.g
@@ -8149,6 +8149,7 @@ realExpression2.y
 add2.u1
 add2.k1
 add2.k2
+Losses
 B1.pump_sec_cons.vol.dynBal.energyDynamics
 B1.pump_sec_cons.vol.dynBal.massDynamics
 B1.pump_sec_cons.vol.dynBal.substanceDynamics
@@ -9400,7 +9401,7 @@ pipe_cold12.plugFlowPipe.vol.dynBal.hStart
 pipe_cold12.plugFlowPipe.vol.dynBal._simplify_mWat_flow
 pipe_cold12.plugFlowPipe.vol.dynBal.mWat_flow_internal
 
-double initialValue(9296,6)
+double initialValue(9297,6)
  -1  1.0132500000000000E+05       0                 1.0000000000000000E+100
   1   280   # system.p_ambient
  -1  2.8514999999999998E+02       0                 1.0000000000000000E+100
@@ -13497,37 +13498,37 @@ double initialValue(9296,6)
   1   280   # Ctrl1.DeltaT_sec_des
  -1  8.5000000000000000E+00       0                       0                
   1   280   # Ctrl1.V_dot_sec_max
- -1       1                       0                       0                
+ -1  1.5000000000000000E+00       0                       0                
   1   280   # Ctrl1.k_prim_prod
  -1       8                       0                       0                
   1   280   # Ctrl1.Ti_prim_prod
  -1       0                       0                       0                
   1   280   # Ctrl1.Td_prim_prod
- -1  4.0000000000000002E-01       0                       1                
+ -1       0                       0                       1                
   1   280   # Ctrl1.alpha_prim_prod
- -1       1                       0                       0                
+ -1  1.5000000000000000E+00       0                       0                
   1   280   # Ctrl1.k_sec_prod
  -1       8                       0                       0                
   1   280   # Ctrl1.Ti_sec_prod
  -1       0                       0                       0                
   1   280   # Ctrl1.Td_sec_prod
- -1  6.9999999999999996E-01       0                       1                
+ -1       1                       0                       1                
   1   280   # Ctrl1.alpha_sec_prod
- -1  7.5000000000000000E-01       0                       0                
+ -1       1                       0                       0                
   1   280   # Ctrl1.k_prim_cons
  -1      35                       0                       0                
   1   280   # Ctrl1.Ti_prim_cons
  -1       0                       0                       0                
   1   280   # Ctrl1.Td_prim_cons
- -1  7.5000000000000000E-01       0                       1                
+ -1       0                       0                       1                
   1   280   # Ctrl1.alpha_prim_cons
- -1       1                       0                       0                
+ -1  1.5000000000000000E+00       0                       0                
   1   280   # Ctrl1.k_sec_cons
  -1       8                       0                       0                
   1   280   # Ctrl1.Ti_sec_cons
  -1       0                       0                       0                
   1   280   # Ctrl1.Td_sec_cons
- -1  2.5000000000000000E-01       0                       1                
+ -1       1                       0                       1                
   1   280   # Ctrl1.alpha_sec_cons
   0       4                       1                       4                
   6   258   # Ctrl1.controllerType
@@ -13683,7 +13684,7 @@ double initialValue(9296,6)
   6   256   # Ctrl1.PID_sec_cons.Td
   0       1                       0                       0                
   6   256   # Ctrl1.PID_sec_cons.yMax
- -1       1                       0                       0                
+ -1       0                       0                       0                
   1   280   # Ctrl1.PID_sec_cons.yMin
  -1       1                       0                 1.0000000000000000E+100
   1   280   # Ctrl1.PID_sec_cons.wp
@@ -13769,7 +13770,7 @@ double initialValue(9296,6)
   6   256   # Ctrl1.PID_prim_prod.Td
  -1       1                       0                       0                
   1   280   # Ctrl1.PID_prim_prod.yMax
- -1  1.0000000000000001E-01       0                       0                
+ -1       0                       0                       0                
   1   280   # Ctrl1.PID_prim_prod.yMin
  -1       1                       0                 1.0000000000000000E+100
   1   280   # Ctrl1.PID_prim_prod.wp
@@ -13855,7 +13856,7 @@ double initialValue(9296,6)
   6   256   # Ctrl1.PID_sec_prod.Td
   0       1                       0                       0                
   6   256   # Ctrl1.PID_sec_prod.yMax
- -1       1                       0                       0                
+ -1       0                       0                       0                
   1   280   # Ctrl1.PID_sec_prod.yMin
  -1       1                       0                 1.0000000000000000E+100
   1   280   # Ctrl1.PID_sec_prod.wp
@@ -18649,37 +18650,37 @@ double initialValue(9296,6)
   1   280   # Ctrl2.DeltaT_sec_des
  -1  8.5000000000000000E+00       0                       0                
   1   280   # Ctrl2.V_dot_sec_max
- -1       1                       0                       0                
+ -1  1.5000000000000000E+00       0                       0                
   1   280   # Ctrl2.k_prim_prod
  -1       8                       0                       0                
   1   280   # Ctrl2.Ti_prim_prod
  -1       0                       0                       0                
   1   280   # Ctrl2.Td_prim_prod
- -1  4.0000000000000002E-01       0                       1                
+ -1       0                       0                       1                
   1   280   # Ctrl2.alpha_prim_prod
- -1       1                       0                       0                
+ -1  1.5000000000000000E+00       0                       0                
   1   280   # Ctrl2.k_sec_prod
  -1       8                       0                       0                
   1   280   # Ctrl2.Ti_sec_prod
  -1       0                       0                       0                
   1   280   # Ctrl2.Td_sec_prod
- -1  6.9999999999999996E-01       0                       1                
+ -1       1                       0                       1                
   1   280   # Ctrl2.alpha_sec_prod
- -1  7.5000000000000000E-01       0                       0                
+ -1       1                       0                       0                
   1   280   # Ctrl2.k_prim_cons
  -1      35                       0                       0                
   1   280   # Ctrl2.Ti_prim_cons
  -1       0                       0                       0                
   1   280   # Ctrl2.Td_prim_cons
- -1  7.5000000000000000E-01       0                       1                
+ -1       0                       0                       1                
   1   280   # Ctrl2.alpha_prim_cons
- -1       1                       0                       0                
+ -1  1.5000000000000000E+00       0                       0                
   1   280   # Ctrl2.k_sec_cons
  -1       8                       0                       0                
   1   280   # Ctrl2.Ti_sec_cons
  -1       0                       0                       0                
   1   280   # Ctrl2.Td_sec_cons
- -1  2.5000000000000000E-01       0                       1                
+ -1       1                       0                       1                
   1   280   # Ctrl2.alpha_sec_cons
   0       4                       1                       4                
   6   258   # Ctrl2.controllerType
@@ -18835,7 +18836,7 @@ double initialValue(9296,6)
   6   256   # Ctrl2.PID_sec_cons.Td
   0       1                       0                       0                
   6   256   # Ctrl2.PID_sec_cons.yMax
- -1       1                       0                       0                
+ -1       0                       0                       0                
   1   280   # Ctrl2.PID_sec_cons.yMin
  -1       1                       0                 1.0000000000000000E+100
   1   280   # Ctrl2.PID_sec_cons.wp
@@ -18921,7 +18922,7 @@ double initialValue(9296,6)
   6   256   # Ctrl2.PID_prim_prod.Td
  -1       1                       0                       0                
   1   280   # Ctrl2.PID_prim_prod.yMax
- -1  1.0000000000000001E-01       0                       0                
+ -1       0                       0                       0                
   1   280   # Ctrl2.PID_prim_prod.yMin
  -1       1                       0                 1.0000000000000000E+100
   1   280   # Ctrl2.PID_prim_prod.wp
@@ -19007,7 +19008,7 @@ double initialValue(9296,6)
   6   256   # Ctrl2.PID_sec_prod.Td
   0       1                       0                       0                
   6   256   # Ctrl2.PID_sec_prod.yMax
- -1       1                       0                       0                
+ -1       0                       0                       0                
   1   280   # Ctrl2.PID_sec_prod.yMin
  -1       1                       0                 1.0000000000000000E+100
   1   280   # Ctrl2.PID_sec_prod.wp
@@ -23245,37 +23246,37 @@ double initialValue(9296,6)
   1   280   # Ctrl3.DeltaT_sec_des
  -1  8.5000000000000000E+00       0                       0                
   1   280   # Ctrl3.V_dot_sec_max
- -1       1                       0                       0                
+ -1  1.5000000000000000E+00       0                       0                
   1   280   # Ctrl3.k_prim_prod
  -1       8                       0                       0                
   1   280   # Ctrl3.Ti_prim_prod
  -1       0                       0                       0                
   1   280   # Ctrl3.Td_prim_prod
- -1  4.0000000000000002E-01       0                       1                
+ -1       0                       0                       1                
   1   280   # Ctrl3.alpha_prim_prod
- -1       1                       0                       0                
+ -1  1.5000000000000000E+00       0                       0                
   1   280   # Ctrl3.k_sec_prod
  -1       8                       0                       0                
   1   280   # Ctrl3.Ti_sec_prod
  -1       0                       0                       0                
   1   280   # Ctrl3.Td_sec_prod
- -1  6.9999999999999996E-01       0                       1                
+ -1       1                       0                       1                
   1   280   # Ctrl3.alpha_sec_prod
- -1  7.5000000000000000E-01       0                       0                
+ -1       1                       0                       0                
   1   280   # Ctrl3.k_prim_cons
  -1      35                       0                       0                
   1   280   # Ctrl3.Ti_prim_cons
  -1       0                       0                       0                
   1   280   # Ctrl3.Td_prim_cons
- -1  7.5000000000000000E-01       0                       1                
+ -1       0                       0                       1                
   1   280   # Ctrl3.alpha_prim_cons
- -1       1                       0                       0                
+ -1  1.5000000000000000E+00       0                       0                
   1   280   # Ctrl3.k_sec_cons
  -1       8                       0                       0                
   1   280   # Ctrl3.Ti_sec_cons
  -1       0                       0                       0                
   1   280   # Ctrl3.Td_sec_cons
- -1  2.5000000000000000E-01       0                       1                
+ -1       1                       0                       1                
   1   280   # Ctrl3.alpha_sec_cons
   0       4                       1                       4                
   6   258   # Ctrl3.controllerType
@@ -23431,7 +23432,7 @@ double initialValue(9296,6)
   6   256   # Ctrl3.PID_sec_cons.Td
   0       1                       0                       0                
   6   256   # Ctrl3.PID_sec_cons.yMax
- -1       1                       0                       0                
+ -1       0                       0                       0                
   1   280   # Ctrl3.PID_sec_cons.yMin
  -1       1                       0                 1.0000000000000000E+100
   1   280   # Ctrl3.PID_sec_cons.wp
@@ -23517,7 +23518,7 @@ double initialValue(9296,6)
   6   256   # Ctrl3.PID_prim_prod.Td
  -1       1                       0                       0                
   1   280   # Ctrl3.PID_prim_prod.yMax
- -1  1.0000000000000001E-01       0                       0                
+ -1       0                       0                       0                
   1   280   # Ctrl3.PID_prim_prod.yMin
  -1       1                       0                 1.0000000000000000E+100
   1   280   # Ctrl3.PID_prim_prod.wp
@@ -23603,7 +23604,7 @@ double initialValue(9296,6)
   6   256   # Ctrl3.PID_sec_prod.Td
   0       1                       0                       0                
   6   256   # Ctrl3.PID_sec_prod.yMax
- -1       1                       0                       0                
+ -1       0                       0                       0                
   1   280   # Ctrl3.PID_sec_prod.yMin
  -1       1                       0                 1.0000000000000000E+100
   1   280   # Ctrl3.PID_sec_prod.wp
@@ -25493,6 +25494,8 @@ double initialValue(9296,6)
   1   280   # add2.k1
  -1       1                       0                       0                
   1   280   # add2.k2
+  0       0                       0                       0                
+  6   256   # Losses
   0       1                       1                       4                
   6  1282   # B1.pump_sec_cons.vol.dynBal.energyDynamics
   0       1                       1                       4                
@@ -28043,7 +28046,7 @@ double initialValue(9296,6)
 #   nominal value (and maybe minimum and maximum values given in 
 #   column 3 and 4). If these values are zero, scale(i)=1 is used).
 #
-char initialDescription(9296,217)
+char initialDescription(9297,217)
 Default ambient pressure [Pa|bar]
 Default ambient temperature [K|degC]
 Constant gravity acceleration [m/s2]
@@ -36090,6 +36093,7 @@ Value of Real output
 Connector of Real input signal 1
 Gain of input signal 1
 Gain of input signal 2
+
 Type of energy balance: dynamic (3 initialization options) or steady state [:#(type=Modelica.Fluid.Types.Dynamics)]
 Type of mass balance: dynamic (3 initialization options) or steady state [:#(type=Modelica.Fluid.Types.Dynamics)]
 Type of independent mass fraction balance: dynamic (3 initialization options) or steady state [:#(type=Modelica.Fluid.Types.Dynamics)]

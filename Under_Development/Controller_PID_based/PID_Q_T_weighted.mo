@@ -31,7 +31,7 @@ model PID_Q_T_weighted
   parameter Real V_dot_sec_max(unit="l/min", displayUnit="l/min") = 8.5
     "maximum secondary side volume flow in [l/min]"
     annotation(Dialog(group="General PID settings"));
-  parameter Real k_prim_prod = 1.0
+  parameter Real k_prim_prod = 1.5
     "Proportional gain for controller in [-]"
     annotation(Dialog(group="PID primary side - producer mode - tuning"));
   parameter Real Ti_prim_prod = 8
@@ -43,7 +43,7 @@ model PID_Q_T_weighted
   parameter Real alpha_prim_prod(min=0, max=1) = 0.5
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID primary side - producer mode - tuning"));
-  parameter Real k_sec_prod = 1.0
+  parameter Real k_sec_prod = 1.5
     "Proportional gain for controller in [-]"
     annotation(Dialog(group="PID secondary side - producer mode - tuning"));
   parameter Real Ti_sec_prod = 8
@@ -55,7 +55,7 @@ model PID_Q_T_weighted
   parameter Real alpha_sec_prod(min=0, max=1) = 0.75
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID secondary side - producer mode - tuning"));
-  parameter Real k_prim_cons = 0.75
+  parameter Real k_prim_cons = 1.0
     "Proportional gain for controller in [-]"
     annotation(Dialog(group="PID primary side - consumer mode - tuning"));
   parameter Real Ti_prim_cons = 35
@@ -67,7 +67,7 @@ model PID_Q_T_weighted
   parameter Real alpha_prim_cons(min=0, max=1) = 0.75
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID primary side - consumer mode - tuning"));
-  parameter Real k_sec_cons = 1.0
+  parameter Real k_sec_cons = 1.5
     "Proportional gain for controller in [-]"
     annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
   parameter Real Ti_sec_cons = 8
@@ -253,7 +253,7 @@ model PID_Q_T_weighted
     Ti=Ti_prim_cons,
     Td=Td_prim_cons,
     yMax=1,
-    yMin=0,
+    yMin=0.1,
     initType=initType,
     y_start=PID_prim_cons.yMax)
     annotation (Placement(transformation(extent={{-30,-32},{-10,-12}})));
