@@ -26,7 +26,7 @@ partial class PrimarySideParameters
   parameter Real r_nominal(min=0, max=1) = (m_flow_nominal_1/m_flow_nominal_2)^n
    "Ratio between primary side and secondary side convective heat transfer coefficient" annotation (
     Dialog(tab = "Advanced", group = "Heat transfer in heat exchanger"));
-  parameter Real n(min=0, max=1) = 0.6 "Exponent coefficient" annotation (
+  parameter Real n(min=0, max=1) = 0.5 "Exponent coefficient" annotation (
     Dialog(tab = "Advanced", group = "Heat transfer in heat exchanger"));
 
   // Feed-in pump parameters
@@ -34,14 +34,14 @@ partial class PrimarySideParameters
    constrainedby ProsNet.Fluid.Pumps.Data.Generic "Record with performance data"
     annotation (Dialog(group="Feed-in pump"),choicesAllMatching=true);
   // Feed-in pump dynamic options
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics_feedPump = Modelica.Fluid.Types.Dynamics.SteadyState
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics_feedPump = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
    "Energy dynamics" annotation(Dialog(tab="Dynamics", group="Feed-in pump"));
-  parameter Modelica.Units.SI.Time tau_feedPump=1
+  parameter Modelica.Units.SI.Time tau_feedPump=3
     "Time constant for energy content inside the pump"
     annotation (Dialog(tab="Dynamics", group="Feed-in pump"));
-  parameter Boolean use_inputFilter_feedPump = false "Activate start-up and shut-down transients"
+  parameter Boolean use_inputFilter_feedPump = true "Activate start-up and shut-down transients"
    annotation(Dialog(tab="Dynamics", group="Feed-in pump"));
-  parameter Modelica.Units.SI.Time riseTime_feedPump(min=0) = 5
+  parameter Modelica.Units.SI.Time riseTime_feedPump(min=0) = 8
     "Rise time for the transients"
     annotation (Dialog(tab="Dynamics", group="Feed-in pump"));
   parameter Modelica.Blocks.Types.Init init_feedPump=Modelica.Blocks.Types.Init.InitialOutput "Type of initialization"
@@ -55,7 +55,7 @@ partial class PrimarySideParameters
   parameter Real l_conVal=2e-3 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
    annotation(Dialog(group="Control valve"));
   // Dynamics of the valve
-  parameter Boolean use_inputFilter_conVal = false "Transient behavior for moving the valve’s stem"
+  parameter Boolean use_inputFilter_conVal = true "Transient behavior for moving the valve’s stem"
    annotation(Dialog(tab="Dynamics", group="Control valve"));
   parameter Modelica.Units.SI.Time riseTime_conVal(min=0) = 35 "Rise time"
     annotation (Dialog(tab="Dynamics", group="Control valve"));
@@ -65,7 +65,7 @@ partial class PrimarySideParameters
     annotation(Dialog(tab="Dynamics", group="Control valve"));
 
   // Check valve parameres
-  parameter Real Kv_cheVal=6 "Kv (metric) flow coefficient [m3h/bar^(1/2)]"
+  parameter Real Kv_cheVal=11 "Kv (metric) flow coefficient [m3h/bar^(1/2)]"
    annotation(Dialog(group="Check valve"));
   parameter Real l_cheVal=0.001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
    annotation(Dialog(group="Check valve"));

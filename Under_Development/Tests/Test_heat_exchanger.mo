@@ -51,6 +51,9 @@ model Test_heat_exchanger
     annotation (Placement(transformation(extent={{-14,20},{6,40}})));
   Fluid.Sensors.Temperature senTem1(redeclare package Medium = Medium2)
     annotation (Placement(transformation(extent={{-44,-70},{-24,-50}})));
+
+  Real DeltaT1;
+  Real DeltaT2;
 equation
   connect(ramp.y, boundary2.m_flow_in) annotation (Line(points={{55,66},{78,66},
           {78,18},{72,18}}, color={0,0,127}));
@@ -67,6 +70,11 @@ equation
   connect(senTem1.port, liquidToLiquid.port_a2) annotation (Line(points={{-34,
           -70},{-34,-74},{0,-74},{0,-18},{2,-18},{2,-14},{-4,-14}}, color={0,
           127,255}));
+
+  DeltaT1 = senTem.T - liquidToLiquid.T_in1;
+  DeltaT2 = senTem1.T - liquidToLiquid.T_in2;
+
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
