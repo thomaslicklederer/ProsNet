@@ -21202,7 +21202,7 @@ DeclareParameter("Controller_1.Ti_sec_cons", "Integral time constant for control
 DeclareParameter("Controller_1.Td_sec_cons", "Derivative time constant for controller in [s] []",\
  480, 0, 0.0,0.0,0.0,0,560)
 DeclareParameter("Controller_1.alpha_sec_cons", "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)",\
- 481, 0.3, 0.0,1.0,0.0,0,560)
+ 481, 0.4, 0.0,1.0,0.0,0,560)
 DeclareVariable("Controller_1.controllerType", "Type of controller [:#(type=Modelica.Blocks.Types.SimpleController)]",\
  2, 1.0,4.0,0.0,0,517)
 DeclareVariable("Controller_1.initType", "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output) [:#(type=Modelica.Blocks.Types.Init)]",\
