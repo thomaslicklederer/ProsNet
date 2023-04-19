@@ -145,11 +145,19 @@ model PID_Q_T_weighted
   Real error_Q_abs
       "temperature error of primary side controller";
 
+  Real error_T_high_prio_abs
+      "error of higher prioritized temperature objective";
+
+  Real error_T_low_prio_abs
+      "error of lower prioritized temperature objective";
+
   Real Delta_T_prim
       "weighted overall error of primary side controller";
 
   Real Delta_T_sec
       "weighted overall error of primary side controller";
+
+
 
    Real Delta_p_prim(unit="Pa", displayUnit="bar") annotation (
       Placement(transformation(
@@ -253,7 +261,7 @@ model PID_Q_T_weighted
     Ti=Ti_prim_cons,
     Td=Td_prim_cons,
     yMax=1,
-    yMin=0.1,
+    yMin=0.25,
     initType=initType,
     y_start=PID_prim_cons.yMax)
     annotation (Placement(transformation(extent={{-30,-32},{-10,-12}})));
@@ -263,7 +271,7 @@ model PID_Q_T_weighted
     Ti=Ti_sec_cons,
     Td=Td_sec_cons,
     yMax=V_dot_sec_max,
-    yMin=1,
+    yMin=2,
     initType=initType,
     y_start=PID_sec_cons.yMax)
     annotation (Placement(transformation(extent={{-34,28},{-14,48}})));
@@ -273,7 +281,7 @@ model PID_Q_T_weighted
     Ti=Ti_prim_prod,
     Td=Td_prim_prod,
     yMax=1,
-    yMin=0.1,
+    yMin=0.25,
     initType=initType,
     y_start=PID_prim_prod.yMax) annotation (Placement(transformation(extent={{12,-30},
             {32,-10}})));
@@ -283,7 +291,7 @@ model PID_Q_T_weighted
     Ti=Ti_sec_prod,
     Td=Td_sec_prod,
     yMax=V_dot_sec_max,
-    yMin=1,
+    yMin=2,
     initType=initType,
     y_start=PID_sec_prod.yMax) annotation (Placement(transformation(extent={{10,28},
             {30,48}})));
@@ -358,6 +366,9 @@ equation
     error_T_prim_abs               = DeltaT_prim_des - Delta_T_prim;
     error_T_sec_abs                = T_sec_hot_des - T_sec_hot;
 
+    error_T_high_prio_abs          = T_sec_hot_des - T_sec_hot;
+    error_T_low_prio_abs           = DeltaT_prim_des - Delta_T_prim;
+
   elseif Q_dot_set >= 0+tol then // production mode
     prosumer_mode = +1;
     pi_set = 1;
@@ -382,6 +393,9 @@ equation
     error_T_prim_abs               = T_prim_hot_des - T_prim_hot;
     error_T_sec_abs                = DeltaT_sec_des - Delta_T_sec;
 
+    error_T_high_prio_abs          = T_prim_hot_des - T_prim_hot;
+    error_T_low_prio_abs           = DeltaT_sec_des - Delta_T_sec;
+
   else // idle mode
     prosumer_mode = 0;
     pi_set = 0;
@@ -405,6 +419,9 @@ equation
 
     error_T_prim_abs               = 0;
     error_T_sec_abs                = 0;
+
+    error_T_high_prio_abs          = 0;
+    error_T_low_prio_abs           = 0;
 
   end if;
 
