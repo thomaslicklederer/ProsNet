@@ -1,5 +1,5 @@
 model dsmodelIterationSelect
-  extends ProsNet.Fabian.CoSES_5_Prosumers_new_SCENARIOS;
+  extends ProsNet.Fabian.CoSES_5_Prosumers_new_SCENARIOS_notweakingerror;
   annotation(__Dymola_SimulationIterationVariables={"PROSUMER2.cheVal_prim_prod.dp",
    "PROSUMER2.cheVal_prim_cons.dp", "PROSUMER2.pipe_prim_hot.orifice1.dp_fg", 
   "PROSUMER2.pipe_prim_hot.pipe.port_a.p", "PROSUMER2.pipe_prim_hot.pipe.statesFM[2].p",
