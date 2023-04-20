@@ -342,12 +342,12 @@ equation
     T_sec_relev_des = DeltaT_prim_des;
     T_sec_relev_is = T_prim_hot-T_prim_cold;
 
-    PIDin_prim_cons_is_weighted    = alpha_prim_cons*(-1)*Q_dot_is/Delta_Qdot_norm + beta_prim_cons*(-1)*T_prim_relev_is/Delta_T_norm;
-    PIDin_prim_cons_des_weighted   = alpha_prim_cons*(-1)*Q_dot_set/Delta_Qdot_norm + beta_prim_cons*(-1)*T_prim_relev_des/Delta_T_norm;
+    PIDin_prim_cons_is_weighted    = alpha_prim_cons*(-1)*Q_dot_is/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_is/Delta_T_norm;
+    PIDin_prim_cons_des_weighted   = alpha_prim_cons*(-1)*Q_dot_set/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_des/Delta_T_norm;
     PIDin_prim_prod_is_weighted    = 0;
     PIDin_prim_prod_des_weighted   = 0;
-    PIDin_sec_cons_is_weighted     = alpha_sec_cons*(-1)*Q_dot_is/Delta_Qdot_norm + beta_sec_cons*(-1)*T_sec_relev_is/Delta_T_norm;
-    PIDin_sec_cons_des_weighted    = alpha_sec_cons*(-1)*Q_dot_set/Delta_Qdot_norm + beta_sec_cons*(-1)*T_sec_relev_des/Delta_T_norm;
+    PIDin_sec_cons_is_weighted     = alpha_sec_cons*(-1)*Q_dot_is/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_is/Delta_T_norm;
+    PIDin_sec_cons_des_weighted    = alpha_sec_cons*(-1)*Q_dot_set/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_des/Delta_T_norm;
     PIDin_sec_prod_is_weighted     = 0;
     PIDin_sec_prod_des_weighted    = 0;
 
@@ -371,12 +371,12 @@ equation
 
     PIDin_prim_cons_is_weighted    = 0;
     PIDin_prim_cons_des_weighted   = 0;
-    PIDin_prim_prod_is_weighted    = alpha_prim_prod*Q_dot_is/Delta_Qdot_norm + beta_prim_prod*(-1)*T_prim_relev_is/Delta_T_norm;
-    PIDin_prim_prod_des_weighted   = alpha_prim_prod*Q_dot_set/Delta_Qdot_norm + beta_prim_prod*(-1)*T_prim_relev_des/Delta_T_norm;
+    PIDin_prim_prod_is_weighted    = alpha_prim_prod*Q_dot_is/Delta_Qdot_norm + beta_prim_prod*T_prim_relev_is/Delta_T_norm;
+    PIDin_prim_prod_des_weighted   = alpha_prim_prod*Q_dot_set/Delta_Qdot_norm + beta_prim_prod*T_prim_relev_des/Delta_T_norm;
     PIDin_sec_cons_is_weighted     = 0;
     PIDin_sec_cons_des_weighted    = 0;
-    PIDin_sec_prod_is_weighted     = alpha_sec_prod*Q_dot_is/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_is/Delta_T_norm;
-    PIDin_sec_prod_des_weighted    = alpha_sec_prod*Q_dot_set/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_des/Delta_T_norm;
+    PIDin_sec_prod_is_weighted     = alpha_sec_prod*Q_dot_is/Delta_Qdot_norm + beta_sec_prod*T_sec_relev_is/Delta_T_norm;
+    PIDin_sec_prod_des_weighted    = alpha_sec_prod*Q_dot_set/Delta_Qdot_norm + beta_sec_prod*T_sec_relev_des/Delta_T_norm;
 
     error_prim_weighted            = PIDin_prim_prod_des_weighted - PIDin_prim_prod_is_weighted;
     error_sec_weighted             = PIDin_sec_prod_des_weighted - PIDin_sec_prod_is_weighted;
