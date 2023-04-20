@@ -320,10 +320,10 @@ equation
   Delta_T_prim      = T_prim_hot -T_prim_cold;
   Delta_T_sec       = T_sec_hot  -T_sec_cold;
 
-  alpha_prim_prod = 1;
-  alpha_sec_prod  = 0;
-  alpha_prim_cons = 0;
-  alpha_sec_cons  = 1;
+  alpha_prim_prod = 1;  // !!!Difference to weighted PID!!!
+  alpha_sec_prod  = 0;  // !!!Difference to weighted PID!!!
+  alpha_prim_cons = 0;  // !!!Difference to weighted PID!!!
+  alpha_sec_cons  = 1;  // !!!Difference to weighted PID!!!
 
   beta_prim_prod = 1 - alpha_prim_prod;
   beta_sec_prod  = 1 - alpha_sec_prod;
@@ -333,20 +333,16 @@ equation
   // determine easy static values that just depend on prosumer mode
   // determine inputs for the four PIDs
   // four PIDs in order to be able to have different gains for each situation
-  //   explanation:
-  //   e_tot = alpha*e_Q/Q_norm + beta*e_T/T_norm
-  //   e_Q   = Q_is - Q_set;  e_T = e_is - e_set
-  //   e_tot = [ alpha*Q_is/Q_norm + beta*T_is/T_norm ] - [ alpha*Q_set/Q_norm + beta * T_set/T_norm ]
-  //   e_tot = PIDin_is_weighted - PIDin_des_weighted
+  //
 
   if  Q_dot_set <= 0-tol then // consumption mode
     prosumer_mode = -1;
     pi_set = 1;
     mu_set = -1;
-    T_prim_relev_des = T_sec_hot_des; // DeltaT_prim_des; // !!!Difference to weighted PID!!!
-    T_prim_relev_is = T_sec_hot; // T_prim_hot-T_prim_cold; // !!!Difference to weighted PID!!!
-    T_sec_relev_des = DeltaT_prim_des; // T_sec_hot_des; // !!!Difference to weighted PID!!!
-    T_sec_relev_is = T_prim_hot-T_prim_cold; // T_sec_hot; // !!!Difference to weighted PID!!!
+    T_prim_relev_des = T_sec_hot_des;  // !!!Difference to weighted PID!!!
+    T_prim_relev_is = T_sec_hot; // !!!Difference to weighted PID!!!
+    T_sec_relev_des = DeltaT_prim_des; // !!!Difference to weighted PID!!!
+    T_sec_relev_is = T_prim_hot-T_prim_cold;  // !!!Difference to weighted PID!!!
 
     PIDin_prim_cons_is_weighted    = alpha_prim_cons*(-1)*Q_dot_is/Delta_Qdot_norm + beta_prim_cons*(-1)*T_prim_relev_is/Delta_T_norm;
     PIDin_prim_cons_des_weighted   = alpha_prim_cons*(-1)*Q_dot_set/Delta_Qdot_norm + beta_prim_cons*(-1)*T_prim_relev_des/Delta_T_norm;
@@ -370,10 +366,10 @@ equation
     prosumer_mode = +1;
     pi_set = 1;
     mu_set = 1;
-    T_prim_relev_des = DeltaT_sec_des; // T_prim_hot_des; // !!!Difference to weighted PID!!!
-    T_prim_relev_is = T_sec_hot-T_sec_cold; // T_prim_hot; // !!!Difference to weighted PID!!!
-    T_sec_relev_des = T_prim_hot; // DeltaT_sec_des; // !!!Difference to weighted PID!!!
-    T_sec_relev_is = T_prim_hot_des;// T_sec_hot-T_sec_cold; // !!!Difference to weighted PID!!!
+    T_prim_relev_des = DeltaT_sec_des; // !!!Difference to weighted PID!!!
+    T_prim_relev_is = T_sec_hot-T_sec_cold; // !!!Difference to weighted PID!!!
+    T_sec_relev_des = T_prim_hot_des; // !!!Difference to weighted PID!!!
+    T_sec_relev_is = T_prim_hot; // !!!Difference to weighted PID!!!
 
     PIDin_prim_cons_is_weighted    = 0;
     PIDin_prim_cons_des_weighted   = 0;

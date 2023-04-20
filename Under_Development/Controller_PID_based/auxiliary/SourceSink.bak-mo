@@ -1,0 +1,19 @@
+within ProsNet.Under_Development.Controller_PID_based.auxiliary;
+model SourceSink
+  Modelica.Blocks.Interfaces.RealInput V_dot_set "l/min" annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-40,-120})));
+  Modelica.Blocks.Interfaces.RealInput T_set "Kelvin" annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={40,-120})));
+  Modelica.Fluid.Interfaces.FluidPort_a hot(redeclare final package Medium =
+        Media.Water) annotation (Placement(transformation(extent={{30,90},{50,110}})));
+  Modelica.Fluid.Interfaces.FluidPort_b cold(redeclare final package Medium =
+        Medium_prim) annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+        coordinateSystem(preserveAspectRatio=false)));
+end SourceSink;

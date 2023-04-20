@@ -7,7 +7,7 @@ package Fabian
   end Test1;
 
   model Fabi_Trial
-    Under_Development.Controller_PID_based.PID_Q_T_weighted pID_Q_T_weighted(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old pID_Q_T_weighted(
       Ti_prim_prod=30,
       alpha_prim_prod=1,
       Ti_sec_prod=30,
@@ -17,7 +17,7 @@ package Fabian
       Ti_sec_cons=30,
       alpha_sec_cons=1)
       annotation (Placement(transformation(extent={{-110,2},{-90,22}})));
-    Under_Development.Controller_PID_based.PID_Q_T_weighted pID_Q_T_weighted1(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old pID_Q_T_weighted1(
       Ti_prim_prod=30,
       alpha_prim_prod=1,
       Ti_sec_prod=30,
@@ -60,7 +60,7 @@ package Fabian
       T_start_cv=313.15)
       annotation (Placement(transformation(extent={{112,-4},{82,32}})));
 
-    Under_Development.Controller_PID_based.PID_Q_T_weighted pID_Q_T_weighted2(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old pID_Q_T_weighted2(
       Ti_prim_prod=30,
       alpha_prim_prod=1,
       Ti_sec_prod=30,
@@ -68,8 +68,7 @@ package Fabian
       Ti_prim_cons=30,
       alpha_prim_cons=1,
       Ti_sec_cons=30,
-      alpha_sec_cons=1)
-      annotation (Placement(transformation(extent={{38,10},{18,30}})));
+      alpha_sec_cons=1) annotation (Placement(transformation(extent={{38,10},{18,30}})));
     Fluid.Pipes.InsulatedPipe ID_4_cold(T_amb=system.T_ambient, energyDynamics=
           Modelica.Fluid.Types.Dynamics.FixedInitial)
       annotation (Placement(transformation(extent={{32,-68},{52,-48}})));
@@ -444,7 +443,7 @@ package Fabian
         T=313.15,                   nPorts=1, redeclare final package Medium =
             Media.Water)
         annotation (Placement(transformation(extent={{70,-94},{50,-74}})));
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_1(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_1(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
         T_sec_hot_des=313.15,
@@ -473,7 +472,7 @@ package Fabian
             45; 13500,273.15 + 45; 14400,273.15 + 45; 15300,273.15 + 30; 16200,
             273.15 + 30; 17100,273.15 + 30; 18000,273.15 + 30])
         annotation (Placement(transformation(extent={{-400,32},{-380,52}})));
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_2(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_2(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
         T_sec_hot_des=313.15,
@@ -792,7 +791,7 @@ package Fabian
         T=313.15,                   nPorts=1, redeclare final package Medium =
             Media.Water)
         annotation (Placement(transformation(extent={{-24,-174},{-44,-154}})));
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_1(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_1(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
         T_sec_hot_des=313.15,
@@ -821,7 +820,7 @@ package Fabian
             45; 13500,273.15 + 45; 14400,273.15 + 45; 15300,273.15 + 30; 16200,
             273.15 + 30; 17100,273.15 + 30; 18000,273.15 + 30])
         annotation (Placement(transformation(extent={{-400,32},{-380,52}})));
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_2(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_2(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
         T_sec_hot_des=313.15,
@@ -898,7 +897,7 @@ package Fabian
         T_start_cv=313.15)
         annotation (Placement(transformation(extent={{284,0},{232,54}})));
 
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_3(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_3(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
         T_sec_hot_des=313.15,
@@ -1202,7 +1201,7 @@ package Fabian
         T=313.15,                   nPorts=1, redeclare final package Medium =
             Media.Water)
         annotation (Placement(transformation(extent={{-24,-174},{-44,-154}})));
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_1(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_1(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
         T_sec_hot_des=313.15,
@@ -1231,7 +1230,7 @@ package Fabian
             45; 13500,273.15 + 45; 14400,273.15 + 45; 15300,273.15 + 30; 16200,
             273.15 + 30; 17100,273.15 + 30; 18000,273.15 + 30])
         annotation (Placement(transformation(extent={{-400,32},{-380,52}})));
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_2(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_2(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
         T_sec_hot_des=313.15,
@@ -1310,7 +1309,7 @@ package Fabian
         T_start_cv=313.15)
         annotation (Placement(transformation(extent={{284,0},{232,54}})));
 
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_3(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_3(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
         T_sec_hot_des=313.15,
@@ -1633,7 +1632,7 @@ package Fabian
         T=310.65,                   nPorts=1, redeclare final package Medium =
             Media.Water)
         annotation (Placement(transformation(extent={{-14,-186},{-46,-154}})));
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_1(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_1(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
         T_sec_hot_des=313.15,
@@ -1662,7 +1661,7 @@ package Fabian
             45; 13500,273.15 + 45; 14400,273.15 + 45; 15300,273.15 + 30; 16200,
             273.15 + 30; 17100,273.15 + 30; 18000,273.15 + 30])
         annotation (Placement(transformation(extent={{-400,32},{-380,52}})));
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_2(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_2(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
         T_sec_hot_des=313.15,
@@ -1748,7 +1747,7 @@ package Fabian
         T_start_cv=313.15)
         annotation (Placement(transformation(extent={{284,0},{232,54}})));
 
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_3(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_3(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
         T_sec_hot_des=313.15,
@@ -2084,7 +2083,7 @@ package Fabian
         T=310.65,                   nPorts=1, redeclare final package Medium =
             Media.Water)
         annotation (Placement(transformation(extent={{-14,-186},{-46,-154}})));
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_1(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_1(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
         T_sec_hot_des=313.15,
@@ -2113,7 +2112,7 @@ package Fabian
             45; 13500,273.15 + 45; 14400,273.15 + 45; 15300,273.15 + 30; 16200,
             273.15 + 30; 17100,273.15 + 30; 18000,273.15 + 30])
         annotation (Placement(transformation(extent={{-400,32},{-380,52}})));
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_2(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_2(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
         T_sec_hot_des=313.15,
@@ -2200,7 +2199,7 @@ package Fabian
         T_start_cv=313.15)
         annotation (Placement(transformation(extent={{284,0},{232,54}})));
 
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_3(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_3(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
         T_sec_hot_des=313.15,
@@ -2292,7 +2291,7 @@ package Fabian
         T_start_cv=313.15)
         annotation (Placement(transformation(extent={{594,-4},{542,50}})));
 
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_4(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_4(
         Delta_T_norm=3,
         T_prim_hot_des=316.65,
         T_sec_hot_des=313.15,
@@ -2665,7 +2664,7 @@ package Fabian
         T=330.65,                   nPorts=1, redeclare final package Medium =
             Media.Water)
         annotation (Placement(transformation(extent={{-2,-198},{-46,-154}})));
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_1(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_1(
         Delta_T_norm=3,
         T_prim_hot_des=338.15,
         T_sec_hot_des=333.15,
@@ -2697,7 +2696,7 @@ package Fabian
             318.15; 26100,318.15; 27000,341.15; 27900,341.15; 28800,341.15;
             29700,341.15; 30600,341.15])
         annotation (Placement(transformation(extent={{-400,32},{-380,52}})));
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_2(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_2(
         Delta_T_norm=3,
         T_prim_hot_des=338.15,
         T_sec_hot_des=333.15,
@@ -2796,7 +2795,7 @@ package Fabian
         T_start_cv=333.15)
         annotation (Placement(transformation(extent={{284,0},{232,54}})));
 
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_3(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_3(
         Delta_T_norm=3,
         T_prim_hot_des=338.15,
         T_sec_hot_des=333.15,
@@ -2896,7 +2895,7 @@ package Fabian
         T_start_cv=333.15)
         annotation (Placement(transformation(extent={{580,8},{528,62}})));
 
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_4(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_4(
         Delta_T_norm=3,
         T_prim_hot_des=338.15,
         T_sec_hot_des=333.15,
@@ -2996,7 +2995,7 @@ package Fabian
         T_start_cv=333.15)
         annotation (Placement(transformation(extent={{858,8},{806,62}})));
 
-      Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_5(
+      Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_5(
         Delta_T_norm=3,
         T_prim_hot_des=338.15,
         T_sec_hot_des=333.15,
@@ -3497,12 +3496,12 @@ SF1"),      Text(
           Medium =
             ProsNet.Media.Water)
         annotation (Placement(transformation(extent={{-20,32},{0,52}})));
-      Modelica.Fluid.Sensors.RelativePressure relativePressure(redeclare
-          package Medium =
+      Modelica.Fluid.Sensors.RelativePressure relativePressure(redeclare package
+                  Medium =
                    ProsNet.Media.Water)
         annotation (Placement(transformation(extent={{20,64},{40,84}})));
-      Modelica.Fluid.Sensors.RelativeTemperature relativeTemperature(redeclare
-          package Medium = ProsNet.Media.Water)
+      Modelica.Fluid.Sensors.RelativeTemperature relativeTemperature(redeclare package
+                  Medium = ProsNet.Media.Water)
         annotation (Placement(transformation(extent={{20,4},{40,-16}})));
       Modelica.Fluid.Sources.MassFlowSource_T mass_source(
         redeclare package Medium = ProsNet.Media.Water,
@@ -3648,8 +3647,8 @@ SF1"),      Text(
           Medium =
             ProsNet.Media.Water)
         annotation (Placement(transformation(extent={{-20,32},{0,52}})));
-      Modelica.Fluid.Sensors.RelativePressure relativePressure(redeclare
-          package Medium =
+      Modelica.Fluid.Sensors.RelativePressure relativePressure(redeclare package
+                  Medium =
                    ProsNet.Media.Water)
         annotation (Placement(transformation(extent={{20,64},{40,84}})));
       Modelica.Fluid.Sources.MassFlowSource_T mass_source(
@@ -3756,8 +3755,8 @@ SF1"),      Text(
           Medium =
             ProsNet.Media.Water)
         annotation (Placement(transformation(extent={{-20,32},{0,52}})));
-      Modelica.Fluid.Sensors.RelativePressure relativePressure(redeclare
-          package Medium =
+      Modelica.Fluid.Sensors.RelativePressure relativePressure(redeclare package
+                  Medium =
                    ProsNet.Media.Water)
         annotation (Placement(transformation(extent={{20,64},{40,84}})));
       Modelica.Fluid.Sources.MassFlowSource_T mass_source(
@@ -3857,8 +3856,8 @@ SF1"),      Text(
           Medium =
             ProsNet.Media.Water)
         annotation (Placement(transformation(extent={{-48,32},{-28,52}})));
-      Modelica.Fluid.Sensors.RelativePressure relativePressure(redeclare
-          package Medium =
+      Modelica.Fluid.Sensors.RelativePressure relativePressure(redeclare package
+                  Medium =
                    ProsNet.Media.Water)
         annotation (Placement(transformation(extent={{4,64},{24,84}})));
       Modelica.Fluid.Sources.MassFlowSource_T mass_source(
@@ -4136,7 +4135,7 @@ SF1"),      Text(
       T=330.65,                   nPorts=1, redeclare final package Medium =
           Media.Water)
       annotation (Placement(transformation(extent={{-2,-198},{-46,-154}})));
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_1(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_1(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -4173,7 +4172,7 @@ SF1"),      Text(
           318.15; 27900,318.15; 28800,318.15; 29700,343.15; 30600,343.15; 31500,
           343.15; 32400,343.15; 33300,343.15])
       annotation (Placement(transformation(extent={{-400,32},{-380,52}})));
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_2(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_2(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -4279,7 +4278,7 @@ SF1"),      Text(
       T_start_cv=333.15)
       annotation (Placement(transformation(extent={{284,0},{232,54}})));
 
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_3(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_3(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -4384,7 +4383,7 @@ SF1"),      Text(
       T_start_cv=333.15)
       annotation (Placement(transformation(extent={{582,8},{530,62}})));
 
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_4(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_4(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -4489,7 +4488,7 @@ SF1"),      Text(
       T_start_cv=333.15)
       annotation (Placement(transformation(extent={{858,8},{806,62}})));
 
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_5(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_5(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -5001,7 +5000,7 @@ SF1"),    Text(
       T=330.65,                   nPorts=1, redeclare final package Medium =
           Media.Water)
       annotation (Placement(transformation(extent={{-2,-198},{-46,-154}})));
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_1(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_1(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -5038,7 +5037,7 @@ SF1"),    Text(
           318.15; 27900,318.15; 28800,318.15; 29700,341.15; 30600,341.15; 31500,
           341.15; 32400,341.15; 33300,341.15])
       annotation (Placement(transformation(extent={{-400,32},{-380,52}})));
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_2(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_2(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -5144,7 +5143,7 @@ SF1"),    Text(
       T_start_cv=333.15)
       annotation (Placement(transformation(extent={{284,0},{232,54}})));
 
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_3(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_3(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -5250,7 +5249,7 @@ SF1"),    Text(
       T_start_cv=333.15)
       annotation (Placement(transformation(extent={{582,8},{530,62}})));
 
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_4(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_4(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -5356,7 +5355,7 @@ SF1"),    Text(
       T_start_cv=333.15)
       annotation (Placement(transformation(extent={{858,8},{806,62}})));
 
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_5(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_5(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -5869,7 +5868,7 @@ SF1"),    Text(
       T=330.65,                   nPorts=1, redeclare final package Medium =
           Media.Water)
       annotation (Placement(transformation(extent={{-2,-198},{-46,-154}})));
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_1(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_1(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -5906,7 +5905,7 @@ SF1"),    Text(
           341.15; 27900,341.15; 28800,341.15; 29700,318.15; 30600,318.15; 31500,
           318.15; 32400,318.15; 33300,318.15])
       annotation (Placement(transformation(extent={{-400,32},{-380,52}})));
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_2(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_2(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -6010,7 +6009,7 @@ SF1"),    Text(
       T_start_cv=333.15)
       annotation (Placement(transformation(extent={{284,0},{232,54}})));
 
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_3(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_3(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -6115,7 +6114,7 @@ SF1"),    Text(
       T_start_cv=333.15)
       annotation (Placement(transformation(extent={{580,-6},{512,74}})));
 
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_4(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_4(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -6221,7 +6220,7 @@ SF1"),    Text(
       T_start_cv=333.15)
       annotation (Placement(transformation(extent={{858,-6},{796,76}})));
 
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_5(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_5(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -6752,7 +6751,7 @@ SF1"),    Text(
       T=330.65,                   nPorts=1, redeclare final package Medium =
           Media.Water)
       annotation (Placement(transformation(extent={{-2,-198},{-46,-154}})));
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_1(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_1(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -6789,7 +6788,7 @@ SF1"),    Text(
           341.15; 27900,341.15; 28800,341.15; 29700,318.15; 30600,318.15; 31500,
           318.15; 32400,318.15; 33300,318.15])
       annotation (Placement(transformation(extent={{-400,32},{-380,52}})));
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_2(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_2(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -6893,7 +6892,7 @@ SF1"),    Text(
       T_start_cv=333.15)
       annotation (Placement(transformation(extent={{284,0},{232,54}})));
 
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_3(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_3(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -6998,7 +6997,7 @@ SF1"),    Text(
       T_start_cv=333.15)
       annotation (Placement(transformation(extent={{580,-6},{512,74}})));
 
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_4(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_4(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,
@@ -7104,7 +7103,7 @@ SF1"),    Text(
       T_start_cv=333.15)
       annotation (Placement(transformation(extent={{858,-6},{796,76}})));
 
-    Under_Development.Controller_PID_based.PID_Q_T_weighted Controller_5(
+    Under_Development.Controller_PID_based.PID_Q_T_weighted_old Controller_5(
       Delta_Qdot_norm=1,
       Delta_T_norm=3,
       T_prim_hot_des=340.15,

@@ -4,12 +4,9 @@ model heat_transfer_station
   replaceable package Medium_prim = ProsNet.Media.Water;
   replaceable package Medium_sec = ProsNet.Media.Water;
 
-  extends
-      ProsNet.Prosumers.BaseClasses.PrimarySideParameters;
-  extends
-      ProsNet.Prosumers.SecondarySides.BaseClasses.PumpsPairDynParam;
-  extends
-      ProsNet.Prosumers.SecondarySides.BaseClasses.ControlVolumeDynParam;
+  extends ProsNet.Prosumers.BaseClasses.PrimarySideParameters;
+  extends ProsNet.Prosumers.SecondarySides.BaseClasses.PumpsPairDynParam;
+  extends ProsNet.Prosumers.SecondarySides.BaseClasses.ControlVolumeDynParam;
 
   Modelica.Blocks.Interfaces.RealVectorInput contr_vars_real[6]
 annotation (Placement(transformation(extent={{-222,-20},{-182,20}})));
