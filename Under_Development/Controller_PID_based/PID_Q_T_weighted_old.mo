@@ -25,7 +25,7 @@ model PID_Q_T_weighted_old
   parameter SI.TemperatureDifference DeltaT_prim_des(min=1) =   20
       "desired temperature difference primary side"
       annotation(Dialog(group="Temperature objectives"));
-  parameter SI.TemperatureDifference DeltaT_sec_des(min=1) =   27
+  parameter SI.TemperatureDifference DeltaT_sec_des(min=1) =   20
       "desired temperature difference secondary side"
       annotation(Dialog(group="Temperature objectives"));
   parameter Real V_dot_sec_max(unit="l/min", displayUnit="l/min") = 8.5

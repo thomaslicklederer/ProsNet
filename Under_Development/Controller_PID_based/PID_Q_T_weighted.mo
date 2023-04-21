@@ -25,7 +25,7 @@ model PID_Q_T_weighted
   parameter SI.TemperatureDifference DeltaT_prim_des(min=1) =   20
       "desired temperature difference primary side"
       annotation(Dialog(group="Temperature objectives"));
-  parameter SI.TemperatureDifference DeltaT_sec_des(min=1) =   27
+  parameter SI.TemperatureDifference DeltaT_sec_des(min=1) =   20
       "desired temperature difference secondary side"
       annotation(Dialog(group="Temperature objectives"));
   parameter Real V_dot_sec_max(unit="l/min", displayUnit="l/min") = 8.5
@@ -357,8 +357,8 @@ equation
     error_T_prim_abs               = DeltaT_prim_des - Delta_T_prim;
     error_T_sec_abs                = T_sec_hot_des - T_sec_hot;
 
-    error_T_high_prio_abs          = T_sec_hot_des - T_sec_hot;
-    error_T_low_prio_abs           = DeltaT_prim_des - Delta_T_prim;
+    error_T_high_prio_abs          = T_sec_hot_des - T_sec_hot; // T_sec_hot
+    error_T_low_prio_abs           = DeltaT_prim_des - Delta_T_prim; // Delta_T_prim
 
   elseif Q_dot_set >= 0+tol then // production mode
     prosumer_mode = +1;
@@ -384,8 +384,8 @@ equation
     error_T_prim_abs               = T_prim_hot_des - T_prim_hot;
     error_T_sec_abs                = DeltaT_sec_des - Delta_T_sec;
 
-    error_T_high_prio_abs          = T_prim_hot_des - T_prim_hot;
-    error_T_low_prio_abs           = DeltaT_sec_des - Delta_T_sec;
+    error_T_high_prio_abs          = T_prim_hot_des - T_prim_hot; // T_pim_hot
+    error_T_low_prio_abs           = DeltaT_sec_des - Delta_T_sec; // Deltat_T_sec
 
   else // idle mode
     prosumer_mode = 0;

@@ -875,30 +875,12 @@ SF1"),    Text(
           extent={{20,-18},{-20,18}},
           rotation=0,
           origin={-48,8})));
-    Controller_PID_based.PID_Q_T_weighted_old Ctrl1(
-      alpha_prim_prod=0.3,
-      alpha_sec_prod=0.7,
-      alpha_prim_cons=0.7,
-      alpha_sec_cons=0.3) annotation (Placement(transformation(
+    Controller_PID_based.PID_Q_T_weighted_old Ctrl1(Delta_T_norm=3)
+                          annotation (Placement(transformation(
           extent={{-12,-17},{12,17}},
           rotation=0,
           origin={-44,75})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp power_set1(table=[0,10; 900,10;
-          1800,10; 3600,10; 7200,-10; 10800,-4; 14400,4; 18000,4])
-                                                                 annotation (Placement(
-          transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={-70,134})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in1(table=[0,55; 900,55;
-          1800,55; 3600,55; 7200,30; 10800,30; 14400,55; 18000,55])
-                                                                   annotation (
-        Placement(transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={-28,134})));
-    Fluid.Pipes.InsulatedPipe_plug pipe_hot12(R_ins=1000000,
-                                              length=50)
+    Fluid.Pipes.InsulatedPipe_plug pipe_hot12(R_ins=1000000, length=100)
       annotation (Placement(transformation(extent={{-8,-58},{18,-32}})));
     new_prosumer_models.heat_transfer_station B2(n=0.5, redeclare
         Fluid.Pumps.Data.Pumps.IMP.NMTSmart25_120to180 feedinPer,
@@ -907,28 +889,11 @@ SF1"),    Text(
           extent={{20,-18},{-20,18}},
           rotation=0,
           origin={50,8})));
-    Controller_PID_based.PID_Q_T_weighted_old Ctrl2(
-      alpha_prim_prod=0.3,
-      alpha_sec_prod=0.7,
-      alpha_prim_cons=0.7,
-      alpha_sec_cons=0.3) annotation (Placement(transformation(
+    Controller_PID_based.PID_Q_T_weighted_old Ctrl2(Delta_T_norm=3)
+                          annotation (Placement(transformation(
           extent={{-12,-17},{12,17}},
           rotation=0,
           origin={52,73})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp power_set2(table=[0,-4; 900,-4;
-          1800,-4; 3600,-4; 7200,4; 10800,10; 14400,-10; 18000,-10])
-                                                                 annotation (Placement(
-          transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={28,134})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in2(table=[0,30; 900,30;
-          1800,30; 3600,30; 7200,55; 10800,55; 14400,30; 18000,30])
-                                                                   annotation (
-        Placement(transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={70,134})));
     new_prosumer_models.heat_transfer_station B3(n=0.5, redeclare
         Fluid.Pumps.Data.Pumps.IMP.NMTSmart25_120to180 feedinPer,
       R_ins_transferpipe=1000000)                       annotation (Placement(
@@ -936,35 +901,16 @@ SF1"),    Text(
           extent={{20,-18},{-20,18}},
           rotation=0,
           origin={148,8})));
-    Controller_PID_based.PID_Q_T_weighted_old Ctrl3(
-      alpha_prim_prod=0.3,
-      alpha_sec_prod=0.7,
-      alpha_prim_cons=0.7,
-      alpha_sec_cons=0.3) annotation (Placement(transformation(
+    Controller_PID_based.PID_Q_T_weighted_old Ctrl3(Delta_T_norm=3)
+                          annotation (Placement(transformation(
           extent={{-12,-17},{12,17}},
           rotation=0,
           origin={148,71})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp power_set3(table=[0,-6; 900,-6;
-          1800,-6; 3600,-6; 7200,6; 10800,-6; 14400,6; 18000,6]) annotation (Placement(
-          transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={126,134})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in3(table=[0,30; 900,30;
-          1800,30; 3600,30; 7200,55; 10800,30; 14400,55; 18000,55])
-                                                                   annotation (
-        Placement(transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={168,134})));
-    Fluid.Pipes.InsulatedPipe_plug pipe_hot23(R_ins=1000000,
-                                              length=50)
+    Fluid.Pipes.InsulatedPipe_plug pipe_hot23(R_ins=1000000, length=100)
       annotation (Placement(transformation(extent={{88,-58},{114,-32}})));
-    Fluid.Pipes.InsulatedPipe_plug pipe_cold23(R_ins=1000000,
-                                               length=50)
+    Fluid.Pipes.InsulatedPipe_plug pipe_cold23(R_ins=1000000, length=100)
       annotation (Placement(transformation(extent={{114,-103},{88,-77}})));
-    Fluid.Pipes.InsulatedPipe_plug pipe_cold12(R_ins=1000000,
-                                               length=50)
+    Fluid.Pipes.InsulatedPipe_plug pipe_cold12(R_ins=1000000, length=100)
       annotation (Placement(transformation(extent={{18,-103},{-8,-77}})));
     Modelica.Fluid.Sources.Boundary_pT boundary(
       redeclare package Medium = Media.Water,
@@ -1003,25 +949,61 @@ SF1"),    Text(
 
     Real Losses;
 
+    Controller_PID_based.auxiliary.TimeTable_noInterp power_set1(table=[0,4; 3600,-4;
+          7200,10; 10800,-10; 14400,-6; 18000,6; 21600,10; 25200,10])
+                                                                 annotation (Placement(
+          transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=-90,
+          origin={-66,138})));
+    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in1(table=[0,55; 3600,30;
+          7200,55; 10800,30; 14400,30; 18000,55; 21600,55; 25200,55])
+                                                                   annotation (
+        Placement(transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=-90,
+          origin={-24,138})));
+    Controller_PID_based.auxiliary.TimeTable_noInterp power_set2(table=[0,-10; 3600,10;
+          7200,-4; 10800,4; 14400,10; 18000,-10; 21600,-4; 25200,-4])
+                                                                 annotation (Placement(
+          transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=-90,
+          origin={32,138})));
+    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in2(table=[0,30; 3600,55;
+          7200,30; 10800,55; 14400,55; 18000,30; 21600,30; 25200,30])
+                                                                   annotation (
+        Placement(transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=-90,
+          origin={74,138})));
+    Controller_PID_based.auxiliary.TimeTable_noInterp power_set3(table=[0,6; 3600,-6;
+          7200,-6; 10800,6; 14400,-4; 18000,4; 21600,-6; 25200,-6])
+                                                                 annotation (Placement(
+          transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=-90,
+          origin={130,138})));
+    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in3(table=[0,55; 3600,30;
+          7200,30; 10800,55; 14400,30; 18000,55; 21600,30; 25200,30])
+                                                                   annotation (
+        Placement(transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=-90,
+          origin={172,138})));
   equation
     connect(B1.contr_vars_real, Ctrl1.contr_vars_real)
       annotation (Line(points={{-27.8,8},{-20,8},{-20,74},{-32,74}}, color={0,0,127}));
     connect(Ctrl1.states, B1.states)
       annotation (Line(points={{-56,74},{-74,74},{-74,8},{-68,8}}, color={0,0,127}));
-    connect(power_set1.y, Ctrl1.Q_dot_set) annotation (Line(points={{-70,123},{-70,118},
-            {-50,118},{-50,92.8}}, color={0,0,127}));
     connect(B2.contr_vars_real,Ctrl2. contr_vars_real)
       annotation (Line(points={{70.2,8},{78,8},{78,72},{64,72}},     color={0,0,127}));
     connect(Ctrl2.states,B2. states)
       annotation (Line(points={{40,72},{24,72},{24,8},{30,8}},     color={0,0,127}));
-    connect(power_set2.y,Ctrl2. Q_dot_set) annotation (Line(points={{28,123},{28,118},{
-            46,118},{46,90.8}},    color={0,0,127}));
     connect(B3.contr_vars_real,Ctrl3. contr_vars_real)
       annotation (Line(points={{168.2,8},{176,8},{176,70},{160,70}}, color={0,0,127}));
     connect(Ctrl3.states,B3. states)
       annotation (Line(points={{136,70},{122,70},{122,8},{128,8}}, color={0,0,127}));
-    connect(power_set3.y,Ctrl3. Q_dot_set) annotation (Line(points={{126,123},{126,118},
-            {142,118},{142,88.8}}, color={0,0,127}));
     connect(B1.hot_prim, pipe_hot12.port_a)
       annotation (Line(points={{-34,-10.2},{-34,-45},{-8,-45}}, color={0,127,255}));
     connect(pipe_hot12.port_b, B2.hot_prim)
@@ -1042,24 +1024,30 @@ SF1"),    Text(
       annotation (Line(points={{-8,-45},{-72,-45}}, color={0,127,255}));
     connect(add.y, Ctrl1.T_sec_in_is)
       annotation (Line(points={{-31,97.5},{-31,93},{-38,93}}, color={0,0,127}));
-    connect(temp_sec_in1.y, add.u2) annotation (Line(points={{-28,123},{-28,114},{-34,
-            114},{-34,109}}, color={0,0,127}));
     connect(add.u1, realExpression.y) annotation (Line(points={{-28,109},{-12,109},{-12,
             106},{-8,106},{-8,111.5}}, color={0,0,127}));
-    connect(temp_sec_in2.y, add1.u2)
-      annotation (Line(points={{70,123},{70,114},{56,114},{56,107}}, color={0,0,127}));
     connect(add1.y, Ctrl2.T_sec_in_is)
       annotation (Line(points={{59,95.5},{58,95.5},{58,91}}, color={0,0,127}));
     connect(realExpression1.y, add1.u1) annotation (Line(points={{82,109.5},{82,104},{
             68,104},{68,107},{62,107}}, color={0,0,127}));
-    connect(temp_sec_in3.y, add2.u2) annotation (Line(points={{168,123},{168,114},{152,
-            114},{152,109}}, color={0,0,127}));
     connect(add2.y, Ctrl3.T_sec_in_is) annotation (Line(points={{155,97.5},{155,94},{
             166,94},{166,89},{154,89}}, color={0,0,127}));
     connect(realExpression2.y, add2.u1) annotation (Line(points={{178,111.5},{178,106},
             {164,106},{164,109},{158,109}}, color={0,0,127}));
         Losses = Ctrl1.Q_dot_is + Ctrl2.Q_dot_is + Ctrl3.Q_dot_is;
 
+    connect(power_set1.y, Ctrl1.Q_dot_set) annotation (Line(points={{-66,127},{-66,98},
+            {-50,98},{-50,92.8}}, color={0,0,127}));
+    connect(temp_sec_in1.y, add.u2) annotation (Line(points={{-24,127},{-24,114},{-34,
+            114},{-34,109}}, color={0,0,127}));
+    connect(power_set2.y, Ctrl2.Q_dot_set)
+      annotation (Line(points={{32,127},{32,90.8},{46,90.8}}, color={0,0,127}));
+    connect(temp_sec_in2.y, add1.u2)
+      annotation (Line(points={{74,127},{56,127},{56,107}}, color={0,0,127}));
+    connect(power_set3.y, Ctrl3.Q_dot_set) annotation (Line(points={{130,127},{130,96},
+            {142,96},{142,88.8}}, color={0,0,127}));
+    connect(temp_sec_in3.y, add2.u2)
+      annotation (Line(points={{172,127},{152,127},{152,109}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{
               200,160}})),                                         Diagram(
           coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{200,160}}),
@@ -1068,7 +1056,7 @@ SF1"),    Text(
                 154},{96,-20}}, lineColor={28,108,200}),         Rectangle(extent={{104,
                 154},{194,-20}},lineColor={28,108,200})}),
       experiment(
-        StopTime=18000,
+        StopTime=25200,
         Interval=0.5,
         __Dymola_Algorithm="Dassl"));
   end Licklederer_weiPID_old;
@@ -1259,259 +1247,78 @@ SF1"),    Text(
 
   model Licklederer_weiPID_01
     new_prosumer_models.heat_transfer_station B1(n=0.5, redeclare
-        Fluid.Pumps.Data.Pumps.IMP.NMTSmart25_120to180 feedinPer)
-                                                        annotation (Placement(
+        Fluid.Pumps.Data.Pumps.IMP.NMTSmart25_120to180 feedinPer,
+      R_ins_transferpipe=10000)                         annotation (Placement(
           transformation(
           extent={{20,-18},{-20,18}},
           rotation=0,
           origin={-48,8})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp power_set1(table=[0,10; 900,10;
-          1800,10; 3600,10; 7200,-10; 10800,-4; 14400,4; 18000,4])
+    Controller_PID_based.auxiliary.TimeTable_noInterp power_set1(table=[0,4; 3600,-4;
+          7200,10; 10800,-10; 14400,-6; 18000,6; 21600,10; 25200,10])
                                                                  annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={-70,134})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in1(table=[0,55; 900,55;
-          1800,55; 3600,55; 7200,30; 10800,30; 14400,55; 18000,55])
+    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in1(table=[0,55; 3600,30;
+          7200,55; 10800,30; 14400,30; 18000,55; 21600,55; 25200,55])
                                                                    annotation (
         Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={-28,134})));
-    Fluid.Pipes.InsulatedPipe_plug pipe_hot12(length=100)
+    Fluid.Pipes.InsulatedPipe_plug pipe_hot12(R_ins=10000,
+                                              length=100)
       annotation (Placement(transformation(extent={{-8,-58},{18,-32}})));
     new_prosumer_models.heat_transfer_station B2(n=0.5, redeclare
-        Fluid.Pumps.Data.Pumps.IMP.NMTSmart25_120to180 feedinPer)
-                                                        annotation (Placement(
+        Fluid.Pumps.Data.Pumps.IMP.NMTSmart25_120to180 feedinPer,
+      R_ins_transferpipe=10000)                         annotation (Placement(
           transformation(
           extent={{20,-18},{-20,18}},
           rotation=0,
           origin={50,8})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp power_set2(table=[0,-4; 900,-4;
-          1800,-4; 3600,-4; 7200,4; 10800,10; 14400,-10; 18000,-10])
+    Controller_PID_based.auxiliary.TimeTable_noInterp power_set2(table=[0,-10; 3600,10;
+          7200,-4; 10800,4; 14400,10; 18000,-10; 21600,-4; 25200,-4])
                                                                  annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={28,134})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in2(table=[0,30; 900,30;
-          1800,30; 3600,30; 7200,55; 10800,55; 14400,30; 18000,30])
+    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in2(table=[0,30; 3600,55;
+          7200,30; 10800,55; 14400,55; 18000,30; 21600,30; 25200,30])
                                                                    annotation (
         Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={70,134})));
     new_prosumer_models.heat_transfer_station B3(n=0.5, redeclare
-        Fluid.Pumps.Data.Pumps.IMP.NMTSmart25_120to180 feedinPer)
-                                                        annotation (Placement(
+        Fluid.Pumps.Data.Pumps.IMP.NMTSmart25_120to180 feedinPer,
+      R_ins_transferpipe=10000)                         annotation (Placement(
           transformation(
           extent={{20,-18},{-20,18}},
           rotation=0,
           origin={150,8})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp power_set3(table=[0,-6; 900,-6;
-          1800,-6; 3600,-6; 7200,6; 10800,-6; 14400,6; 18000,6]) annotation (Placement(
-          transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={126,134})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in3(table=[0,30; 900,30;
-          1800,30; 3600,30; 7200,55; 10800,30; 14400,55; 18000,55])
-                                                                   annotation (
-        Placement(transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={168,134})));
-    Fluid.Pipes.InsulatedPipe_plug pipe_hot23(length=100)
-      annotation (Placement(transformation(extent={{88,-58},{114,-32}})));
-    Fluid.Pipes.InsulatedPipe_plug pipe_cold23(length=100)
-      annotation (Placement(transformation(extent={{114,-103},{88,-77}})));
-    Fluid.Pipes.InsulatedPipe_plug pipe_cold12(length=100)
-      annotation (Placement(transformation(extent={{18,-103},{-8,-77}})));
-    Modelica.Fluid.Sources.Boundary_pT boundary(
-      redeclare package Medium = Media.Water,
-      use_p_in=false,
-      T=325.4,
-      nPorts=1) annotation (Placement(transformation(extent={{-92,-55},{-72,-35}})));
-    inner Modelica.Fluid.System system(T_ambient=285.15)
-      annotation (Placement(transformation(extent={{-92,-114},{-72,-94}})));
-    Modelica.Blocks.Math.Add add annotation (Placement(transformation(
-          extent={{-5,-5},{5,5}},
-          rotation=-90,
-          origin={-31,103})));
-    Modelica.Blocks.Sources.RealExpression realExpression(y=273.15) annotation (
-        Placement(transformation(
-          extent={{-5,-6},{5,6}},
-          rotation=270,
-          origin={-8,117})));
-    Modelica.Blocks.Sources.RealExpression realExpression1(y=273.15) annotation (
-        Placement(transformation(
-          extent={{-5,-6},{5,6}},
-          rotation=270,
-          origin={82,115})));
-    Modelica.Blocks.Math.Add add1 annotation (Placement(transformation(
-          extent={{-5,-5},{5,5}},
-          rotation=-90,
-          origin={59,101})));
-    Modelica.Blocks.Sources.RealExpression realExpression2(y=273.15) annotation (
-        Placement(transformation(
-          extent={{-5,-6},{5,6}},
-          rotation=270,
-          origin={178,117})));
-    Modelica.Blocks.Math.Add add2 annotation (Placement(transformation(
-          extent={{-5,-5},{5,5}},
-          rotation=-90,
-          origin={155,103})));
-
-    Real Losses;
-
-    Controller_PID_based.PID_Q_T_weighted Ctrl1(Delta_T_norm=1)
-      annotation (Placement(transformation(extent={{-56,50},{-32,84}})));
-    Controller_PID_based.PID_Q_T_weighted Ctrl2(Delta_T_norm=1)
-      annotation (Placement(transformation(extent={{38,48},{62,82}})));
-    Controller_PID_based.PID_Q_T_weighted Ctrl3(Delta_T_norm=1)
-      annotation (Placement(transformation(extent={{136,48},{160,82}})));
-  equation
-    connect(B1.hot_prim, pipe_hot12.port_a)
-      annotation (Line(points={{-34,-10.2},{-34,-45},{-8,-45}}, color={0,127,255}));
-    connect(pipe_hot12.port_b, B2.hot_prim)
-      annotation (Line(points={{18,-45},{64,-45},{64,-10.2}}, color={0,127,255}));
-    connect(pipe_hot23.port_a, B2.hot_prim)
-      annotation (Line(points={{88,-45},{64,-45},{64,-10.2}}, color={0,127,255}));
-    connect(pipe_hot23.port_b, B3.hot_prim) annotation (Line(points={{114,-45},{138,-45},
-            {138,-46},{164,-46},{164,-10.2}}, color={0,127,255}));
-    connect(B1.cold_prim, pipe_cold12.port_b)
-      annotation (Line(points={{-62,-10},{-62,-90},{-8,-90}}, color={0,127,255}));
-    connect(pipe_cold12.port_a, B2.cold_prim)
-      annotation (Line(points={{18,-90},{36,-90},{36,-10}}, color={0,127,255}));
-    connect(B2.cold_prim, pipe_cold23.port_b)
-      annotation (Line(points={{36,-10},{36,-90},{88,-90}}, color={0,127,255}));
-    connect(pipe_cold23.port_a, B3.cold_prim) annotation (Line(points={{114,-90},{124,
-            -90},{124,-92},{136,-92},{136,-10}}, color={0,127,255}));
-    connect(pipe_hot12.port_a, boundary.ports[1])
-      annotation (Line(points={{-8,-45},{-72,-45}}, color={0,127,255}));
-    connect(temp_sec_in1.y, add.u2) annotation (Line(points={{-28,123},{-28,114},{-34,
-            114},{-34,109}}, color={0,0,127}));
-    connect(add.u1, realExpression.y) annotation (Line(points={{-28,109},{-12,109},{-12,
-            106},{-8,106},{-8,111.5}}, color={0,0,127}));
-    connect(temp_sec_in2.y, add1.u2)
-      annotation (Line(points={{70,123},{70,114},{56,114},{56,107}}, color={0,0,127}));
-    connect(realExpression1.y, add1.u1) annotation (Line(points={{82,109.5},{82,104},{
-            68,104},{68,107},{62,107}}, color={0,0,127}));
-    connect(temp_sec_in3.y, add2.u2) annotation (Line(points={{168,123},{168,114},{152,
-            114},{152,109}}, color={0,0,127}));
-    connect(realExpression2.y, add2.u1) annotation (Line(points={{178,111.5},{178,106},
-            {164,106},{164,109},{158,109}}, color={0,0,127}));
-        Losses = Ctrl1.Q_dot_is + Ctrl2.Q_dot_is + Ctrl3.Q_dot_is;
-
-    connect(add1.y, Ctrl2.T_sec_in_is) annotation (Line(points={{59,95.5},{58,95.5},{58,
-            88},{56,88},{56,83}}, color={0,0,127}));
-    connect(add.y, Ctrl1.T_sec_in_is) annotation (Line(points={{-31,97.5},{-31,90},{-38,
-            90},{-38,85}}, color={0,0,127}));
-    connect(add2.y, Ctrl3.T_sec_in_is) annotation (Line(points={{155,97.5},{154,97.5},{
-            154,83}},                   color={0,0,127}));
-    connect(power_set1.y, Ctrl1.Q_dot_set) annotation (Line(points={{-70,123},{-70,88},
-            {-50,88},{-50,84.8}}, color={0,0,127}));
-    connect(power_set2.y, Ctrl2.Q_dot_set)
-      annotation (Line(points={{28,123},{28,88},{44,88},{44,82.8}}, color={0,0,127}));
-    connect(power_set3.y, Ctrl3.Q_dot_set) annotation (Line(points={{126,123},{126,88},
-            {142,88},{142,82.8}}, color={0,0,127}));
-    connect(Ctrl1.contr_vars_real, B1.contr_vars_real)
-      annotation (Line(points={{-32,66},{-18,66},{-18,8},{-27.8,8}}, color={0,0,127}));
-    connect(Ctrl2.contr_vars_real, B2.contr_vars_real)
-      annotation (Line(points={{62,64},{76,64},{76,8},{70.2,8}}, color={0,0,127}));
-    connect(Ctrl3.contr_vars_real, B3.contr_vars_real)
-      annotation (Line(points={{160,64},{176,64},{176,8},{170.2,8}}, color={0,0,127}));
-    connect(Ctrl3.states, B3.states)
-      annotation (Line(points={{136,64},{124,64},{124,8},{130,8}}, color={0,0,127}));
-    connect(Ctrl2.states, B2.states)
-      annotation (Line(points={{38,64},{24,64},{24,8},{30,8}}, color={0,0,127}));
-    connect(Ctrl1.states, B1.states)
-      annotation (Line(points={{-56,66},{-74,66},{-74,8},{-68,8}}, color={0,0,127}));
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{
-              200,160}})),                                         Diagram(
-          coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{200,160}}),
-                                                       graphics={Rectangle(extent={{-92,
-                154},{-2,-20}}, lineColor={28,108,200}),         Rectangle(extent={{6,
-                154},{96,-20}}, lineColor={28,108,200}),         Rectangle(extent={{104,
-                154},{194,-20}},lineColor={28,108,200})}),
-      experiment(
-        StopTime=18000,
-        Interval=0.5,
-        __Dymola_Algorithm="Dassl"));
-  end Licklederer_weiPID_01;
-
-  model Licklederer_weiPID_02
-    new_prosumer_models.heat_transfer_station B1(n=0.5, redeclare
-        Fluid.Pumps.Data.Pumps.IMP.NMTSmart25_120to180 feedinPer)
-                                                        annotation (Placement(
-          transformation(
-          extent={{20,-18},{-20,18}},
-          rotation=0,
-          origin={-48,8})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp power_set1(table=[0,16; 900,16;
-          1800,16; 3600,16; 7200,-16; 10800,-6; 14400,6; 18000,6])
-                                                                 annotation (Placement(
-          transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={-70,134})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in1(table=[0,55; 900,55;
-          1800,55; 3600,55; 7200,30; 10800,30; 14400,55; 18000,55])
-                                                                   annotation (
-        Placement(transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={-28,134})));
-    Fluid.Pipes.InsulatedPipe_plug pipe_hot12(length=100)
-      annotation (Placement(transformation(extent={{-8,-58},{18,-32}})));
-    new_prosumer_models.heat_transfer_station B2(n=0.5, redeclare
-        Fluid.Pumps.Data.Pumps.IMP.NMTSmart25_120to180 feedinPer)
-                                                        annotation (Placement(
-          transformation(
-          extent={{20,-18},{-20,18}},
-          rotation=0,
-          origin={50,8})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp power_set2(table=[0,-6; 900,-6;
-          1800,-6; 3600,-6; 7200,6; 10800,16; 14400,-16; 18000,-16])
-                                                                 annotation (Placement(
-          transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={28,134})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in2(table=[0,30; 900,30;
-          1800,30; 3600,30; 7200,55; 10800,55; 14400,30; 18000,30])
-                                                                   annotation (
-        Placement(transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={70,134})));
-    new_prosumer_models.heat_transfer_station B3(n=0.5, redeclare
-        Fluid.Pumps.Data.Pumps.IMP.NMTSmart25_120to180 feedinPer)
-                                                        annotation (Placement(
-          transformation(
-          extent={{20,-18},{-20,18}},
-          rotation=0,
-          origin={150,8})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp power_set3(table=[0,-10; 900,-10;
-          1800,-10; 3600,-10; 7200,10; 10800,-10; 14400,10; 18000,10])
+    Controller_PID_based.auxiliary.TimeTable_noInterp power_set3(table=[0,6; 3600,-6;
+          7200,-6; 10800,6; 14400,-4; 18000,4; 21600,-6; 25200,-6])
                                                                  annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={126,134})));
-    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in3(table=[0,30; 900,30;
-          1800,30; 3600,30; 7200,55; 10800,30; 14400,55; 18000,55])
+    Controller_PID_based.auxiliary.TimeTable_noInterp temp_sec_in3(table=[0,55; 3600,30;
+          7200,30; 10800,55; 14400,30; 18000,55; 21600,30; 25200,30])
                                                                    annotation (
         Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={168,134})));
-    Fluid.Pipes.InsulatedPipe_plug pipe_hot23(length=100)
+    Fluid.Pipes.InsulatedPipe_plug pipe_hot23(R_ins=10000, length=100)
       annotation (Placement(transformation(extent={{88,-58},{114,-32}})));
-    Fluid.Pipes.InsulatedPipe_plug pipe_cold23(length=100)
+    Fluid.Pipes.InsulatedPipe_plug pipe_cold23(R_ins=10000,
+                                               length=100)
       annotation (Placement(transformation(extent={{114,-103},{88,-77}})));
-    Fluid.Pipes.InsulatedPipe_plug pipe_cold12(length=100)
+    Fluid.Pipes.InsulatedPipe_plug pipe_cold12(R_ins=10000,
+                                               length=100)
       annotation (Placement(transformation(extent={{18,-103},{-8,-77}})));
     Modelica.Fluid.Sources.Boundary_pT boundary(
       redeclare package Medium = Media.Water,
@@ -1551,25 +1358,22 @@ SF1"),    Text(
     Real Losses;
 
     Controller_PID_based.PID_Q_T_weighted Ctrl1(
-      Delta_T_norm=1,
-      alpha_prim_prod=0,
+      alpha_prim_prod=1,
       alpha_sec_prod=0,
       alpha_prim_cons=0,
-      alpha_sec_cons=0)
+      alpha_sec_cons=1)
       annotation (Placement(transformation(extent={{-56,50},{-32,84}})));
     Controller_PID_based.PID_Q_T_weighted Ctrl2(
-      Delta_T_norm=1,
-      alpha_prim_prod=0,
+      alpha_prim_prod=1,
       alpha_sec_prod=0,
       alpha_prim_cons=0,
-      alpha_sec_cons=0)
+      alpha_sec_cons=1)
       annotation (Placement(transformation(extent={{38,48},{62,82}})));
     Controller_PID_based.PID_Q_T_weighted Ctrl3(
-      Delta_T_norm=1,
-      alpha_prim_prod=0,
+      alpha_prim_prod=1,
       alpha_sec_prod=0,
       alpha_prim_cons=0,
-      alpha_sec_cons=0)
+      alpha_sec_cons=1)
       annotation (Placement(transformation(extent={{136,48},{160,82}})));
   equation
     connect(B1.hot_prim, pipe_hot12.port_a)
@@ -1636,8 +1440,9 @@ SF1"),    Text(
                 154},{96,-20}}, lineColor={28,108,200}),         Rectangle(extent={{104,
                 154},{194,-20}},lineColor={28,108,200})}),
       experiment(
-        StopTime=18000,
+        StopTime=25200,
         Interval=0.5,
         __Dymola_Algorithm="Dassl"));
-  end Licklederer_weiPID_02;
+  end Licklederer_weiPID_01;
+
 end Simulations;
