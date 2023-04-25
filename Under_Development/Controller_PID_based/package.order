@@ -1,4 +1,3 @@
-PID_Q_T_weighted_old
-auxiliary
-Conventional_Controller
 PID_Q_T_weighted
+auxiliary
+PID_Q_T_weighted_trad

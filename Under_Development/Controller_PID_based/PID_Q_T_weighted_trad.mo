@@ -1,5 +1,5 @@
 within ProsNet.Under_Development.Controller_PID_based;
-model PID_Q_T_weighted
+model PID_Q_T_weighted_trad
 
   import Modelica.Units.SI;
   import T_AbsZeroDegC = Modelica.Constants.T_zero;
@@ -40,7 +40,7 @@ model PID_Q_T_weighted
   parameter Real Td_prim_prod = 0
     "Derivative time constant for controller in [s]"
     annotation(Dialog(group="PID primary side - producer mode - tuning"));
-  parameter Real alpha_prim_prod(min=0, max=1) = 0.25
+  parameter Real alpha_prim_prod(min=0, max=1) = 0.75
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID primary side - producer mode - tuning"));
   parameter Real k_sec_prod = 1.5
@@ -52,7 +52,7 @@ model PID_Q_T_weighted
   parameter Real Td_sec_prod = 0
     "Derivative time constant for controller in [s]"
     annotation(Dialog(group="PID secondary side - producer mode - tuning"));
-  parameter Real alpha_sec_prod(min=0, max=1) = 0.75
+  parameter Real alpha_sec_prod(min=0, max=1) = 0.25
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID secondary side - producer mode - tuning"));
   parameter Real k_prim_cons = 1.0
@@ -64,7 +64,7 @@ model PID_Q_T_weighted
   parameter Real Td_prim_cons = 0
     "Derivative time constant for controller in [s]"
     annotation(Dialog(group="PID primary side - consumer mode - tuning"));
-  parameter Real alpha_prim_cons(min=0, max=1) = 0.75
+  parameter Real alpha_prim_cons(min=0, max=1) = 0.25
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID primary side - consumer mode - tuning"));
   parameter Real k_sec_cons = 1.5
@@ -76,7 +76,7 @@ model PID_Q_T_weighted
   parameter Real Td_sec_cons = 0
     "Derivative time constant for controller in [s]"
     annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
-  parameter Real alpha_sec_cons(min=0, max=1) = 0.25
+  parameter Real alpha_sec_cons(min=0, max=1) = 0.75
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID secondary side - consumer mode - tuning"));
   parameter .Modelica.Blocks.Types.SimpleController controllerType=
@@ -332,27 +332,22 @@ equation
   // determine easy static values that just depend on prosumer mode
   // determine inputs for the four PIDs
   // four PIDs in order to be able to have different gains for each situation
-  //   explanation:
-  //   e_tot = alpha*e_Q/Q_norm + beta*e_T/T_norm
-  //   e_Q   = Q_is - Q_set;  e_T = e_is - e_set
-  //   e_tot = [ alpha*Q_is/Q_norm + beta*T_is/T_norm ] - [ alpha*Q_set/Q_norm + beta * T_set/T_norm ]
-  //   e_tot = PIDin_is_weighted - PIDin_des_weighted
 
   if  Q_dot_set <= 0-tol then // consumption mode
     prosumer_mode = -1;
     pi_set = 1;
     mu_set = -1;
-    T_prim_relev_des = DeltaT_prim_des;
-    T_prim_relev_is = T_prim_hot-T_prim_cold;
-    T_sec_relev_des = T_sec_hot_des;
-    T_sec_relev_is = T_sec_hot;
+    T_prim_relev_des = T_sec_hot_des;
+    T_prim_relev_is = T_sec_hot;
+    T_sec_relev_des = DeltaT_prim_des;
+    T_sec_relev_is = T_prim_hot-T_prim_cold;
 
-    PIDin_prim_cons_is_weighted    = alpha_prim_cons*(-1)*Q_dot_is/Delta_Qdot_norm + beta_prim_cons*(-1)*T_prim_relev_is/Delta_T_norm;
-    PIDin_prim_cons_des_weighted   = alpha_prim_cons*(-1)*Q_dot_set/Delta_Qdot_norm + beta_prim_cons*(-1)*T_prim_relev_des/Delta_T_norm;
+    PIDin_prim_cons_is_weighted    = alpha_prim_cons*(-1)*Q_dot_is/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_is/Delta_T_norm;
+    PIDin_prim_cons_des_weighted   = alpha_prim_cons*(-1)*Q_dot_set/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_des/Delta_T_norm;
     PIDin_prim_prod_is_weighted    = 0;
     PIDin_prim_prod_des_weighted   = 0;
-    PIDin_sec_cons_is_weighted     = alpha_sec_cons*(-1)*Q_dot_is/Delta_Qdot_norm + beta_sec_cons*(-1)*T_sec_relev_is/Delta_T_norm;
-    PIDin_sec_cons_des_weighted    = alpha_sec_cons*(-1)*Q_dot_set/Delta_Qdot_norm + beta_sec_cons*(-1)*T_sec_relev_des/Delta_T_norm;
+    PIDin_sec_cons_is_weighted     = alpha_sec_cons*(-1)*Q_dot_is/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_is/Delta_T_norm;
+    PIDin_sec_cons_des_weighted    = alpha_sec_cons*(-1)*Q_dot_set/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_des/Delta_T_norm;
     PIDin_sec_prod_is_weighted     = 0;
     PIDin_sec_prod_des_weighted    = 0;
 
@@ -362,26 +357,26 @@ equation
     error_T_prim_abs               = DeltaT_prim_des - Delta_T_prim;
     error_T_sec_abs                = T_sec_hot_des - T_sec_hot;
 
-    error_T_high_prio_abs          = T_sec_hot_des - T_sec_hot;
-    error_T_low_prio_abs           = DeltaT_prim_des - Delta_T_prim;
+    error_T_high_prio_abs          = T_sec_hot_des - T_sec_hot; // T_sec_hot
+    error_T_low_prio_abs           = DeltaT_prim_des - Delta_T_prim; // Delta_T_prim
 
   elseif Q_dot_set >= 0+tol then // production mode
     prosumer_mode = +1;
     pi_set = 1;
     mu_set = 1;
-    T_prim_relev_des = T_prim_hot_des;
-    T_prim_relev_is = T_prim_hot;
-    T_sec_relev_des = DeltaT_sec_des;
-    T_sec_relev_is = T_sec_hot-T_sec_cold;
+    T_prim_relev_des = DeltaT_sec_des;
+    T_prim_relev_is = T_sec_hot-T_sec_cold;
+    T_sec_relev_des = T_prim_hot_des;
+    T_sec_relev_is = T_prim_hot;
 
     PIDin_prim_cons_is_weighted    = 0;
     PIDin_prim_cons_des_weighted   = 0;
-    PIDin_prim_prod_is_weighted    = alpha_prim_prod*Q_dot_is/Delta_Qdot_norm + beta_prim_prod*(-1)*T_prim_relev_is/Delta_T_norm;
-    PIDin_prim_prod_des_weighted   = alpha_prim_prod*Q_dot_set/Delta_Qdot_norm + beta_prim_prod*(-1)*T_prim_relev_des/Delta_T_norm;
+    PIDin_prim_prod_is_weighted    = alpha_prim_prod*Q_dot_is/Delta_Qdot_norm + beta_prim_prod*T_prim_relev_is/Delta_T_norm;
+    PIDin_prim_prod_des_weighted   = alpha_prim_prod*Q_dot_set/Delta_Qdot_norm + beta_prim_prod*T_prim_relev_des/Delta_T_norm;
     PIDin_sec_cons_is_weighted     = 0;
     PIDin_sec_cons_des_weighted    = 0;
-    PIDin_sec_prod_is_weighted     = alpha_sec_prod*Q_dot_is/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_is/Delta_T_norm;
-    PIDin_sec_prod_des_weighted    = alpha_sec_prod*Q_dot_set/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_des/Delta_T_norm;
+    PIDin_sec_prod_is_weighted     = alpha_sec_prod*Q_dot_is/Delta_Qdot_norm + beta_sec_prod*T_sec_relev_is/Delta_T_norm;
+    PIDin_sec_prod_des_weighted    = alpha_sec_prod*Q_dot_set/Delta_Qdot_norm + beta_sec_prod*T_sec_relev_des/Delta_T_norm;
 
     error_prim_weighted            = PIDin_prim_prod_des_weighted - PIDin_prim_prod_is_weighted;
     error_sec_weighted             = PIDin_sec_prod_des_weighted - PIDin_sec_prod_is_weighted;
@@ -389,8 +384,8 @@ equation
     error_T_prim_abs               = T_prim_hot_des - T_prim_hot;
     error_T_sec_abs                = DeltaT_sec_des - Delta_T_sec;
 
-    error_T_high_prio_abs          = T_prim_hot_des - T_prim_hot;
-    error_T_low_prio_abs           = DeltaT_sec_des - Delta_T_sec;
+    error_T_high_prio_abs          = T_prim_hot_des - T_prim_hot; // T_pim_hot
+    error_T_low_prio_abs           = DeltaT_sec_des - Delta_T_sec; // Deltat_T_sec
 
   else // idle mode
     prosumer_mode = 0;
@@ -468,4 +463,4 @@ equation
 PID"), Rectangle(extent={{-120,180},{120,-160}}, lineColor={0,0,0})}),
                                                                    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-160},{120,180}})));
-end PID_Q_T_weighted;
+end PID_Q_T_weighted_trad;
