@@ -1180,18 +1180,18 @@ SF1"),    Text(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={172,138})));
-    Controller_PID_based.PID_Q_T_weighted_trad pID_Q_T_weighted_trad(
+    Controller_PID_based.PID_Q_T_weighted_trad Ctrl1(
       alpha_prim_prod=1,
       alpha_sec_prod=0,
       alpha_prim_cons=0,
       alpha_sec_cons=1)
       annotation (Placement(transformation(extent={{-58,48},{-34,82}})));
-    Controller_PID_based.PID_Q_T_weighted_trad pID_Q_T_weighted_trad1(
+    Controller_PID_based.PID_Q_T_weighted_trad Ctrl2(
       alpha_prim_prod=1,
       alpha_sec_prod=0,
       alpha_prim_cons=0,
       alpha_sec_cons=1) annotation (Placement(transformation(extent={{40,48},{64,82}})));
-    Controller_PID_based.PID_Q_T_weighted_trad pID_Q_T_weighted_trad2(
+    Controller_PID_based.PID_Q_T_weighted_trad Ctrl3(
       alpha_prim_prod=1,
       alpha_sec_prod=0,
       alpha_prim_cons=0,
@@ -1230,30 +1230,30 @@ SF1"),    Text(
       annotation (Line(points={{74,127},{56,127},{56,107}}, color={0,0,127}));
     connect(temp_sec_in3.y, add2.u2)
       annotation (Line(points={{172,127},{152,127},{152,109}}, color={0,0,127}));
-    connect(power_set1.y, pID_Q_T_weighted_trad.Q_dot_set) annotation (Line(points={{
-            -66,127},{-66,90},{-52,90},{-52,82.8}}, color={0,0,127}));
-    connect(pID_Q_T_weighted_trad.states, B1.states)
+    connect(power_set1.y, Ctrl1.Q_dot_set) annotation (Line(points={{-66,127},{-66,90},
+            {-52,90},{-52,82.8}}, color={0,0,127}));
+    connect(Ctrl1.states, B1.states)
       annotation (Line(points={{-58,64},{-74,64},{-74,8},{-68,8}}, color={0,0,127}));
-    connect(pID_Q_T_weighted_trad.contr_vars_real, B1.contr_vars_real)
+    connect(Ctrl1.contr_vars_real, B1.contr_vars_real)
       annotation (Line(points={{-34,64},{-18,64},{-18,8},{-27.8,8}}, color={0,0,127}));
-    connect(add.y, pID_Q_T_weighted_trad.T_sec_in_is) annotation (Line(points={{-31,
-            97.5},{-31,90},{-40,90},{-40,83}}, color={0,0,127}));
-    connect(power_set2.y, pID_Q_T_weighted_trad1.Q_dot_set) annotation (Line(points={{
-            32,127},{40,127},{40,82.8},{46,82.8}}, color={0,0,127}));
-    connect(add1.y, pID_Q_T_weighted_trad1.T_sec_in_is)
+    connect(add.y, Ctrl1.T_sec_in_is) annotation (Line(points={{-31,97.5},{-31,90},{-40,
+            90},{-40,83}}, color={0,0,127}));
+    connect(power_set2.y, Ctrl2.Q_dot_set) annotation (Line(points={{32,127},{40,127},{
+            40,82.8},{46,82.8}}, color={0,0,127}));
+    connect(add1.y, Ctrl2.T_sec_in_is)
       annotation (Line(points={{59,95.5},{58,95.5},{58,83}}, color={0,0,127}));
-    connect(pID_Q_T_weighted_trad1.contr_vars_real, B2.contr_vars_real)
+    connect(Ctrl2.contr_vars_real, B2.contr_vars_real)
       annotation (Line(points={{64,64},{76,64},{76,8},{70.2,8}}, color={0,0,127}));
-    connect(pID_Q_T_weighted_trad1.states, B2.states)
+    connect(Ctrl2.states, B2.states)
       annotation (Line(points={{40,64},{24,64},{24,8},{30,8}}, color={0,0,127}));
-    connect(pID_Q_T_weighted_trad2.states, B3.states)
+    connect(Ctrl3.states, B3.states)
       annotation (Line(points={{134,66},{122,66},{122,8},{128,8}}, color={0,0,127}));
-    connect(pID_Q_T_weighted_trad2.contr_vars_real, B3.contr_vars_real)
+    connect(Ctrl3.contr_vars_real, B3.contr_vars_real)
       annotation (Line(points={{158,66},{174,66},{174,8},{168.2,8}}, color={0,0,127}));
-    connect(power_set3.y, pID_Q_T_weighted_trad2.Q_dot_set) annotation (Line(points={{
-            130,127},{130,92},{140,92},{140,84.8}}, color={0,0,127}));
-    connect(add2.y, pID_Q_T_weighted_trad2.T_sec_in_is) annotation (Line(points={{155,
-            97.5},{154,97.5},{154,90},{152,90},{152,85}}, color={0,0,127}));
+    connect(power_set3.y, Ctrl3.Q_dot_set) annotation (Line(points={{130,127},{130,92},
+            {140,92},{140,84.8}}, color={0,0,127}));
+    connect(add2.y, Ctrl3.T_sec_in_is) annotation (Line(points={{155,97.5},{154,97.5},{
+            154,90},{152,90},{152,85}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{
               200,160}})),                                         Diagram(
           coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{200,160}}),
@@ -1376,11 +1376,11 @@ SF1"),    Text(
           extent={{-10,-10},{10,10}},
           rotation=-90,
           origin={172,138})));
-    Controller_PID_based.PID_Q_T_weighted_trad pID_Q_T_weighted_trad
+    Controller_PID_based.PID_Q_T_weighted_trad Ctrl11
       annotation (Placement(transformation(extent={{-58,48},{-34,82}})));
-    Controller_PID_based.PID_Q_T_weighted_trad pID_Q_T_weighted_trad1
+    Controller_PID_based.PID_Q_T_weighted_trad Ctrl2
       annotation (Placement(transformation(extent={{40,48},{64,82}})));
-    Controller_PID_based.PID_Q_T_weighted_trad pID_Q_T_weighted_trad2
+    Controller_PID_based.PID_Q_T_weighted_trad Ctrl3
       annotation (Placement(transformation(extent={{134,50},{158,84}})));
   equation
     connect(B1.hot_prim, pipe_hot12.port_a)
@@ -1415,30 +1415,30 @@ SF1"),    Text(
       annotation (Line(points={{74,127},{56,127},{56,107}}, color={0,0,127}));
     connect(temp_sec_in3.y, add2.u2)
       annotation (Line(points={{172,127},{152,127},{152,109}}, color={0,0,127}));
-    connect(power_set1.y, pID_Q_T_weighted_trad.Q_dot_set) annotation (Line(points={{
-            -66,127},{-66,90},{-52,90},{-52,82.8}}, color={0,0,127}));
-    connect(pID_Q_T_weighted_trad.states, B1.states)
+    connect(power_set1.y, Ctrl11.Q_dot_set) annotation (Line(points={{-66,127},{-66,90},
+            {-52,90},{-52,82.8}}, color={0,0,127}));
+    connect(Ctrl11.states, B1.states)
       annotation (Line(points={{-58,64},{-74,64},{-74,8},{-68,8}}, color={0,0,127}));
-    connect(pID_Q_T_weighted_trad.contr_vars_real, B1.contr_vars_real)
+    connect(Ctrl11.contr_vars_real, B1.contr_vars_real)
       annotation (Line(points={{-34,64},{-18,64},{-18,8},{-27.8,8}}, color={0,0,127}));
-    connect(add.y, pID_Q_T_weighted_trad.T_sec_in_is) annotation (Line(points={{-31,
-            97.5},{-31,90},{-40,90},{-40,83}}, color={0,0,127}));
-    connect(power_set2.y, pID_Q_T_weighted_trad1.Q_dot_set) annotation (Line(points={{
-            32,127},{40,127},{40,82.8},{46,82.8}}, color={0,0,127}));
-    connect(add1.y, pID_Q_T_weighted_trad1.T_sec_in_is)
+    connect(add.y, Ctrl11.T_sec_in_is) annotation (Line(points={{-31,97.5},{-31,90},{
+            -40,90},{-40,83}}, color={0,0,127}));
+    connect(power_set2.y, Ctrl2.Q_dot_set) annotation (Line(points={{32,127},{40,127},{
+            40,82.8},{46,82.8}}, color={0,0,127}));
+    connect(add1.y, Ctrl2.T_sec_in_is)
       annotation (Line(points={{59,95.5},{58,95.5},{58,83}}, color={0,0,127}));
-    connect(pID_Q_T_weighted_trad1.contr_vars_real, B2.contr_vars_real)
+    connect(Ctrl2.contr_vars_real, B2.contr_vars_real)
       annotation (Line(points={{64,64},{76,64},{76,8},{70.2,8}}, color={0,0,127}));
-    connect(pID_Q_T_weighted_trad1.states, B2.states)
+    connect(Ctrl2.states, B2.states)
       annotation (Line(points={{40,64},{24,64},{24,8},{30,8}}, color={0,0,127}));
-    connect(pID_Q_T_weighted_trad2.states, B3.states)
+    connect(Ctrl3.states, B3.states)
       annotation (Line(points={{134,66},{122,66},{122,8},{128,8}}, color={0,0,127}));
-    connect(pID_Q_T_weighted_trad2.contr_vars_real, B3.contr_vars_real)
+    connect(Ctrl3.contr_vars_real, B3.contr_vars_real)
       annotation (Line(points={{158,66},{174,66},{174,8},{168.2,8}}, color={0,0,127}));
-    connect(power_set3.y, pID_Q_T_weighted_trad2.Q_dot_set) annotation (Line(points={{
-            130,127},{130,92},{140,92},{140,84.8}}, color={0,0,127}));
-    connect(add2.y, pID_Q_T_weighted_trad2.T_sec_in_is) annotation (Line(points={{155,
-            97.5},{154,97.5},{154,90},{152,90},{152,85}}, color={0,0,127}));
+    connect(power_set3.y, Ctrl3.Q_dot_set) annotation (Line(points={{130,127},{130,92},
+            {140,92},{140,84.8}}, color={0,0,127}));
+    connect(add2.y, Ctrl3.T_sec_in_is) annotation (Line(points={{155,97.5},{154,97.5},{
+            154,90},{152,90},{152,85}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{
               200,160}})),                                         Diagram(
           coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{200,160}}),
