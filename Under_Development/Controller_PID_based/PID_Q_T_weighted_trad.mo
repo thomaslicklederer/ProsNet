@@ -55,7 +55,7 @@ model PID_Q_T_weighted_trad
   parameter Real alpha_sec_prod(min=0, max=1) = 0.333
     "weight for the relevance of the error of the transferred heat in comparison to the error of temperature objectives (sum is one)"
     annotation(Dialog(group="PID secondary side - producer mode - tuning"));
-  parameter Real k_prim_cons = 1.0
+  parameter Real k_prim_cons = 1
     "Proportional gain for controller in [-]"
     annotation(Dialog(group="PID primary side - consumer mode - tuning"));
   parameter Real Ti_prim_cons = 35

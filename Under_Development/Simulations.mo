@@ -1847,7 +1847,7 @@ SF1"),    Text(
                 154},{194,-20}},lineColor={28,108,200})}),
       experiment(
         StopTime=25200,
-        Interval=0.5,
+        Interval=1,
         __Dymola_Algorithm="Dassl"));
   end E_Licklederer_convCtrl_noheat_alphanew;
 
@@ -1961,14 +1961,22 @@ SF1"),    Text(
           rotation=-90,
           origin={172,138})));
     Controller_PID_based.PID_Q_T_weighted_trad Ctrl1(
-      alpha_prim_prod=0.8,
-      alpha_sec_prod=0.4,
-      alpha_prim_cons=0.4,
-      alpha_sec_cons=0.8)
+      alpha_prim_prod=0.75,
+      alpha_sec_prod=0.25,
+      alpha_prim_cons=0.25,
+      alpha_sec_cons=0.75)
       annotation (Placement(transformation(extent={{-58,48},{-34,82}})));
-    Controller_PID_based.PID_Q_T_weighted_trad Ctrl2
+    Controller_PID_based.PID_Q_T_weighted_trad Ctrl2(
+      alpha_prim_prod=0.75,
+      alpha_sec_prod=0.25,
+      alpha_prim_cons=0.25,
+      alpha_sec_cons=0.75)
       annotation (Placement(transformation(extent={{40,48},{64,82}})));
-    Controller_PID_based.PID_Q_T_weighted_trad Ctrl3
+    Controller_PID_based.PID_Q_T_weighted_trad Ctrl3(
+      alpha_prim_prod=0.75,
+      alpha_sec_prod=0.25,
+      alpha_prim_cons=0.25,
+      alpha_sec_cons=0.75)
       annotation (Placement(transformation(extent={{134,50},{158,84}})));
   equation
     connect(B1.hot_prim, pipe_hot12.port_a)
@@ -2036,7 +2044,7 @@ SF1"),    Text(
                 154},{194,-20}},lineColor={28,108,200})}),
       experiment(
         StopTime=25200,
-        Interval=0.5,
+        Interval=1,
         __Dymola_Algorithm="Dassl"));
   end F_Licklederer_convWeightCtrl_noheat_alphanew;
 
@@ -2239,7 +2247,7 @@ SF1"),    Text(
                 154},{194,-20}},lineColor={28,108,200})}),
       experiment(
         StopTime=25200,
-        Interval=0.5,
+        Interval=1,
         __Dymola_Algorithm="Dassl"));
   end G_Licklederer_weiPIDextreme_noheat_alphanew;
 
@@ -2252,10 +2260,11 @@ SF1"),    Text(
           rotation=0,
           origin={-48,8})));
     Controller_PID_based.PID_Q_T_weighted Ctrl1(
-      alpha_prim_prod=0.4,
-      alpha_sec_prod=0.8,
-      alpha_prim_cons=0.8,
-      alpha_sec_cons=0.4) annotation (Placement(transformation(
+      alpha_prim_prod=0.25,
+      alpha_sec_prod=0.75,
+      alpha_prim_cons=0.75,
+      alpha_sec_cons=0.25)
+                          annotation (Placement(transformation(
           extent={{-12,-17},{12,17}},
           rotation=0,
           origin={-42,75})));
@@ -2269,10 +2278,11 @@ SF1"),    Text(
           rotation=0,
           origin={50,8})));
     Controller_PID_based.PID_Q_T_weighted Ctrl2(
-      alpha_prim_prod=0.4,
-      alpha_sec_prod=0.8,
-      alpha_prim_cons=0.8,
-      alpha_sec_cons=0.4) annotation (Placement(transformation(
+      alpha_prim_prod=0.25,
+      alpha_sec_prod=0.75,
+      alpha_prim_cons=0.75,
+      alpha_sec_cons=0.25)
+                          annotation (Placement(transformation(
           extent={{-12,-17},{12,17}},
           rotation=0,
           origin={52,73})));
@@ -2284,10 +2294,11 @@ SF1"),    Text(
           rotation=0,
           origin={148,8})));
     Controller_PID_based.PID_Q_T_weighted Ctrl3(
-      alpha_prim_prod=0.4,
-      alpha_sec_prod=0.8,
-      alpha_prim_cons=0.8,
-      alpha_sec_cons=0.4) annotation (Placement(transformation(
+      alpha_prim_prod=0.25,
+      alpha_sec_prod=0.75,
+      alpha_prim_cons=0.75,
+      alpha_sec_cons=0.25)
+                          annotation (Placement(transformation(
           extent={{-12,-17},{12,17}},
           rotation=0,
           origin={148,71})));
@@ -2442,7 +2453,7 @@ SF1"),    Text(
                 154},{194,-20}},lineColor={28,108,200})}),
       experiment(
         StopTime=25200,
-        Interval=0.5,
+        Interval=1,
         __Dymola_Algorithm="Dassl"));
   end H_Licklederer_weiPID_noheat_alphanew;
 
@@ -3413,7 +3424,7 @@ SF1"),    Text(
                 154},{194,-20}},lineColor={28,108,200})}),
       experiment(
         StopTime=25200,
-        Interval=0.5,
+        Interval=1,
         __Dymola_Algorithm="Dassl"));
   end M_Licklederer_convCtrl_noheat_smallpump;
 
@@ -3424,7 +3435,7 @@ SF1"),    Text(
           transformation(
           extent={{20,-18},{-20,18}},
           rotation=0,
-          origin={-48,8})));
+          origin={-50,10})));
     Fluid.Pipes.InsulatedPipe_plug pipe_hot12(R_ins=100000,  length=100)
       annotation (Placement(transformation(extent={{-8,-58},{18,-32}})));
     new_prosumer_models.heat_transfer_station B2(n=0.5,
@@ -3534,7 +3545,7 @@ SF1"),    Text(
       annotation (Placement(transformation(extent={{134,50},{158,84}})));
   equation
     connect(B1.hot_prim, pipe_hot12.port_a)
-      annotation (Line(points={{-34,-10.2},{-34,-45},{-8,-45}}, color={0,127,255}));
+      annotation (Line(points={{-36,-8.2},{-36,-45},{-8,-45}},  color={0,127,255}));
     connect(pipe_hot12.port_b, B2.hot_prim)
       annotation (Line(points={{18,-45},{64,-45},{64,-10.2}}, color={0,127,255}));
     connect(pipe_hot23.port_a, B2.hot_prim)
@@ -3542,7 +3553,7 @@ SF1"),    Text(
     connect(pipe_hot23.port_b, B3.hot_prim) annotation (Line(points={{114,-45},{138,-45},
             {138,-46},{162,-46},{162,-10.2}}, color={0,127,255}));
     connect(B1.cold_prim, pipe_cold12.port_b)
-      annotation (Line(points={{-62,-10},{-62,-90},{-8,-90}}, color={0,127,255}));
+      annotation (Line(points={{-64,-8},{-64,-90},{-8,-90}},  color={0,127,255}));
     connect(pipe_cold12.port_a, B2.cold_prim)
       annotation (Line(points={{18,-90},{36,-90},{36,-10}}, color={0,127,255}));
     connect(B2.cold_prim, pipe_cold23.port_b)
@@ -3568,9 +3579,11 @@ SF1"),    Text(
     connect(power_set1.y, Ctrl1.Q_dot_set) annotation (Line(points={{-66,127},{-66,90},
             {-52,90},{-52,82.8}}, color={0,0,127}));
     connect(Ctrl1.states, B1.states)
-      annotation (Line(points={{-58,64},{-74,64},{-74,8},{-68,8}}, color={0,0,127}));
+      annotation (Line(points={{-58,64},{-74,64},{-74,10},{-70,10}},
+                                                                   color={0,0,127}));
     connect(Ctrl1.contr_vars_real, B1.contr_vars_real)
-      annotation (Line(points={{-34,64},{-18,64},{-18,8},{-27.8,8}}, color={0,0,127}));
+      annotation (Line(points={{-34,64},{-18,64},{-18,10},{-29.8,10}},
+                                                                     color={0,0,127}));
     connect(add.y, Ctrl1.T_sec_in_is) annotation (Line(points={{-31,97.5},{-31,90},{-40,
             90},{-40,83}}, color={0,0,127}));
     connect(power_set2.y, Ctrl2.Q_dot_set) annotation (Line(points={{32,127},{40,127},{
@@ -3598,7 +3611,7 @@ SF1"),    Text(
                 154},{194,-20}},lineColor={28,108,200})}),
       experiment(
         StopTime=25200,
-        Interval=0.5,
+        Interval=1,
         __Dymola_Algorithm="Dassl"));
   end N_Licklederer_convWeightCtrl_noheat_smallpump;
 
@@ -3801,7 +3814,7 @@ SF1"),    Text(
                 154},{194,-20}},lineColor={28,108,200})}),
       experiment(
         StopTime=25200,
-        Interval=0.5,
+        Interval=1,
         __Dymola_Algorithm="Dassl"));
   end O_Licklederer_weiPIDextreme_noheat_smallpump;
 
@@ -3813,11 +3826,8 @@ SF1"),    Text(
           extent={{20,-18},{-20,18}},
           rotation=0,
           origin={-48,8})));
-    Controller_PID_based.PID_Q_T_weighted Ctrl1(
-      alpha_prim_prod=0.4,
-      alpha_sec_prod=0.8,
-      alpha_prim_cons=0.8,
-      alpha_sec_cons=0.4) annotation (Placement(transformation(
+    Controller_PID_based.PID_Q_T_weighted Ctrl1
+                          annotation (Placement(transformation(
           extent={{-12,-17},{12,17}},
           rotation=0,
           origin={-42,75})));
@@ -3830,11 +3840,8 @@ SF1"),    Text(
           extent={{20,-18},{-20,18}},
           rotation=0,
           origin={50,8})));
-    Controller_PID_based.PID_Q_T_weighted Ctrl2(
-      alpha_prim_prod=0.4,
-      alpha_sec_prod=0.8,
-      alpha_prim_cons=0.8,
-      alpha_sec_cons=0.4) annotation (Placement(transformation(
+    Controller_PID_based.PID_Q_T_weighted Ctrl2
+                          annotation (Placement(transformation(
           extent={{-12,-17},{12,17}},
           rotation=0,
           origin={52,73})));
@@ -3845,11 +3852,8 @@ SF1"),    Text(
           extent={{20,-18},{-20,18}},
           rotation=0,
           origin={148,8})));
-    Controller_PID_based.PID_Q_T_weighted Ctrl3(
-      alpha_prim_prod=0.4,
-      alpha_sec_prod=0.8,
-      alpha_prim_cons=0.8,
-      alpha_sec_cons=0.4) annotation (Placement(transformation(
+    Controller_PID_based.PID_Q_T_weighted Ctrl3
+                          annotation (Placement(transformation(
           extent={{-12,-17},{12,17}},
           rotation=0,
           origin={148,71})));
@@ -4004,7 +4008,7 @@ SF1"),    Text(
                 154},{194,-20}},lineColor={28,108,200})}),
       experiment(
         StopTime=25200,
-        Interval=0.5,
+        Interval=1,
         __Dymola_Algorithm="Dassl"));
   end P_Licklederer_weiPID_noheat_smallpump;
 end Simulations;
