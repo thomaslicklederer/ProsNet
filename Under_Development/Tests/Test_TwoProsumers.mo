@@ -7,8 +7,8 @@ model Test_TwoProsumers
         extent={{20,-18},{-20,18}},
         rotation=0,
         origin={-48,8})));
-  Controller_PID_based.PID_Q_T_weighted Ctrl1(alpha_prim_prod=0.35, alpha_sec_cons=0.35)
-    annotation (Placement(transformation(
+  Controller_PID_based.PID_Q_T_weighted_sameside Ctrl1(alpha_prim_prod=0.35,
+      alpha_sec_cons=0.35) annotation (Placement(transformation(
         extent={{-12,-17},{12,17}},
         rotation=0,
         origin={-44,73})));
@@ -33,8 +33,8 @@ model Test_TwoProsumers
         extent={{20,-18},{-20,18}},
         rotation=0,
         origin={50,8})));
-  Controller_PID_based.PID_Q_T_weighted Ctrl2(alpha_prim_prod=0.35, alpha_sec_cons=0.35)
-    annotation (Placement(transformation(
+  Controller_PID_based.PID_Q_T_weighted_sameside Ctrl2(alpha_prim_prod=0.35,
+      alpha_sec_cons=0.35) annotation (Placement(transformation(
         extent={{-12,-17},{12,17}},
         rotation=0,
         origin={52,73})));

@@ -1,5 +1,5 @@
-PID_Q_T_weighted
+PID_Q_T_weighted_sameside
+PID_Q_T_weighted_crossover
+PID_Q_T_weighted_mix1
+PID_Q_T_weighted_mix2
 auxiliary
-PID_Q_T_weighted_trad
-PID_Q_T_weighted_mixed1
-PID_Q_T_weighted_mixed2
