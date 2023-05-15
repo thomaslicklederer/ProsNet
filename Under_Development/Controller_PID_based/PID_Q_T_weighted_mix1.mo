@@ -344,8 +344,8 @@ equation
     prosumer_mode = 0;
   end if;
 
-  Q_dot_is_use = (Q_dot_is);
-  Q_dot_set_use = (Q_dot_set);
+  Q_dot_is_use = abs(Q_dot_is);
+  Q_dot_set_use = abs(Q_dot_set);
 
   if prosumer_mode == -1 then // consumption mode
     pi_set = 1;
@@ -355,12 +355,12 @@ equation
     T_sec_relev_des = DeltaT_prim_des;
     T_sec_relev_is = T_prim_hot-T_prim_cold;
 
-    PIDin_prim_cons_is_weighted    = alpha_prim_cons*(-1)*Q_dot_is_use/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_is/Delta_T_norm;
-    PIDin_prim_cons_des_weighted   = alpha_prim_cons*(-1)*Q_dot_set_use/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_des/Delta_T_norm;
+    PIDin_prim_cons_is_weighted    = alpha_prim_cons*Q_dot_is_use/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_is/Delta_T_norm;
+    PIDin_prim_cons_des_weighted   = alpha_prim_cons*Q_dot_set_use/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_des/Delta_T_norm;
     PIDin_prim_prod_is_weighted    = 0;
     PIDin_prim_prod_des_weighted   = 0;
-    PIDin_sec_cons_is_weighted     = alpha_sec_cons*(-1)*Q_dot_is_use/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_is/Delta_T_norm;
-    PIDin_sec_cons_des_weighted    = alpha_sec_cons*(-1)*Q_dot_set_use/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_des/Delta_T_norm;
+    PIDin_sec_cons_is_weighted     = alpha_sec_cons*Q_dot_is_use/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_is/Delta_T_norm;
+    PIDin_sec_cons_des_weighted    = alpha_sec_cons*Q_dot_set_use/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_des/Delta_T_norm;
     PIDin_sec_prod_is_weighted     = 0;
     PIDin_sec_prod_des_weighted    = 0;
 
@@ -455,7 +455,7 @@ equation
     kappa_set = 0;
   end if;
 
-  error_Q_abs = Q_dot_set - Q_dot_is;
+  error_Q_abs = Q_dot_set_use - Q_dot_is_use;
 
   // assign control variables vector
   contr_vars_real[1]   =  T_sec_set;
