@@ -157,6 +157,9 @@ model PID_Q_T_weighted_mix1
   Real Delta_T_sec
       "weighted overall error of primary side controller";
 
+  Real Q_dot_is_use;
+  Real Q_dot_set_use;
+
    Real Delta_p_prim(unit="Pa", displayUnit="bar") annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -332,14 +335,19 @@ equation
   // determine easy static values that just depend on prosumer mode
   // determine inputs for the four PIDs
   // four PIDs in order to be able to have different gains for each situation
-  //   explanation:
-  //   e_tot = alpha*e_Q/Q_norm + beta*e_T/T_norm
-  //   e_Q   = Q_is - Q_set;  e_T = e_is - e_set
-  //   e_tot = [ alpha*Q_is/Q_norm + beta*T_is/T_norm ] - [ alpha*Q_set/Q_norm + beta * T_set/T_norm ]
-  //   e_tot = PIDin_is_weighted - PIDin_des_weighted
 
   if  Q_dot_set <= 0-tol then // consumption mode
     prosumer_mode = -1;
+  elseif Q_dot_set >= 0+tol then // production mode
+    prosumer_mode = +1;
+  else // idle mode
+    prosumer_mode = 0;
+  end if;
+
+  Q_dot_is_use = (Q_dot_is);
+  Q_dot_set_use = (Q_dot_set);
+
+  if prosumer_mode == -1 then // consumption mode
     pi_set = 1;
     mu_set = -1;
     T_prim_relev_des = T_sec_hot_des;
@@ -347,12 +355,12 @@ equation
     T_sec_relev_des = DeltaT_prim_des;
     T_sec_relev_is = T_prim_hot-T_prim_cold;
 
-    PIDin_prim_cons_is_weighted    = alpha_prim_cons*(-1)*Q_dot_is/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_is/Delta_T_norm;
-    PIDin_prim_cons_des_weighted   = alpha_prim_cons*(-1)*Q_dot_set/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_des/Delta_T_norm;
+    PIDin_prim_cons_is_weighted    = alpha_prim_cons*(-1)*Q_dot_is_use/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_is/Delta_T_norm;
+    PIDin_prim_cons_des_weighted   = alpha_prim_cons*(-1)*Q_dot_set_use/Delta_Qdot_norm + beta_prim_cons*T_prim_relev_des/Delta_T_norm;
     PIDin_prim_prod_is_weighted    = 0;
     PIDin_prim_prod_des_weighted   = 0;
-    PIDin_sec_cons_is_weighted     = alpha_sec_cons*(-1)*Q_dot_is/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_is/Delta_T_norm;
-    PIDin_sec_cons_des_weighted    = alpha_sec_cons*(-1)*Q_dot_set/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_des/Delta_T_norm;
+    PIDin_sec_cons_is_weighted     = alpha_sec_cons*(-1)*Q_dot_is_use/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_is/Delta_T_norm;
+    PIDin_sec_cons_des_weighted    = alpha_sec_cons*(-1)*Q_dot_set_use/Delta_Qdot_norm + beta_sec_cons*T_sec_relev_des/Delta_T_norm;
     PIDin_sec_prod_is_weighted     = 0;
     PIDin_sec_prod_des_weighted    = 0;
 
@@ -365,8 +373,7 @@ equation
     error_T_high_prio_abs          = T_sec_hot_des - T_sec_hot; // T_sec_hot
     error_T_low_prio_abs           = DeltaT_prim_des - Delta_T_prim; // Delta_T_prim
 
-  elseif Q_dot_set >= 0+tol then // production mode
-    prosumer_mode = +1;
+  elseif prosumer_mode == 1 then // production mode
     pi_set = 1;
     mu_set = 1;
     T_prim_relev_des = T_prim_hot_des;
@@ -376,12 +383,12 @@ equation
 
     PIDin_prim_cons_is_weighted    = 0;
     PIDin_prim_cons_des_weighted   = 0;
-    PIDin_prim_prod_is_weighted    = alpha_prim_prod*Q_dot_is/Delta_Qdot_norm + beta_prim_prod*(-1)*T_prim_relev_is/Delta_T_norm;
-    PIDin_prim_prod_des_weighted   = alpha_prim_prod*Q_dot_set/Delta_Qdot_norm + beta_prim_prod*(-1)*T_prim_relev_des/Delta_T_norm;
+    PIDin_prim_prod_is_weighted    = alpha_prim_prod*Q_dot_is_use/Delta_Qdot_norm + beta_prim_prod*(-1)*T_prim_relev_is/Delta_T_norm;
+    PIDin_prim_prod_des_weighted   = alpha_prim_prod*Q_dot_set_use/Delta_Qdot_norm + beta_prim_prod*(-1)*T_prim_relev_des/Delta_T_norm;
     PIDin_sec_cons_is_weighted     = 0;
     PIDin_sec_cons_des_weighted    = 0;
-    PIDin_sec_prod_is_weighted     = alpha_sec_prod*Q_dot_is/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_is/Delta_T_norm;
-    PIDin_sec_prod_des_weighted    = alpha_sec_prod*Q_dot_set/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_des/Delta_T_norm;
+    PIDin_sec_prod_is_weighted     = alpha_sec_prod*Q_dot_is_use/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_is/Delta_T_norm;
+    PIDin_sec_prod_des_weighted    = alpha_sec_prod*Q_dot_set_use/Delta_Qdot_norm + beta_sec_prod*(-1)*T_sec_relev_des/Delta_T_norm;
 
     error_prim_weighted            = PIDin_prim_prod_des_weighted - PIDin_prim_prod_is_weighted;
     error_sec_weighted             = PIDin_sec_prod_des_weighted - PIDin_sec_prod_is_weighted;
@@ -393,7 +400,6 @@ equation
     error_T_low_prio_abs           = DeltaT_sec_des - Delta_T_sec;
 
   else // idle mode
-    prosumer_mode = 0;
     pi_set = 0;
     mu_set = -1;
     T_prim_relev_des = 0;
