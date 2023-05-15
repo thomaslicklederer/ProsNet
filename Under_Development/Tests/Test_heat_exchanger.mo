@@ -14,7 +14,7 @@ model Test_heat_exchanger
   Modelica.Fluid.Sources.MassFlowSource_T boundary(
     redeclare package Medium = Media.Water,
     m_flow=0.1,
-    T=313.15,
+    T=333.15,
     nPorts=1) annotation (Placement(transformation(extent={{-84,14},{-64,34}})));
   Modelica.Fluid.Sources.FixedBoundary boundary1(redeclare package Medium =
         Media.Water, nPorts=1)
@@ -23,15 +23,15 @@ model Test_heat_exchanger
     redeclare package Medium = Media.Water,
     use_m_flow_in=true,
     m_flow=1,
-    T=333.15,
+    T=313.15,
     nPorts=1) annotation (Placement(transformation(extent={{70,-34},{50,-14}})));
   Modelica.Fluid.Sources.FixedBoundary boundary3(redeclare package Medium =
         Media.Water, nPorts=1)
     annotation (Placement(transformation(extent={{52,44},{32,64}})));
   Modelica.Blocks.Sources.Ramp ramp(
-    height=0.2,
+    height=0.1,
     duration=900,
-    offset=0.001,
+    offset=0.1,
     startTime=900)
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
 
@@ -49,7 +49,7 @@ model Test_heat_exchanger
     T_a2_nominal=333.15,
     eps_nominal=1)
     annotation (Placement(transformation(extent={{-24,-18},{-4,2}})));
-  Fluid.Sensors.Temperature senTem(redeclare package Medium = Medium1)
+  Fluid.Sensors.Temperature senTem2(redeclare package Medium = Medium1)
     annotation (Placement(transformation(extent={{46,12},{66,32}})));
   Fluid.Sensors.Temperature senTem1(redeclare package Medium = Medium2)
     annotation (Placement(transformation(extent={{-46,-70},{-26,-50}})));
@@ -60,8 +60,8 @@ equation
   connect(ramp.y, boundary2.m_flow_in) annotation (Line(points={{71,-60},{76,-60},{76,
           -16},{70,-16}},   color={0,0,127}));
 
-  DeltaT1 = senTem.T - liquidToLiquid.T_in1;
-  DeltaT2 = senTem1.T - liquidToLiquid.T_in2;
+  DeltaT2 =senTem2.T - liquidToLiquid.T_in2;
+  DeltaT1 = senTem1.T - liquidToLiquid.T_in1;
 
 
   connect(boundary.ports[1], liquidToLiquid.port_a1)
@@ -74,10 +74,16 @@ equation
     annotation (Line(points={{-4,-2},{26,-2},{26,54},{32,54}}, color={0,127,255}));
   connect(senTem1.port, liquidToLiquid.port_b2) annotation (Line(points={{-36,-70},{-36,
           -74},{-50,-74},{-50,-54},{-48,-54},{-48,-14},{-24,-14}}, color={0,127,255}));
-  connect(senTem.port, liquidToLiquid.port_b1)
+  connect(senTem2.port, liquidToLiquid.port_b1)
     annotation (Line(points={{56,12},{56,-2},{-4,-2}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+        coordinateSystem(preserveAspectRatio=false), graphics={Line(
+          points={{10,-34},{10,12}},
+          color={0,255,0},
+          thickness=1), Line(
+          points={{10,10},{14,4}},
+          color={0,255,0},
+          thickness=1)}),
     experiment(
       StopTime=2100,
       Interval=1,
